@@ -30,5 +30,7 @@
 	<modules>
 		<module>api-v1</module>
 		<module>web</module>
+		<module>driver</module>
+		<module>app</module>
 	</modules>
 </project>

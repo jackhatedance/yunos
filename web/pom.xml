@@ -10,7 +10,7 @@
 	   <packaging>war</packaging>
 	<name>web</name>
 	<build>
-		<finalName>smarthome</finalName>
+		<finalName>web</finalName>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
