@@ -28,7 +28,7 @@
 
 
 	<modules>
-		<module>api</module>
+		<module>api-v1</module>
 		<module>web</module>
 	</modules>
 </project>
