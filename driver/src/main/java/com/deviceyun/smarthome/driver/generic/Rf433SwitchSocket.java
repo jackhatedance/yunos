@@ -1,9 +1,11 @@
 package com.deviceyun.smarthome.driver.generic;
 
+import com.deviceyun.smarthome.api.v1.device.AbstractDevice;
 import com.deviceyun.smarthome.api.v1.device._switch.ElectricitySwitch;
 import com.deviceyun.smarthome.api.v1.device.transmitter.Rf433Transmitter;
 
-public class Rf433SwitchSocket implements ElectricitySwitch {
+public class Rf433SwitchSocket extends AbstractDevice implements
+		ElectricitySwitch {
 	private Rf433Transmitter controller;
 
 	private int pulseLength = 166;

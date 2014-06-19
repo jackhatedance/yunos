@@ -1,6 +1,8 @@
 package com.deviceyun.smarthome.api.v1.device.light;
 
-public interface SimpleLight {
+import com.deviceyun.smarthome.api.v1.device.GenericDeivce;
+
+public interface SimpleLight extends GenericDeivce {
 	void on();
 
 	void off();

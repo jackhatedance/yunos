@@ -1,9 +1,10 @@
 package com.deviceyun.smarthome.driver.generic;
 
+import com.deviceyun.smarthome.api.v1.device.AbstractDevice;
 import com.deviceyun.smarthome.api.v1.device.transmitter.IrTransmitter;
 import com.deviceyun.smarthome.api.v1.device.tv.TV;
 
-public class ChinaTelecomSTB implements TV {
+public class ChinaTelecomSTB extends AbstractDevice implements TV {
 	private IrTransmitter controller;
 
 	@Override
