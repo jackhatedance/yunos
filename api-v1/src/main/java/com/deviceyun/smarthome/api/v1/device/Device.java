@@ -6,6 +6,8 @@ package com.deviceyun.smarthome.api.v1.device;
  * @author jack
  * 
  */
-public interface GenericDeivce {
+public interface Device {
 	Object[] invoke(String method, Object[] parameters);
+	
+	
 }
