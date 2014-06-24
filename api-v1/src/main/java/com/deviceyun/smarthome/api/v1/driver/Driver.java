@@ -12,7 +12,7 @@ import com.deviceyun.smarthome.api.v1.device.DeviceInfo;
  */
 public abstract class Driver {
 
-	abstract List<SupportedDevice> getSupportedDevice();
+	abstract List<SupportedDevice> getSupportedDevices();
 
 	abstract List<ConfigItem> getConfigItems();
 	

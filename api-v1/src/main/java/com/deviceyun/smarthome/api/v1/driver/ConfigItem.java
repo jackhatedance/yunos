@@ -2,7 +2,7 @@ package com.deviceyun.smarthome.api.v1.driver;
 
 public class ConfigItem {
 	private String name;
-	private String type;
+	private ConfigureItemType type;
 	private String defaultValue;
 
 	public String getName() {
@@ -12,12 +12,12 @@ public class ConfigItem {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public String getType() {
+	
+	public ConfigureItemType getType() {
 		return type;
 	}
 
-	public void setType(String type) {
+	public void setType(ConfigureItemType type) {
 		this.type = type;
 	}
 
