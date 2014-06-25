@@ -1,17 +1,11 @@
 package com.deviceyun.smarthome.driver.generic;
 
-import com.deviceyun.smarthome.api.v1.device.AbstractDevice;
-import com.deviceyun.smarthome.api.v1.device.transmitter.IrTransmitter;
-import com.deviceyun.smarthome.api.v1.device.tv.TV;
+import com.deviceyun.smarthome.api.device.AbstractDevice;
+import com.deviceyun.smarthome.api.device.transmitter.IrTransmitter;
+import com.deviceyun.smarthome.api.device.tv.TV;
 
 public class ChinaTelecomSTB extends AbstractDevice implements TV {
 	private IrTransmitter controller;
-
-	@Override
-	public void setChannel(int channel) {
-		controller.transmit(0, "abc", 2, 3, 1);
-
-	}
 
 	public void setController(IrTransmitter controller) {
 		this.controller = controller;
@@ -24,7 +18,31 @@ public class ChinaTelecomSTB extends AbstractDevice implements TV {
 
 		tv.setController(myTransmiter);
 
-		tv.setChannel(1);
+		tv.switchToChannel(1);
+
+	}
+
+	@Override
+	public void on() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void off() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void setVolume(int vol) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void switchToChannel(int channel) {
+		// TODO Auto-generated method stub
 
 	}
 }

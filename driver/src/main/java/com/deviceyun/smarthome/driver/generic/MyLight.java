@@ -1,8 +1,8 @@
 package com.deviceyun.smarthome.driver.generic;
 
-import com.deviceyun.smarthome.api.v1.device.AbstractDevice;
-import com.deviceyun.smarthome.api.v1.device._switch.ElectricitySwitch;
-import com.deviceyun.smarthome.api.v1.device.light.SimpleLight;
+import com.deviceyun.smarthome.api.device.AbstractDevice;
+import com.deviceyun.smarthome.api.device._switch.ElectricitySwitch;
+import com.deviceyun.smarthome.api.device.light.SimpleLight;
 
 public class MyLight extends AbstractDevice implements SimpleLight {
 	ElectricitySwitch controller;

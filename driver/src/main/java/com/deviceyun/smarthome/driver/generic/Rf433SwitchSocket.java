@@ -1,8 +1,8 @@
 package com.deviceyun.smarthome.driver.generic;
 
-import com.deviceyun.smarthome.api.v1.device.AbstractDevice;
-import com.deviceyun.smarthome.api.v1.device._switch.ElectricitySwitch;
-import com.deviceyun.smarthome.api.v1.device.transmitter.Rf433Transmitter;
+import com.deviceyun.smarthome.api.device.AbstractDevice;
+import com.deviceyun.smarthome.api.device._switch.ElectricitySwitch;
+import com.deviceyun.smarthome.api.device.transmitter.Rf433Transmitter;
 
 public class Rf433SwitchSocket extends AbstractDevice implements
 		ElectricitySwitch {

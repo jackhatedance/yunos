@@ -1,6 +1,6 @@
 package com.deviecyun.smarthome.application;
 
-import com.deviceyun.smarthome.api.v1.device.light.SimpleLight;
+import com.deviceyun.smarthome.api.device.light.SimpleLight;
 
 public class RoadLightDaemon {
 

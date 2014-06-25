@@ -1,9 +1,9 @@
 package com.deviceyun.smarthome.driver.generic;
 
-import com.deviceyun.smarthome.api.v1.device.AbstractDevice;
-import com.deviceyun.smarthome.api.v1.device.transmitter.IrTransmitter;
-import com.deviceyun.smarthome.api.v1.device.transmitter.Rf315Transmitter;
-import com.deviceyun.smarthome.api.v1.device.transmitter.Rf433Transmitter;
+import com.deviceyun.smarthome.api.device.AbstractDevice;
+import com.deviceyun.smarthome.api.device.transmitter.IrTransmitter;
+import com.deviceyun.smarthome.api.device.transmitter.Rf315Transmitter;
+import com.deviceyun.smarthome.api.device.transmitter.Rf433Transmitter;
 import com.deviceyun.smarthome.device.HttpClient;
 
 public class IrRfTransmitter extends AbstractDevice implements
