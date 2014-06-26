@@ -1,4 +1,4 @@
 blueegg
 =======
 
-device driver
+device management system
