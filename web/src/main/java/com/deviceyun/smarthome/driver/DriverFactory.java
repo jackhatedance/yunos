@@ -1,4 +1,4 @@
-package com.deviceyun.smarthome.api.driver;
+package com.deviceyun.smarthome.driver;
 
 import java.util.List;
 
