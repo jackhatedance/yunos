@@ -50,9 +50,16 @@
 			<version>4.0.5.RELEASE</version>
 		</dependency>
 		<dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>javax.servlet-api</artifactId>
+        <version>3.0.1</version>
+        <scope>provided</scope>
+</dependency>
+		<dependency>
 			<groupId>com.deviceyun</groupId>
 			<artifactId>api-v1</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		
 	</dependencies>
 </project>

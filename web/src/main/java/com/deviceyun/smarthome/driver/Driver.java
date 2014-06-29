@@ -6,19 +6,20 @@ import com.deviceyun.smarthome.api.device.Device;
 import com.deviceyun.smarthome.api.device.DeviceInfo;
 import com.deviceyun.smarthome.api.driver.ConfigItem;
 import com.deviceyun.smarthome.api.driver.SupportedDevice;
+
 /**
- * a driver submit by developers. 
- *
+ * a driver submit by developers.
+ * 
  * @author jackding
- *
+ * 
  */
-public abstract class Driver {
+public interface Driver {
 
-	abstract String getSdkVersion();
-	
-	abstract List<SupportedDevice> getSupportedDevices();
+	String getSdkVersion();
 
-	abstract List<ConfigItem> getConfigItems();
-	
-	abstract Device createDevice(DeviceInfo info);
+	List<SupportedDevice> getSupportedDevices();
+
+	List<ConfigItem> getConfigItems();
+
+	Device createDevice(DeviceInfo info);
 }

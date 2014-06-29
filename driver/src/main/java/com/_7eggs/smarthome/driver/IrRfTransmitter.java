@@ -1,4 +1,4 @@
-package com.deviceyun.smarthome.driver.generic;
+package com._7eggs.smarthome.driver;
 
 import com.deviceyun.smarthome.api.device.AbstractDevice;
 import com.deviceyun.smarthome.api.device.transmitter.IrTransmitter;

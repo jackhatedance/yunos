@@ -3,6 +3,10 @@ package com.deviceyun.smarthome.device;
 import java.util.Map;
 
 import com.deviceyun.smarthome.api.device.Device;
+import com.deviceyun.smarthome.api.device.DeviceInfo;
+import com.deviceyun.smarthome.device.dao.DeviceDao;
+import com.deviceyun.smarthome.driver.Driver;
+import com.deviceyun.smarthome.driver.DriverManager;
 
 /**
  * device manager responsibilities:
@@ -16,13 +20,32 @@ import com.deviceyun.smarthome.api.device.Device;
  * 
  */
 public class DeviceManager {
+	DriverManager driverManager = null;
+	DeviceDao deviceDao = null;
+
+	// memory cache
+	Map<String, Device> devices = null;
 
 	public Device getDevice(String id) {
-		return null;
+		
+		if(devices.containsKey(id))
+			return devices.get(id);
+		else
+		{
+			Device device = loadDevice(id);
+			return device;
+		}
+		
 	}
 
 	private Device loadDevice(String id) {
-		return null;
+		DeviceInfo info = deviceDao.loadDeviceInfo(id);
+		
+		Driver driver = driverManager.findDriver(info);
+		
+		Device device =driver.createDevice(info);
+		
+		return device;
 	}
 
 	private void saveDevice(String id) {
