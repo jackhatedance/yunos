@@ -1,5 +1,9 @@
 package com.deviceyun.smarthome.api.device;
-
+/**
+ * physical device
+ * @author jackding
+ *
+ */
 public class DeviceInfo {
 	private String uuid;
 	private String vendor;

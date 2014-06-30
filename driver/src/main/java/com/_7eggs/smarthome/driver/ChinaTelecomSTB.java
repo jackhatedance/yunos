@@ -1,7 +1,9 @@
 package com._7eggs.smarthome.driver;
 
 import com.deviceyun.smarthome.api.device.AbstractDevice;
+import com.deviceyun.smarthome.api.device.DeviceProxy;
 import com.deviceyun.smarthome.api.device.transmitter.IrTransmitter;
+import com.deviceyun.smarthome.api.device.transmitter.Rf433Transmitter;
 import com.deviceyun.smarthome.api.device.tv.TV;
 
 public class ChinaTelecomSTB extends AbstractDevice implements TV {
@@ -12,11 +14,13 @@ public class ChinaTelecomSTB extends AbstractDevice implements TV {
 	}
 
 	public static void main(String[] args) {
+		
 		IrRfTransmitter myTransmiter = new IrRfTransmitter();
+		IrTransmitter myTransmiterProxy = (IrTransmitter)DeviceProxy.newInstance(myTransmiter);
 
 		ChinaTelecomSTB tv = new ChinaTelecomSTB();
 
-		tv.setController(myTransmiter);
+		tv.setController(myTransmiterProxy);
 
 		tv.switchToChannel(1);
 

@@ -15,7 +15,7 @@ public interface Device {
 	 * @param parameters actually, these parameters must implement fromJson/toJson interface except basic types.
 	 * @return
 	 */
-	Object invoke(String method, Object[] parameters);
+	Object operate(String operation, Object[] parameters);
 	
 	Map<String,Object> getConfigure();
 }

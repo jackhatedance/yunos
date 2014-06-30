@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface CompositeDevice extends Device{
 
-	List<Device> getSubDevices();
-	Device getSubDevice(String name);
+	List<Device> getFunctionDevices();
+	Device getFunctionDevice(String name);
 }
