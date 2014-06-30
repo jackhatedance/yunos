@@ -1,6 +1,6 @@
 package com.deviceyun.smarthome.api.device;
 
-import java.util.Map;
+import org.json.JSONObject;
 
 /**
  * extra entry for vendor specific API
@@ -12,10 +12,12 @@ public interface Device {
 	/**
 	 * 
 	 * @param method
-	 * @param parameters actually, these parameters must implement fromJson/toJson interface except basic types.
+	 * @param parameters
+	 *            actually, these parameters must implement fromJson/toJson
+	 *            interface except basic types.
 	 * @return
 	 */
 	Object operate(String operation, Object[] parameters);
-	
-	Map<String,Object> getConfigure();
+
+	JSONObject getConfigure();
 }

@@ -21,10 +21,9 @@ public class IrRfTransmitter extends AbstractDevice implements
 	}
 
 	@Override
-	public void transmit(int type, String command, long code, int bits,
-			int repeat) {
-		System.out.println(String.format("transmit IR: %d,%s,%d,%d", type,
-				command, code, bits));
+	public void transmit(String command, long code, int bits, int repeat) {
+		System.out.println(String.format("transmit IR: %s,%d,%d", command,
+				code, bits));
 
 	}
 

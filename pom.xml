@@ -28,8 +28,7 @@
 
 
 	<modules>
-		<module>api-v1</module>
-		<module>api-v2</module>
+		<module>api</module>
 		<module>web</module>
 		<module>driver</module>
 		<module>app</module>

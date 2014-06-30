@@ -6,9 +6,9 @@
 		<artifactId>smarthome</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>api-v2</artifactId>
+	<artifactId>api</artifactId>
 	<packaging>jar</packaging>
-	<name>api-v2</name>
+	<name>api</name>
 
 	<build>
 		<pluginManagement>
@@ -28,6 +28,11 @@
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>1.2.14</version>
+		</dependency>
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20140107</version>
 		</dependency>
 
 	</dependencies>
