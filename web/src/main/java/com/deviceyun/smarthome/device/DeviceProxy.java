@@ -1,4 +1,4 @@
-package com.deviceyun.smarthome.api.device;
+package com.deviceyun.smarthome.device;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

@@ -7,6 +7,11 @@ public abstract class AbstractDevice implements Device {
 	protected JSONObject configure = new JSONObject();
 
 	@Override
+	public String getVersion() {
+		return null;
+	}
+
+	@Override
 	public Object operate(String operation, Object[] parameters) {
 
 		throw new UnsupportedOperationException();

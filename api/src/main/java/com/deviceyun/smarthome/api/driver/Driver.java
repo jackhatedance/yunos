@@ -1,11 +1,9 @@
-package com.deviceyun.smarthome.driver;
+package com.deviceyun.smarthome.api.driver;
 
 import java.util.List;
 
 import com.deviceyun.smarthome.api.device.Device;
 import com.deviceyun.smarthome.api.device.DeviceInfo;
-import com.deviceyun.smarthome.api.driver.ConfigItem;
-import com.deviceyun.smarthome.api.driver.SupportedDevice;
 
 /**
  * a driver submit by developers.

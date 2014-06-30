@@ -1,21 +1,23 @@
 package com.deviceyun.smarthome.api.device;
+
 /**
  * physical device
+ * 
  * @author jackding
- *
+ * 
  */
 public class DeviceInfo {
-	private String uuid;
+	private String id;
 	private String vendor;
 	private String product;
 	private String model;
 	private String revision;
 	private String mfgSerialNumber;
 	/**
-	 * only compatible with generic device model. 
+	 * only compatible with generic device model.
 	 */
 	private String compatibleDevice;
-	
+
 	public String getVendor() {
 		return vendor;
 	}

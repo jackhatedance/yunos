@@ -9,6 +9,9 @@ import org.json.JSONObject;
  * 
  */
 public interface Device {
+
+	String getVersion();
+
 	/**
 	 * 
 	 * @param method
