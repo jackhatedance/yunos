@@ -10,7 +10,7 @@ public class SupportedDevice {
 	/**
 	 * not null-able
 	 */
-	private String vendor;
+	private String brand;
 	/**
 	 * not null-able
 	 */
@@ -19,20 +19,13 @@ public class SupportedDevice {
 	 * null-able
 	 */
 	private String model;
-	/**
-	 * some vendors don't have rev for some products. .
-	 * 
-	 * TODO support wild card values: * all, A?? ,etc. *
-	 * 
-	 */
-	private String revision;
 
-	public String getVendor() {
-		return vendor;
+	public String getBrand() {
+		return brand;
 	}
 
-	public void setVendor(String vendor) {
-		this.vendor = vendor;
+	public void setBrand(String brand) {
+		this.brand = brand;
 	}
 
 	public String getProduct() {
@@ -50,13 +43,4 @@ public class SupportedDevice {
 	public void setModel(String model) {
 		this.model = model;
 	}
-
-	public String getRevision() {
-		return revision;
-	}
-
-	public void setRevision(String revision) {
-		this.revision = revision;
-	}
-
 }

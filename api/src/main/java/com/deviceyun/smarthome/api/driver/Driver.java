@@ -1,5 +1,6 @@
 package com.deviceyun.smarthome.api.driver;
 
+import java.util.Date;
 import java.util.List;
 
 import com.deviceyun.smarthome.api.device.Device;
@@ -12,6 +13,10 @@ import com.deviceyun.smarthome.api.device.DeviceInfo;
  * 
  */
 public interface Driver {
+
+	String getAuthor();
+
+	Date getReleaseDate();
 
 	String getSdkVersion();
 

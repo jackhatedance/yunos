@@ -14,14 +14,14 @@ public class Rf433SwitchSocket extends AbstractDevice implements
 	private int bits = 24;
 
 	@Override
-	public Object operate(String operation, Object[] parameters) {
+	public Object invoke(String method, Object[] parameters) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void on() {
-		controller.operate("transmit",
+		controller.invoke("transmit",
 				new Object[] { pulseLength, codeOn, bits });
 		// controller.transmit(pulseLength, codeOn, bits);
 	}

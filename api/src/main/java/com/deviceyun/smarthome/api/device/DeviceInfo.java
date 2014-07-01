@@ -8,9 +8,8 @@ package com.deviceyun.smarthome.api.device;
  */
 public class DeviceInfo {
 	private String id;
-	private String vendor;
-	private String product;
-	private String model;
+
+	private Model model;
 	private String revision;
 	private String mfgSerialNumber;
 	/**
@@ -18,27 +17,11 @@ public class DeviceInfo {
 	 */
 	private String compatibleDevice;
 
-	public String getVendor() {
-		return vendor;
-	}
-
-	public void setVendor(String vendor) {
-		this.vendor = vendor;
-	}
-
-	public String getProduct() {
-		return product;
-	}
-
-	public void setProduct(String product) {
-		this.product = product;
-	}
-
-	public String getModel() {
+	public Model getModel() {
 		return model;
 	}
 
-	public void setModel(String model) {
+	public void setModel(Model model) {
 		this.model = model;
 	}
 

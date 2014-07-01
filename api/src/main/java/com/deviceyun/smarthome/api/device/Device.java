@@ -3,7 +3,7 @@ package com.deviceyun.smarthome.api.device;
 import org.json.JSONObject;
 
 /**
- * extra entry for vendor specific API
+ * it is function device.
  * 
  * @author jack
  * 
@@ -20,7 +20,7 @@ public interface Device {
 	 *            interface except basic types.
 	 * @return
 	 */
-	Object operate(String operation, Object[] parameters);
+	Object invoke(String method, Object[] parameters);
 
 	JSONObject getConfigure();
 }

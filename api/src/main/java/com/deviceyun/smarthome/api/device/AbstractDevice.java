@@ -12,7 +12,7 @@ public abstract class AbstractDevice implements Device {
 	}
 
 	@Override
-	public Object operate(String operation, Object[] parameters) {
+	public Object invoke(String method, Object[] parameters) {
 
 		throw new UnsupportedOperationException();
 	}
