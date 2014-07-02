@@ -1,12 +1,11 @@
-package com.deviceyun.smarthome.device;
+package com.deviceyun.smarthome;
 
 import java.util.Map;
 
-import com.deviceyun.smarthome.api.device.Device;
-import com.deviceyun.smarthome.api.device.DeviceInfo;
+import com.deviceyun.smarthome.api.device.FunctionDevice;
 import com.deviceyun.smarthome.api.driver.Driver;
-import com.deviceyun.smarthome.device.dao.DeviceDao;
-import com.deviceyun.smarthome.driver.DriverManager;
+import com.deviceyun.smarthome.dao.DeviceDao;
+import com.deviceyun.smarthome.dao.entity.DeviceEntity;
 
 /**
  * device manager responsibilities:
@@ -24,25 +23,26 @@ public class DeviceManager {
 	DeviceDao deviceDao = null;
 
 	// memory cache
-	Map<String, Device> devices = null;
+	Map<String, FunctionDevice> devices = null;
 
-	public Device getDevice(String id) {
+	public FunctionDevice getDevice(String id) {
 
 		if (devices.containsKey(id))
 			return devices.get(id);
 		else {
-			Device device = loadDevice(id);
+			FunctionDevice device = loadDevice(id);
 			return device;
 		}
 
 	}
 
-	private Device loadDevice(String id) {
-		DeviceInfo info = deviceDao.loadDeviceInfo(id);
+	private FunctionDevice loadDevice(String id) {
+		DeviceEntity deviceEntity = deviceDao.loadDeviceInfo(id);
 
-		Driver driver = driverManager.findDriver(info);
+		Driver driver = driverManager.findDriver(deviceEntity.getModel()
+				.getVO());
 
-		Device device = driver.createDevice(info);
+		FunctionDevice device = driver.createDevice(deviceEntity.getInfo());
 
 		return device;
 	}

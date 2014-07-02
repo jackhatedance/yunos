@@ -1,8 +1,8 @@
 package com.deviceyun.smarthome.api.device.tv;
 
-import com.deviceyun.smarthome.api.device.Device;
+import com.deviceyun.smarthome.api.device.FunctionDevice;
 
-public interface TV extends Device {
+public interface TV extends FunctionDevice {
 
 	void on();
 	void off();

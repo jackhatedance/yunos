@@ -1,6 +1,6 @@
-package com.deviceyun.smarthome.driver;
+package com.deviceyun.smarthome;
 
-import com.deviceyun.smarthome.api.device.DeviceInfo;
+import com.deviceyun.smarthome.api.device.Model;
 import com.deviceyun.smarthome.api.driver.Driver;
 
 /**
@@ -15,7 +15,8 @@ import com.deviceyun.smarthome.api.driver.Driver;
  */
 public class DriverManager {
 
-	public Driver findDriver(DeviceInfo info) {
+	public Driver findDriver(Model model) {
+
 		return null;
 	}
 

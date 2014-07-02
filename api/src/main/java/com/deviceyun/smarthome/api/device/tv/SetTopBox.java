@@ -1,8 +1,8 @@
 package com.deviceyun.smarthome.api.device.tv;
 
-import com.deviceyun.smarthome.api.device.Device;
+import com.deviceyun.smarthome.api.device.FunctionDevice;
 
-public interface SetTopBox extends Device {
+public interface SetTopBox extends FunctionDevice {
 	// =========manufacturer specification keys begin===================
 	static final String SPEC_ABC = "abc";
 

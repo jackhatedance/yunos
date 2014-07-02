@@ -1,8 +1,8 @@
 package com.deviceyun.smarthome.api.device.light;
 
-import com.deviceyun.smarthome.api.device.Device;
+import com.deviceyun.smarthome.api.device.FunctionDevice;
 
-public interface SimpleLight extends Device {
+public interface SimpleLight extends FunctionDevice {
 	void on();
 
 	void off();

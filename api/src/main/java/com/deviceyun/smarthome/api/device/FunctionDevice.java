@@ -8,7 +8,7 @@ import org.json.JSONObject;
  * @author jack
  * 
  */
-public interface Device {
+public interface FunctionDevice {
 
 	String getVersion();
 

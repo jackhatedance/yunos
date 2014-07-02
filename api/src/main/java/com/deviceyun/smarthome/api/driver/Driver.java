@@ -3,8 +3,9 @@ package com.deviceyun.smarthome.api.driver;
 import java.util.Date;
 import java.util.List;
 
-import com.deviceyun.smarthome.api.device.Device;
 import com.deviceyun.smarthome.api.device.DeviceInfo;
+import com.deviceyun.smarthome.api.device.FunctionDevice;
+import com.deviceyun.smarthome.api.device.Model;
 
 /**
  * a driver submit by developers.
@@ -20,9 +21,9 @@ public interface Driver {
 
 	String getSdkVersion();
 
-	List<SupportedDevice> getSupportedDevices();
+	List<Model> getSupportedModels();
 
 	List<ConfigItem> getConfigItems();
 
-	Device createDevice(DeviceInfo info);
+	FunctionDevice createDevice(DeviceInfo info);
 }

@@ -1,21 +1,36 @@
 package com.deviceyun.smarthome.api.device;
 
+import org.json.JSONObject;
+
 /**
- * physical device
+ * device descriptions
  * 
- * @author jackding
+ * @author jack
  * 
  */
 public class DeviceInfo {
-	private String id;
 
+	private String id;
 	private Model model;
-	private String revision;
-	private String mfgSerialNumber;
 	/**
-	 * only compatible with generic device model.
+	 * configures combined by device configure and model configure. device
+	 * configure has higher priority.
 	 */
-	private String compatibleDevice;
+	private JSONObject configure;
+
+	public DeviceInfo(String id, Model model, JSONObject configure) {
+		this.id = id;
+		this.model = model;
+		this.configure = configure;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public Model getModel() {
 		return model;
@@ -25,12 +40,12 @@ public class DeviceInfo {
 		this.model = model;
 	}
 
-	public String getRevision() {
-		return revision;
+	public JSONObject getConfigure() {
+		return configure;
 	}
 
-	public void setRevision(String revision) {
-		this.revision = revision;
+	public void setConfigure(JSONObject configure) {
+		this.configure = configure;
 	}
 
 }
