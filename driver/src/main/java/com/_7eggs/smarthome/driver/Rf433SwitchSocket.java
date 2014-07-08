@@ -1,6 +1,7 @@
 package com._7eggs.smarthome.driver;
 
 import com.deviceyun.smarthome.api.device.AbstractDevice;
+import com.deviceyun.smarthome.api.device.Api;
 import com.deviceyun.smarthome.api.device._switch.ElectricitySwitch;
 import com.deviceyun.smarthome.api.device.transmitter.Rf433Transmitter;
 
@@ -34,6 +35,18 @@ public class Rf433SwitchSocket extends AbstractDevice implements
 
 	public void setController(Rf433Transmitter controller) {
 		this.controller = controller;
+	}
+
+	@Override
+	public Api getApi() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getApiVersion() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -10,7 +10,11 @@ public class RemoteFacade {
 	public static final String DEVICE_ID = "deviceId";
 	public static final String OPERATION = "operation";
 
-	DeviceManager deviceManager = null;
+	private DeviceManager deviceManager;
+
+	public RemoteFacade(DeviceManager deviceManager) {
+		this.deviceManager = deviceManager;
+	}
 
 	public Object urlApi(Map<String, String> parameters) {
 		// String apiKey = parameters.get(API_KEY);

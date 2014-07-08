@@ -51,8 +51,4 @@ public class DeviceManager {
 
 	}
 
-	public void operateDevice(String apiKey, String deviceId, String operation,
-			Map<String, Object> parameters) {
-
-	}
 }

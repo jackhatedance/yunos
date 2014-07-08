@@ -1,6 +1,7 @@
 package com._7eggs.smarthome.driver;
 
 import com.deviceyun.smarthome.api.device.AbstractDevice;
+import com.deviceyun.smarthome.api.device.Api;
 import com.deviceyun.smarthome.api.device._switch.ElectricitySwitch;
 import com.deviceyun.smarthome.api.device.light.SimpleLight;
 
@@ -23,17 +24,16 @@ public class MyLight extends AbstractDevice implements SimpleLight {
 		this.controller = controller;
 	}
 
-	public static void main(String[] args) {
-		IrRfTransmitter myTransmiter = new IrRfTransmitter();
-		Rf433SwitchSocket mySocket = new Rf433SwitchSocket();
-		MyLight light = new MyLight();
-
-		light.setController(mySocket);
-		mySocket.setController(myTransmiter);
-
-		SimpleLight sl = light;
-		sl.on();
-		sl.off();
-
+	@Override
+	public Api getApi() {
+		// TODO Auto-generated method stub
+		return null;
 	}
+
+	@Override
+	public String getApiVersion() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
