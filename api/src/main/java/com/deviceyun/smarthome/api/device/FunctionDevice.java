@@ -9,8 +9,14 @@ import org.json.JSONObject;
  * 
  */
 public interface FunctionDevice {
+	Api getApi();
 
-	String getVersion();
+	/**
+	 * it is API version.
+	 * 
+	 * @return
+	 */
+	String getApiVersion();
 
 	/**
 	 * 
