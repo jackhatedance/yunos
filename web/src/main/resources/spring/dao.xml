@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
-
+  http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd">
 
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://www:3306/smarthome" />
-		<property name="username" value="root" />
-		<property name="password" value="pw12#$" />
+		<property name="username" value="blueegg" />
+		<property name="password" value="S7L6jzubmjhNAaAq" />
 	</bean>
 
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
@@ -20,8 +19,7 @@
 	</bean>
 
 
-	<bean id="userDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="mapperInterface" value="com.deviceyun.smarthome.dao.UserDao" />
-		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
-	</bean>
+	<mybatis:scan base-package="com.deviceyun.smarthome.dao.mybatisMapper" />
+
+
 </beans>
