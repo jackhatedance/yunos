@@ -10,12 +10,12 @@ import com.deviceyun.smarthome.engine.RemoteFacade;
  */
 public class Yun {
 
-	private static DeviceManager deviceManager;
+	private static DeviceManagerImpl deviceManager;
 	private static DriverManager driverManager;
 	private static RemoteFacade remoteFacade;
 	static {
-		deviceManager = new DeviceManager();
-		driverManager = new DriverManager();
+		deviceManager = new DeviceManagerImpl();
+		driverManager = new DriverManagerImpl();
 
 		remoteFacade = new RemoteFacade(deviceManager);
 	}

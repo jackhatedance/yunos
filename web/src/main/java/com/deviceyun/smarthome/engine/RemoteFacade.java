@@ -2,7 +2,7 @@ package com.deviceyun.smarthome.engine;
 
 import java.util.Map;
 
-import com.deviceyun.smarthome.DeviceManager;
+import com.deviceyun.smarthome.DeviceManagerImpl;
 import com.deviceyun.smarthome.api.device.FunctionDevice;
 
 public class RemoteFacade {
@@ -10,9 +10,9 @@ public class RemoteFacade {
 	public static final String DEVICE_ID = "deviceId";
 	public static final String OPERATION = "operation";
 
-	private DeviceManager deviceManager;
+	private DeviceManagerImpl deviceManager;
 
-	public RemoteFacade(DeviceManager deviceManager) {
+	public RemoteFacade(DeviceManagerImpl deviceManager) {
 		this.deviceManager = deviceManager;
 	}
 

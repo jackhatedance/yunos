@@ -5,9 +5,13 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
 
-	
+
+	<bean id="deviceManager" class="com.deviceyun.smarthome.DeviceManagerImpl">
+		<property name="deviceMapper" ref="deviceMapper" />
+	</bean>
 
 
 
-	
+
+
 </beans>

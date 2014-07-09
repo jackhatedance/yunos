@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
+
 import com.deviceyun.smarthome.Yun;
 
 public class DeviceServlet extends HttpServlet {
@@ -32,6 +35,9 @@ public class DeviceServlet extends HttpServlet {
 
 			parameters.put(name, value);
 		}
+
+		ApplicationContext beanFactory = WebApplicationContextUtils
+				.getRequiredWebApplicationContext(getServletContext());
 
 		Object result = Yun.getRemoteFacade().urlApi(parameters);
 

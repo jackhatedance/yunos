@@ -14,4 +14,17 @@
 		<servlet-name>DeviceServlet</servlet-name>
 		<url-pattern>/device.do</url-pattern>
 	</servlet-mapping>
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:/spring/app.xml</param-value>
+	</context-param>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>
+			org.springframework.web.context.request.RequestContextListener
+		</listener-class>
+	</listener>
 </web-app>
