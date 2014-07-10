@@ -5,7 +5,7 @@ import java.util.List;
 import com.deviceyun.smarthome.domain.User;
 
 public interface UserService {
-	String getUser(String id);
+	User getUser(String id);
 
 	List<User> list();
 }

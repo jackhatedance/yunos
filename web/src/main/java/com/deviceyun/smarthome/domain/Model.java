@@ -1,8 +1,18 @@
 package com.deviceyun.smarthome.domain;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
-import org.json.JSONObject;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
 
 /**
  * it is a entity.
@@ -10,29 +20,31 @@ import org.json.JSONObject;
  * @author jack
  * 
  */
+@javax.persistence.Entity
+@Table(name = "models")
 public class Model {
+	@Id
+	@GeneratedValue(generator = "uuid")
+	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	private String id;
 
-	/**
-	 * not-nullable
-	 */
+	@Column
 	private String brand;
 
-	/**
-	 * not-nullable
-	 */
+	@Column
 	private String product;
-	/**
-	 * not-nullable
-	 */
+	@Column
 	private String model;
 
-	private List<Model> compatibleModels;
+	@ManyToMany(cascade = { CascadeType.ALL })
+	@JoinTable(name = "compatible_models", joinColumns = { @JoinColumn(name = "modelId") }, inverseJoinColumns = { @JoinColumn(name = "compatibleModelId") })
+	private Set<Model> compatibleModels = new HashSet<Model>();
 
 	/**
 	 * factory configure
 	 */
-	private JSONObject configure;
+	@Column
+	private String configure;
 
 	public String getId() {
 		return id;
@@ -66,12 +78,20 @@ public class Model {
 		this.model = model;
 	}
 
-	public JSONObject getConfigure() {
+	public String getConfigure() {
 		return configure;
 	}
 
-	public void setConfigure(JSONObject configure) {
+	public void setConfigure(String configure) {
 		this.configure = configure;
+	}
+
+	public Set<Model> getCompatibleModels() {
+		return compatibleModels;
+	}
+
+	public void setCompatibleModels(Set<Model> compatibleModels) {
+		this.compatibleModels = compatibleModels;
 	}
 
 	public com.deviceyun.smarthome.api.device.Model getVO() {

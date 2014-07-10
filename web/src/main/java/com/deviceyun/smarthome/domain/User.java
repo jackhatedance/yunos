@@ -1,9 +1,24 @@
 package com.deviceyun.smarthome.domain;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+
+@javax.persistence.Entity
+@Table(name = "users")
 public class User {
+	@Id
+	@GeneratedValue(generator = "uuid")
+	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	private String id;
+	@Column
 	private String firstName;
+	@Column
 	private String lastName;
+	@Column
 	private String email;
 
 	public String getId() {
