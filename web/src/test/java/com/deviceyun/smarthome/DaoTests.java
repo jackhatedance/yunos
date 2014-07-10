@@ -40,7 +40,7 @@ public class DaoTests {
 
 		assertNotNull(deviceMapper);
 		Device device = deviceMapper
-				.getDevice("2cabad60-011f-11e4-9191-0800200c9a66");
+				.getDevice("cb170afb-087f-11e4-b721-08002785c3ec");
 		Assert.assertNotNull(device);
 
 	}

@@ -40,10 +40,6 @@ public class Model {
 	@JoinTable(name = "compatible_models", joinColumns = { @JoinColumn(name = "modelId") }, inverseJoinColumns = { @JoinColumn(name = "compatibleModelId") })
 	private Set<Model> compatibleModels = new HashSet<Model>();
 
-	/**
-	 * factory configure
-	 */
-	@Column
 	private String configure;
 
 	public String getId() {

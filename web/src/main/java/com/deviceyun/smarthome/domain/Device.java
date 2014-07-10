@@ -1,5 +1,6 @@
 package com.deviceyun.smarthome.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -27,14 +28,27 @@ public class Device {
 	private String id;
 
 	@JoinColumn(name = "modelId")
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Model model;
 	@Column
 	private String revision;
 	@Column
 	private String mfgSerialNumber;
+
+	/**
+	 * factory configure
+	 */
 	@Column
-	private String configure;
+	private String factoryConfigure;
+	@Column
+	private String userConfigure;
+	@Column
+	private String deviceState;
+
+	@Column
+	private String location;
+	@Column
+	private String description;
 
 	public Model getModel() {
 		return model;
@@ -68,18 +82,50 @@ public class Device {
 		this.mfgSerialNumber = mfgSerialNumber;
 	}
 
-	public String getConfigure() {
-		return configure;
+	public String getFactoryConfigure() {
+		return factoryConfigure;
 	}
 
-	public void setConfigure(String configure) {
-		this.configure = configure;
+	public void setFactoryConfigure(String factoryConfigure) {
+		this.factoryConfigure = factoryConfigure;
+	}
+
+	public String getUserConfigure() {
+		return userConfigure;
+	}
+
+	public void setUserConfigure(String userConfigure) {
+		this.userConfigure = userConfigure;
+	}
+
+	public String getDeviceState() {
+		return deviceState;
+	}
+
+	public void setDeviceState(String deviceState) {
+		this.deviceState = deviceState;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public DeviceInfo getInfo() {
 		// merge model configure and device configure
 		String modelConfigStr = model.getConfigure();
-		String deviceConfigStr = configure;
+		String deviceConfigStr = this.factoryConfigure;
 
 		JSONObject modelConfig = new JSONObject(modelConfigStr);
 		JSONObject deviceConfig = new JSONObject(deviceConfigStr);
