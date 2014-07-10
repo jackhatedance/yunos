@@ -1,4 +1,6 @@
-package com.deviceyun.smarthome.dao.entity;
+package com.deviceyun.smarthome.domain;
+
+import java.util.List;
 
 import org.json.JSONObject;
 
@@ -8,7 +10,7 @@ import org.json.JSONObject;
  * @author jack
  * 
  */
-public class ModelEntity {
+public class Model {
 	private String id;
 
 	/**
@@ -25,7 +27,7 @@ public class ModelEntity {
 	 */
 	private String model;
 
-	private ModelEntity[] compatibleModels;
+	private List<Model> compatibleModels;
 
 	/**
 	 * factory configure

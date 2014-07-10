@@ -14,23 +14,17 @@ public class Rf433SwitchSocket extends AbstractDevice implements
 	private long codeOff = 456;
 	private int bits = 24;
 
-	@Override
-	public Object invoke(String method, Object[] parameters) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	@Override
 	public void on() {
-		controller.invoke("transmit",
-				new Object[] { pulseLength, codeOn, bits });
-		// controller.transmit(pulseLength, codeOn, bits);
+		controller.transmit( pulseLength, codeOn, bits );
+		
 	}
 
 	@Override
 	public void off() {
 		controller.transmit(pulseLength, codeOff, bits);
-
 	}
 
 	public void setController(Rf433Transmitter controller) {

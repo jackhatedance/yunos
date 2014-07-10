@@ -24,7 +24,7 @@ public class RemoteFacade {
 
 		FunctionDevice device = deviceManager.getDevice(deviceId);
 		// perform operation on device
-		Object ret = device.invoke(operation, null);
-		return ret;
+		//Object ret = device.invoke(operation, null);
+		return null;
 	}
 }

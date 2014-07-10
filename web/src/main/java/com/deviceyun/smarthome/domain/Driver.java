@@ -1,8 +1,8 @@
-package com.deviceyun.smarthome.dao.entity;
+package com.deviceyun.smarthome.domain;
 
 import java.util.Date;
 
-public class DriverEntity {
+public class Driver {
 	private String id;
 	private String name;
 	private String version;

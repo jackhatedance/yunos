@@ -1,4 +1,4 @@
-package com.deviceyun.smarthome.dao.entity;
+package com.deviceyun.smarthome.domain;
 
 import org.json.JSONObject;
 
@@ -10,19 +10,19 @@ import com.deviceyun.smarthome.api.device.DeviceInfo;
  * @author jackding
  * 
  */
-public class DeviceEntity {
+public class Device {
 	private String id;
 
-	private ModelEntity model;
+	private Model model;
 	private String revision;
 	private String mfgSerialNumber;
 	private JSONObject configure;
 
-	public ModelEntity getModel() {
+	public Model getModel() {
 		return model;
 	}
 
-	public void setModel(ModelEntity model) {
+	public void setModel(Model model) {
 		this.model = model;
 	}
 

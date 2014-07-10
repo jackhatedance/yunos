@@ -4,12 +4,12 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Select;
 
-import com.deviceyun.smarthome.dao.entity.DriverEntity;
+import com.deviceyun.smarthome.domain.Driver;
 
 public interface DriverMapper {
 	@Select("SELECT * FROM drivers WHERE id = #{id}")
-	DriverEntity get(String id);
+	Driver get(String id);
 
 	@Select("SELECT * FROM drivers")
-	List<DriverEntity> list();
+	List<Driver> list();
 }

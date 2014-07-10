@@ -1,5 +1,10 @@
 package com.deviceyun.smarthome.api.device;
-
+/**
+ * for example, a device API is defined for a certain product, but not for a specific model.
+ *  
+ * @author jackding
+ *
+ */
 public class Api {
 
 	private String id;

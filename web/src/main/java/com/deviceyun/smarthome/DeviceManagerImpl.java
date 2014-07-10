@@ -4,8 +4,8 @@ import java.util.Map;
 
 import com.deviceyun.smarthome.api.device.FunctionDevice;
 import com.deviceyun.smarthome.api.driver.Driver;
-import com.deviceyun.smarthome.dao.entity.DeviceEntity;
 import com.deviceyun.smarthome.dao.mybatisMapper.DeviceMapper;
+import com.deviceyun.smarthome.domain.Device;
 
 /**
  * device manager responsibilities:
@@ -46,14 +46,14 @@ public class DeviceManagerImpl implements DeviceManager {
 	}
 
 	private FunctionDevice loadDevice(String id) {
-		DeviceEntity deviceEntity = deviceMapper.getDevice(id);
+		Device device = deviceMapper.getDevice(id);
 
-		Driver driver = driverManager.findDriver(deviceEntity.getModel()
+		Driver driver = driverManager.findDriver(device.getModel()
 				.getVO());
 
-		FunctionDevice device = driver.createDevice(deviceEntity.getInfo());
+		FunctionDevice functionDevice = driver.createDevice(device.getInfo());
 
-		return device;
+		return functionDevice;
 	}
 
 	private void saveDevice(String id) {
