@@ -7,7 +7,7 @@
 
 	<servlet>
 		<servlet-name>DeviceServlet</servlet-name>
-		<servlet-class>com.deviceyun.smarthome.remote.DeviceServlet</servlet-class>
+		<servlet-class>com.deviceyun.yunos.remote.DeviceServlet</servlet-class>
 	</servlet>
 
 	<servlet-mapping>

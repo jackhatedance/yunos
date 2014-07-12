@@ -1,9 +1,9 @@
 package com._7eggs.smarthome.driver;
 
-import com.deviceyun.smarthome.api.device.AbstractDevice;
-import com.deviceyun.smarthome.api.device.Api;
-import com.deviceyun.smarthome.api.device._switch.ElectricitySwitch;
-import com.deviceyun.smarthome.api.device.light.SimpleLight;
+import com.deviceyun.yunos.api.device.AbstractDevice;
+import com.deviceyun.yunos.api.device.DeviceApi;
+import com.deviceyun.yunos.api.device._switch.ElectricitySwitch;
+import com.deviceyun.yunos.api.device.light.SimpleLight;
 
 public class MyLight extends AbstractDevice implements SimpleLight {
 	ElectricitySwitch controller;
@@ -25,7 +25,7 @@ public class MyLight extends AbstractDevice implements SimpleLight {
 	}
 
 	@Override
-	public Api getApi() {
+	public DeviceApi getApi() {
 		// TODO Auto-generated method stub
 		return null;
 	}

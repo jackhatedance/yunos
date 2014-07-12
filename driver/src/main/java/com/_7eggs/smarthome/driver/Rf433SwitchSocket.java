@@ -1,9 +1,9 @@
 package com._7eggs.smarthome.driver;
 
-import com.deviceyun.smarthome.api.device.AbstractDevice;
-import com.deviceyun.smarthome.api.device.Api;
-import com.deviceyun.smarthome.api.device._switch.ElectricitySwitch;
-import com.deviceyun.smarthome.api.device.transmitter.Rf433Transmitter;
+import com.deviceyun.yunos.api.device.AbstractDevice;
+import com.deviceyun.yunos.api.device.DeviceApi;
+import com.deviceyun.yunos.api.device._switch.ElectricitySwitch;
+import com.deviceyun.yunos.api.device.transmitter.Rf433Transmitter;
 
 public class Rf433SwitchSocket extends AbstractDevice implements
 		ElectricitySwitch {
@@ -14,12 +14,10 @@ public class Rf433SwitchSocket extends AbstractDevice implements
 	private long codeOff = 456;
 	private int bits = 24;
 
-	
-
 	@Override
 	public void on() {
-		controller.transmit( pulseLength, codeOn, bits );
-		
+		controller.transmit(pulseLength, codeOn, bits);
+
 	}
 
 	@Override
@@ -32,7 +30,7 @@ public class Rf433SwitchSocket extends AbstractDevice implements
 	}
 
 	@Override
-	public Api getApi() {
+	public DeviceApi getApi() {
 		// TODO Auto-generated method stub
 		return null;
 	}

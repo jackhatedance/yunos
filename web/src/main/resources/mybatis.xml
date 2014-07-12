@@ -5,7 +5,7 @@
  
 <configuration>
     <typeAliases>
-        <typeAlias type="com.deviceyun.smarthome.domain.User" alias="User"/>
+        <typeAlias type="com.deviceyun.yunos.domain.User" alias="User"/>
           
     </typeAliases>
     <mappers>
