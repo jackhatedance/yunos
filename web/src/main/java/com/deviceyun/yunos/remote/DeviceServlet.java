@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import com.deviceyun.yunos.Yun;
+import com.deviceyun.yunos.service.RemoteFacade;
 
 public class DeviceServlet extends HttpServlet {
 
@@ -38,8 +38,10 @@ public class DeviceServlet extends HttpServlet {
 
 		ApplicationContext beanFactory = WebApplicationContextUtils
 				.getRequiredWebApplicationContext(getServletContext());
+		RemoteFacade remoteFacade = (RemoteFacade) beanFactory
+				.getBean("remoteFacade");
 
-		Object result = Yun.getRemoteFacade().urlApi(parameters);
+		Object result = remoteFacade.urlApi(parameters);
 
 		PrintWriter out = response.getWriter();
 		out.println("<html><body><h1>Result</h1>" + "<p>" + result.toString()

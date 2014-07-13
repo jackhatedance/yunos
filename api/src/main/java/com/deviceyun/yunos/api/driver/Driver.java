@@ -31,10 +31,11 @@ public interface Driver {
 	String getFunctionalDeviceApiVersion();
 
 	/**
-	 * first time load this driver for a device. some initialization work may
-	 * need be done here.
+	 * install driver for the device.
+	 * 
+	 * some initialization work may need be done here.
 	 */
-	void registerDevice(DeviceInfo info);
+	void install(DeviceInfo info);
 
 	/**
 	 * create functional device object.

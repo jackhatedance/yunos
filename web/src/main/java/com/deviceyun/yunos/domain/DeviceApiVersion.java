@@ -34,6 +34,9 @@ public class DeviceApiVersion {
 	@Column
 	private String description;
 
+	@Column
+	private String className;
+
 	public String getId() {
 		return id;
 	}
