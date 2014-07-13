@@ -7,11 +7,11 @@
 
  
 	<select id="findUserByFirstName" parameterType="string" resultType="User"> 
-    	select * from users where firstName = #{firstName}
+    	select * from User where firstName = #{firstName}
   	</select>
   	
 	<select id="findUserByEmail" parameterType="string" resultType="User"> 
-    	select * from users where email = #{email}
+    	select * from User where email = #{email}
   	</select>
   	 
 </mapper>

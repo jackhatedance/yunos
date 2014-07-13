@@ -30,5 +30,17 @@ public interface Driver {
 
 	String getFunctionalDeviceApiVersion();
 
+	/**
+	 * first time load this driver for a device. some initialization work may
+	 * need be done here.
+	 */
+	void registerDevice(DeviceInfo info);
+
+	/**
+	 * create functional device object.
+	 * 
+	 * @param info
+	 * @return
+	 */
 	FunctionalDevice createDevice(DeviceInfo info);
 }

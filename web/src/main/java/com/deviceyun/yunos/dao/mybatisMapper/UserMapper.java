@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Select;
 import com.deviceyun.yunos.domain.User;
 
 public interface UserMapper {
-	@Select("SELECT * FROM users WHERE id = #{id}")
+	@Select("SELECT * FROM User WHERE id = #{id}")
 	User getUser(@Param("id") String id);
 
 	User findUserByFirstName(String firstName);

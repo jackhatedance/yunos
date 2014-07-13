@@ -1,8 +1,14 @@
 package com.deviceyun.yunos.domain;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.MapKey;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -15,7 +21,7 @@ import org.hibernate.annotations.GenericGenerator;
  * 
  */
 @javax.persistence.Entity
-@Table(name = "device_apis")
+@Table
 public class DeviceApi {
 	@Id
 	@GeneratedValue(generator = "uuid")
@@ -27,6 +33,10 @@ public class DeviceApi {
 	private String category;
 	@Column
 	private String product;
+
+	@OneToMany(mappedBy = "deviceApi", cascade = { CascadeType.ALL })
+	@MapKey(name = "version")
+	private Map<String, DeviceApiVersion> versions = new HashMap<String, DeviceApiVersion>();
 
 	public String getId() {
 		return id;
@@ -58,6 +68,14 @@ public class DeviceApi {
 
 	public void setProduct(String product) {
 		this.product = product;
+	}
+
+	public Map<String, DeviceApiVersion> getVersions() {
+		return versions;
+	}
+
+	public void setVersions(Map<String, DeviceApiVersion> versions) {
+		this.versions = versions;
 	}
 
 }

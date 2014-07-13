@@ -16,7 +16,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
 @javax.persistence.Entity
-@Table(name = "drivers")
+@Table
 public class Driver {
 	@Id
 	@GeneratedValue(generator = "uuid")
@@ -37,11 +37,11 @@ public class Driver {
 	@ManyToOne(cascade = CascadeType.ALL)
 	private DeviceApi deviceApi;
 	@Column
-	private String deviecApiVersion;
+	private String deviceApiVersion;
 
 	@ManyToMany(cascade = { CascadeType.ALL })
-	@JoinTable(name = "supported_models", joinColumns = { @JoinColumn(name = "driverId") }, inverseJoinColumns = { @JoinColumn(name = "modelId") })
-	private Set<Model> supprtedModels;
+	@JoinTable(name = "DriverSupportedModel", joinColumns = { @JoinColumn(name = "driverId") }, inverseJoinColumns = { @JoinColumn(name = "modelId") })
+	private Set<Model> supportedModels;
 
 	public String getId() {
 		return id;
@@ -99,20 +99,20 @@ public class Driver {
 		this.deviceApi = deviceApi;
 	}
 
-	public String getDeviecApiVersion() {
-		return deviecApiVersion;
+	public String getDeviceApiVersion() {
+		return deviceApiVersion;
 	}
 
-	public void setDeviecApiVersion(String deviecApiVersion) {
-		this.deviecApiVersion = deviecApiVersion;
+	public void setDeviceApiVersion(String deviceApiVersion) {
+		this.deviceApiVersion = deviceApiVersion;
 	}
 
-	public Set<Model> getSupprtedModels() {
-		return supprtedModels;
+	public Set<Model> getSupportedModels() {
+		return supportedModels;
 	}
 
-	public void setSupprtedModels(Set<Model> supprtedModels) {
-		this.supprtedModels = supprtedModels;
+	public void setSupportedModels(Set<Model> supportedModels) {
+		this.supportedModels = supportedModels;
 	}
 
 }

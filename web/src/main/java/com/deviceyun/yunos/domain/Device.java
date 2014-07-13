@@ -20,7 +20,7 @@ import com.deviceyun.yunos.api.device.DeviceInfo;
  * 
  */
 @javax.persistence.Entity
-@Table(name = "devices")
+@Table
 public class Device {
 	@Id
 	@GeneratedValue(generator = "uuid")

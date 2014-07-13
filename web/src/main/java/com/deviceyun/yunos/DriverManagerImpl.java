@@ -7,6 +7,7 @@ import java.util.jar.JarFile;
 
 import com.deviceyun.yunos.api.device.Model;
 import com.deviceyun.yunos.api.driver.Driver;
+import com.deviceyun.yunos.dao.DriverDao;
 
 /**
  * driver manager responsibilities:
@@ -19,6 +20,17 @@ import com.deviceyun.yunos.api.driver.Driver;
  * 
  */
 public class DriverManagerImpl implements DriverManager {
+
+	private String driverPath = null;
+	private DriverDao driverDao = null;
+
+	public void setDriverPath(String driverPath) {
+		this.driverPath = driverPath;
+	}
+
+	public void setDriverDao(DriverDao driverDao) {
+		this.driverDao = driverDao;
+	}
 
 	public Driver findDriver(Model model) {
 

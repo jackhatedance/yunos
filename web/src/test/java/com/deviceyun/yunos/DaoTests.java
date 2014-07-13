@@ -2,6 +2,8 @@ package com.deviceyun.yunos;
 
 import static junit.framework.Assert.assertNotNull;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import junit.framework.Assert;
@@ -13,9 +15,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.deviceyun.yunos.api.device.Model;
+import com.deviceyun.yunos.dao.DriverDao;
 import com.deviceyun.yunos.dao.mybatisMapper.DeviceMapper;
 import com.deviceyun.yunos.dao.mybatisMapper.UserMapper;
 import com.deviceyun.yunos.domain.Device;
+import com.deviceyun.yunos.domain.Driver;
 import com.deviceyun.yunos.domain.User;
 
 @ContextConfiguration(locations = "classpath:/com/deviceyun/yunos/DaoTests-context.xml")
@@ -31,6 +36,9 @@ public class DaoTests {
 
 	@Autowired
 	private SessionFactory sessionFactory;
+
+	@Autowired
+	private DriverDao driverDao;
 
 	@Test
 	public void testMybatisMappers() throws Exception {
@@ -54,5 +62,32 @@ public class DaoTests {
 		query.setString("firstName", "jack");
 		User user = (User) query.uniqueResult();
 		Assert.assertNotNull(user);
+
+		// test device api
+		query = sessionFactory
+				.getCurrentSession()
+				.createQuery(
+						"from DeviceApi a where a.brand = :brand and category=:category and product=:product");
+		query.setString("brand", "Generic");
+		query.setString("category", "Light");
+		query.setString("product", "Light");
+		com.deviceyun.yunos.domain.DeviceApi da = (com.deviceyun.yunos.domain.DeviceApi) query
+				.uniqueResult();
+		Assert.assertNotNull(da);
+		Assert.assertNotNull(da.getVersions().get("1.0"));
+
 	}
+
+	@Test
+	public void testDriverDao() throws Exception {
+		assertNotNull(driverDao);
+		Model model = new Model("7eggs", " 	multifunction transmitter",
+				"IR RF433 transmitter");
+		List<Driver> drivers = driverDao.findDriver(model);
+		Assert.assertNotNull(drivers);
+		Assert.assertFalse(drivers.isEmpty());
+		Assert.assertEquals("jack ding", drivers.get(0).getAuthor());
+
+	}
+
 }
