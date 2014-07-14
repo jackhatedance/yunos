@@ -1,6 +1,5 @@
 package com.deviceyun.yunos.api.driver;
 
-import java.util.Date;
 import java.util.List;
 
 import com.deviceyun.yunos.api.device.DeviceApi;
@@ -15,10 +14,6 @@ import com.deviceyun.yunos.api.device.Model;
  * 
  */
 public interface Driver {
-
-	String getAuthor();
-
-	Date getReleaseDate();
 
 	String getSdkVersion();
 
