@@ -5,8 +5,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.deviceyun.yunos.DeviceManagerImpl;
 import com.deviceyun.yunos.api.device.FunctionalDevice;
+import com.deviceyun.yunos.core.DeviceManagerImpl;
 
 @Component
 public class RemoteFacade {

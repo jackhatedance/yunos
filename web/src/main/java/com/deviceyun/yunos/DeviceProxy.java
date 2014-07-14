@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 
 import org.apache.log4j.Logger;
 
-public class DeviceProxy implements java.lang.reflect.InvocationHandler{
+public class DeviceProxy implements java.lang.reflect.InvocationHandler {
 	private static Logger logger = Logger.getLogger(DeviceProxy.class);
 	private Object obj;
 

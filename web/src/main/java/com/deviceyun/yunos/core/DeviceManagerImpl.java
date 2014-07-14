@@ -1,6 +1,9 @@
-package com.deviceyun.yunos;
+package com.deviceyun.yunos.core;
 
 import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.deviceyun.yunos.api.device.FunctionalDevice;
 import com.deviceyun.yunos.api.driver.Driver;
@@ -18,9 +21,11 @@ import com.deviceyun.yunos.domain.Device;
  * @author jackding
  * 
  */
+@Component
 public class DeviceManagerImpl implements DeviceManager {
+	@Autowired
 	private DeviceMapper deviceMapper;
-
+	@Autowired
 	private DriverManager driverManager;
 
 	// memory cache
@@ -48,8 +53,7 @@ public class DeviceManagerImpl implements DeviceManager {
 	private FunctionalDevice loadDevice(String id) {
 		Device device = deviceMapper.getDevice(id);
 
-		Driver driver = driverManager.findDriver(device.getModel()
-				.getVO());
+		Driver driver = driverManager.findDriver(device.getModel().getVO());
 
 		FunctionalDevice functionDevice = driver.createDevice(device.getInfo());
 

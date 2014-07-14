@@ -1,9 +1,13 @@
-package com.deviceyun.yunos;
+package com.deviceyun.yunos.core;
 
 import java.io.InputStream;
 import java.util.Properties;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import com.deviceyun.yunos.api.device.Model;
 import com.deviceyun.yunos.api.driver.Driver;
@@ -19,9 +23,12 @@ import com.deviceyun.yunos.dao.DriverDao;
  * @author jackding
  * 
  */
+@Component
 public class DriverManagerImpl implements DriverManager {
 
+	@Value("${driver.path}")
 	private String driverPath = null;
+	@Autowired
 	private DriverDao driverDao = null;
 
 	public void setDriverPath(String driverPath) {

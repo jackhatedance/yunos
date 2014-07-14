@@ -79,9 +79,11 @@ public class DaoTests {
 	}
 
 	@Test
+	// @Ignore
 	public void testDriverDao() throws Exception {
+
 		assertNotNull(driverDao);
-		Model model = new Model("7eggs", " 	multifunction transmitter",
+		Model model = new Model("7eggs", "7eggs multifunction transmitter",
 				"IR RF433 transmitter");
 		List<Driver> drivers = driverDao.findDriver(model);
 		Assert.assertNotNull(drivers);

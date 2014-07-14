@@ -1,4 +1,4 @@
-package com.deviceyun.yunos;
+package com.deviceyun.yunos.core;
 
 import com.deviceyun.yunos.api.device.FunctionalDevice;
 import com.deviceyun.yunos.dao.mybatisMapper.DeviceMapper;

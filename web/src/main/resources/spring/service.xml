@@ -29,12 +29,12 @@
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="serviceOperation" />
 	</aop:config>
 
-
-	<bean id="driverManager" class="com.deviceyun.yunos.DriverManagerImpl">
+<context:component-scan base-package="com.deviceyun.yunos.service" />
+	<bean id="driverManager" class="com.deviceyun.yunos.core.DriverManagerImpl">
 		<property name="driverPath" value="${driver.path}" />
 	</bean>
 
-	<bean id="deviceManager" class="com.deviceyun.yunos.DeviceManagerImpl">
+	<bean id="deviceManager" class="com.deviceyun.yunos.core.DeviceManagerImpl">
 		<property name="deviceMapper" ref="deviceMapper" />
 	</bean>
 	
