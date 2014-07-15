@@ -1,6 +1,5 @@
 package com.deviceyun.yunos.api.device;
 
-import org.json.JSONObject;
 
 /**
  * it is function device.
@@ -13,5 +12,5 @@ public interface FunctionalDevice {
 
 	String getApiVersion();
 
-	JSONObject getConfigure();
+	Object getConfigure();
 }

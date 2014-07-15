@@ -4,6 +4,14 @@ import java.util.Map;
 
 public class HttpClientImpl implements HttpClient {
 
+	private String host;
+	private int port = 80;
+
+	public HttpClientImpl(String host, int port) {
+		this.host = host;
+		this.port = port;
+	}
+
 	@Override
 	public String get(Map<String, String> parameters) {
 
