@@ -6,7 +6,7 @@
 		<artifactId>yunos</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>api</artifactId>
+	<artifactId>SDK</artifactId>
 	<packaging>jar</packaging>
 	<name>api</name>
 

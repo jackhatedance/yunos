@@ -83,8 +83,8 @@ public class DaoTests {
 	public void testDriverDao() throws Exception {
 
 		assertNotNull(driverDao);
-		Model model = new Model("7eggs", "7eggs multifunction transmitter",
-				"IR RF433 transmitter");
+		Model model = new Model("7eggs", "Multifunction Transmitter",
+				"IR-RF433");
 		List<Driver> drivers = driverDao.findDriver(model);
 		Assert.assertNotNull(drivers);
 		Assert.assertFalse(drivers.isEmpty());

@@ -140,7 +140,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.deviceyun</groupId>
-			<artifactId>api</artifactId>
+			<artifactId>SDK</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 

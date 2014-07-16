@@ -49,6 +49,12 @@ public class Device {
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Driver driver;
 
+	@JoinColumn(name = "deviceApiId")
+	@ManyToOne(cascade = CascadeType.ALL)
+	private DeviceApi deviceApi;
+	@Column
+	private String deviceApiVersion;
+
 	@Column
 	private String userConfigure;
 	@Column
@@ -99,6 +105,22 @@ public class Device {
 
 	public void setFactoryConfigure(String factoryConfigure) {
 		this.factoryConfigure = factoryConfigure;
+	}
+
+	public DeviceApi getDeviceApi() {
+		return deviceApi;
+	}
+
+	public void setDeviceApi(DeviceApi deviceApi) {
+		this.deviceApi = deviceApi;
+	}
+
+	public String getDeviceApiVersion() {
+		return deviceApiVersion;
+	}
+
+	public void setDeviceApiVersion(String deviceApiVersion) {
+		this.deviceApiVersion = deviceApiVersion;
 	}
 
 	public String getUserConfigure() {

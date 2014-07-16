@@ -10,7 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -29,15 +28,11 @@ public class Driver {
 	@Column
 	private String sdkVersion;
 	@Column
+	private String className;
+	@Column
 	private String author;
 	@Column
 	private Date submitTime;
-
-	@JoinColumn(name = "deviceApiId")
-	@ManyToOne(cascade = CascadeType.ALL)
-	private DeviceApi deviceApi;
-	@Column
-	private String deviceApiVersion;
 
 	@ManyToMany(cascade = { CascadeType.ALL })
 	@JoinTable(name = "DriverSupportedModel", joinColumns = { @JoinColumn(name = "driverId") }, inverseJoinColumns = { @JoinColumn(name = "modelId") })
@@ -75,6 +70,14 @@ public class Driver {
 		this.sdkVersion = sdkVersion;
 	}
 
+	public String getClassName() {
+		return className;
+	}
+
+	public void setClassName(String className) {
+		this.className = className;
+	}
+
 	public String getAuthor() {
 		return author;
 	}
@@ -89,22 +92,6 @@ public class Driver {
 
 	public void setSubmitTime(Date submitTime) {
 		this.submitTime = submitTime;
-	}
-
-	public DeviceApi getDeviceApi() {
-		return deviceApi;
-	}
-
-	public void setDeviceApi(DeviceApi deviceApi) {
-		this.deviceApi = deviceApi;
-	}
-
-	public String getDeviceApiVersion() {
-		return deviceApiVersion;
-	}
-
-	public void setDeviceApiVersion(String deviceApiVersion) {
-		this.deviceApiVersion = deviceApiVersion;
 	}
 
 	public Set<Model> getSupportedModels() {

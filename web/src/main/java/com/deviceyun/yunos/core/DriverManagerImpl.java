@@ -1,17 +1,18 @@
 package com.deviceyun.yunos.core;
 
 import java.io.InputStream;
+import java.util.List;
 import java.util.Properties;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.deviceyun.yunos.api.device.Model;
 import com.deviceyun.yunos.api.driver.Driver;
 import com.deviceyun.yunos.dao.DriverDao;
+import com.deviceyun.yunos.domain.Device;
 
 /**
  * driver manager responsibilities:
@@ -26,20 +27,40 @@ import com.deviceyun.yunos.dao.DriverDao;
 @Component
 public class DriverManagerImpl implements DriverManager {
 
-	@Value("${driver.path}")
-	private String driverPath = null;
 	@Autowired
-	private DriverDao driverDao = null;
+	private DriverDao driverDao;
 
-	public void setDriverPath(String driverPath) {
-		this.driverPath = driverPath;
-	}
+	@Autowired
+	private DriverClassLoader driverClassLoader;
 
 	public void setDriverDao(DriverDao driverDao) {
 		this.driverDao = driverDao;
 	}
 
+	public DriverClassLoader getDriverClassLoader() {
+		return driverClassLoader;
+	}
+
+	public void setDriverClassLoader(DriverClassLoader driverClassLoader) {
+		this.driverClassLoader = driverClassLoader;
+	}
+
+	public DriverDao getDriverDao() {
+		return driverDao;
+	}
+
 	public Driver findDriver(Model model) {
+
+		List<com.deviceyun.yunos.domain.Driver> drivers = driverDao
+				.findDriver(model);
+		com.deviceyun.yunos.domain.Driver domainDriver = drivers.get(0);
+
+		Driver driver = driverClassLoader.loadDriver(domainDriver);
+		return driver;
+	}
+
+	@Override
+	public Driver loadDriver(Device device) {
 
 		return null;
 	}

@@ -20,11 +20,8 @@
 		</plugins>
 	</build>
 
-
-
-
 	<modules>
-		<module>api</module>
+		<module>SDK</module>
 		<module>web</module>
 		<module>driver</module>
 		<module>app</module>

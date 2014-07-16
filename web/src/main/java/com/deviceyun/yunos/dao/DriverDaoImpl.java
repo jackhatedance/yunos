@@ -22,7 +22,7 @@ public class DriverDaoImpl implements DriverDao {
 	public List<Driver> findDriver(Model model) {
 		Session session = sessionFactory.getCurrentSession();
 		Query query = session
-				.createQuery("from Driver as d inner join d.supportedModels as m where m.brand=:brand and m.product=:product and m.model=:model");
+				.createQuery("select d from Driver as d inner join d.supportedModels as m where m.brand=:brand and m.product=:product and m.model=:model");
 
 		query.setString("brand", model.getBrand());
 		query.setString("product", model.getProduct());

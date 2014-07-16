@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.deviceyun.yunos.api.device.FunctionalDevice;
 import com.deviceyun.yunos.api.driver.Driver;
-import com.deviceyun.yunos.dao.mybatisMapper.DeviceMapper;
+import com.deviceyun.yunos.dao.DeviceDao;
 import com.deviceyun.yunos.domain.Device;
 
 /**
@@ -24,7 +24,7 @@ import com.deviceyun.yunos.domain.Device;
 @Component
 public class DeviceManagerImpl implements DeviceManager {
 	@Autowired
-	private DeviceMapper deviceMapper;
+	private DeviceDao deviceDao;
 	@Autowired
 	private DriverManager driverManager;
 
@@ -35,11 +35,11 @@ public class DeviceManagerImpl implements DeviceManager {
 		this.driverManager = driverManager;
 	}
 
-	public void setDeviceMapper(DeviceMapper deviceMapper) {
-		this.deviceMapper = deviceMapper;
+	public void setDeviceDao(DeviceDao deviceDao) {
+		this.deviceDao = deviceDao;
 	}
 
-	public FunctionalDevice getDevice(String id) {
+	public FunctionalDevice getFunctionDeviceObject(String id) {
 
 		if (devices.containsKey(id))
 			return devices.get(id);
@@ -51,17 +51,14 @@ public class DeviceManagerImpl implements DeviceManager {
 	}
 
 	private FunctionalDevice loadDevice(String id) {
-		Device device = deviceMapper.getDevice(id);
+		Device deviceEntity = deviceDao.get(id);
 
-		Driver driver = driverManager.findDriver(device.getModel().getVO());
+		Driver driverObject = driverManager.loadDriver(deviceEntity);
 
-		FunctionalDevice functionDevice = driver.createDevice(device.getInfo());
+		FunctionalDevice functionDevice = driverObject
+				.createDevice(deviceEntity.getInfo());
 
 		return functionDevice;
-	}
-
-	private void saveDevice(String id) {
-
 	}
 
 }
