@@ -5,7 +5,14 @@ public enum ParameterType {
 	INTEGER {
 		@Override
 		public Object fromString(String str) {
-			return INTEGER.valueOf(str);
+			return Integer.valueOf(str);
+		}
+	},
+
+	LONG {
+		@Override
+		public Object fromString(String str) {
+			return Long.valueOf(str);
 		}
 	},
 	STRING {
@@ -20,6 +27,8 @@ public enum ParameterType {
 	public static ParameterType getType(Class clazz) {
 		if (clazz == Integer.class) {
 			return INTEGER;
+		} else if (clazz == Long.class) {
+			return LONG;
 		} else if (clazz == String.class) {
 			return STRING;
 		} else
