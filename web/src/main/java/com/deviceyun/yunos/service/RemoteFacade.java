@@ -12,6 +12,7 @@ import com.deviceyun.yunos.api.ApiUtils;
 import com.deviceyun.yunos.api.Parameter;
 import com.deviceyun.yunos.api.ParameterType;
 import com.deviceyun.yunos.api.device.FunctionalDevice;
+import com.deviceyun.yunos.core.DeviceManager;
 import com.deviceyun.yunos.core.DeviceManagerImpl;
 
 @Component
@@ -21,13 +22,13 @@ public class RemoteFacade {
 	public static final String OPERATION = "operation";
 
 	@Autowired
-	private DeviceManagerImpl deviceManager;
+	private DeviceManager deviceManager;
 
-	public DeviceManagerImpl getDeviceManager() {
+	public DeviceManager getDeviceManager() {
 		return deviceManager;
 	}
 
-	public void setDeviceManager(DeviceManagerImpl deviceManager) {
+	public void setDeviceManager(DeviceManager deviceManager) {
 		this.deviceManager = deviceManager;
 	}
 

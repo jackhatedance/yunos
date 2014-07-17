@@ -1,5 +1,6 @@
 package com.deviceyun.yunos.core;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class DeviceManagerImpl implements DeviceManager {
 	private DriverManager driverManager;
 
 	// memory cache
-	Map<String, FunctionalDevice> devices = null;
+	Map<String, FunctionalDevice> devices = new HashMap<String, FunctionalDevice>();
 
 	public void setDriverManager(DriverManagerImpl driverManager) {
 		this.driverManager = driverManager;
@@ -52,6 +53,7 @@ public class DeviceManagerImpl implements DeviceManager {
 
 	private FunctionalDevice loadDevice(String id) {
 		Device deviceEntity = deviceDao.get(id);
+		System.out.println("device name:"+deviceEntity.getName());
 
 		Driver driverObject = driverManager.loadDriver(deviceEntity);
 

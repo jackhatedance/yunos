@@ -23,7 +23,6 @@
 	<modules>
 		<module>SDK</module>
 		<module>web</module>
-		<module>driver</module>
 		<module>app</module>
 	</modules>
 </project>

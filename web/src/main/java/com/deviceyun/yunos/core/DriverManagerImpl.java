@@ -60,9 +60,10 @@ public class DriverManagerImpl implements DriverManager {
 	}
 
 	@Override
-	public Driver loadDriver(Device device) {
-
-		return null;
+	public Driver loadDriver(Device deviceEntity) {		
+		Driver driver = driverClassLoader.loadDriver(deviceEntity.getDriver());
+		return driver;
+		
 	}
 
 	public Properties readDriverInfoFromJarFile(String fileName) {

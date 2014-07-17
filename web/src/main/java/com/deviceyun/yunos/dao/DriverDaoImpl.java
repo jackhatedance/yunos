@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.deviceyun.yunos.api.device.Model;
+import com.deviceyun.yunos.domain.Device;
 import com.deviceyun.yunos.domain.Driver;
 
 @Component
@@ -17,6 +18,13 @@ public class DriverDaoImpl implements DriverDao {
 	@Autowired
 	private SessionFactory sessionFactory;
 
+	
+	@Override
+	public Driver get(String id) {
+		Session session = sessionFactory.getCurrentSession();
+		return (Driver) session.load(Driver.class, id);
+	}
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Driver> findDriver(Model model) {

@@ -107,6 +107,23 @@ public class Device {
 		this.factoryConfigure = factoryConfigure;
 	}
 
+	
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Driver getDriver() {
+		return driver;
+	}
+
+	public void setDriver(Driver driver) {
+		this.driver = driver;
+	}
+
 	public DeviceApi getDeviceApi() {
 		return deviceApi;
 	}
@@ -165,9 +182,16 @@ public class Device {
 
 	public DeviceInfo getInfo() {
 		// merge model configure and device configure
+		
 		String modelConfigStr = model.getConfigure();
 		String deviceConfigStr = this.factoryConfigure;
 
+		if(modelConfigStr==null)
+			modelConfigStr="{}";
+		
+		if(deviceConfigStr==null)
+			deviceConfigStr="{}";
+		
 		JSONObject modelConfig = new JSONObject(modelConfigStr);
 		JSONObject deviceConfig = new JSONObject(deviceConfigStr);
 

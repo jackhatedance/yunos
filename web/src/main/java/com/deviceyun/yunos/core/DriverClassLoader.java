@@ -55,9 +55,9 @@ public class DriverClassLoader {
 		if (jcl == null) {
 			jcl = new JarClassLoader();
 
-			// String driverFileName = String.format("%s-%s-%s.jar",
-			// driver.getAuthor(), driver.getName(), driver.getVersion());
-			String driverFileName = driver.getId() + ".jar";
+			 String driverFileName = String.format("%s/%s-%s.jar",
+			 driver.getAuthor(), driver.getName(), driver.getVersion());
+			//String driverFileName = driver.getId() + ".jar";
 
 			jcl.add(driverPath + driverFileName);
 
