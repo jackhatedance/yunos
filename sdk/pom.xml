@@ -6,7 +6,7 @@
 		<artifactId>yunos</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>SDK</artifactId>
+	<artifactId>sdk</artifactId>
 	<packaging>jar</packaging>
 	<name>api</name>
 
@@ -29,10 +29,13 @@
 			<artifactId>log4j</artifactId>
 			<version>1.2.14</version>
 		</dependency>
+
+
+
 		<dependency>
-			<groupId>org.json</groupId>
-			<artifactId>json</artifactId>
-			<version>20140107</version>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.2.4</version>
 		</dependency>
 
 	</dependencies>

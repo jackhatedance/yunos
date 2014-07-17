@@ -21,7 +21,7 @@
 	</build>
 
 	<modules>
-		<module>SDK</module>
+		<module>sdk</module>
 		<module>web</module>
 		<module>app</module>
 	</modules>

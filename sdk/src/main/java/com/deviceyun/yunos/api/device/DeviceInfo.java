@@ -1,6 +1,6 @@
 package com.deviceyun.yunos.api.device;
 
-import org.json.JSONObject;
+import com.google.gson.JsonObject;
 
 /**
  * device descriptions
@@ -16,9 +16,9 @@ public class DeviceInfo {
 	 * configures combined by device configure and model configure. device
 	 * configure has higher priority.
 	 */
-	private JSONObject configure;
+	private JsonObject configure;
 
-	public DeviceInfo(String id, Model model, JSONObject configure) {
+	public DeviceInfo(String id, Model model, JsonObject configure) {
 		this.id = id;
 		this.model = model;
 		this.configure = configure;
@@ -40,11 +40,11 @@ public class DeviceInfo {
 		this.model = model;
 	}
 
-	public JSONObject getConfigure() {
+	public JsonObject getConfigure() {
 		return configure;
 	}
 
-	public void setConfigure(JSONObject configure) {
+	public void setConfigure(JsonObject configure) {
 		this.configure = configure;
 	}
 

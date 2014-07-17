@@ -107,7 +107,6 @@ public class Device {
 		this.factoryConfigure = factoryConfigure;
 	}
 
-	
 	public User getUser() {
 		return user;
 	}
@@ -180,35 +179,56 @@ public class Device {
 		this.description = description;
 	}
 
-	public DeviceInfo getInfo() {
-		// merge model configure and device configure
-		
+	/**
+	 * override model configure by device factory configure then user configure
+	 * 
+	 * @return
+	 */
+	public JSONObject getFinalConfigure() {
+
 		String modelConfigStr = model.getConfigure();
 		String deviceConfigStr = this.factoryConfigure;
+		String userConfigStr = this.getUserConfigure();
 
-		if(modelConfigStr==null)
-			modelConfigStr="{}";
-		
-		if(deviceConfigStr==null)
-			deviceConfigStr="{}";
-		
+		if (modelConfigStr == null)
+			modelConfigStr = "{}";
+
+		if (deviceConfigStr == null)
+			deviceConfigStr = "{}";
+
+		if (userConfigStr == null)
+			userConfigStr = "{}";
+
 		JSONObject modelConfig = new JSONObject(modelConfigStr);
 		JSONObject deviceConfig = new JSONObject(deviceConfigStr);
+		JSONObject userConfig = new JSONObject(userConfigStr);
 
-		JSONObject newConfig = new JSONObject();
+		JSONObject computedConfig = new JSONObject();
 		for (Object objKey : modelConfig.keySet()) {
 			String key = (String) objKey;
 			Object value = modelConfig.get(key);
-			newConfig.put(key, value);
+			computedConfig.put(key, value);
 		}
 		// overwrite with device configure
 		for (Object objKey : deviceConfig.keySet()) {
 			String key = (String) objKey;
 			Object value = deviceConfig.get(key);
-			newConfig.put(key, value);
+			computedConfig.put(key, value);
 		}
 
-		return new DeviceInfo(id, model.getVO(), newConfig);
+		// overwrite with user configure
+		for (Object objKey : userConfig.keySet()) {
+			String key = (String) objKey;
+			Object value = userConfig.get(key);
+			computedConfig.put(key, value);
+		}
+
+		return computedConfig;
+	}
+
+	public DeviceInfo getInfo() {
+
+		return new DeviceInfo(id, model.getVO(), getFinalConfigure());
 
 	}
 }

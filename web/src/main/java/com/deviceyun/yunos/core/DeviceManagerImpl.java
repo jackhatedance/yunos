@@ -53,7 +53,7 @@ public class DeviceManagerImpl implements DeviceManager {
 
 	private FunctionalDevice loadDevice(String id) {
 		Device deviceEntity = deviceDao.get(id);
-		System.out.println("device name:"+deviceEntity.getName());
+		// System.out.println("device name:"+deviceEntity.getName());
 
 		Driver driverObject = driverManager.loadDriver(deviceEntity);
 
@@ -62,5 +62,4 @@ public class DeviceManagerImpl implements DeviceManager {
 
 		return functionDevice;
 	}
-
 }

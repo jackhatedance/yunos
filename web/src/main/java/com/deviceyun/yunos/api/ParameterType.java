@@ -25,9 +25,9 @@ public enum ParameterType {
 	public abstract Object fromString(String str);
 
 	public static ParameterType getType(Class clazz) {
-		if (clazz == Integer.class) {
+		if (clazz == Integer.class || clazz == int.class) {
 			return INTEGER;
-		} else if (clazz == Long.class) {
+		} else if (clazz == Long.class || clazz == long.class) {
 			return LONG;
 		} else if (clazz == String.class) {
 			return STRING;

@@ -40,7 +40,15 @@ public class Model {
 	@ManyToMany(cascade = { CascadeType.ALL })
 	@JoinTable(name = "compatible_models", joinColumns = { @JoinColumn(name = "modelId") }, inverseJoinColumns = { @JoinColumn(name = "compatibleModelId") })
 	private Set<Model> compatibleModels = new HashSet<Model>();
+	/**
+	 * it is a good habit to create a sample configure and save beside the
+	 * actual configure. sometime we may want to take a look what it should
+	 * contains.
+	 */
+	@Column
+	private String sampleConfigure;
 
+	@Column
 	private String configure;
 
 	public String getId() {
@@ -81,6 +89,14 @@ public class Model {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getSampleConfigure() {
+		return sampleConfigure;
+	}
+
+	public void setSampleConfigure(String sampleConfigure) {
+		this.sampleConfigure = sampleConfigure;
 	}
 
 	public String getConfigure() {
