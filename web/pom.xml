@@ -145,7 +145,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.deviceyun</groupId>
-			<artifactId>SDK</artifactId>
+			<artifactId>sdk</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
