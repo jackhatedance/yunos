@@ -8,9 +8,8 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.deviceyun.yunos.api.device.Model;
-import com.deviceyun.yunos.domain.Device;
 import com.deviceyun.yunos.domain.Driver;
+import com.deviceyun.yunos.domain.Model;
 
 @Component
 public class DriverDaoImpl implements DriverDao {
@@ -27,7 +26,7 @@ public class DriverDaoImpl implements DriverDao {
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Driver> findDriver(Model model) {
+	public List<Driver> findDriver(com.deviceyun.yunos.device.Model model) {
 		Session session = sessionFactory.getCurrentSession();
 		Query query = session
 				.createQuery("select d from Driver as d inner join d.supportedModels as m where m.brand=:brand and m.product=:product and m.model=:model");

@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.deviceyun.yunos.api.device.Model;
+import com.deviceyun.yunos.device.Model;
 import com.deviceyun.yunos.dao.DriverDao;
 import com.deviceyun.yunos.dao.mybatisMapper.DeviceMapper;
 import com.deviceyun.yunos.dao.mybatisMapper.UserMapper;

@@ -1,10 +1,10 @@
-package com.deviceyun.yunos.api.driver;
+package com.deviceyun.yunos.driver;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.deviceyun.yunos.api.device.DeviceInfo;
-import com.deviceyun.yunos.api.device.Model;
+import com.deviceyun.yunos.device.DeviceInfo;
+import com.deviceyun.yunos.device.Model;
 
 public abstract class AbstractDriver implements Driver {
 

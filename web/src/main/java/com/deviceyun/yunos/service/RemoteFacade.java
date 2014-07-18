@@ -11,9 +11,8 @@ import org.springframework.stereotype.Component;
 import com.deviceyun.yunos.api.ApiUtils;
 import com.deviceyun.yunos.api.Parameter;
 import com.deviceyun.yunos.api.ParameterType;
-import com.deviceyun.yunos.api.device.FunctionalDevice;
 import com.deviceyun.yunos.core.DeviceManager;
-import com.deviceyun.yunos.core.DeviceManagerImpl;
+import com.deviceyun.yunos.device.FunctionalDevice;
 
 @Component
 public class RemoteFacade {

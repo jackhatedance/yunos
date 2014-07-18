@@ -1,4 +1,4 @@
-package com.deviceyun.yunos.device;
+package com.deviceyun.yunos.device.utils;
 
 import java.util.Map;
 

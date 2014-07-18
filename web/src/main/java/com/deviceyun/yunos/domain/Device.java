@@ -1,5 +1,7 @@
 package com.deviceyun.yunos.domain;
 
+import java.util.Map.Entry;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -9,9 +11,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.json.JSONObject;
 
-import com.deviceyun.yunos.api.device.DeviceInfo;
+import com.deviceyun.yunos.device.DeviceInfo;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 /**
  * physical device
@@ -184,7 +188,7 @@ public class Device {
 	 * 
 	 * @return
 	 */
-	public JSONObject getFinalConfigure() {
+	public JsonObject getFinalConfigure() {
 
 		String modelConfigStr = model.getConfigure();
 		String deviceConfigStr = this.factoryConfigure;
@@ -199,28 +203,26 @@ public class Device {
 		if (userConfigStr == null)
 			userConfigStr = "{}";
 
-		JSONObject modelConfig = new JSONObject(modelConfigStr);
-		JSONObject deviceConfig = new JSONObject(deviceConfigStr);
-		JSONObject userConfig = new JSONObject(userConfigStr);
+		
+		JsonParser jsonParser = new JsonParser();
+		JsonObject modelConfig = jsonParser.parse(modelConfigStr).getAsJsonObject();
+		JsonObject deviceConfig = jsonParser.parse(deviceConfigStr).getAsJsonObject();
+		JsonObject userConfig = jsonParser.parse(userConfigStr).getAsJsonObject();
+		
+		 
 
-		JSONObject computedConfig = new JSONObject();
-		for (Object objKey : modelConfig.keySet()) {
-			String key = (String) objKey;
-			Object value = modelConfig.get(key);
-			computedConfig.put(key, value);
+		JsonObject computedConfig = new JsonObject();
+		for (Entry<String,JsonElement> entry : modelConfig.entrySet()) {			
+			computedConfig.add(entry.getKey(), entry.getValue());
 		}
 		// overwrite with device configure
-		for (Object objKey : deviceConfig.keySet()) {
-			String key = (String) objKey;
-			Object value = deviceConfig.get(key);
-			computedConfig.put(key, value);
+		for (Entry<String,JsonElement> entry : deviceConfig.entrySet()) {
+			computedConfig.add(entry.getKey(), entry.getValue());
 		}
 
 		// overwrite with user configure
-		for (Object objKey : userConfig.keySet()) {
-			String key = (String) objKey;
-			Object value = userConfig.get(key);
-			computedConfig.put(key, value);
+		for (Entry<String,JsonElement> entry : userConfig.entrySet()) {		
+			computedConfig.add(entry.getKey(), entry.getValue());
 		}
 
 		return computedConfig;

@@ -1,6 +1,6 @@
-package com.deviceyun.yunos.api.device.tv;
+package com.deviceyun.yunos.deviceApi.tv;
 
-import com.deviceyun.yunos.api.device.FunctionalDevice;
+import com.deviceyun.yunos.device.FunctionalDevice;
 
 public interface SetTopBox extends FunctionalDevice {
 	// =========manufacturer specification keys begin===================

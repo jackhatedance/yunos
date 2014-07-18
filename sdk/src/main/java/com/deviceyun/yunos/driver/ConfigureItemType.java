@@ -1,4 +1,4 @@
-package com.deviceyun.yunos.api.driver;
+package com.deviceyun.yunos.driver;
 
 public enum ConfigureItemType {
 

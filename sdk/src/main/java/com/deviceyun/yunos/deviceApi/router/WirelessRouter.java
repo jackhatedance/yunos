@@ -1,8 +1,8 @@
-package com.deviceyun.yunos.api.device.router;
+package com.deviceyun.yunos.deviceApi.router;
 
 import java.util.List;
 
-import com.deviceyun.yunos.api.device.FunctionalDevice;
+import com.deviceyun.yunos.device.FunctionalDevice;
 
 public interface WirelessRouter extends FunctionalDevice {
 

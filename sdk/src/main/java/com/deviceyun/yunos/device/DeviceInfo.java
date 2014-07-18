@@ -1,4 +1,4 @@
-package com.deviceyun.yunos.api.device;
+package com.deviceyun.yunos.device;
 
 import com.google.gson.JsonObject;
 

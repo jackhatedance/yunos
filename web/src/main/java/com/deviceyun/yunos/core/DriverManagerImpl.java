@@ -9,10 +9,10 @@ import java.util.jar.JarFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.deviceyun.yunos.api.device.Model;
-import com.deviceyun.yunos.api.driver.Driver;
 import com.deviceyun.yunos.dao.DriverDao;
+import com.deviceyun.yunos.device.Model;
 import com.deviceyun.yunos.domain.Device;
+import com.deviceyun.yunos.driver.Driver;
 
 /**
  * driver manager responsibilities:

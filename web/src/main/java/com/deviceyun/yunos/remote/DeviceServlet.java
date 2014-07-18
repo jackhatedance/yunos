@@ -44,8 +44,8 @@ public class DeviceServlet extends HttpServlet {
 		Object result = remoteFacade.urlApi(parameters);
 
 		PrintWriter out = response.getWriter();
-		out.println("<html><body><h1>Result</h1>" + "<p>" + result.toString()
-				+ "</p>" + "</body></html>");
+		out.println("<html><body><h1>Result</h1>" + "<p>"
+				+ String.format("%s", result) + "</p>" + "</body></html>");
 	}
 
 	/**

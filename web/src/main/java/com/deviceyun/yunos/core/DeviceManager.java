@@ -1,6 +1,8 @@
 package com.deviceyun.yunos.core;
 
-import com.deviceyun.yunos.api.device.FunctionalDevice;
+import com.deviceyun.yunos.device.FunctionalDevice;
+
+
 
 public interface DeviceManager {
 

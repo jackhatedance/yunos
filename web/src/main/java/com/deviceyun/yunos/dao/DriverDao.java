@@ -2,8 +2,7 @@ package com.deviceyun.yunos.dao;
 
 import java.util.List;
 
-import com.deviceyun.yunos.api.device.Model;
-import com.deviceyun.yunos.domain.Device;
+import com.deviceyun.yunos.device.Model;
 import com.deviceyun.yunos.domain.Driver;
 
 public interface DriverDao {

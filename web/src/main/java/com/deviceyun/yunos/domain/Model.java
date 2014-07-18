@@ -115,8 +115,8 @@ public class Model {
 		this.compatibleModels = compatibleModels;
 	}
 
-	public com.deviceyun.yunos.api.device.Model getVO() {
-		com.deviceyun.yunos.api.device.Model m = new com.deviceyun.yunos.api.device.Model(
+	public com.deviceyun.yunos.device.Model getVO() {
+		com.deviceyun.yunos.device.Model m = new com.deviceyun.yunos.device.Model(
 				brand, product, model);
 		return m;
 	}

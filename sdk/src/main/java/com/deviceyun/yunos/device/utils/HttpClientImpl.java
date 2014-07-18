@@ -1,4 +1,4 @@
-package com.deviceyun.yunos.device;
+package com.deviceyun.yunos.device.utils;
 
 import java.util.Map;
 
@@ -21,7 +21,7 @@ public class HttpClientImpl implements HttpClient {
 			System.out.print(name + "=" + value);
 			System.out.print("&");
 		}
-
+		System.out.println(".");
 		return "OK";
 	}
 

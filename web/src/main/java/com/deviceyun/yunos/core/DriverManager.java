@@ -1,7 +1,7 @@
 package com.deviceyun.yunos.core;
 
-import com.deviceyun.yunos.api.device.Model;
-import com.deviceyun.yunos.api.driver.Driver;
+import com.deviceyun.yunos.device.Model;
+import com.deviceyun.yunos.driver.Driver;
 import com.deviceyun.yunos.domain.Device;
 
 public interface DriverManager {

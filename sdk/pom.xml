@@ -8,7 +8,7 @@
 	</parent>
 	<artifactId>sdk</artifactId>
 	<packaging>jar</packaging>
-	<name>api</name>
+	<name>sdk</name>
 
 	<build>
 		<pluginManagement>

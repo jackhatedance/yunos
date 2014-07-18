@@ -14,8 +14,6 @@ import org.xeustechnologies.jcl.ProxyClassLoader;
 import org.xeustechnologies.jcl.proxy.CglibProxyProvider;
 import org.xeustechnologies.jcl.proxy.ProxyProviderFactory;
 
-import com.deviceyun.yunos.api.driver.Driver;
-
 /**
  * load device driver from user uploaded jar file. we allow multiple versions
  * for same driver ID, so class names could conflict if they are loaded by
@@ -73,7 +71,7 @@ public class DriverClassLoader {
 		this.driverPath = driverPath;
 	}
 
-	public Driver loadDriver(com.deviceyun.yunos.domain.Driver driver) {
+	public com.deviceyun.yunos.driver.Driver loadDriver(com.deviceyun.yunos.domain.Driver driver) {
 
 		JarClassLoader jcl = classLoaderCache.get(driver.getId());
 		if (jcl == null) {
@@ -91,6 +89,6 @@ public class DriverClassLoader {
 
 		}
 
-		return (Driver) factory.create(jcl, driver.getClassName());
+		return (com.deviceyun.yunos.driver.Driver) factory.create(jcl, driver.getClassName());
 	}
 }

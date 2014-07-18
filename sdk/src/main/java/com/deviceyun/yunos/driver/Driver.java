@@ -1,10 +1,10 @@
-package com.deviceyun.yunos.api.driver;
+package com.deviceyun.yunos.driver;
 
 import java.util.List;
 
-import com.deviceyun.yunos.api.device.DeviceInfo;
-import com.deviceyun.yunos.api.device.FunctionalDevice;
-import com.deviceyun.yunos.api.device.Model;
+import com.deviceyun.yunos.device.DeviceInfo;
+import com.deviceyun.yunos.device.FunctionalDevice;
+import com.deviceyun.yunos.device.Model;
 
 /**
  * a driver submit by developers.

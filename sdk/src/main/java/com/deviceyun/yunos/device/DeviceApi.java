@@ -1,4 +1,4 @@
-package com.deviceyun.yunos.api.device;
+package com.deviceyun.yunos.device;
 
 /**
  * we can define API for a certain type of product. usually we define and

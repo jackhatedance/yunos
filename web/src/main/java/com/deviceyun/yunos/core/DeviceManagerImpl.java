@@ -6,10 +6,10 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.deviceyun.yunos.api.device.FunctionalDevice;
-import com.deviceyun.yunos.api.driver.Driver;
 import com.deviceyun.yunos.dao.DeviceDao;
+import com.deviceyun.yunos.device.FunctionalDevice;
 import com.deviceyun.yunos.domain.Device;
+import com.deviceyun.yunos.driver.Driver;
 
 /**
  * device manager responsibilities:

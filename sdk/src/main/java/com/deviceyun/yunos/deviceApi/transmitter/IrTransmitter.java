@@ -1,6 +1,6 @@
-package com.deviceyun.yunos.api.device.transmitter;
+package com.deviceyun.yunos.deviceApi.transmitter;
 
-import com.deviceyun.yunos.api.device.FunctionalDevice;
+import com.deviceyun.yunos.device.FunctionalDevice;
 
 public interface IrTransmitter extends FunctionalDevice {
 	static final String TYPE_SHARP = "Sharp";
