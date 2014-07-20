@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>com.deviceyun</groupId>
 		<artifactId>yunos</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>0.1</version>
 	</parent>
 	<artifactId>web</artifactId>
 	<packaging>war</packaging>
@@ -146,7 +146,12 @@
 		<dependency>
 			<groupId>com.deviceyun</groupId>
 			<artifactId>sdk</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.deviceyun</groupId>
+			<artifactId>device-api</artifactId>
+			<version>0.1</version>
 		</dependency>
 
 

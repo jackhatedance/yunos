@@ -15,13 +15,19 @@ public class HttpClientImpl implements HttpClient {
 	@Override
 	public String get(Map<String, String> parameters) {
 
-		System.out.print("HttpClientImpl:");
+		System.out.print(String.format("GET http://%s:%d/", host, port));
+
+		int i = 0;
 		for (String name : parameters.keySet()) {
+			if (i > 0)
+				System.out.print("&");
+
 			String value = parameters.get(name);
 			System.out.print(name + "=" + value);
-			System.out.print("&");
+
+			i++;
 		}
-		System.out.println(".");
+		System.out.println("");
 		return "OK";
 	}
 
