@@ -11,9 +11,4 @@ public interface FunctionalDevice {
 
 	String getApiVersion();
 
-	Object getConfigure();
-
-	void setConfigure(Object configure);
-
-	void init();
 }
