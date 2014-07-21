@@ -12,18 +12,24 @@ import com.deviceyun.yunos.api.ApiUtils;
 import com.deviceyun.yunos.api.Parameter;
 import com.deviceyun.yunos.api.ParameterType;
 import com.deviceyun.yunos.core.DeviceManager;
+import com.deviceyun.yunos.dao.ApplicationDao;
 import com.deviceyun.yunos.device.FunctionalDevice;
 import com.deviceyun.yunos.device.PhysicalDevice;
+import com.deviceyun.yunos.domain.Application;
 
 @Component
 public class RemoteFacade {
-	public static final String API_KEY = "apiKey";
+	public static final String APP_ID = "appId";
+	public static final String APP_KEY = "appKey";
 	public static final String DEVICE_ID = "deviceId";
 	public static final String FUNCTIONAL_DEVICE_INDEX = "fdi";
 	public static final String OPERATION = "operation";
 
 	@Autowired
 	private DeviceManager deviceManager;
+
+	@Autowired
+	private ApplicationDao applicationDao;
 
 	public DeviceManager getDeviceManager() {
 		return deviceManager;
@@ -34,7 +40,13 @@ public class RemoteFacade {
 	}
 
 	public Object urlApi(Map<String, String> parameters) {
-		// String apiKey = parameters.get(API_KEY);
+
+		String appId = parameters.get(APP_ID);
+		String appKey = parameters.get(APP_KEY);
+
+		Application app = applicationDao.get(appId);
+		if (app == null)
+			return "error:appId invalid";
 
 		String deviceId = parameters.get(DEVICE_ID);
 		int functionalDeviceIndex = Integer.valueOf(parameters

@@ -5,17 +5,17 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.deviceyun.yunos.domain.Device;
+import com.deviceyun.yunos.domain.Application;
 
 @Component
-public class DeviceDaoImpl implements DeviceDao {
+public class ApplicationDaoImpl implements ApplicationDao {
 
 	@Autowired
 	private SessionFactory sessionFactory;
 
 	@Override
-	public Device get(String id) {
+	public Application get(String id) {
 		Session session = sessionFactory.getCurrentSession();
-		return (Device) session.get(Device.class, id);
+		return (Application) session.get(Application.class, id);
 	}
 }
