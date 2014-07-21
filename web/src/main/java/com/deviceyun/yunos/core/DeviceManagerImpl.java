@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.deviceyun.yunos.dao.DeviceDao;
 import com.deviceyun.yunos.device.FunctionalDevice;
+import com.deviceyun.yunos.device.PhysicalDevice;
 import com.deviceyun.yunos.domain.Device;
 import com.deviceyun.yunos.driver.Driver;
 
@@ -30,7 +31,7 @@ public class DeviceManagerImpl implements DeviceManager {
 	private DriverManager driverManager;
 
 	// memory cache
-	Map<String, FunctionalDevice> devices = new HashMap<String, FunctionalDevice>();
+	Map<String, PhysicalDevice> devices = new HashMap<String, PhysicalDevice>();
 
 	public void setDriverManager(DriverManagerImpl driverManager) {
 		this.driverManager = driverManager;
@@ -40,26 +41,26 @@ public class DeviceManagerImpl implements DeviceManager {
 		this.deviceDao = deviceDao;
 	}
 
-	public FunctionalDevice getFunctionDeviceObject(String id) {
+	public PhysicalDevice getPhysicalDeviceObject(String id) {
 
 		if (devices.containsKey(id))
 			return devices.get(id);
 		else {
-			FunctionalDevice device = loadDevice(id);
+			PhysicalDevice device = loadDevice(id);
 			return device;
 		}
 
 	}
 
-	private FunctionalDevice loadDevice(String id) {
+	private PhysicalDevice loadDevice(String id) {
 		Device deviceEntity = deviceDao.get(id);
 		// System.out.println("device name:"+deviceEntity.getName());
 
 		Driver driverObject = driverManager.loadDriver(deviceEntity);
 
-		FunctionalDevice functionDevice = driverObject
+		PhysicalDevice physicalDevice = driverObject
 				.createDevice(deviceEntity.getInfo());
 
-		return functionDevice;
+		return physicalDevice;
 	}
 }

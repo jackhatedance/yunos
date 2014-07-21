@@ -1,6 +1,6 @@
 package com.deviceyun.yunos.core;
 
-import com.deviceyun.yunos.device.FunctionalDevice;
+import com.deviceyun.yunos.device.PhysicalDevice;
 
 
 
@@ -12,5 +12,5 @@ public interface DeviceManager {
 	 * @param id
 	 * @return
 	 */
-	FunctionalDevice getFunctionDeviceObject(String id);
+	PhysicalDevice getPhysicalDeviceObject(String id);
 }

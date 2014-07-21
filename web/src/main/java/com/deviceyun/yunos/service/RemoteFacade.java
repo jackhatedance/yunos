@@ -13,11 +13,13 @@ import com.deviceyun.yunos.api.Parameter;
 import com.deviceyun.yunos.api.ParameterType;
 import com.deviceyun.yunos.core.DeviceManager;
 import com.deviceyun.yunos.device.FunctionalDevice;
+import com.deviceyun.yunos.device.PhysicalDevice;
 
 @Component
 public class RemoteFacade {
 	public static final String API_KEY = "apiKey";
 	public static final String DEVICE_ID = "deviceId";
+	public static final String FUNCTIONAL_DEVICE_INDEX = "functionalDeviceIndex";
 	public static final String OPERATION = "operation";
 
 	@Autowired
@@ -35,13 +37,16 @@ public class RemoteFacade {
 		// String apiKey = parameters.get(API_KEY);
 
 		String deviceId = parameters.get(DEVICE_ID);
+		int functionalDeviceIndex = Integer.valueOf( parameters.get(FUNCTIONAL_DEVICE_INDEX));		
 		String operation = parameters.get(OPERATION);
 
-		FunctionalDevice device = deviceManager
-				.getFunctionDeviceObject(deviceId);
+		PhysicalDevice physicalDevice = deviceManager
+				.getPhysicalDeviceObject(deviceId);
+		
+		FunctionalDevice functionalDevice = physicalDevice.getFunctionDevice(functionalDeviceIndex);
 		// perform operation on device
 		// Object ret = device.invoke(operation, null);
-		Method method = ApiUtils.getMethod(device, operation);
+		Method method = ApiUtils.getMethod(functionalDevice, operation);
 
 		List<Parameter> paramList = ApiUtils.getParameterInfo(method);
 
@@ -59,7 +64,7 @@ public class RemoteFacade {
 		}
 
 		try {
-			return method.invoke(device, parameterObjects);
+			return method.invoke(functionalDevice, parameterObjects);
 		} catch (IllegalAccessException | IllegalArgumentException
 				| InvocationTargetException e) {
 

@@ -5,6 +5,7 @@ import java.util.List;
 import com.deviceyun.yunos.device.DeviceInfo;
 import com.deviceyun.yunos.device.FunctionalDevice;
 import com.deviceyun.yunos.device.Model;
+import com.deviceyun.yunos.device.PhysicalDevice;
 
 /**
  * a driver submit by developers.
@@ -61,10 +62,10 @@ public interface Driver {
 	void uninstall(DeviceInfo info);
 
 	/**
-	 * create functional device object.
+	 * create device object.
 	 * 
 	 * @param info
 	 * @return
 	 */
-	FunctionalDevice createDevice(DeviceInfo info);
+	PhysicalDevice createDevice(DeviceInfo info);
 }
