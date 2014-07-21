@@ -7,6 +7,7 @@ package com.deviceyun.yunos.device;
  * 
  */
 public interface FunctionalDevice {
+
 	DeviceApi getApi();
 
 	String getApiVersion();

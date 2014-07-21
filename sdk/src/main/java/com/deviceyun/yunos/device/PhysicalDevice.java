@@ -16,7 +16,7 @@ public interface PhysicalDevice {
 
 	void init();
 
-
 	List<FunctionalDevice> getFunctionDevices();
+
 	FunctionalDevice getFunctionDevice(int index);
 }

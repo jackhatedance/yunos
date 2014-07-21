@@ -19,7 +19,7 @@ import com.deviceyun.yunos.device.PhysicalDevice;
 public class RemoteFacade {
 	public static final String API_KEY = "apiKey";
 	public static final String DEVICE_ID = "deviceId";
-	public static final String FUNCTIONAL_DEVICE_INDEX = "functionalDeviceIndex";
+	public static final String FUNCTIONAL_DEVICE_INDEX = "fdi";
 	public static final String OPERATION = "operation";
 
 	@Autowired
@@ -37,13 +37,15 @@ public class RemoteFacade {
 		// String apiKey = parameters.get(API_KEY);
 
 		String deviceId = parameters.get(DEVICE_ID);
-		int functionalDeviceIndex = Integer.valueOf( parameters.get(FUNCTIONAL_DEVICE_INDEX));		
+		int functionalDeviceIndex = Integer.valueOf(parameters
+				.get(FUNCTIONAL_DEVICE_INDEX));
 		String operation = parameters.get(OPERATION);
 
 		PhysicalDevice physicalDevice = deviceManager
 				.getPhysicalDeviceObject(deviceId);
-		
-		FunctionalDevice functionalDevice = physicalDevice.getFunctionDevice(functionalDeviceIndex);
+
+		FunctionalDevice functionalDevice = physicalDevice
+				.getFunctionDevice(functionalDeviceIndex);
 		// perform operation on device
 		// Object ret = device.invoke(operation, null);
 		Method method = ApiUtils.getMethod(functionalDevice, operation);
