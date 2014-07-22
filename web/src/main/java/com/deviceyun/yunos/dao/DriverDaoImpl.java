@@ -4,17 +4,12 @@ import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.deviceyun.yunos.domain.Driver;
 
 @Component
-public class DriverDaoImpl implements DriverDao {
-
-	@Autowired
-	private SessionFactory sessionFactory;
+public class DriverDaoImpl extends AbstractDao implements DriverDao {
 
 	@Override
 	public Driver get(String id) {

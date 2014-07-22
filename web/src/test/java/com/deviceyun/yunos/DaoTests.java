@@ -15,10 +15,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.deviceyun.yunos.device.Model;
+import com.deviceyun.yunos.dao.DeviceDao;
 import com.deviceyun.yunos.dao.DriverDao;
 import com.deviceyun.yunos.dao.mybatisMapper.DeviceMapper;
 import com.deviceyun.yunos.dao.mybatisMapper.UserMapper;
+import com.deviceyun.yunos.device.Model;
 import com.deviceyun.yunos.domain.Device;
 import com.deviceyun.yunos.domain.Driver;
 import com.deviceyun.yunos.domain.User;
@@ -39,6 +40,9 @@ public class DaoTests {
 
 	@Autowired
 	private DriverDao driverDao;
+
+	@Autowired
+	private DeviceDao deviceDao;
 
 	@Test
 	public void testMybatisMappers() throws Exception {
@@ -79,7 +83,6 @@ public class DaoTests {
 	}
 
 	@Test
-	// @Ignore
 	public void testDriverDao() throws Exception {
 
 		assertNotNull(driverDao);

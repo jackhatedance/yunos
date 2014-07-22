@@ -5,14 +5,15 @@
 <web-app>
 	<display-name>Archetype Created Web Application</display-name>
 
+	
 	<servlet>
-		<servlet-name>DeviceServlet</servlet-name>
-		<servlet-class>com.deviceyun.yunos.remote.DeviceServlet</servlet-class>
+		<servlet-name>spring</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
 	</servlet>
-
 	<servlet-mapping>
-		<servlet-name>DeviceServlet</servlet-name>
-		<url-pattern>/device.do</url-pattern>
+		<servlet-name>spring</servlet-name>
+		<url-pattern>/rpc/*</url-pattern>
 	</servlet-mapping>
 
 	<context-param>

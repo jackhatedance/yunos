@@ -1,21 +1,29 @@
 package com.deviceyun.yunos.dao;
 
+import java.util.List;
+
+import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.deviceyun.yunos.domain.Device;
 
 @Component
-public class DeviceDaoImpl implements DeviceDao {
-
-	@Autowired
-	private SessionFactory sessionFactory;
+public class DeviceDaoImpl extends AbstractDao implements DeviceDao {
 
 	@Override
 	public Device get(String id) {
 		Session session = sessionFactory.getCurrentSession();
 		return (Device) session.get(Device.class, id);
+	}
+
+	@Override
+	public List<Device> listByUser(String userId) {
+
+		Query q = getCurrentSession().createQuery(
+				"select d from Device as d where d.user.id=?");
+		q.setString(0, userId);
+		return q.list();
+
 	}
 }

@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.deviceyun.yunos.dao.DeviceDao;
-import com.deviceyun.yunos.device.FunctionalDevice;
 import com.deviceyun.yunos.device.PhysicalDevice;
 import com.deviceyun.yunos.domain.Device;
 import com.deviceyun.yunos.driver.Driver;
@@ -23,7 +22,7 @@ import com.deviceyun.yunos.driver.Driver;
  * @author jackding
  * 
  */
-@Component
+@Component("deviceManager")
 public class DeviceManagerImpl implements DeviceManager {
 	@Autowired
 	private DeviceDao deviceDao;
@@ -58,8 +57,8 @@ public class DeviceManagerImpl implements DeviceManager {
 
 		Driver driverObject = driverManager.loadDriver(deviceEntity);
 
-		PhysicalDevice physicalDevice = driverObject
-				.createDevice(deviceEntity.getInfo());
+		PhysicalDevice physicalDevice = driverObject.createDevice(deviceEntity
+				.getInfo());
 
 		return physicalDevice;
 	}

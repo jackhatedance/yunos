@@ -2,6 +2,7 @@ package com.deviceyun.yunos.service;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +17,7 @@ import com.deviceyun.yunos.dao.ApplicationDao;
 import com.deviceyun.yunos.device.FunctionalDevice;
 import com.deviceyun.yunos.device.PhysicalDevice;
 import com.deviceyun.yunos.domain.Application;
+import com.deviceyun.yunos.remote.vo.Device;
 
 @Component
 public class RemoteFacade {
@@ -27,6 +29,8 @@ public class RemoteFacade {
 
 	@Autowired
 	private DeviceManager deviceManager;
+	@Autowired
+	private DeviceService deviceService;
 
 	@Autowired
 	private ApplicationDao applicationDao;
@@ -86,6 +90,18 @@ public class RemoteFacade {
 			throw new RuntimeException(e);
 		}
 
+	}
+
+	public List<Device> getDevicesByUser(String userId) {
+		List<com.deviceyun.yunos.domain.Device> domainDeviceList = deviceService
+				.listByUserId(userId);
+		List<Device> remoteDeviceList = new ArrayList<Device>();
+
+		for (com.deviceyun.yunos.domain.Device d : domainDeviceList) {
+			Device rd = new Device(d);
+			remoteDeviceList.add(rd);
+		}
+		return remoteDeviceList;
 	}
 
 }

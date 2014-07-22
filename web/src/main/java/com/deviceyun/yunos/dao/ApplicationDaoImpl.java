@@ -1,17 +1,12 @@
 package com.deviceyun.yunos.dao;
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.deviceyun.yunos.domain.Application;
 
 @Component
-public class ApplicationDaoImpl implements ApplicationDao {
-
-	@Autowired
-	private SessionFactory sessionFactory;
+public class ApplicationDaoImpl extends AbstractDao implements ApplicationDao {
 
 	@Override
 	public Application get(String id) {

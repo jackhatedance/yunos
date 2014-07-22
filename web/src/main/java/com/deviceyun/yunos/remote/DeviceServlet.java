@@ -16,6 +16,12 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.deviceyun.yunos.service.RemoteFacade;
 
+/**
+ * device operation
+ * 
+ * @author jack
+ * 
+ */
 public class DeviceServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;

@@ -1,5 +1,7 @@
 package com.deviceyun.yunos.dao;
 
+import java.util.List;
+
 import com.deviceyun.yunos.domain.Device;
 
 public interface DeviceDao {
@@ -11,4 +13,6 @@ public interface DeviceDao {
 	 * @return
 	 */
 	Device get(String id);
+
+	List<Device> listByUser(String userId);
 }

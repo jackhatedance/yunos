@@ -53,12 +53,6 @@ public class Device {
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Driver driver;
 
-	@JoinColumn(name = "deviceApiId")
-	@ManyToOne(cascade = CascadeType.ALL)
-	private DeviceApi deviceApi;
-	@Column
-	private String deviceApiVersion;
-
 	@Column
 	private String userConfigure;
 	@Column
@@ -127,22 +121,6 @@ public class Device {
 		this.driver = driver;
 	}
 
-	public DeviceApi getDeviceApi() {
-		return deviceApi;
-	}
-
-	public void setDeviceApi(DeviceApi deviceApi) {
-		this.deviceApi = deviceApi;
-	}
-
-	public String getDeviceApiVersion() {
-		return deviceApiVersion;
-	}
-
-	public void setDeviceApiVersion(String deviceApiVersion) {
-		this.deviceApiVersion = deviceApiVersion;
-	}
-
 	public String getUserConfigure() {
 		return userConfigure;
 	}
@@ -203,25 +181,25 @@ public class Device {
 		if (userConfigStr == null)
 			userConfigStr = "{}";
 
-		
 		JsonParser jsonParser = new JsonParser();
-		JsonObject modelConfig = jsonParser.parse(modelConfigStr).getAsJsonObject();
-		JsonObject deviceConfig = jsonParser.parse(deviceConfigStr).getAsJsonObject();
-		JsonObject userConfig = jsonParser.parse(userConfigStr).getAsJsonObject();
-		
-		 
+		JsonObject modelConfig = jsonParser.parse(modelConfigStr)
+				.getAsJsonObject();
+		JsonObject deviceConfig = jsonParser.parse(deviceConfigStr)
+				.getAsJsonObject();
+		JsonObject userConfig = jsonParser.parse(userConfigStr)
+				.getAsJsonObject();
 
 		JsonObject computedConfig = new JsonObject();
-		for (Entry<String,JsonElement> entry : modelConfig.entrySet()) {			
+		for (Entry<String, JsonElement> entry : modelConfig.entrySet()) {
 			computedConfig.add(entry.getKey(), entry.getValue());
 		}
 		// overwrite with device configure
-		for (Entry<String,JsonElement> entry : deviceConfig.entrySet()) {
+		for (Entry<String, JsonElement> entry : deviceConfig.entrySet()) {
 			computedConfig.add(entry.getKey(), entry.getValue());
 		}
 
 		// overwrite with user configure
-		for (Entry<String,JsonElement> entry : userConfig.entrySet()) {		
+		for (Entry<String, JsonElement> entry : userConfig.entrySet()) {
 			computedConfig.add(entry.getKey(), entry.getValue());
 		}
 
