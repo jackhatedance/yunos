@@ -171,6 +171,11 @@
 			<artifactId>device-api</artifactId>
 			<version>0.1</version>
 		</dependency>
+		<dependency>
+			<groupId>com.deviceyun</groupId>
+			<artifactId>remote-api</artifactId>
+			<version>0.1</version>
+		</dependency>
 
 
 

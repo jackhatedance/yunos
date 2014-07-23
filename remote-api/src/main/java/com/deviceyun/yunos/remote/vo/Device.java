@@ -1,6 +1,5 @@
 package com.deviceyun.yunos.remote.vo;
 
-import org.springframework.beans.BeanUtils;
 
 public class Device {
 	private String id;
@@ -21,11 +20,7 @@ public class Device {
 
 	private String description;
 
-	public Device(com.deviceyun.yunos.domain.Device domainDevice) {
-
-		BeanUtils.copyProperties(domainDevice, this, "model");
-	}
-
+	
 	public String getId() {
 		return id;
 	}

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -18,9 +19,14 @@ import com.deviceyun.yunos.device.FunctionalDevice;
 import com.deviceyun.yunos.device.PhysicalDevice;
 import com.deviceyun.yunos.domain.Application;
 import com.deviceyun.yunos.remote.vo.Device;
-
+/**
+ * 
+ * 
+ * @author jackding
+ *
+ */
 @Component
-public class RemoteFacade {
+public class RemoteService {
 	public static final String APP_ID = "appId";
 	public static final String APP_KEY = "appKey";
 	public static final String DEVICE_ID = "deviceId";
@@ -98,7 +104,10 @@ public class RemoteFacade {
 		List<Device> remoteDeviceList = new ArrayList<Device>();
 
 		for (com.deviceyun.yunos.domain.Device d : domainDeviceList) {
-			Device rd = new Device(d);
+			Device rd = new Device();
+
+			BeanUtils.copyProperties(d, rd, "model");
+
 			remoteDeviceList.add(rd);
 		}
 		return remoteDeviceList;

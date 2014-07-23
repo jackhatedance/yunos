@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.deviceyun.yunos.service.RemoteFacade;
+import com.deviceyun.yunos.service.RemoteService;
 
 @RestController
 @RequestMapping("/devices")
 public class DeviceManagerController {
 
 	@Autowired
-	private RemoteFacade remoteFacade;
+	private RemoteService remoteFacade;
 
 	@RequestMapping(value = "/{userId}", method = RequestMethod.GET)
 	public List<com.deviceyun.yunos.remote.vo.Device> listByUserId(

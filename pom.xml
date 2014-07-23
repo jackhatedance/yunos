@@ -23,6 +23,7 @@
 	<modules>
 		<module>sdk</module>
 		<module>device-api</module>
+		<module>remote-api</module>
 		<module>web</module>
 		<module>app</module>
 	</modules>
