@@ -18,6 +18,13 @@ public class DeviceManagerController {
 	private RemoteService remoteFacade;
 
 	@RequestMapping(value = "/{userId}", method = RequestMethod.GET)
+	public String login(String userId, String password) {
+
+		// return remoteFacade.getDevicesByUser(userId);
+		return null;
+	}
+
+	@RequestMapping(value = "/{userId}", method = RequestMethod.GET)
 	public List<com.deviceyun.yunos.remote.vo.Device> listByUserId(
 			@PathVariable String userId) {
 		return remoteFacade.getDevicesByUser(userId);

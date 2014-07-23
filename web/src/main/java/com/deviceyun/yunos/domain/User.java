@@ -1,17 +1,14 @@
 package com.deviceyun.yunos.domain;
 
 import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
-import org.hibernate.annotations.GenericGenerator;
 
 @javax.persistence.Entity
 public class User {
 	@Id
-	@GeneratedValue(generator = "uuid")
-	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	private String id;
+	@Column
+	private String passwordHash;
 	@Column
 	private String firstName;
 	@Column
@@ -25,6 +22,14 @@ public class User {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getPasswordHash() {
+		return passwordHash;
+	}
+
+	public void setPasswordHash(String passwordHash) {
+		this.passwordHash = passwordHash;
 	}
 
 	public String getFirstName() {
