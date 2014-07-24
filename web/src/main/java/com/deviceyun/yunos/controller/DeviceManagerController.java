@@ -8,14 +8,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.deviceyun.yunos.service.RemoteService;
-
+import com.deviceyun.yunos.service.RemoteServiceImpl;
+/**
+ * Restful API for remote service
+ * 
+ * @author jackding
+ *
+ */
 @RestController
 @RequestMapping("/devices")
 public class DeviceManagerController {
 
 	@Autowired
-	private RemoteService remoteFacade;
+	private RemoteServiceImpl remoteService;
 
 	@RequestMapping(value = "/{userId}", method = RequestMethod.GET)
 	public String login(String userId, String password) {
@@ -27,7 +32,7 @@ public class DeviceManagerController {
 	@RequestMapping(value = "/{userId}", method = RequestMethod.GET)
 	public List<com.deviceyun.yunos.remote.vo.Device> listByUserId(
 			@PathVariable String userId) {
-		return remoteFacade.getDevicesByUser(userId);
+		return remoteService.getDevicesByUser(userId);
 
 	}
 }
