@@ -1,4 +1,4 @@
-blueegg
+Yun OS
 =======
 
-device management system
+a operation system for remote devices
