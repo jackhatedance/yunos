@@ -17,21 +17,16 @@ import com.deviceyun.yunos.core.DeviceManager;
 import com.deviceyun.yunos.dao.ApplicationDao;
 import com.deviceyun.yunos.device.FunctionalDevice;
 import com.deviceyun.yunos.device.PhysicalDevice;
-import com.deviceyun.yunos.domain.Application;
 import com.deviceyun.yunos.remote.vo.Device;
+
 /**
  * remote service for client, such as mobile app
  * 
  * @author jackding
- *
+ * 
  */
 @Component
 public class RemoteServiceImpl implements RemoteService {
-	public static final String APP_ID = "appId";
-	public static final String APP_KEY = "appKey";
-	public static final String DEVICE_ID = "deviceId";
-	public static final String FUNCTIONAL_DEVICE_INDEX = "fdi";
-	public static final String OPERATION = "operation";
 
 	@Autowired
 	private DeviceManager deviceManager;
@@ -49,23 +44,9 @@ public class RemoteServiceImpl implements RemoteService {
 		this.deviceManager = deviceManager;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.deviceyun.yunos.service.RemoteService#urlApi(java.util.Map)
-	 */
 	@Override
-	public Object urlApi(Map<String, String> parameters) {
-
-		String appId = parameters.get(APP_ID);
-		String appKey = parameters.get(APP_KEY);
-
-		Application app = applicationDao.get(appId);
-		if (app == null)
-			return "error:appId invalid";
-
-		String deviceId = parameters.get(DEVICE_ID);
-		int functionalDeviceIndex = Integer.valueOf(parameters
-				.get(FUNCTIONAL_DEVICE_INDEX));
-		String operation = parameters.get(OPERATION);
+	public Object operateDevice(String deviceId, int functionalDeviceIndex,
+			String operation, Map<String, String> parameters) {
 
 		PhysicalDevice physicalDevice = deviceManager
 				.getPhysicalDeviceObject(deviceId);
@@ -99,10 +80,16 @@ public class RemoteServiceImpl implements RemoteService {
 			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
-
 	}
 
-	public List<Device> getDevicesByUser(String userId) {
+	@Override
+	public String login(String userId, String password) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Device> listDevice(String userId) {
 		List<com.deviceyun.yunos.domain.Device> domainDeviceList = deviceService
 				.listByUserId(userId);
 		List<Device> remoteDeviceList = new ArrayList<Device>();
@@ -115,6 +102,31 @@ public class RemoteServiceImpl implements RemoteService {
 			remoteDeviceList.add(rd);
 		}
 		return remoteDeviceList;
+	}
+
+	@Override
+	public String addDevice(String userId, Device device) {
+		com.deviceyun.yunos.domain.Device domainDevice = new com.deviceyun.yunos.domain.Device();
+		BeanUtils.copyProperties(device, domainDevice);
+
+		return deviceService.saveDevice(domainDevice);
+	}
+
+	@Override
+	public void removeDevice(String deviceId) {
+		deviceService.remove(deviceId);
+	}
+
+	@Override
+	public Object loadDeviceConfig(String deviceId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void updateDeviceConfig(String deviceId, String config) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

@@ -28,4 +28,15 @@ public class DeviceServiceImpl implements DeviceService {
 		return deviceDao.listByUser(userId);
 	}
 
+	@Override
+	public String saveDevice(Device device) {
+		return (String) getCurrentSession().save(device);
+	}
+
+	@Override
+	public void remove(String deviceId) {
+		Session s = getCurrentSession();
+		Device d = (Device) s.load(Device.class, deviceId);
+		s.delete(s);
+	}
 }
