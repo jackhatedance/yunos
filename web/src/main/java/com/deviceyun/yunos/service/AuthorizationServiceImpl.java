@@ -23,10 +23,12 @@ public class AuthorizationServiceImpl implements AuthorizationService {
 
 		if (user.getPasswordHash().equalsIgnoreCase(hash)) {
 			Token token = new Token();
-			token.setUser(null);
+
+			token.setUser(user);
 
 			tokenDao.save(token);
 
+			return token;
 		}
 
 		return null;

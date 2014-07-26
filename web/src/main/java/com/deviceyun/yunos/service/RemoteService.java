@@ -28,9 +28,8 @@ public interface RemoteService {
 	 * 
 	 * @param userId
 	 * @param device
-	 * @return devcie ID
 	 */
-	String addDevice(String userId, Device device);
+	void addDevice(String userId, Device device);
 
 	/**
 	 * can not delete others device

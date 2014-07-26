@@ -3,9 +3,9 @@ package com.deviceyun.yunos.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.deviceyun.yunos.remote.vo.Device;
@@ -18,26 +18,20 @@ import com.deviceyun.yunos.service.RemoteServiceImpl;
  * 
  */
 @RestController
-@RequestMapping("service")
-public class RemoteServiceController {
+@RequestMapping("/v1.0/{userId}/devices")
+public class DeviceController {
 
 	@Autowired
 	private RemoteServiceImpl remoteService;
 
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(@RequestParam("userId") String userId,
-			@RequestParam("password") String password) {
-		return remoteService.login(userId, password);
-	}
-
-	@RequestMapping(value = "/listUserDevice", method = RequestMethod.GET)
-	public List<com.deviceyun.yunos.remote.vo.Device> listUserDevice(
-			@RequestParam("userId") String userId) {
+	@RequestMapping(value = "/by-user/{userId}", method = RequestMethod.GET)
+	public List<com.deviceyun.yunos.remote.vo.Device> listUserDevices(
+			@PathVariable("userId") String userId) {
 
 		return remoteService.listDevice(userId);
 	}
 
-	@RequestMapping(value = "/addDevice", method = RequestMethod.POST)
+	@RequestMapping(value = "/", method = RequestMethod.PUT)
 	public void addDevice(String userId, Device device) {
 		remoteService.addDevice(userId, device);
 	}
