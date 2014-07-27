@@ -18,7 +18,7 @@ import com.deviceyun.yunos.service.RemoteServiceImpl;
  * 
  */
 @RestController
-@RequestMapping("service")
+@RequestMapping("/v1.0/service")
 public class RemoteServiceController {
 
 	@Autowired
@@ -30,7 +30,7 @@ public class RemoteServiceController {
 		return remoteService.login(userId, password);
 	}
 
-	@RequestMapping(value = "/listUserDevice", method = RequestMethod.GET)
+	@RequestMapping(value = "/listUserDevice")
 	public List<com.deviceyun.yunos.remote.vo.Device> listUserDevice(
 			@RequestParam("userId") String userId) {
 
@@ -42,7 +42,7 @@ public class RemoteServiceController {
 		remoteService.addDevice(userId, device);
 	}
 
-	@RequestMapping(value = "/removeDevice", method = RequestMethod.GET)
+	@RequestMapping(value = "/removeDevice", method = RequestMethod.POST)
 	public void removeDevice(String deviceId) {
 		remoteService.removeDevice(deviceId);
 	}

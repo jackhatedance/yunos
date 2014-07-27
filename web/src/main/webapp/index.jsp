@@ -18,7 +18,7 @@
     <ul>
     
     <li>
-    <a href="rpc/devices/54177de2-087d-11e4-b721-08002785c3ec">list device of user</a>
+    <a href="/api/devices/54177de2-087d-11e4-b721-08002785c3ec">list device of user</a>
     </li>    
     </ul>
   </body>
