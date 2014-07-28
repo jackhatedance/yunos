@@ -1,7 +1,7 @@
 package com.deviceyun.yunos.remote.vo;
 
 /**
- * it is a entity.
+ * 
  * 
  * @author jack
  * 

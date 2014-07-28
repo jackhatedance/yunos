@@ -40,9 +40,9 @@
 	
 	<bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
 
-	<bean name="/DeviceManager.json" class="com.googlecode.jsonrpc4j.spring.JsonServiceExporter">
-        <property name="service" ref="deviceManager"/>
-        <property name="serviceInterface" value="com.deviceyun.yunos.core.DeviceManager"/>
-    </bean>
+<!-- 	<bean name="/DeviceManager.json" class="com.googlecode.jsonrpc4j.spring.JsonServiceExporter"> -->
+<!--         <property name="service" ref="deviceManager"/> -->
+<!--         <property name="serviceInterface" value="com.deviceyun.yunos.core.DeviceManager"/> -->
+<!--     </bean> -->
 	
 </beans>

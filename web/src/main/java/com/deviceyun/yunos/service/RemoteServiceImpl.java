@@ -15,6 +15,7 @@ import com.deviceyun.yunos.api.Parameter;
 import com.deviceyun.yunos.api.ParameterType;
 import com.deviceyun.yunos.core.DeviceManager;
 import com.deviceyun.yunos.dao.ApplicationDao;
+import com.deviceyun.yunos.dao.DeviceDao;
 import com.deviceyun.yunos.device.FunctionalDevice;
 import com.deviceyun.yunos.device.PhysicalDevice;
 import com.deviceyun.yunos.domain.Token;
@@ -32,9 +33,12 @@ public class RemoteServiceImpl implements RemoteService {
 	@Autowired
 	private DeviceManager deviceManager;
 	@Autowired
-	private DeviceService deviceService;
+	private DeviceDao deviceDao;
 	@Autowired
-	private AuthorizationService authorizationService;
+	private DeviceService deviceService;
+
+	@Autowired
+	private AuthenticationService authenticationService;
 
 	@Autowired
 	private ApplicationDao applicationDao;
@@ -49,7 +53,7 @@ public class RemoteServiceImpl implements RemoteService {
 
 	@Override
 	public String login(String userId, String password) {
-		Token t = authorizationService.login(userId, password);
+		Token t = authenticationService.login(userId, password);
 
 		if (t != null)
 			return t.getId();
@@ -71,6 +75,16 @@ public class RemoteServiceImpl implements RemoteService {
 			remoteDeviceList.add(rd);
 		}
 		return remoteDeviceList;
+	}
+
+	@Override
+	public Device getDevice(String deviceId) {
+		com.deviceyun.yunos.domain.Device deviceDomain = deviceDao
+				.get(deviceId);
+		Device deviceRemoteVo = new Device();
+		BeanUtils.copyProperties(deviceDomain, deviceRemoteVo, "model");
+
+		return deviceRemoteVo;
 	}
 
 	@Override

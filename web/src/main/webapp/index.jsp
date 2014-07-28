@@ -18,8 +18,12 @@
     <ul>
     
     <li>
-    <a href="/api/devices/54177de2-087d-11e4-b721-08002785c3ec">list device of user</a>
-    </li>    
+    <a href="api/1.0/devices?userId=jackding">list device of user</a>         
+    </li>
+    
+    <li>    
+    <a href="api/1.0/devices/cb170afb-087f-11e4-b721-08002785c3ec">list device by id</a>     
+    </li>        
     </ul>
   </body>
 </html>

@@ -1,6 +1,7 @@
 package com.deviceyun.yunos.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.util.DigestUtils;
 
 import com.deviceyun.yunos.dao.TokenDao;
@@ -8,7 +9,8 @@ import com.deviceyun.yunos.dao.UserDao;
 import com.deviceyun.yunos.domain.Token;
 import com.deviceyun.yunos.domain.User;
 
-public class AuthorizationServiceImpl implements AuthorizationService {
+@Component
+public class AuthenticationServiceImpl implements AuthenticationService {
 	@Autowired
 	private UserDao userDao;
 

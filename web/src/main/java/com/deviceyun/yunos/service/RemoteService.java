@@ -23,6 +23,8 @@ public interface RemoteService {
 	 */
 	List<Device> listDevice(String userId);
 
+	Device getDevice(String deviceId);
+
 	/**
 	 * user add a new device. it returns a device ID;
 	 * 
@@ -65,4 +67,5 @@ public interface RemoteService {
 	 */
 	Object operateDevice(String deviceId, int functionalDeviceIndex,
 			String operationName, Map<String, String> parameters);
+
 }

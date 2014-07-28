@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.deviceyun.yunos.remote.vo.Device;
-import com.deviceyun.yunos.service.RemoteServiceImpl;
+import com.deviceyun.yunos.service.RemoteService;
 
 /**
  * Restful API for remote service
@@ -18,11 +18,11 @@ import com.deviceyun.yunos.service.RemoteServiceImpl;
  * 
  */
 @RestController
-@RequestMapping("/v1.0/service")
+@RequestMapping("/1.0/service")
 public class RemoteServiceController {
 
 	@Autowired
-	private RemoteServiceImpl remoteService;
+	private RemoteService remoteService;
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(@RequestParam("userId") String userId,
