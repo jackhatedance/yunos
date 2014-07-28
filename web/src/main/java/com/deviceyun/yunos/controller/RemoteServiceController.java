@@ -3,6 +3,7 @@ package com.deviceyun.yunos.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,6 +26,7 @@ public class RemoteServiceController {
 	private RemoteService remoteService;
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@Secured("ROLE_USER")
 	public String login(@RequestParam("userId") String userId,
 			@RequestParam("password") String password) {
 		return remoteService.login(userId, password);

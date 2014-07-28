@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,7 +23,7 @@ import com.deviceyun.yunos.service.RemoteService;
  */
 @RestController
 @RequestMapping("/1.0/devices")
-@Secured("ROLE_ADMIN")
+@Secured("ROLE_USER")
 public class DeviceController {
 
 	@Autowired
@@ -30,7 +32,12 @@ public class DeviceController {
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public List<com.deviceyun.yunos.remote.vo.Device> listUserDevices(
 			@RequestParam("userId") String userId) {
-
+		Authentication auth = SecurityContextHolder.getContext()
+				.getAuthentication();
+		String name = auth.getName(); // get logged in username
+		// User user =
+		// (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		// String name = user.getUsername(); //get logged in username
 		return remoteService.listDevice(userId);
 	}
 

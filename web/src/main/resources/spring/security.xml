@@ -38,7 +38,6 @@
 		</authentication-provider>
 	</authentication-manager>
 
-	<!-- Enable the annotations for defining the secure role -->
-	<global-method-security secured-annotations="enabled" />
+	
 
 </beans:beans>
