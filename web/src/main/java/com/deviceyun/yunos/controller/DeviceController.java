@@ -1,9 +1,10 @@
 package com.deviceyun.yunos.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
+import org.springframework.context.ApplicationContext;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,8 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import com.deviceyun.yunos.dao.ApplicationDao;
+import com.deviceyun.yunos.domain.Application;
 import com.deviceyun.yunos.remote.vo.Device;
+import com.deviceyun.yunos.service.ApplicationService;
 import com.deviceyun.yunos.service.RemoteService;
 
 /**
@@ -23,12 +28,14 @@ import com.deviceyun.yunos.service.RemoteService;
  */
 @RestController
 @RequestMapping("/1.0/devices")
-@Secured("ROLE_USER")
+// @Secured("ROLE_USER")
 public class DeviceController {
 
 	@Autowired
 	private RemoteService remoteService;
-
+	@Autowired
+	ApplicationService applicationService;
+	
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public List<com.deviceyun.yunos.remote.vo.Device> listUserDevices(
 			@RequestParam("userId") String userId) {
@@ -58,4 +65,24 @@ public class DeviceController {
 		remoteService.removeDevice(deviceId);
 	}
 
+	@RequestMapping(value = { "/{deviceId}/{functionalDeviceIndex}/{operation}" }, method = {
+			RequestMethod.POST, RequestMethod.GET })
+	public void operate(@PathVariable String deviceId,
+			@PathVariable int functionalDeviceIndex,
+			@PathVariable String operation,
+			@RequestParam Map<String, String> parameters) {
+
+		
+		String appId = parameters.get("appId");
+
+		
+		if (!applicationService.isValid(appId))
+			throw new RuntimeException("error:appId invalid");
+
+		// String appKey = parameters.get(APP_KEY);
+
+		Object result = remoteService.operateDevice(deviceId,
+				functionalDeviceIndex, operation, parameters);
+
+	}
 }
