@@ -1,5 +1,7 @@
 package com.deviceyun.yunos.remote.vo;
 
+import java.io.Serializable;
+
 /**
  * 
  * 
@@ -7,7 +9,13 @@ package com.deviceyun.yunos.remote.vo;
  * 
  */
 
-public class Model {
+public class Model implements Serializable {
+
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1953981223040246980L;
 
 	private String brand;
 

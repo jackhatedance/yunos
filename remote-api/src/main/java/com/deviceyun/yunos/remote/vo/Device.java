@@ -1,7 +1,16 @@
 package com.deviceyun.yunos.remote.vo;
 
+import java.io.Serializable;
 
-public class Device {
+
+public class Device implements Serializable{
+	
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -9146674463860579186L;
+
 	private String id;
 
 	private com.deviceyun.yunos.remote.vo.Model model;
