@@ -18,6 +18,7 @@ import com.deviceyun.yunos.dao.ApplicationDao;
 import com.deviceyun.yunos.dao.DeviceDao;
 import com.deviceyun.yunos.device.FunctionalDevice;
 import com.deviceyun.yunos.device.PhysicalDevice;
+import com.deviceyun.yunos.domain.Model;
 import com.deviceyun.yunos.domain.Token;
 import com.deviceyun.yunos.remote.vo.Device;
 
@@ -68,23 +69,31 @@ public class RemoteServiceImpl implements RemoteService {
 		List<Device> remoteDeviceList = new ArrayList<Device>();
 
 		for (com.deviceyun.yunos.domain.Device d : domainDeviceList) {
-			Device rd = new Device();
-
-			BeanUtils.copyProperties(d, rd, "model");
-
-			remoteDeviceList.add(rd);
+			Device remoteDevice = createRemoteDevice(d);
+			remoteDeviceList.add(remoteDevice);
 		}
 		return remoteDeviceList;
 	}
 
+	protected Device createRemoteDevice(
+			com.deviceyun.yunos.domain.Device domainDevice) {
+		Device remoteDevice = new Device();
+		com.deviceyun.yunos.remote.vo.Model remoteModel = new com.deviceyun.yunos.remote.vo.Model();
+		BeanUtils.copyProperties(domainDevice.getModel(), remoteModel);
+		BeanUtils.copyProperties(domainDevice, remoteDevice, "model");
+
+		remoteDevice.setModel(remoteModel);
+		return remoteDevice;
+	}
+
 	@Override
 	public Device getDevice(String deviceId) {
-		com.deviceyun.yunos.domain.Device deviceDomain = deviceDao
+		com.deviceyun.yunos.domain.Device domainDevice = deviceDao
 				.get(deviceId);
-		Device deviceRemoteVo = new Device();
-		BeanUtils.copyProperties(deviceDomain, deviceRemoteVo, "model");
 
-		return deviceRemoteVo;
+		Device remoteDevice = createRemoteDevice(domainDevice);
+
+		return remoteDevice;
 	}
 
 	@Override
