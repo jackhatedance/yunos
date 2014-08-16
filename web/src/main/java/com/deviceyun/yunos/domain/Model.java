@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -26,13 +27,12 @@ public class Model {
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	private String id;
 
-	@Column
-	private String brand;
+	@JoinColumn(name = "productId")
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Product product;
 
 	@Column
-	private String product;
-	@Column
-	private String model;
+	private String name;
 
 	@Column
 	private String description;
@@ -59,28 +59,20 @@ public class Model {
 		this.id = id;
 	}
 
-	public String getBrand() {
-		return brand;
-	}
-
-	public void setBrand(String brand) {
-		this.brand = brand;
-	}
-
-	public String getProduct() {
+	public Product getProduct() {
 		return product;
 	}
 
-	public void setProduct(String product) {
+	public void setProduct(Product product) {
 		this.product = product;
 	}
 
-	public String getModel() {
-		return model;
+	public String getName() {
+		return name;
 	}
 
-	public void setModel(String model) {
-		this.model = model;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getDescription() {
@@ -117,7 +109,7 @@ public class Model {
 
 	public com.deviceyun.yunos.device.Model getVO() {
 		com.deviceyun.yunos.device.Model m = new com.deviceyun.yunos.device.Model(
-				brand, product, model);
+				product.getBrand().getName(), product.getName(), name);
 		return m;
 	}
 }

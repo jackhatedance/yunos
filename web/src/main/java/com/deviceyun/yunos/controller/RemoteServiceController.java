@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.deviceyun.yunos.remote.vo.Brand;
 import com.deviceyun.yunos.remote.vo.Device;
 import com.deviceyun.yunos.service.RemoteService;
 
@@ -49,4 +50,5 @@ public class RemoteServiceController {
 		remoteService.removeDevice(deviceId);
 	}
 
+	
 }

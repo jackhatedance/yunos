@@ -3,6 +3,7 @@ package com.deviceyun.yunos;
 import static junit.framework.Assert.assertNotNull;
 
 import java.util.List;
+import java.util.Locale;
 
 import javax.transaction.Transactional;
 
@@ -14,8 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.deviceyun.yunos.domain.Brand;
 import com.deviceyun.yunos.domain.Device;
 import com.deviceyun.yunos.domain.User;
+import com.deviceyun.yunos.service.BrandService;
 import com.deviceyun.yunos.service.DeviceService;
 import com.deviceyun.yunos.service.UserService;
 
@@ -28,6 +31,8 @@ public class ServiceTests {
 	private UserService userService;
 	@Autowired
 	private DeviceService deviceService;
+	@Autowired
+	private BrandService brandService;
 
 	@Test
 	public void testAll() throws Exception {
@@ -40,6 +45,14 @@ public class ServiceTests {
 		List<Device> devices = deviceService.listByUserId(user.getId());
 		assertNotNull(devices);
 		Assert.assertFalse(devices.isEmpty());
+		
 
+		List<Brand> chineseBrands=brandService.getAllBrands(Locale.SIMPLIFIED_CHINESE);
+		//List<Brand> chineseBrands=brandService.getAllBrands(new Locale("en", "us"));
+//		for(Brand b : chineseBrands)
+//			System.out.println(":"+b.getName());
+		
+		Brand baihuon = chineseBrands.get(chineseBrands.size()-1);
+		Assert.assertEquals("zh_CN", baihuon.getLanguageCode());
 	}
 }

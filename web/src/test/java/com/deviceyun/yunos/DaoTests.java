@@ -8,7 +8,9 @@ import javax.transaction.Transactional;
 
 import junit.framework.Assert;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,7 @@ import com.deviceyun.yunos.dao.DriverDao;
 import com.deviceyun.yunos.dao.mybatisMapper.DeviceMapper;
 import com.deviceyun.yunos.dao.mybatisMapper.UserMapper;
 import com.deviceyun.yunos.device.Model;
+import com.deviceyun.yunos.domain.Brand;
 import com.deviceyun.yunos.domain.Device;
 import com.deviceyun.yunos.domain.Driver;
 import com.deviceyun.yunos.domain.User;
@@ -61,6 +64,7 @@ public class DaoTests {
 	public void testHibernate() throws Exception {
 		assertNotNull(sessionFactory);
 
+		Session session = sessionFactory.getCurrentSession();
 		org.hibernate.Query query = sessionFactory.getCurrentSession()
 				.createQuery("from User u where u.firstName = :firstName");
 		query.setString("firstName", "jack");
@@ -80,8 +84,18 @@ public class DaoTests {
 		Assert.assertNotNull(da);
 		Assert.assertNotNull(da.getVersions().get("1.0"));
 
+		
+		Brand baihuon = (Brand)session.get(Brand.class, "f525b8e7-2485-11e4-9fa1-08002785c3ec");
+		 
+		Assert.assertNotNull(baihuon);
+		
+		Brand zhCNBaihoun = baihuon.getLocales().get("zh_CN");
+		
+		Assert.assertNotNull(zhCNBaihoun);
+		
 	}
 
+	
 	@Test
 	public void testDriverDao() throws Exception {
 

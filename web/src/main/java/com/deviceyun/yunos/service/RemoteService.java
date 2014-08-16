@@ -3,6 +3,7 @@ package com.deviceyun.yunos.service;
 import java.util.List;
 import java.util.Map;
 
+import com.deviceyun.yunos.remote.vo.Brand;
 import com.deviceyun.yunos.remote.vo.Device;
 
 public interface RemoteService {
@@ -68,4 +69,10 @@ public interface RemoteService {
 	Object operateDevice(String deviceId, int functionalDeviceIndex,
 			String operationName, Map<String, String> parameters);
 
+	/**
+	 * 
+	 * @param locale such as en_US
+	 * @return
+	 */
+	List<Brand> getAllBrands(String locale);
 }

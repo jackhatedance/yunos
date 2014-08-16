@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.springframework.beans.BeanUtils;
@@ -20,6 +21,7 @@ import com.deviceyun.yunos.device.FunctionalDevice;
 import com.deviceyun.yunos.device.PhysicalDevice;
 import com.deviceyun.yunos.domain.Model;
 import com.deviceyun.yunos.domain.Token;
+import com.deviceyun.yunos.remote.vo.Brand;
 import com.deviceyun.yunos.remote.vo.Device;
 
 /**
@@ -33,10 +35,15 @@ public class RemoteServiceImpl implements RemoteService {
 
 	@Autowired
 	private DeviceManager deviceManager;
+	
 	@Autowired
 	private DeviceDao deviceDao;
+	
 	@Autowired
 	private DeviceService deviceService;
+
+	@Autowired
+	private BrandService brandService;
 
 	@Autowired
 	private AuthenticationService authenticationService;
@@ -157,5 +164,21 @@ public class RemoteServiceImpl implements RemoteService {
 			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
+	}
+
+	@Override
+	public List<Brand> getAllBrands(String locale) {
+		Locale aLocale = Locale.forLanguageTag(locale);
+		List<com.deviceyun.yunos.domain.Brand> domainBrands =brandService.getAllBrands(aLocale);
+		
+		List<Brand> remoteBrands = new ArrayList<Brand>();
+		for(com.deviceyun.yunos.domain.Brand db : domainBrands){
+			Brand rb = new Brand();			
+			BeanUtils.copyProperties(db, rb);
+		
+			remoteBrands.add(rb);
+		}
+		
+		return remoteBrands;
 	}
 }
