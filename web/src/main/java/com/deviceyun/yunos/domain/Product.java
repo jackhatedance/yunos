@@ -1,6 +1,7 @@
 package com.deviceyun.yunos.domain;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.persistence.CascadeType;
@@ -35,20 +36,20 @@ public class Product {
 	private String description;
 
 	@Column
-	private String languageCode;
+	private String locale;
 
 	@JoinColumn(name = "primaryId")
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Product primary;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "primary")
-	@MapKey(name = "languageCode")
+	@MapKey(name = "locale")
 	private Map<String, Product> locales = new HashMap<String, Product>();
 
 	@JoinColumn(name = "brandId")
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Brand brand;
-	
+
 	public String getId() {
 		return id;
 	}
@@ -73,12 +74,12 @@ public class Product {
 		this.description = description;
 	}
 
-	public String getLanguageCode() {
-		return languageCode;
+	public String getLocale() {
+		return locale;
 	}
 
-	public void setLanguageCode(String languageCode) {
-		this.languageCode = languageCode;
+	public void setLocale(String locale) {
+		this.locale = locale;
 	}
 
 	public Product getPrimary() {
@@ -104,5 +105,12 @@ public class Product {
 	public void setBrand(Brand brand) {
 		this.brand = brand;
 	}
- 
+
+	public Product get(String locale) {
+		Product lb = locales.get(locale);
+		if (lb != null)
+			return lb;
+		else
+			return this;
+	}
 }

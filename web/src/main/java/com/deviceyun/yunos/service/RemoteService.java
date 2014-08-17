@@ -75,4 +75,6 @@ public interface RemoteService {
 	 * @return
 	 */
 	List<Brand> getAllBrands(String locale);
+	
+	List<com.deviceyun.yunos.remote.vo.Product> getProducts(String brandId, String locale);
 }

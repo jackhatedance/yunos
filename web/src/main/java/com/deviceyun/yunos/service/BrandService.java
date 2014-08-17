@@ -7,5 +7,7 @@ import com.deviceyun.yunos.domain.Brand;
 
 public interface BrandService {
 
-	List<Brand> getAllBrands(Locale locale);
+	List<Brand> getAllBrands(String locale);
+	
+	Brand load(String id);
 }

@@ -16,15 +16,19 @@ public class BrandServiceImpl implements BrandService {
 	@Autowired
 	private SessionFactory sessionFactory;
 
+	@Override
+	public Brand load(String id) {
+		return (Brand)sessionFactory.getCurrentSession().load(Brand.class, id);		
+	}
 	
 	@Override
-	public List<Brand> getAllBrands(Locale locale) {
+	public List<Brand> getAllBrands(String locale) {
 		Query q=
 		sessionFactory.getCurrentSession()
 			.createQuery("select b from Brand b "
-					+ "left join b.locales l with l.languageCode=:languageCode where b.primary is null"
+					+ "left join b.locales l with l.locale=:locale where b.primary is null"
 					);
-		q.setString("languageCode", locale.toString());
+		q.setString("locale", locale);
 		
 		List<Brand> dbResult = (List<Brand>)q.list();
 		List<Brand> localeBrands = new ArrayList<Brand>(); 

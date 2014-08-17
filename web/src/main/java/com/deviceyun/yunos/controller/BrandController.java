@@ -18,6 +18,7 @@ import com.deviceyun.yunos.dao.ApplicationDao;
 import com.deviceyun.yunos.domain.Application;
 import com.deviceyun.yunos.remote.vo.Brand;
 import com.deviceyun.yunos.remote.vo.Device;
+import com.deviceyun.yunos.remote.vo.Product;
 import com.deviceyun.yunos.service.ApplicationService;
 import com.deviceyun.yunos.service.RemoteService;
 
@@ -40,4 +41,10 @@ public class BrandController {
 	public List<Brand> getAllBrands(@RequestParam("language")String language) {
 		return remoteService.getAllBrands(language);
 	}
+	
+	@RequestMapping(value = "/{id}/products", method = RequestMethod.GET)
+	public List<Product> getProducts(@PathVariable("id") String id, @RequestParam("language")String language) {
+		return remoteService.getProducts(id,language);
+	}
+	
 }

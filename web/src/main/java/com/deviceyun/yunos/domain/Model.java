@@ -1,16 +1,21 @@
 package com.deviceyun.yunos.domain;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapKey;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -27,15 +32,26 @@ public class Model {
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	private String id;
 
-	@JoinColumn(name = "productId")
-	@ManyToOne(cascade = CascadeType.ALL)
-	private Product product;
-
 	@Column
 	private String name;
 
 	@Column
 	private String description;
+
+	@Column
+	private String locale;
+
+	@JoinColumn(name = "primaryId")
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Model primary;
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "primary")
+	@MapKey(name = "locale")
+	private Map<String, Model> locales = new HashMap<String, Model>();
+
+	@JoinColumn(name = "productId")
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Product product;
 
 	@ManyToMany(cascade = { CascadeType.ALL })
 	@JoinTable(name = "compatible_models", joinColumns = { @JoinColumn(name = "modelId") }, inverseJoinColumns = { @JoinColumn(name = "compatibleModelId") })
@@ -105,6 +121,30 @@ public class Model {
 
 	public void setCompatibleModels(Set<Model> compatibleModels) {
 		this.compatibleModels = compatibleModels;
+	}
+
+	public String getLocale() {
+		return locale;
+	}
+
+	public void setLocale(String locale) {
+		this.locale = locale;
+	}
+
+	public Model getPrimary() {
+		return primary;
+	}
+
+	public void setPrimary(Model primary) {
+		this.primary = primary;
+	}
+
+	public Map<String, Model> getLocales() {
+		return locales;
+	}
+
+	public void setLocales(Map<String, Model> locales) {
+		this.locales = locales;
 	}
 
 	public com.deviceyun.yunos.device.Model getVO() {

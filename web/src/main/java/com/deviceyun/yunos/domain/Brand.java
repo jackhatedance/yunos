@@ -36,14 +36,14 @@ public class Brand {
 	private String description;
 
 	@Column
-	private String languageCode;
+	private String locale;
 
 	@JoinColumn(name = "primaryId")
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Brand primary;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "primary")
-	@MapKey(name = "languageCode")
+	@MapKey(name = "locale")
 	private Map<String, Brand> locales = new HashMap<String, Brand>();
 
 	public String getId() {
@@ -70,12 +70,12 @@ public class Brand {
 		this.description = description;
 	}
 
-	public String getLanguageCode() {
-		return languageCode;
+	public String getLocale() {
+		return locale;
 	}
 
-	public void setLanguageCode(String languageCode) {
-		this.languageCode = languageCode;
+	public void setLocale(String locale) {
+		this.locale = locale;
 	}
 
 	public Brand getPrimary() {
@@ -99,8 +99,8 @@ public class Brand {
 		return name;
 	}
 
-	public Brand get(Locale locale) {
-		Brand lb = locales.get(locale.toString());
+	public Brand get(String locale) {
+		Brand lb = locales.get(locale);
 		if (lb != null)
 			return lb;
 		else

@@ -47,12 +47,12 @@ public class ServiceTests {
 		Assert.assertFalse(devices.isEmpty());
 		
 
-		List<Brand> chineseBrands=brandService.getAllBrands(Locale.SIMPLIFIED_CHINESE);
+		List<Brand> chineseBrands=brandService.getAllBrands(Locale.SIMPLIFIED_CHINESE.toString());
 		//List<Brand> chineseBrands=brandService.getAllBrands(new Locale("en", "us"));
 //		for(Brand b : chineseBrands)
 //			System.out.println(":"+b.getName());
 		
 		Brand baihuon = chineseBrands.get(chineseBrands.size()-1);
-		Assert.assertEquals("zh_CN", baihuon.getLanguageCode());
+		Assert.assertEquals("zh_CN", baihuon.getLocale());
 	}
 }

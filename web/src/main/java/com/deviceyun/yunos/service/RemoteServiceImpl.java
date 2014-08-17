@@ -23,6 +23,7 @@ import com.deviceyun.yunos.domain.Model;
 import com.deviceyun.yunos.domain.Token;
 import com.deviceyun.yunos.remote.vo.Brand;
 import com.deviceyun.yunos.remote.vo.Device;
+import com.deviceyun.yunos.remote.vo.Product;
 
 /**
  * remote service for client, such as mobile app
@@ -35,15 +36,18 @@ public class RemoteServiceImpl implements RemoteService {
 
 	@Autowired
 	private DeviceManager deviceManager;
-	
+
 	@Autowired
 	private DeviceDao deviceDao;
-	
+
 	@Autowired
 	private DeviceService deviceService;
 
 	@Autowired
 	private BrandService brandService;
+
+	@Autowired
+	private ProductService productService;
 
 	@Autowired
 	private AuthenticationService authenticationService;
@@ -168,17 +172,36 @@ public class RemoteServiceImpl implements RemoteService {
 
 	@Override
 	public List<Brand> getAllBrands(String locale) {
-		Locale aLocale = Locale.forLanguageTag(locale);
-		List<com.deviceyun.yunos.domain.Brand> domainBrands =brandService.getAllBrands(aLocale);
-		
+		Locale aLocale = Locale.forLanguageTag(locale.replaceAll("_", "-"));
+		List<com.deviceyun.yunos.domain.Brand> domainBrands = brandService
+				.getAllBrands(locale);
+
 		List<Brand> remoteBrands = new ArrayList<Brand>();
-		for(com.deviceyun.yunos.domain.Brand db : domainBrands){
-			Brand rb = new Brand();			
+		for (com.deviceyun.yunos.domain.Brand db : domainBrands) {
+			Brand rb = new Brand();
 			BeanUtils.copyProperties(db, rb);
-		
+
 			remoteBrands.add(rb);
 		}
-		
+
 		return remoteBrands;
+	}
+
+	@Override
+	public List<Product> getProducts(String brandId, String locale) {
+
+		com.deviceyun.yunos.domain.Brand brand = brandService.load(brandId);
+		List<com.deviceyun.yunos.domain.Product> domainProducts = productService
+				.getProducts(brand, locale);
+
+		List<Product> remoteProducts = new ArrayList<Product>();
+		for (com.deviceyun.yunos.domain.Product dp : domainProducts) {
+			Product rp = new Product();
+			BeanUtils.copyProperties(dp, rp);
+
+			remoteProducts.add(rp);
+		}
+
+		return remoteProducts;
 	}
 }
