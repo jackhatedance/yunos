@@ -24,6 +24,11 @@
     <li>    
     <a href="api/1.0/devices/cb170afb-087f-11e4-b721-08002785c3ec">list device by id</a>     
     </li>        
+    
+    <li>    
+    <a href="api/1.0/brands?language=zh_CN">list brands</a>     
+    </li>        
+    
     </ul>
   </body>
 </html>
