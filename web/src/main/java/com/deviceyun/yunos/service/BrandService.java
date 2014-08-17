@@ -9,5 +9,5 @@ public interface BrandService {
 
 	List<Brand> getAllBrands(String locale);
 	
-	Brand load(String id);
+	 
 }

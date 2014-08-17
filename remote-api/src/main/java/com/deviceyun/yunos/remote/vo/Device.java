@@ -2,10 +2,8 @@ package com.deviceyun.yunos.remote.vo;
 
 import java.io.Serializable;
 
+public class Device implements Serializable {
 
-public class Device implements Serializable{
-	
-	
 	/**
 	 * 
 	 */
@@ -13,7 +11,8 @@ public class Device implements Serializable{
 
 	private String id;
 
-	private com.deviceyun.yunos.remote.vo.Model model;
+	private HardwareType hardwareType;
+
 	private String revision;
 	private String mfgSerialNumber;
 
@@ -29,7 +28,6 @@ public class Device implements Serializable{
 
 	private String description;
 
-	
 	public String getId() {
 		return id;
 	}
@@ -38,12 +36,12 @@ public class Device implements Serializable{
 		this.id = id;
 	}
 
-	public com.deviceyun.yunos.remote.vo.Model getModel() {
-		return model;
+	public HardwareType getHardwareType() {
+		return hardwareType;
 	}
 
-	public void setModel(com.deviceyun.yunos.remote.vo.Model model) {
-		this.model = model;
+	public void setHardwareType(HardwareType hardwareType) {
+		this.hardwareType = hardwareType;
 	}
 
 	public String getRevision() {

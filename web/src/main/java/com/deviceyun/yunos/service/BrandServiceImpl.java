@@ -17,24 +17,19 @@ public class BrandServiceImpl implements BrandService {
 	private SessionFactory sessionFactory;
 
 	@Override
-	public Brand load(String id) {
-		return (Brand)sessionFactory.getCurrentSession().load(Brand.class, id);		
-	}
-	
-	@Override
 	public List<Brand> getAllBrands(String locale) {
-		Query q=
-		sessionFactory.getCurrentSession()
-			.createQuery("select b from Brand b "
-					+ "left join b.locales l with l.locale=:locale where b.primary is null"
-					);
+		Query q = sessionFactory
+				.getCurrentSession()
+				.createQuery(
+						"select b from Brand b "
+								+ "left join b.locales l with l.locale=:locale where b.primary is null");
 		q.setString("locale", locale);
-		
-		List<Brand> dbResult = (List<Brand>)q.list();
-		List<Brand> localeBrands = new ArrayList<Brand>(); 
-		for(Brand b : dbResult)
+
+		List<Brand> dbResult = (List<Brand>) q.list();
+		List<Brand> localeBrands = new ArrayList<Brand>();
+		for (Brand b : dbResult)
 			localeBrands.add(b.get(locale));
-		
+
 		return localeBrands;
 	}
 }

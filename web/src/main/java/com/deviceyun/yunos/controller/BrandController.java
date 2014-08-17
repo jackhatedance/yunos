@@ -38,13 +38,13 @@ public class BrandController {
 	 
 	
 	@RequestMapping(value = "", method = RequestMethod.GET)
-	public List<Brand> getAllBrands(@RequestParam("language")String language) {
-		return remoteService.getAllBrands(language);
+	public List<Brand> getAllBrands(@RequestParam("locale")String locale) {
+		return remoteService.getAllBrands(locale);
 	}
 	
 	@RequestMapping(value = "/{id}/products", method = RequestMethod.GET)
-	public List<Product> getProducts(@PathVariable("id") String id, @RequestParam("language")String language) {
-		return remoteService.getProducts(id,language);
+	public List<Product> getProducts(@PathVariable("id") String id, @RequestParam("locale")String locale) {
+		return remoteService.getProducts(id,locale);
 	}
 	
 }

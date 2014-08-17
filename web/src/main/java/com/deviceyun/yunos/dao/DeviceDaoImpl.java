@@ -13,7 +13,7 @@ public class DeviceDaoImpl extends AbstractDao implements DeviceDao {
 
 	@Override
 	public Device get(String id) {
-		Session session = sessionFactory.getCurrentSession();
+		Session session = getCurrentSession();
 		return (Device) session.get(Device.class, id);
 	}
 

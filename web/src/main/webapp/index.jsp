@@ -26,8 +26,17 @@
     </li>        
     
     <li>    
-    <a href="api/1.0/brands?language=zh_CN">list brands</a>     
-    </li>        
+    <a href="api/1.0/brands?locale=zh_CN">list brands</a>     
+    </li>
+    
+    <li>    
+    <a href="api/1.0/brands/c20c8c53-2485-11e4-9fa1-08002785c3ec/products?locale=zh_CN">list products</a>     
+    </li>          
+    
+    <li>    
+    <a href="api/1.0/products/c0bbb53f-2489-11e4-9fa1-08002785c3ec/models?locale=zh_CN">list models</a>     
+    </li>          
+    
     
     </ul>
   </body>

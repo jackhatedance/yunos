@@ -17,12 +17,13 @@ import com.deviceyun.yunos.api.ParameterType;
 import com.deviceyun.yunos.core.DeviceManager;
 import com.deviceyun.yunos.dao.ApplicationDao;
 import com.deviceyun.yunos.dao.DeviceDao;
+import com.deviceyun.yunos.dao.GenericDao;
 import com.deviceyun.yunos.device.FunctionalDevice;
 import com.deviceyun.yunos.device.PhysicalDevice;
-import com.deviceyun.yunos.domain.Model;
 import com.deviceyun.yunos.domain.Token;
 import com.deviceyun.yunos.remote.vo.Brand;
 import com.deviceyun.yunos.remote.vo.Device;
+import com.deviceyun.yunos.remote.vo.HardwareType;
 import com.deviceyun.yunos.remote.vo.Product;
 
 /**
@@ -33,6 +34,8 @@ import com.deviceyun.yunos.remote.vo.Product;
  */
 @Component
 public class RemoteServiceImpl implements RemoteService {
+	@Autowired
+	private GenericDao genericDao;
 
 	@Autowired
 	private DeviceManager deviceManager;
@@ -48,7 +51,10 @@ public class RemoteServiceImpl implements RemoteService {
 
 	@Autowired
 	private ProductService productService;
-
+	
+	@Autowired
+	private ModelService modelService;
+	
 	@Autowired
 	private AuthenticationService authenticationService;
 
@@ -89,11 +95,15 @@ public class RemoteServiceImpl implements RemoteService {
 	protected Device createRemoteDevice(
 			com.deviceyun.yunos.domain.Device domainDevice) {
 		Device remoteDevice = new Device();
-		com.deviceyun.yunos.remote.vo.Model remoteModel = new com.deviceyun.yunos.remote.vo.Model();
-		BeanUtils.copyProperties(domainDevice.getModel(), remoteModel);
+		com.deviceyun.yunos.remote.vo.HardwareType hardwareType = new com.deviceyun.yunos.remote.vo.HardwareType();
+		hardwareType.setBrand(domainDevice.getModel().getProduct().getBrand().getName());
+		hardwareType.setProduct(domainDevice.getModel().getProduct().getName());
+		hardwareType.setModel(domainDevice.getModel().getName());
+		
+		
 		BeanUtils.copyProperties(domainDevice, remoteDevice, "model");
 
-		remoteDevice.setModel(remoteModel);
+		remoteDevice.setHardwareType(hardwareType);
 		return remoteDevice;
 	}
 
@@ -190,7 +200,8 @@ public class RemoteServiceImpl implements RemoteService {
 	@Override
 	public List<Product> getProducts(String brandId, String locale) {
 
-		com.deviceyun.yunos.domain.Brand brand = brandService.load(brandId);
+		com.deviceyun.yunos.domain.Brand brand = (com.deviceyun.yunos.domain.Brand) genericDao
+				.load(com.deviceyun.yunos.domain.Brand.class, brandId);
 		List<com.deviceyun.yunos.domain.Product> domainProducts = productService
 				.getProducts(brand, locale);
 
@@ -203,5 +214,25 @@ public class RemoteServiceImpl implements RemoteService {
 		}
 
 		return remoteProducts;
+	}
+
+	@Override
+	public List<com.deviceyun.yunos.remote.vo.Model> getModels(
+			String productId, String locale) {
+
+		com.deviceyun.yunos.domain.Product product = (com.deviceyun.yunos.domain.Product) genericDao
+				.load(com.deviceyun.yunos.domain.Product.class, productId);
+		List<com.deviceyun.yunos.domain.Model> domainModels = modelService
+				.getModels(product, locale);
+
+		List<com.deviceyun.yunos.remote.vo.Model> remoteModels = new ArrayList<com.deviceyun.yunos.remote.vo.Model>();
+		for (com.deviceyun.yunos.domain.Model dm : domainModels) {
+			com.deviceyun.yunos.remote.vo.Model rm = new com.deviceyun.yunos.remote.vo.Model();
+			BeanUtils.copyProperties(dm, rm);
+
+			remoteModels.add(rm);
+		}
+
+		return remoteModels;
 	}
 }

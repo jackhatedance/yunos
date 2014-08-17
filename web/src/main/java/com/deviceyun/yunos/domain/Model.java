@@ -147,6 +147,13 @@ public class Model {
 		this.locales = locales;
 	}
 
+	public Model get(String locale){
+		Model localeModel = locales.get(locale);
+		if(localeModel!=null)
+			return localeModel;
+		else
+			return this;
+	}
 	public com.deviceyun.yunos.device.Model getVO() {
 		com.deviceyun.yunos.device.Model m = new com.deviceyun.yunos.device.Model(
 				product.getBrand().getName(), product.getName(), name);

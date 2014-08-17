@@ -10,7 +10,7 @@ public class ApplicationDaoImpl extends AbstractDao implements ApplicationDao {
 
 	@Override
 	public Application get(String id) {
-		Session session = sessionFactory.getCurrentSession();
+		Session session = getCurrentSession();
 		return (Application) session.get(Application.class, id);
 	}
 }

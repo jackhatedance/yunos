@@ -1,50 +1,53 @@
 package com.deviceyun.yunos.remote.vo;
 
-import java.io.Serializable;
 
 /**
- * 
+ * it is a entity.
  * 
  * @author jack
  * 
  */
+public class Model {
+	private String id;
 
-public class Model implements Serializable {
+	private String name;
+
+	private String description;
+
+	private String languageCode;
 
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -1953981223040246980L;
-
-	private String brand;
-
-	private String product;
-
-	private String model;
-
-	public String getBrand() {
-		return brand;
+	public String getId() {
+		return id;
 	}
 
-	public void setBrand(String brand) {
-		this.brand = brand;
+	public void setId(String id) {
+		this.id = id;
 	}
 
-	public String getProduct() {
-		return product;
+	public String getName() {
+		return name;
 	}
 
-	public void setProduct(String product) {
-		this.product = product;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getModel() {
-		return model;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setModel(String model) {
-		this.model = model;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
+	public String getLanguageCode() {
+		return languageCode;
+	}
+
+	public void setLanguageCode(String languageCode) {
+		this.languageCode = languageCode;
+	}
+
+ 
 }

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class AbstractDao {
 	@Autowired
-	protected SessionFactory sessionFactory;
+	private SessionFactory sessionFactory;
 
 	protected Session getCurrentSession() {
 		return sessionFactory.getCurrentSession();
