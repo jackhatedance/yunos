@@ -1,6 +1,7 @@
 package com.deviceyun.yunos.domain;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -10,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -35,6 +37,9 @@ public class Driver {
 	@Column
 	private Date submitTime;
 
+	@OneToMany(mappedBy = "driver", cascade = { CascadeType.ALL })
+	private List<DriverConfigureItem> cofigureItems;
+	
 	@ManyToMany(cascade = { CascadeType.ALL })
 	@JoinTable(name = "DriverSupportedModel", joinColumns = { @JoinColumn(name = "driverId") }, inverseJoinColumns = { @JoinColumn(name = "modelId") })
 	private Set<Model> supportedModels;

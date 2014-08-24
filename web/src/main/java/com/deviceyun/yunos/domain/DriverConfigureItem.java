@@ -23,11 +23,15 @@ import org.hibernate.annotations.GenericGenerator;
  * 
  */
 @javax.persistence.Entity
-public class DriverConfigItem {
+public class DriverConfigureItem {
 	@Id
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	private String id;
+
+	@JoinColumn(name = "driverId")
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Driver driver;
 
 	@Column
 	private String name;
@@ -36,21 +40,21 @@ public class DriverConfigItem {
 	private String description;
 
 	@Column
-	private String type;	
+	private String type;
 
 	@Column
-	private String constraints;	
+	private String constraints;
 
 	@Column
 	private String locale;
 
 	@JoinColumn(name = "primaryId")
 	@ManyToOne(cascade = CascadeType.ALL)
-	private DriverConfigItem primary;
+	private DriverConfigureItem primary;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "primary")
 	@MapKey(name = "locale")
-	private Map<String, DriverConfigItem> locales = new HashMap<String, DriverConfigItem>();
+	private Map<String, DriverConfigureItem> locales = new HashMap<String, DriverConfigureItem>();
 
 	public String getId() {
 		return id;
@@ -84,19 +88,19 @@ public class DriverConfigItem {
 		this.locale = locale;
 	}
 
-	public DriverConfigItem getPrimary() {
+	public DriverConfigureItem getPrimary() {
 		return primary;
 	}
 
-	public void setPrimary(DriverConfigItem primary) {
+	public void setPrimary(DriverConfigureItem primary) {
 		this.primary = primary;
 	}
 
-	public Map<String, DriverConfigItem> getLocales() {
+	public Map<String, DriverConfigureItem> getLocales() {
 		return locales;
 	}
 
-	public void setLocales(Map<String, DriverConfigItem> locales) {
+	public void setLocales(Map<String, DriverConfigureItem> locales) {
 		this.locales = locales;
 	}
 
@@ -105,8 +109,8 @@ public class DriverConfigItem {
 		return name;
 	}
 
-	public DriverConfigItem get(String locale) {
-		DriverConfigItem lb = locales.get(locale);
+	public DriverConfigureItem get(String locale) {
+		DriverConfigureItem lb = locales.get(locale);
 		if (lb != null)
 			return lb;
 		else
