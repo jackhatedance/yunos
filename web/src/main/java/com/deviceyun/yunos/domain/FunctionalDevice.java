@@ -36,7 +36,7 @@ public class FunctionalDevice {
 
 	@OneToMany(mappedBy = "functionalDevice", cascade = { CascadeType.ALL })
 	@MapKey(name = "version")
-	private Map<String, DeviceApi> apis = new HashMap<String, DeviceApi>();
+	private Map<String, FunctionalDeviceApi> apis = new HashMap<String, FunctionalDeviceApi>();
 
 	public String getId() {
 		return id;
@@ -70,11 +70,11 @@ public class FunctionalDevice {
 		this.product = product;
 	}
 
-	public Map<String, DeviceApi> getVersions() {
+	public Map<String, FunctionalDeviceApi> getVersions() {
 		return apis;
 	}
 
-	public void setVersions(Map<String, DeviceApi> versions) {
+	public void setVersions(Map<String, FunctionalDeviceApi> versions) {
 		this.apis = versions;
 	}
 

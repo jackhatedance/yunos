@@ -18,7 +18,7 @@ import org.hibernate.annotations.GenericGenerator;
  */
 @javax.persistence.Entity
 @Table
-public class DeviceApi {
+public class FunctionalDeviceApi {
 	@Id
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
