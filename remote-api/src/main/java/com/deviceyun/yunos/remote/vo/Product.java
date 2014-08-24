@@ -2,7 +2,6 @@ package com.deviceyun.yunos.remote.vo;
 
 import java.io.Serializable;
 
-
 /**
  * it is a entity.
  * 
@@ -21,9 +20,6 @@ public class Product implements Serializable {
 
 	private String description;
 
-	private String languageCode;
-
-	
 	public String getId() {
 		return id;
 	}
@@ -48,13 +44,4 @@ public class Product implements Serializable {
 		this.description = description;
 	}
 
-	public String getLanguageCode() {
-		return languageCode;
-	}
-
-	public void setLanguageCode(String languageCode) {
-		this.languageCode = languageCode;
-	}
-
- 
 }

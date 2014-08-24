@@ -45,7 +45,7 @@ public class ConfigureAnnotationExtractor {
 				I18nString i18nDesc = getI18nString(resource, classLoader,
 						defaultLocale, supportedLocales, name + ".description");
 
-				ConfigItem configItem = new ConfigItem(i18nName, i18nDesc, type);
+				ConfigItem configItem = new ConfigItem(name, i18nName, i18nDesc, type);
 
 				items.add(configItem);
 			}

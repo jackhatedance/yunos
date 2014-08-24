@@ -79,4 +79,6 @@ public interface RemoteService {
 	List<com.deviceyun.yunos.remote.vo.Product> getProducts(String brandId, String locale);
 	
 	List<com.deviceyun.yunos.remote.vo.Model> getModels(String productId, String locale);
+	
+	
 }

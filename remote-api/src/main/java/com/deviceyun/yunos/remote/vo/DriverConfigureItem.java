@@ -2,18 +2,12 @@ package com.deviceyun.yunos.remote.vo;
 
 import java.io.Serializable;
 
+public class DriverConfigureItem implements Serializable {
 
-/**
- * it is a entity.
- * 
- * @author jack
- * 
- */
-public class Model implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -1163337070537069446L;
+	private static final long serialVersionUID = 6202269340588148927L;
 
 	private String id;
 
@@ -21,8 +15,10 @@ public class Model implements Serializable {
 
 	private String description;
 
- 
-	
+	private String type;
+
+	private String constraints;
+
 	public String getId() {
 		return id;
 	}
@@ -47,7 +43,20 @@ public class Model implements Serializable {
 		this.description = description;
 	}
 
- 
+	public String getType() {
+		return type;
+	}
 
- 
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getConstraints() {
+		return constraints;
+	}
+
+	public void setConstraints(String constraints) {
+		this.constraints = constraints;
+	}
+
 }
