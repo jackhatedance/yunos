@@ -12,7 +12,7 @@ public abstract class AbstractDriver implements Driver {
 
 	protected List<Model> supportedModels = new ArrayList<Model>();
 
-	protected List<ConfigItem> configureItems = new ArrayList<ConfigItem>();
+	
 
 	public AbstractDriver() {
 		sdkVersion = "1.0";
@@ -31,9 +31,9 @@ public abstract class AbstractDriver implements Driver {
 	}
 
 	@Override
-	public List<ConfigItem> getConfigItems() {
-
-		return configureItems;
+	public Class getConfigureClass() {
+		
+		return null;
 	}
 
 	@Override

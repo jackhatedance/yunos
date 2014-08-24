@@ -45,7 +45,11 @@ public interface Driver {
 
 	List<Model> getSupportedModels();
 
-	List<ConfigItem> getConfigItems();
+	/**
+	 * the configure class is used to collect configure items by its annotations
+	 * @return
+	 */
+	Class getConfigureClass();
 
 	/**
 	 * install driver for the device.

@@ -75,11 +75,11 @@ public class DaoTests {
 		query = sessionFactory
 				.getCurrentSession()
 				.createQuery(
-						"from DeviceApi a where a.brand = :brand and category=:category and product=:product");
+						"from FunctionalDevice a where a.brand = :brand and category=:category and product=:product");
 		query.setString("brand", "Generic");
 		query.setString("category", "Light");
 		query.setString("product", "Light");
-		com.deviceyun.yunos.domain.DeviceApi da = (com.deviceyun.yunos.domain.DeviceApi) query
+		com.deviceyun.yunos.domain.FunctionalDevice da = (com.deviceyun.yunos.domain.FunctionalDevice) query
 				.uniqueResult();
 		Assert.assertNotNull(da);
 		Assert.assertNotNull(da.getVersions().get("1.0"));

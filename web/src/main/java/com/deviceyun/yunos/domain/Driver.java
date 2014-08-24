@@ -29,6 +29,7 @@ public class Driver {
 	private String sdkVersion;
 	@Column
 	private String className;
+	
 	@Column
 	private String author;
 	@Column

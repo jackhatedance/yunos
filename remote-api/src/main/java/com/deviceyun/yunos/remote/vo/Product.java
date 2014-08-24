@@ -1,5 +1,7 @@
 package com.deviceyun.yunos.remote.vo;
 
+import java.io.Serializable;
+
 
 /**
  * it is a entity.
@@ -7,7 +9,12 @@ package com.deviceyun.yunos.remote.vo;
  * @author jack
  * 
  */
-public class Product {
+public class Product implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1317119235852319538L;
+
 	private String id;
 
 	private String name;

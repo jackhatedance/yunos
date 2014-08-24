@@ -1,23 +1,19 @@
 package com.deviceyun.yunos.domain;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.MapKey;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
 /**
- * for example, a device API is defined for a certain product, but not for a
- * specific model.
+ * it is a entity.
  * 
- * @author jackding
+ * @author jack
  * 
  */
 @javax.persistence.Entity
@@ -27,16 +23,19 @@ public class DeviceApi {
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	private String id;
-	@Column
-	private String brand;
-	@Column
-	private String category;
-	@Column
-	private String product;
 
-	@OneToMany(mappedBy = "deviceApi", cascade = { CascadeType.ALL })
-	@MapKey(name = "version")
-	private Map<String, DeviceApiVersion> versions = new HashMap<String, DeviceApiVersion>();
+	@ManyToOne(cascade = { CascadeType.ALL })
+	@JoinColumn(name = "functionalDeviceId")
+	private FunctionalDevice functionalDevice;
+
+	@Column
+	private String version;
+
+	@Column
+	private String description;
+
+	@Column
+	private String className;
 
 	public String getId() {
 		return id;
@@ -46,36 +45,37 @@ public class DeviceApi {
 		this.id = id;
 	}
 
-	public String getBrand() {
-		return brand;
+ 
+	public FunctionalDevice getFunctionalDevice() {
+		return functionalDevice;
 	}
 
-	public void setBrand(String brand) {
-		this.brand = brand;
+	public void setFunctionalDevice(FunctionalDevice functionalDevice) {
+		this.functionalDevice = functionalDevice;
 	}
 
-	public String getCategory() {
-		return category;
+	public String getClassName() {
+		return className;
 	}
 
-	public void setCategory(String category) {
-		this.category = category;
+	public void setClassName(String className) {
+		this.className = className;
 	}
 
-	public String getProduct() {
-		return product;
+	public String getVersion() {
+		return version;
 	}
 
-	public void setProduct(String product) {
-		this.product = product;
+	public void setVersion(String version) {
+		this.version = version;
 	}
 
-	public Map<String, DeviceApiVersion> getVersions() {
-		return versions;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setVersions(Map<String, DeviceApiVersion> versions) {
-		this.versions = versions;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 }
