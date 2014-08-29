@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -31,18 +32,38 @@ public class Driver {
 	private String sdkVersion;
 	@Column
 	private String className;
-	
+
 	@Column
-	private String author;
+	private String authorName;
+
+	@Column
+	private String authorEmail;
+
 	@Column
 	private Date submitTime;
 
-	@OneToMany(mappedBy = "driver", cascade = { CascadeType.ALL })
-	private List<DriverConfigureItem> cofigureItems;
-	
+	@OneToOne(mappedBy = "driver", cascade = CascadeType.ALL)
+	private DriverConfigurationDefinition configurationDefinition;
+
 	@ManyToMany(cascade = { CascadeType.ALL })
 	@JoinTable(name = "DriverSupportedModel", joinColumns = { @JoinColumn(name = "driverId") }, inverseJoinColumns = { @JoinColumn(name = "modelId") })
 	private Set<Model> supportedModels;
+
+	public Driver() {
+
+	}
+
+	public Driver(String name, String version, String sdkVersion,
+			String className, String authorName, String authorEmail) {
+		this.name = name;
+		this.version = version;
+		this.sdkVersion = sdkVersion;
+		this.className = className;
+		this.authorName = authorName;
+		this.authorEmail = authorEmail;
+
+		submitTime = new Date();
+	}
 
 	public String getId() {
 		return id;
@@ -84,12 +105,20 @@ public class Driver {
 		this.className = className;
 	}
 
-	public String getAuthor() {
-		return author;
+	public String getAuthorName() {
+		return authorName;
 	}
 
-	public void setAuthor(String author) {
-		this.author = author;
+	public void setAuthorName(String authorName) {
+		this.authorName = authorName;
+	}
+
+	public String getAuthorEmail() {
+		return authorEmail;
+	}
+
+	public void setAuthorEmail(String authorEmail) {
+		this.authorEmail = authorEmail;
 	}
 
 	public Date getSubmitTime() {
@@ -106,6 +135,17 @@ public class Driver {
 
 	public void setSupportedModels(Set<Model> supportedModels) {
 		this.supportedModels = supportedModels;
+	}
+
+	public DriverConfigurationDefinition getConfigurationDefinition() {
+		return configurationDefinition;
+	}
+
+	public void setConfigurationDefinition(
+			DriverConfigurationDefinition configurationDefinition) {
+		this.configurationDefinition = configurationDefinition;
+		
+		configurationDefinition.setDriver(this);
 	}
 
 }

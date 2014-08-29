@@ -1,23 +1,26 @@
 package com.deviceyun.yunos.driver.config;
 
+import javax.management.RuntimeErrorException;
+
 import com.deviceyun.yunos.device.FunctionalDevice;
 
-public enum ConfigureItemType {
+public enum ConfigurationItemType {
 
 	STRING, INTEGER, FLOAT, ENUM, FUNCTIONAL_DEVICE;
 
-	public static ConfigureItemType getType(Class clazz) {
+	public static ConfigurationItemType getType(Class clazz) {
 		if (clazz==String.class)
 			return STRING;
-		else if (clazz==Integer.class)
+		else if (clazz==Integer.class ||clazz==int.class)
 			return INTEGER;
-		else if (clazz==Float.class)
+		
+		else if (clazz==Float.class||clazz==float.class)
 			return FLOAT;
 		else if (clazz.isEnum())
 			return ENUM;
 		else if (clazz==FunctionalDevice.class)
 			return FUNCTIONAL_DEVICE;
 		else
-			return null;
+			throw new RuntimeException("unknown type:"+clazz.getTypeName());
 	}
 }

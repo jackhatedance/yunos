@@ -11,25 +11,27 @@ import com.deviceyun.yunos.driver.config.annotation.Item;
 import com.deviceyun.yunos.driver.i18n.I18nString;
 import com.deviceyun.yunos.driver.i18n.UTF8Control;
 
-public class ConfigureAnnotationExtractor {
+public class ConfigureAnnotationParser {
 
-	public List<ConfigItem> parse(Class configClass) {
+	public com.deviceyun.yunos.driver.config.ConfigurationDefinition parse(
+			Class configClass) {
+
 		ClassLoader classLoader = configClass.getClassLoader();
 
-		Configure configure = (Configure) configClass
+		Configure configureAnnotation = (Configure) configClass
 				.getAnnotation(Configure.class);
 
-		String resource = configure.resourceFile();
-		String defaultLocaleStr = configure.defaultLocale();
+		String resource = configureAnnotation.resourceFile();
+		String defaultLocaleStr = configureAnnotation.defaultLocale();
 		Locale defaultLocale = Locale.forLanguageTag(defaultLocaleStr.replace(
 				'_', '-'));
-		String[] supportedlocalesStr = configure.supportedlocales();
+		String[] supportedlocalesStr = configureAnnotation.supportedlocales();
 		Locale[] supportedLocales = new Locale[supportedlocalesStr.length];
 		for (int i = 0; i < supportedlocalesStr.length; i++)
 			supportedLocales[i] = Locale.forLanguageTag(supportedlocalesStr[i]
 					.replace('_', '-'));
 
-		List<ConfigItem> items = new ArrayList<ConfigItem>();
+		List<ConfigurationItem> items = new ArrayList<ConfigurationItem>();
 
 		for (Field field : configClass.getDeclaredFields()) {
 
@@ -37,7 +39,7 @@ public class ConfigureAnnotationExtractor {
 			if (item != null) {
 				String name = field.getName();
 
-				ConfigureItemType type = ConfigureItemType.getType(field
+				ConfigurationItemType type = ConfigurationItemType.getType(field
 						.getType());
 
 				I18nString i18nName = getI18nString(resource, classLoader,
@@ -45,13 +47,18 @@ public class ConfigureAnnotationExtractor {
 				I18nString i18nDesc = getI18nString(resource, classLoader,
 						defaultLocale, supportedLocales, name + ".description");
 
-				ConfigItem configItem = new ConfigItem(name, i18nName, i18nDesc, type);
+				ConfigurationItem configItem = new ConfigurationItem(name, i18nName,
+						i18nDesc, type);
 
 				items.add(configItem);
 			}
 
 		}
-		return items;
+
+		ConfigurationDefinition configureDef = new com.deviceyun.yunos.driver.config.ConfigurationDefinition(
+				defaultLocale, supportedLocales, items);
+
+		return configureDef;
 	}
 
 	private I18nString getI18nString(String resource, ClassLoader classLoader,

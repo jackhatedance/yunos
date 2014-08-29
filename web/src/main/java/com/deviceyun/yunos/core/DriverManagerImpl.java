@@ -1,10 +1,13 @@
 package com.deviceyun.yunos.core;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Properties;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
+import java.util.jar.JarInputStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -60,17 +63,17 @@ public class DriverManagerImpl implements DriverManager {
 	}
 
 	@Override
-	public Driver loadDriver(Device deviceEntity) {		
+	public Driver loadDriver(Device deviceEntity) {
 		Driver driver = driverClassLoader.loadDriver(deviceEntity.getDriver());
 		return driver;
-		
+
 	}
 
-	public Properties readDriverInfoFromJarFile(String fileName) {
+	public Properties readDriverInfoFromJarFile(File file) {
 		Properties prop = null;
 		JarFile jarFile;
 		try {
-			jarFile = new JarFile(fileName);
+			jarFile = new JarFile(file);
 			JarEntry entry = jarFile.getJarEntry("driver.properties");
 			InputStream stream = jarFile.getInputStream(entry);
 			prop = new Properties();
@@ -85,9 +88,46 @@ public class DriverManagerImpl implements DriverManager {
 		return prop;
 	}
 
-	public static void main(String[] args) {
-		DriverManagerImpl dm = new DriverManagerImpl();
-		Properties prop = dm.readDriverInfoFromJarFile("/home/jack/test.jar");
-		System.out.println(prop.getProperty("class-name"));
+	private JarEntry getJarEntry(JarInputStream jarInputStream, String entryName)
+			throws IOException {
+		JarEntry entry = null;
+		while (jarInputStream.available() > 0) {
+			entry = jarInputStream.getNextJarEntry();
+			if (entry.getName().equals(entryName))
+				break;
+		}
+		return entry;
 	}
+
+	public Properties readDriverInfoFromJarFile(InputStream input) {
+		Properties prop = null;
+
+		try {
+
+			JarInputStream jarInputStream = new JarInputStream(input);
+
+			JarEntry entry = getJarEntry(jarInputStream, "driver.properties");
+
+			// the whole stream is smart enough to act as entry stream.
+			InputStream entryStream = jarInputStream;
+
+			prop = new Properties();
+			prop.load(entryStream);
+
+		} catch (Exception e) {
+
+			throw new RuntimeException(e);
+		}
+
+		return prop;
+	}
+
+	@Override
+	public Driver loadDriver(com.deviceyun.yunos.domain.Driver driverEntity) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	 
+
 }

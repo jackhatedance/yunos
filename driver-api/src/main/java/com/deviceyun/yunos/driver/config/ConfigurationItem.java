@@ -8,14 +8,14 @@ import com.deviceyun.yunos.driver.i18n.I18nString;
  * @author jack
  * 
  */
-public class ConfigItem {
+public class ConfigurationItem {
 	private String fieldName;
 	private I18nString name;
 	private I18nString description;
-	private ConfigureItemType type;
+	private ConfigurationItemType type;
 
-	public ConfigItem(String fieldName,I18nString name, I18nString description,
-			ConfigureItemType type) {
+	public ConfigurationItem(String fieldName,I18nString name, I18nString description,
+			ConfigurationItemType type) {
 		this.fieldName = fieldName;
 		this.name = name;
 		this.description = description;
@@ -59,11 +59,11 @@ public class ConfigItem {
 		this.description = description;
 	}
 
-	public ConfigureItemType getType() {
+	public ConfigurationItemType getType() {
 		return type;
 	}
 
-	public void setType(ConfigureItemType type) {
+	public void setType(ConfigurationItemType type) {
 		this.type = type;
 	}
 

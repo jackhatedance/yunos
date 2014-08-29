@@ -105,7 +105,7 @@ public class DaoTests {
 		List<Driver> drivers = driverDao.findDriver(model);
 		Assert.assertNotNull(drivers);
 		Assert.assertFalse(drivers.isEmpty());
-		Assert.assertEquals("jack ding", drivers.get(0).getAuthor());
+		Assert.assertEquals("jack ding", drivers.get(0).getAuthorName());
 
 	}
 
