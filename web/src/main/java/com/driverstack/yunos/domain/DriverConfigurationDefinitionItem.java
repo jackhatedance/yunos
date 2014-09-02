@@ -165,6 +165,7 @@ public class DriverConfigurationDefinitionItem {
 
 	public void addLocales(String locale, DriverConfigurationDefinitionItem item) {
 		locales.put(locale, item);
+		item.setPrimary(this);		
 	}
 
 	@Override

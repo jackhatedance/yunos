@@ -15,5 +15,7 @@ public interface DriverService {
 	 */
 	Serializable upload(InputStream stream);
 
+	Driver get(Serializable id);
+	
 	void delete(Serializable id);
 }

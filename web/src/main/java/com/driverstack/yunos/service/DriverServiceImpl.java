@@ -135,6 +135,14 @@ public class DriverServiceImpl extends AbstractService implements DriverService 
 	}
 
 	@Override
+	public Driver get(Serializable id) {
+		Session s = getCurrentSession();
+		Driver d = (Driver) s.get(Driver.class, id);
+
+		return d;
+	}
+
+	@Override
 	public void delete(Serializable id) {
 		Session s = getCurrentSession();
 		Object obj = s.load(Driver.class, id);

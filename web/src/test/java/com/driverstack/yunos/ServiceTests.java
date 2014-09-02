@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -19,6 +20,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.driverstack.yunos.domain.Brand;
 import com.driverstack.yunos.domain.Device;
+import com.driverstack.yunos.domain.Driver;
+import com.driverstack.yunos.domain.DriverConfigurationDefinitionItem;
 import com.driverstack.yunos.domain.User;
 import com.driverstack.yunos.service.BrandService;
 import com.driverstack.yunos.service.DeviceService;
@@ -71,6 +74,17 @@ public class ServiceTests {
 				"/sampleDriver/RF-IR-Transmitter-Driver-1.0.jar");
 		Serializable driverId = driverService.upload(input);
 		Assert.assertNotNull(driverId);
+
+		Driver d = driverService.get(driverId);
+
+		Set<DriverConfigurationDefinitionItem> items = d
+				.getConfigurationDefinition().getItems();
+
+		DriverConfigurationDefinitionItem item = items
+				.toArray(new DriverConfigurationDefinitionItem[0])[0]
+				.get("zh_CN");
+		String actualName = item.getName();
+		Assert.assertEquals("端口", actualName);
 
 		driverService.delete(driverId);
 
