@@ -19,7 +19,7 @@ public class DriverController {
 	@Autowired
 	private DriverService driverSerrvice;
 
-	@RequestMapping(value = "/upload", method = RequestMethod.GET)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String displayForm() {
 		return "driver/driver";
 	}

@@ -44,7 +44,7 @@
     <ul>
     
     <li>
-    <a href="driver/upload">upload driver</a>         
+    <a href="driver/">driver CRUD</a>         
     </li>
     
     </ul>

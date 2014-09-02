@@ -7,7 +7,7 @@
 </head>
 <body>
 	<h1>last operation result</h1>
-	<p>${ operationResult }</p>
+	<div>${ operationResult }</div>
 
 	<h2>upload</h2>
 
