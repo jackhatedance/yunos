@@ -6,10 +6,12 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.util.Locale;
 import java.util.Properties;
 
 import org.apache.commons.io.IOUtils;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -41,7 +43,7 @@ public class DriverServiceImpl extends AbstractService implements DriverService 
 	private DriverManager driverManager;
 
 	@Override
-	public void upload(InputStream in) {
+	public Serializable upload(InputStream in) {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		try {
 			org.apache.commons.io.IOUtils.copy(in, baos);
@@ -90,7 +92,7 @@ public class DriverServiceImpl extends AbstractService implements DriverService 
 		DriverConfigurationDefinition configDefDomain = convertToDomainObject(def);
 		driverDomain.setConfigurationDefinition(configDefDomain);
 
-		getCurrentSession().save(driverDomain);
+		return getCurrentSession().save(driverDomain);
 
 	}
 
@@ -130,5 +132,13 @@ public class DriverServiceImpl extends AbstractService implements DriverService 
 			configureDefinitionDomain.addItem(primaryDomainItem);
 		}
 		return configureDefinitionDomain;
+	}
+
+	@Override
+	public void delete(Serializable id) {
+		Session s = getCurrentSession();
+		Object obj = s.load(Driver.class, id);
+		s.delete(obj);
+
 	}
 }

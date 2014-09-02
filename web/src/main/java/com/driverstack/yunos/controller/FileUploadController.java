@@ -13,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.driverstack.yunos.controller.form.FileUploadForm;
 
 @Controller
-@RequestMapping(value = "/driver")
+@RequestMapping(value = "/file")
 public class FileUploadController {
 	@RequestMapping(value = "/upload", method = RequestMethod.GET)
 	public String displayForm() {

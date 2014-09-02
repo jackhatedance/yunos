@@ -3,6 +3,7 @@ package com.driverstack.yunos;
 import static junit.framework.Assert.assertNotNull;
 
 import java.io.InputStream;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Locale;
 
@@ -63,10 +64,15 @@ public class ServiceTests {
 		Assert.assertEquals("zh_CN", baihuon.getLocale());
 
 	}
-	
+
 	@Test
 	public void testDriverService() throws Exception {
-		InputStream input= getClass().getResourceAsStream("/sampleDriver/RF-IR-Transmitter-Driver-1.0.jar");
-		driverService.upload(input);		
+		InputStream input = getClass().getResourceAsStream(
+				"/sampleDriver/RF-IR-Transmitter-Driver-1.0.jar");
+		Serializable driverId = driverService.upload(input);
+		Assert.assertNotNull(driverId);
+
+		driverService.delete(driverId);
+
 	}
 }

@@ -1,6 +1,9 @@
 package com.driverstack.yunos.service;
 
 import java.io.InputStream;
+import java.io.Serializable;
+
+import com.driverstack.yunos.domain.Driver;
 
 
 public interface DriverService {
@@ -10,6 +13,7 @@ public interface DriverService {
 	 * 
 	 * @param driverJarFile
 	 */
-	void upload(InputStream stream);
+	Serializable upload(InputStream stream);
 
+	void delete(Serializable id);
 }
