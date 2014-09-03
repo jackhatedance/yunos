@@ -35,8 +35,11 @@
     
     <li>    
     <a href="api/1.0/products/c0bbb53f-2489-11e4-9fa1-08002785c3ec/models?locale=zh_CN">list models</a>     
-    </li>          
+    </li>   
     
+    <li>    
+    <a href="api/1.0/drivers/a9d820ba-3834-4b19-87fb-6e6d75c48680/configrationItems?locale=zh_CN">list driver configuration definitions</a>     
+    </li>                 
     
     </ul>
     

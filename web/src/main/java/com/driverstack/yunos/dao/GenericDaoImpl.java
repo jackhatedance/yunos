@@ -24,4 +24,8 @@ public class GenericDaoImpl extends AbstractDao implements GenericDao {
 		return getCurrentSession().get(clazz, id);
 	}
 
+	@Override
+	public List getAll(Class entityClass) {
+		return getCurrentSession().createCriteria(entityClass).list();
+	}
 }

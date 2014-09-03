@@ -1,6 +1,8 @@
 package com.driverstack.yunos.domain;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -10,9 +12,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.OrderBy;
 import javax.persistence.PrimaryKeyJoinColumn;
 
-import org.apache.commons.codec.binary.StringUtils;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
@@ -45,7 +47,8 @@ public class DriverConfigurationDefinition {
 	private Driver driver;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "configurationDefinition")
-	private Set<DriverConfigurationDefinitionItem> items = new HashSet<DriverConfigurationDefinitionItem>();
+	@OrderBy("order")
+	private List<DriverConfigurationDefinitionItem> items = new ArrayList<DriverConfigurationDefinitionItem>();
 
 	public DriverConfigurationDefinition() {
 
@@ -68,7 +71,7 @@ public class DriverConfigurationDefinition {
 
 		this.supportedLocales = sb.toString();
 	}
-	
+
 	public String getId() {
 		return id;
 	}
@@ -101,15 +104,15 @@ public class DriverConfigurationDefinition {
 		this.driver = driver;
 	}
 
-	public Set<DriverConfigurationDefinitionItem> getItems() {
+	public List<DriverConfigurationDefinitionItem> getItems() {
 		return items;
 	}
 
-	public void setItems(Set<DriverConfigurationDefinitionItem> items) {
+	public void setItems(List<DriverConfigurationDefinitionItem> items) {
 		this.items = items;
 	}
 
-	public void addItem(DriverConfigurationDefinitionItem item){
+	public void addItem(DriverConfigurationDefinitionItem item) {
 		items.add(item);
 	}
 }

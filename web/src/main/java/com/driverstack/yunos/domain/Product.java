@@ -1,8 +1,10 @@
 package com.driverstack.yunos.domain;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Locale;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -45,6 +48,10 @@ public class Product {
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "primary")
 	@MapKey(name = "locale")
 	private Map<String, Product> locales = new HashMap<String, Product>();
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "product")
+	@OrderBy("name")
+	private List<Model> models = new ArrayList<Model>();
 
 	@JoinColumn(name = "brandId")
 	@ManyToOne(cascade = CascadeType.ALL)
@@ -104,6 +111,14 @@ public class Product {
 
 	public void setBrand(Brand brand) {
 		this.brand = brand;
+	}
+
+	public List<Model> getModels() {
+		return models;
+	}
+
+	public void setModels(List<Model> models) {
+		this.models = models;
 	}
 
 	public Product get(String locale) {

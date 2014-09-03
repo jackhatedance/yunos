@@ -13,13 +13,15 @@ public class ConfigurationItem {
 	private I18nString name;
 	private I18nString description;
 	private ConfigurationItemType type;
+	private int order;
 
 	public ConfigurationItem(String fieldName,I18nString name, I18nString description,
-			ConfigurationItemType type) {
+			ConfigurationItemType type, int order) {
 		this.fieldName = fieldName;
 		this.name = name;
 		this.description = description;
 		this.type = type;
+		this.order = order;
 	}
 
 	/**
@@ -81,6 +83,14 @@ public class ConfigurationItem {
 
 	public void setDefaultValue(I18nString defaultValue) {
 		this.defaultValue = defaultValue;
+	}
+
+	public int getOrder() {
+		return order;
+	}
+
+	public void setOrder(int order) {
+		this.order = order;
 	}
 
 }

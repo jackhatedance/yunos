@@ -2,8 +2,12 @@ package com.driverstack.yunos.service;
 
 import java.io.InputStream;
 import java.io.Serializable;
+import java.util.List;
 
 import com.driverstack.yunos.domain.Driver;
+import com.driverstack.yunos.domain.DriverConfigurationDefinitionItem;
+import com.driverstack.yunos.domain.Model;
+import com.driverstack.yunos.domain.Product;
 
 
 public interface DriverService {
@@ -18,4 +22,5 @@ public interface DriverService {
 	Driver get(Serializable id);
 	
 	void delete(Serializable id);
+	
 }

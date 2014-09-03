@@ -31,10 +31,14 @@ public class DriverConfigurationDefinitionItem {
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	private String id;
 
+	
 	@JoinColumn(name = "definitionId")
 	@ManyToOne(cascade = CascadeType.ALL)
 	private DriverConfigurationDefinition configurationDefinition;
 
+	@Column(name="\"order\"")
+	private int order;
+	
 	@Column
 	private String fieldName;
 	/**
@@ -68,10 +72,11 @@ public class DriverConfigurationDefinitionItem {
 	}
 
 	public DriverConfigurationDefinitionItem(
-			DriverConfigurationDefinition configurationDefinition,
+			DriverConfigurationDefinition configurationDefinition, int order,
 			String fieldName, String name, String description, String type,
 			String constraints, String locale) {
 		this.configurationDefinition = configurationDefinition;
+		this.order = order;
 		this.fieldName = fieldName;
 		this.name = name;
 		this.description = description;
@@ -96,6 +101,14 @@ public class DriverConfigurationDefinitionItem {
 	public void setConfigurationDefinition(
 			DriverConfigurationDefinition configurationDefinition) {
 		this.configurationDefinition = configurationDefinition;
+	}
+
+	public int getOrder() {
+		return order;
+	}
+
+	public void setOrder(int order) {
+		this.order = order;
 	}
 
 	public String getFieldName() {

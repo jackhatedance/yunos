@@ -95,7 +95,7 @@ public class DaoTests {
 		
 	}
 
-	
+	@Ignore
 	@Test
 	public void testDriverDao() throws Exception {
 

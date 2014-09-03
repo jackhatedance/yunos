@@ -23,7 +23,7 @@ import com.driverstack.yunos.device.PhysicalDevice;
 import com.driverstack.yunos.domain.Token;
 import com.driverstack.yunos.remote.vo.Brand;
 import com.driverstack.yunos.remote.vo.Device;
-import com.driverstack.yunos.remote.vo.HardwareType;
+import com.driverstack.yunos.remote.vo.DriverConfigurationDefinitionItem;
 import com.driverstack.yunos.remote.vo.Product;
 
 /**
@@ -47,14 +47,8 @@ public class RemoteServiceImpl implements RemoteService {
 	private DeviceService deviceService;
 
 	@Autowired
-	private BrandService brandService;
+	private DriverService driverService;
 
-	@Autowired
-	private ProductService productService;
-	
-	@Autowired
-	private ModelService modelService;
-	
 	@Autowired
 	private AuthenticationService authenticationService;
 
@@ -96,11 +90,11 @@ public class RemoteServiceImpl implements RemoteService {
 			com.driverstack.yunos.domain.Device domainDevice) {
 		Device remoteDevice = new Device();
 		com.driverstack.yunos.remote.vo.HardwareType hardwareType = new com.driverstack.yunos.remote.vo.HardwareType();
-		hardwareType.setBrand(domainDevice.getModel().getProduct().getBrand().getName());
+		hardwareType.setBrand(domainDevice.getModel().getProduct().getBrand()
+				.getName());
 		hardwareType.setProduct(domainDevice.getModel().getProduct().getName());
 		hardwareType.setModel(domainDevice.getModel().getName());
-		
-		
+
 		BeanUtils.copyProperties(domainDevice, remoteDevice, "model");
 
 		remoteDevice.setHardwareType(hardwareType);
@@ -183,13 +177,14 @@ public class RemoteServiceImpl implements RemoteService {
 	@Override
 	public List<Brand> getAllBrands(String locale) {
 		Locale aLocale = Locale.forLanguageTag(locale.replaceAll("_", "-"));
-		List<com.driverstack.yunos.domain.Brand> domainBrands = brandService
-				.getAllBrands(locale);
+
+		List<com.driverstack.yunos.domain.Brand> domainBrands = (List<com.driverstack.yunos.domain.Brand>) genericDao
+				.getAll(com.driverstack.yunos.domain.Brand.class);
 
 		List<Brand> remoteBrands = new ArrayList<Brand>();
 		for (com.driverstack.yunos.domain.Brand db : domainBrands) {
 			Brand rb = new Brand();
-			BeanUtils.copyProperties(db, rb);
+			BeanUtils.copyProperties(db.get(locale), rb);
 
 			remoteBrands.add(rb);
 		}
@@ -202,13 +197,13 @@ public class RemoteServiceImpl implements RemoteService {
 
 		com.driverstack.yunos.domain.Brand brand = (com.driverstack.yunos.domain.Brand) genericDao
 				.load(com.driverstack.yunos.domain.Brand.class, brandId);
-		List<com.driverstack.yunos.domain.Product> domainProducts = productService
-				.getProducts(brand, locale);
+		List<com.driverstack.yunos.domain.Product> domainProducts = brand
+				.getProducts();
 
 		List<Product> remoteProducts = new ArrayList<Product>();
 		for (com.driverstack.yunos.domain.Product dp : domainProducts) {
 			Product rp = new Product();
-			BeanUtils.copyProperties(dp, rp);
+			BeanUtils.copyProperties(dp.get(locale), rp);
 
 			remoteProducts.add(rp);
 		}
@@ -222,17 +217,40 @@ public class RemoteServiceImpl implements RemoteService {
 
 		com.driverstack.yunos.domain.Product product = (com.driverstack.yunos.domain.Product) genericDao
 				.load(com.driverstack.yunos.domain.Product.class, productId);
-		List<com.driverstack.yunos.domain.Model> domainModels = modelService
-				.getModels(product, locale);
+		List<com.driverstack.yunos.domain.Model> domainModels = product
+				.getModels();
 
 		List<com.driverstack.yunos.remote.vo.Model> remoteModels = new ArrayList<com.driverstack.yunos.remote.vo.Model>();
 		for (com.driverstack.yunos.domain.Model dm : domainModels) {
 			com.driverstack.yunos.remote.vo.Model rm = new com.driverstack.yunos.remote.vo.Model();
-			BeanUtils.copyProperties(dm, rm);
+			BeanUtils.copyProperties(dm.get(locale), rm);
 
 			remoteModels.add(rm);
 		}
 
 		return remoteModels;
+	}
+
+	@Override
+	public List<DriverConfigurationDefinitionItem> getDriverConfigurationDefinitionItems(
+			String driverId, String locale) {
+
+		com.driverstack.yunos.domain.Driver driver = (com.driverstack.yunos.domain.Driver) genericDao
+				.load(com.driverstack.yunos.domain.Driver.class, driverId);
+
+		List<com.driverstack.yunos.domain.DriverConfigurationDefinitionItem> domainItems = driver
+				.getConfigurationDefinition().getItems();
+
+		List<com.driverstack.yunos.remote.vo.DriverConfigurationDefinitionItem> remoteItems = new ArrayList<com.driverstack.yunos.remote.vo.DriverConfigurationDefinitionItem>();
+		for (com.driverstack.yunos.domain.DriverConfigurationDefinitionItem di : domainItems) {
+			com.driverstack.yunos.remote.vo.DriverConfigurationDefinitionItem ri = new com.driverstack.yunos.remote.vo.DriverConfigurationDefinitionItem();
+
+			BeanUtils.copyProperties(di.get(locale), ri);
+
+			remoteItems.add(ri);
+		}
+
+		return remoteItems;
+
 	}
 }

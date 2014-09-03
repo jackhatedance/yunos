@@ -7,10 +7,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 
 import org.apache.commons.io.IOUtils;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -22,6 +25,8 @@ import com.driverstack.yunos.dao.DriverDao;
 import com.driverstack.yunos.domain.Driver;
 import com.driverstack.yunos.domain.DriverConfigurationDefinition;
 import com.driverstack.yunos.domain.DriverConfigurationDefinitionItem;
+import com.driverstack.yunos.domain.Model;
+import com.driverstack.yunos.domain.Product;
 import com.driverstack.yunos.driver.DriverProperties;
 import com.driverstack.yunos.driver.config.ConfigurationDefinition;
 import com.driverstack.yunos.driver.config.ConfigurationItem;
@@ -112,19 +117,24 @@ public class DriverServiceImpl extends AbstractService implements DriverService 
 		for (ConfigurationItem dci : def.getItems()) {
 			Locale defaultLocale = def.getDefaultLocale();
 			primaryDomainItem = new DriverConfigurationDefinitionItem(
-					configureDefinitionDomain, dci.getFieldName(), dci
-							.getName().get(defaultLocale.toString()), dci
-							.getDescription().get(defaultLocale.toString()),
-					dci.getType().toString(), null, def.getDefaultLocale()
+					configureDefinitionDomain, dci.getOrder(),
+					dci.getFieldName(), dci.getName().get(
+							defaultLocale.toString()), dci.getDescription()
+							.get(defaultLocale.toString()), dci.getType()
+							.toString(), null, def.getDefaultLocale()
 							.toString());
 
 			for (Locale locale : def.getSupportedLocales()) {
+				
+				if(locale==defaultLocale)
+					continue;
+				
 				String localeTag = locale.toString();
 				DriverConfigurationDefinitionItem subDomainItem = new DriverConfigurationDefinitionItem(
-						configureDefinitionDomain, dci.getFieldName(), dci
-								.getName().get(localeTag), dci.getDescription()
-								.get(localeTag), dci.getType().toString(),
-						null, def.getDefaultLocale().toString());
+						null, dci.getOrder(),
+						dci.getFieldName(), dci.getName().get(localeTag), dci
+								.getDescription().get(localeTag), dci.getType()
+								.toString(), null, locale.toString());
 
 				primaryDomainItem.addLocales(localeTag, subDomainItem);
 			}
@@ -149,4 +159,6 @@ public class DriverServiceImpl extends AbstractService implements DriverService 
 		s.delete(obj);
 
 	}
+
+	 
 }

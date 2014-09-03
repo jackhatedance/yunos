@@ -2,9 +2,12 @@ package com.driverstack.yunos.driver.config;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.SortedSet;
 
 import com.driverstack.yunos.driver.config.annotation.Configure;
 import com.driverstack.yunos.driver.config.annotation.Item;
@@ -33,6 +36,7 @@ public class ConfigureAnnotationParser {
 
 		List<ConfigurationItem> items = new ArrayList<ConfigurationItem>();
 
+		
 		for (Field field : configClass.getDeclaredFields()) {
 
 			Item item = field.getAnnotation(Item.class);
@@ -48,13 +52,23 @@ public class ConfigureAnnotationParser {
 						defaultLocale, supportedLocales, name + ".description");
 
 				ConfigurationItem configItem = new ConfigurationItem(name, i18nName,
-						i18nDesc, type);
+						i18nDesc, type, item.order());
 
 				items.add(configItem);
 			}
 
 		}
 
+		//sort items, re-set order value
+		Collections.sort(items, new Comparator<ConfigurationItem>() {
+			public int compare(ConfigurationItem o1, ConfigurationItem o2) {
+				return o1.getOrder() - o2.getOrder();
+			};
+		});
+		for(int i=0;i<items.size();i++)
+			items.get(i).setOrder(i);
+		
+		
 		ConfigurationDefinition configureDef = new com.driverstack.yunos.driver.config.ConfigurationDefinition(
 				defaultLocale, supportedLocales, items);
 

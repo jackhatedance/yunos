@@ -2,21 +2,26 @@ package com.driverstack.yunos.remote.vo;
 
 import java.io.Serializable;
 
-public class DriverConfigureItem implements Serializable {
+/**
+ * 
+ * 
+ * @author jack
+ * 
+ */
+public class DriverConfigurationDefinitionItem implements Serializable {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 6202269340588148927L;
+	private static final long serialVersionUID = 1326780189146465714L;
 
 	private String id;
-
+	private int order;
+	private String fieldName;
 	private String name;
 
 	private String description;
-
 	private String type;
-
 	private String constraints;
 
 	public String getId() {
@@ -25,6 +30,22 @@ public class DriverConfigureItem implements Serializable {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public int getOrder() {
+		return order;
+	}
+
+	public void setOrder(int order) {
+		this.order = order;
+	}
+
+	public String getFieldName() {
+		return fieldName;
+	}
+
+	public void setFieldName(String fieldName) {
+		this.fieldName = fieldName;
 	}
 
 	public String getName() {
@@ -57,6 +78,11 @@ public class DriverConfigureItem implements Serializable {
 
 	public void setConstraints(String constraints) {
 		this.constraints = constraints;
+	}
+
+	@Override
+	public String toString() {
+		return name;
 	}
 
 }
