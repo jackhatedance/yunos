@@ -22,7 +22,7 @@ import com.driverstack.yunos.dao.DriverDao;
 import com.driverstack.yunos.dao.mybatisMapper.DeviceMapper;
 import com.driverstack.yunos.dao.mybatisMapper.UserMapper;
 import com.driverstack.yunos.device.Model;
-import com.driverstack.yunos.domain.Brand;
+import com.driverstack.yunos.domain.Vendor;
 import com.driverstack.yunos.domain.Device;
 import com.driverstack.yunos.domain.Driver;
 import com.driverstack.yunos.domain.User;
@@ -85,11 +85,11 @@ public class DaoTests {
 		Assert.assertNotNull(da.getVersions().get("1.0"));
 
 		
-		Brand baihuon = (Brand)session.get(Brand.class, "f525b8e7-2485-11e4-9fa1-08002785c3ec");
+		Vendor baihuon = (Vendor)session.get(Vendor.class, "f525b8e7-2485-11e4-9fa1-08002785c3ec");
 		 
 		Assert.assertNotNull(baihuon);
 		
-		Brand zhCNBaihoun = baihuon.getLocales().get("zh_CN");
+		Vendor zhCNBaihoun = baihuon.getLocales().get("zh_CN");
 		
 		Assert.assertNotNull(zhCNBaihoun);
 		
@@ -100,7 +100,7 @@ public class DaoTests {
 	public void testDriverDao() throws Exception {
 
 		assertNotNull(driverDao);
-		Model model = new Model("7eggs", "Multifunction Transmitter",
+		Model model = new Model("7eggs", 
 				"IR-RF433");
 		List<Driver> drivers = driverDao.findDriver(model);
 		Assert.assertNotNull(drivers);

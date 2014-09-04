@@ -5,37 +5,24 @@ public class Model {
 	/**
 	 * not-nullable
 	 */
-	private String brand;
+	private String vendor;
 
-	/**
-	 * not-nullable
-	 */
-	private String product;
 	/**
 	 * not-nullable
 	 */
 	private String model;
 
-	public Model(String brand, String product, String model) {
-		this.brand = brand;
-		this.product = product;
+	public Model(String vendor, String model) {
+		this.vendor = vendor;
 		this.model = model;
 	}
 
-	public String getBrand() {
-		return brand;
+	public String getVendor() {
+		return vendor;
 	}
 
-	public void setBrand(String brand) {
-		this.brand = brand;
-	}
-
-	public String getProduct() {
-		return product;
-	}
-
-	public void setProduct(String product) {
-		this.product = product;
+	public void setVendor(String vendor) {
+		this.vendor = vendor;
 	}
 
 	public String getModel() {

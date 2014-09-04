@@ -17,26 +17,17 @@ public class HardwareType implements Serializable {
 	 */
 	private static final long serialVersionUID = -1953981223040246980L;
 
-	private String brand;
-
-	private String product;
+	private String vendor;
 
 	private String model;
 
-	public String getBrand() {
-		return brand;
+	
+	public String getVendor() {
+		return vendor;
 	}
 
-	public void setBrand(String brand) {
-		this.brand = brand;
-	}
-
-	public String getProduct() {
-		return product;
-	}
-
-	public void setProduct(String product) {
-		this.product = product;
+	public void setVendor(String vendor) {
+		this.vendor = vendor;
 	}
 
 	public String getModel() {

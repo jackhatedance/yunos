@@ -3,7 +3,7 @@ package com.driverstack.yunos.service;
 import java.util.List;
 import java.util.Map;
 
-import com.driverstack.yunos.remote.vo.Brand;
+import com.driverstack.yunos.domain.Vendor;
 import com.driverstack.yunos.remote.vo.Device;
 import com.driverstack.yunos.remote.vo.DriverConfigurationDefinitionItem;
 
@@ -75,9 +75,9 @@ public interface RemoteService {
 	 * @param locale such as en_US
 	 * @return
 	 */
-	List<Brand> getAllBrands(String locale);
+	List<Vendor> getAllVendors(String locale);
 	
-	List<com.driverstack.yunos.remote.vo.Product> getProducts(String brandId, String locale);
+	List<com.driverstack.yunos.remote.vo.DeviceClass> getDeviceClasses(String locale);
 	
 	List<com.driverstack.yunos.remote.vo.Model> getModels(String productId, String locale);
 	

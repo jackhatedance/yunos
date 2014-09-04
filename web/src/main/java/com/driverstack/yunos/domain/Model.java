@@ -49,9 +49,9 @@ public class Model {
 	@MapKey(name = "locale")
 	private Map<String, Model> locales = new HashMap<String, Model>();
 
-	@JoinColumn(name = "productId")
+	@JoinColumn(name = "vendorId")
 	@ManyToOne(cascade = CascadeType.ALL)
-	private Product product;
+	private Vendor vendor;
 
 	@ManyToMany(cascade = { CascadeType.ALL })
 	@JoinTable(name = "compatible_models", joinColumns = { @JoinColumn(name = "modelId") }, inverseJoinColumns = { @JoinColumn(name = "compatibleModelId") })
@@ -74,13 +74,14 @@ public class Model {
 	public void setId(String id) {
 		this.id = id;
 	}
+ 
 
-	public Product getProduct() {
-		return product;
+	public Vendor getVendor() {
+		return vendor;
 	}
 
-	public void setProduct(Product product) {
-		this.product = product;
+	public void setVendor(Vendor vendor) {
+		this.vendor = vendor;
 	}
 
 	public String getName() {
@@ -156,7 +157,7 @@ public class Model {
 	}
 	public com.driverstack.yunos.device.Model getVO() {
 		com.driverstack.yunos.device.Model m = new com.driverstack.yunos.device.Model(
-				product.getBrand().getName(), product.getName(), name);
+				vendor.getShortName(),  name);
 		return m;
 	}
 }

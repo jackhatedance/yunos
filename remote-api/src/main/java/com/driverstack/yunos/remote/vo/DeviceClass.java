@@ -8,7 +8,7 @@ import java.io.Serializable;
  * @author jack
  * 
  */
-public class Product implements Serializable {
+public class DeviceClass implements Serializable {
 	/**
 	 * 
 	 */

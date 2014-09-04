@@ -26,7 +26,7 @@ import com.driverstack.yunos.domain.Driver;
 import com.driverstack.yunos.domain.DriverConfigurationDefinition;
 import com.driverstack.yunos.domain.DriverConfigurationDefinitionItem;
 import com.driverstack.yunos.domain.Model;
-import com.driverstack.yunos.domain.Product;
+import com.driverstack.yunos.domain.DeviceClass;
 import com.driverstack.yunos.driver.DriverProperties;
 import com.driverstack.yunos.driver.config.ConfigurationDefinition;
 import com.driverstack.yunos.driver.config.ConfigurationItem;

@@ -7,7 +7,7 @@ import java.util.List;
 import com.driverstack.yunos.domain.Driver;
 import com.driverstack.yunos.domain.DriverConfigurationDefinitionItem;
 import com.driverstack.yunos.domain.Model;
-import com.driverstack.yunos.domain.Product;
+import com.driverstack.yunos.domain.DeviceClass;
 
 
 public interface DriverService {

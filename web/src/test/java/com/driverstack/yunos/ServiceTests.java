@@ -18,7 +18,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.driverstack.yunos.dao.GenericDao;
-import com.driverstack.yunos.domain.Brand;
+import com.driverstack.yunos.domain.Vendor;
 import com.driverstack.yunos.domain.Device;
 import com.driverstack.yunos.domain.Driver;
 import com.driverstack.yunos.domain.DriverConfigurationDefinitionItem;
@@ -56,9 +56,11 @@ public class ServiceTests {
 		assertNotNull(devices);
 		Assert.assertFalse(devices.isEmpty());
 
-		List<Brand> allBrands = genericDao.getAll(Brand.class);
-		for (Brand b : allBrands)
-			System.out.println(":" + b.get(Locale.SIMPLIFIED_CHINESE.toString()) .getName());
+		List<Vendor> allBrands = genericDao.getAll(Vendor.class);
+		for (Vendor b : allBrands)
+			System.out.println(":"
+					+ b.get(Locale.SIMPLIFIED_CHINESE.toString())
+							.getShortName());
 
 		// Brand baihuon = chineseBrands.get(chineseBrands.size() - 1);
 		// Assert.assertEquals("zh_CN", baihuon.getLocale());

@@ -26,7 +26,7 @@ import org.hibernate.annotations.GenericGenerator;
  * 
  */
 @javax.persistence.Entity
-public class Brand {
+public class DeviceClass {
 	@Id
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
@@ -43,15 +43,11 @@ public class Brand {
 
 	@JoinColumn(name = "primaryId")
 	@ManyToOne(cascade = CascadeType.ALL)
-	private Brand primary;
+	private DeviceClass primary;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "primary")
 	@MapKey(name = "locale")
-	private Map<String, Brand> locales = new HashMap<String, Brand>();
-
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "brand")
-	@OrderBy("name")
-	private List<Product> products = new ArrayList<Product>();
+	private Map<String, DeviceClass> locales = new HashMap<String, DeviceClass>();
 
 	public String getId() {
 		return id;
@@ -85,37 +81,24 @@ public class Brand {
 		this.locale = locale;
 	}
 
-	public Brand getPrimary() {
+	public DeviceClass getPrimary() {
 		return primary;
 	}
 
-	public void setPrimary(Brand primary) {
+	public void setPrimary(DeviceClass primary) {
 		this.primary = primary;
 	}
 
-	public Map<String, Brand> getLocales() {
+	public Map<String, DeviceClass> getLocales() {
 		return locales;
 	}
 
-	public void setLocales(Map<String, Brand> locales) {
+	public void setLocales(Map<String, DeviceClass> locales) {
 		this.locales = locales;
 	}
 
-	public List<Product> getProducts() {
-		return products;
-	}
-
-	public void setProducts(List<Product> products) {
-		this.products = products;
-	}
-
-	@Override
-	public String toString() {
-		return name;
-	}
-
-	public Brand get(String locale) {
-		Brand lb = locales.get(locale);
+	public DeviceClass get(String locale) {
+		DeviceClass lb = locales.get(locale);
 		if (lb != null)
 			return lb;
 		else

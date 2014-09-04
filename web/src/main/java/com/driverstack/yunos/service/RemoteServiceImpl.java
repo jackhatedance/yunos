@@ -20,11 +20,11 @@ import com.driverstack.yunos.dao.DeviceDao;
 import com.driverstack.yunos.dao.GenericDao;
 import com.driverstack.yunos.device.FunctionalDevice;
 import com.driverstack.yunos.device.PhysicalDevice;
+import com.driverstack.yunos.domain.DeviceClass;
 import com.driverstack.yunos.domain.Token;
-import com.driverstack.yunos.remote.vo.Brand;
+import com.driverstack.yunos.domain.Vendor;
 import com.driverstack.yunos.remote.vo.Device;
 import com.driverstack.yunos.remote.vo.DriverConfigurationDefinitionItem;
-import com.driverstack.yunos.remote.vo.Product;
 
 /**
  * remote service for client, such as mobile app
@@ -90,9 +90,8 @@ public class RemoteServiceImpl implements RemoteService {
 			com.driverstack.yunos.domain.Device domainDevice) {
 		Device remoteDevice = new Device();
 		com.driverstack.yunos.remote.vo.HardwareType hardwareType = new com.driverstack.yunos.remote.vo.HardwareType();
-		hardwareType.setBrand(domainDevice.getModel().getProduct().getBrand()
-				.getName());
-		hardwareType.setProduct(domainDevice.getModel().getProduct().getName());
+		hardwareType.setVendor(domainDevice.getModel().getPrimary().getVendor()
+				.getShortName());
 		hardwareType.setModel(domainDevice.getModel().getName());
 
 		BeanUtils.copyProperties(domainDevice, remoteDevice, "model");
@@ -175,49 +174,48 @@ public class RemoteServiceImpl implements RemoteService {
 	}
 
 	@Override
-	public List<Brand> getAllBrands(String locale) {
-		Locale aLocale = Locale.forLanguageTag(locale.replaceAll("_", "-"));
+	public List<com.driverstack.yunos.remote.vo.DeviceClass> getDeviceClasses(
+			String locale) {
+		List<DeviceClass> domainDeviceClasses = genericDao
+				.getAll(DeviceClass.class);
+		List<com.driverstack.yunos.remote.vo.DeviceClass> remoteObjects = new ArrayList<com.driverstack.yunos.remote.vo.DeviceClass>();
+		for (DeviceClass d : domainDeviceClasses) {
+			com.driverstack.yunos.remote.vo.DeviceClass r = new com.driverstack.yunos.remote.vo.DeviceClass();
+			BeanUtils.copyProperties(d.get(locale), r);
 
-		List<com.driverstack.yunos.domain.Brand> domainBrands = (List<com.driverstack.yunos.domain.Brand>) genericDao
-				.getAll(com.driverstack.yunos.domain.Brand.class);
-
-		List<Brand> remoteBrands = new ArrayList<Brand>();
-		for (com.driverstack.yunos.domain.Brand db : domainBrands) {
-			Brand rb = new Brand();
-			BeanUtils.copyProperties(db.get(locale), rb);
-
-			remoteBrands.add(rb);
+			remoteObjects.add(r);
 		}
 
-		return remoteBrands;
+		return remoteObjects;
+
+		
 	}
 
 	@Override
-	public List<Product> getProducts(String brandId, String locale) {
+	public List<Vendor> getAllVendors(String locale) {
+		Locale aLocale = Locale.forLanguageTag(locale.replaceAll("_", "-"));
 
-		com.driverstack.yunos.domain.Brand brand = (com.driverstack.yunos.domain.Brand) genericDao
-				.load(com.driverstack.yunos.domain.Brand.class, brandId);
-		List<com.driverstack.yunos.domain.Product> domainProducts = brand
-				.getProducts();
+		List<com.driverstack.yunos.domain.Vendor> domainVendors = (List<com.driverstack.yunos.domain.Vendor>) genericDao
+				.getAll(com.driverstack.yunos.domain.Vendor.class);
 
-		List<Product> remoteProducts = new ArrayList<Product>();
-		for (com.driverstack.yunos.domain.Product dp : domainProducts) {
-			Product rp = new Product();
-			BeanUtils.copyProperties(dp.get(locale), rp);
+		List<Vendor> remoteVendors = new ArrayList<Vendor>();
+		for (com.driverstack.yunos.domain.Vendor d : domainVendors) {
+			Vendor r = new Vendor();
+			BeanUtils.copyProperties(d.get(locale), r);
 
-			remoteProducts.add(rp);
+			remoteVendors.add(r);
 		}
 
-		return remoteProducts;
+		return remoteVendors;
 	}
 
 	@Override
 	public List<com.driverstack.yunos.remote.vo.Model> getModels(
-			String productId, String locale) {
+			String vendorId, String locale) {
 
-		com.driverstack.yunos.domain.Product product = (com.driverstack.yunos.domain.Product) genericDao
-				.load(com.driverstack.yunos.domain.Product.class, productId);
-		List<com.driverstack.yunos.domain.Model> domainModels = product
+		com.driverstack.yunos.domain.Vendor vendor = (com.driverstack.yunos.domain.Vendor) genericDao
+				.load(com.driverstack.yunos.domain.Vendor.class, vendorId);
+		List<com.driverstack.yunos.domain.Model> domainModels = vendor
 				.getModels();
 
 		List<com.driverstack.yunos.remote.vo.Model> remoteModels = new ArrayList<com.driverstack.yunos.remote.vo.Model>();
