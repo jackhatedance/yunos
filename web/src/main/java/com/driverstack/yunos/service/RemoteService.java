@@ -72,14 +72,18 @@ public interface RemoteService {
 
 	/**
 	 * 
-	 * @param locale such as en_US
+	 * @param locale
+	 *            such as en_US
 	 * @return
 	 */
-	List<Vendor> getAllVendors(String locale);
-	
-	List<com.driverstack.yunos.remote.vo.DeviceClass> getDeviceClasses(String locale);
-	
-	List<com.driverstack.yunos.remote.vo.Model> getModels(String productId, String locale);
-	
-	List<DriverConfigurationDefinitionItem> getDriverConfigurationDefinitionItems(String driverId, String locale);
+	List<com.driverstack.yunos.remote.vo.Vendor> getAllVendors(String locale);
+
+	List<com.driverstack.yunos.remote.vo.DeviceClass> getDeviceClasses(
+			String locale);
+
+	List<com.driverstack.yunos.remote.vo.Model> getModels(String productId,
+			String locale);
+
+	List<DriverConfigurationDefinitionItem> getDriverConfigurationDefinitionItems(
+			String driverId, String locale);
 }

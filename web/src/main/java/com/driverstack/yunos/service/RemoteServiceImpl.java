@@ -38,6 +38,9 @@ public class RemoteServiceImpl implements RemoteService {
 	private GenericDao genericDao;
 
 	@Autowired
+	private VendorService vendorService;
+
+	@Autowired
 	private DeviceManager deviceManager;
 
 	@Autowired
@@ -90,7 +93,7 @@ public class RemoteServiceImpl implements RemoteService {
 			com.driverstack.yunos.domain.Device domainDevice) {
 		Device remoteDevice = new Device();
 		com.driverstack.yunos.remote.vo.HardwareType hardwareType = new com.driverstack.yunos.remote.vo.HardwareType();
-		hardwareType.setVendor(domainDevice.getModel().getPrimary().getVendor()
+		hardwareType.setVendor(domainDevice.getModel().getVendor()
 				.getShortName());
 		hardwareType.setModel(domainDevice.getModel().getName());
 
@@ -188,19 +191,19 @@ public class RemoteServiceImpl implements RemoteService {
 
 		return remoteObjects;
 
-		
 	}
 
 	@Override
-	public List<Vendor> getAllVendors(String locale) {
+	public List<com.driverstack.yunos.remote.vo.Vendor> getAllVendors(
+			String locale) {
 		Locale aLocale = Locale.forLanguageTag(locale.replaceAll("_", "-"));
 
-		List<com.driverstack.yunos.domain.Vendor> domainVendors = (List<com.driverstack.yunos.domain.Vendor>) genericDao
-				.getAll(com.driverstack.yunos.domain.Vendor.class);
+		List<com.driverstack.yunos.domain.Vendor> domainVendors = vendorService
+				.getAll(locale);
 
-		List<Vendor> remoteVendors = new ArrayList<Vendor>();
+		List<com.driverstack.yunos.remote.vo.Vendor> remoteVendors = new ArrayList<com.driverstack.yunos.remote.vo.Vendor>();
 		for (com.driverstack.yunos.domain.Vendor d : domainVendors) {
-			Vendor r = new Vendor();
+			com.driverstack.yunos.remote.vo.Vendor r = new com.driverstack.yunos.remote.vo.Vendor();
 			BeanUtils.copyProperties(d.get(locale), r);
 
 			remoteVendors.add(r);

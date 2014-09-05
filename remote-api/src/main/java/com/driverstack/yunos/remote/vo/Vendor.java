@@ -8,7 +8,7 @@ import java.io.Serializable;
  * @author jack
  * 
  */
-public class Brand implements Serializable {
+public class Vendor implements Serializable {
 
 	/**
 	 * 
@@ -17,7 +17,9 @@ public class Brand implements Serializable {
 
 	private String id;
 
-	private String name;
+	private String shortName;
+
+	private String fullNameName;
 
 	private String description;
 
@@ -29,12 +31,20 @@ public class Brand implements Serializable {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getShortName() {
+		return shortName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setShortName(String shortName) {
+		this.shortName = shortName;
+	}
+
+	public String getFullNameName() {
+		return fullNameName;
+	}
+
+	public void setFullNameName(String fullNameName) {
+		this.fullNameName = fullNameName;
 	}
 
 	public String getDescription() {

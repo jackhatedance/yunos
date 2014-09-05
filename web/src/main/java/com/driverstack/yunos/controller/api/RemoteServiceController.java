@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.driverstack.yunos.remote.vo.Brand;
+import com.driverstack.yunos.remote.vo.Vendor;
 import com.driverstack.yunos.remote.vo.Device;
 import com.driverstack.yunos.service.RemoteService;
 

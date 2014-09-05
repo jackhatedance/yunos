@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.driverstack.yunos.remote.vo.DeviceClass;
 import com.driverstack.yunos.remote.vo.HardwareType;
 import com.driverstack.yunos.remote.vo.Model;
 import com.driverstack.yunos.service.RemoteService;
@@ -20,16 +21,17 @@ import com.driverstack.yunos.service.RemoteService;
  * 
  */
 @RestController
-@RequestMapping("/api/1.0/products")
+@RequestMapping("/api/1.0/device_classes")
 // @Secured("ROLE_USER")
 public class ProductController {
 
 	@Autowired
 	private RemoteService remoteService;
 	
-	@RequestMapping(value = "/{id}/models", method = RequestMethod.GET)
-	public List<Model> getModels(@PathVariable("id") String id, @RequestParam("locale")String locale) {
-		return remoteService.getModels(id,locale);
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public List<DeviceClass> getModels(@RequestParam("locale")String locale) {
+		return remoteService.getDeviceClasses(locale);
 	}
+	
 	
 }

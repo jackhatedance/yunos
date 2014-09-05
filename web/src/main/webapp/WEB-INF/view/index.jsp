@@ -26,15 +26,15 @@
     </li>        
     
     <li>    
-    <a href="api/1.0/brands?locale=zh_CN">list brands</a>     
-    </li>
-    
-    <li>    
-    <a href="api/1.0/brands/c20c8c53-2485-11e4-9fa1-08002785c3ec/products?locale=zh_CN">list products</a>     
+    <a href="api/1.0/device_classes/?locale=zh_CN">list device classes</a>     
     </li>          
     
     <li>    
-    <a href="api/1.0/products/c0bbb53f-2489-11e4-9fa1-08002785c3ec/models?locale=zh_CN">list models</a>     
+    <a href="api/1.0/vendors?locale=zh_CN">list vendors</a>     
+    </li>
+    
+    <li>    
+    <a href="api/1.0/vendors/c20c8c53-2485-11e4-9fa1-08002785c3ec/models?locale=zh_CN">list models</a>     
     </li>   
     
     <li>    

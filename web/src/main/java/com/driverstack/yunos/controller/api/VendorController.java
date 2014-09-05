@@ -22,14 +22,14 @@ import com.driverstack.yunos.service.RemoteService;
 @RestController
 @RequestMapping("/api/1.0/vendors")
 // @Secured("ROLE_USER")
-public class BrandController {
+public class VendorController {
 
 	@Autowired
 	private RemoteService remoteService;
 	 
 	
 	@RequestMapping(value = "", method = RequestMethod.GET)
-	public List<Vendor> getAll(@RequestParam("locale")String locale) {
+	public List<com.driverstack.yunos.remote.vo.Vendor> getAll(@RequestParam("locale")String locale) {
 		return remoteService.getAllVendors(locale);
 	}
 	
