@@ -1,13 +1,18 @@
 package com.driverstack.yunos.domain;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapKey;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -53,8 +58,10 @@ public class Device {
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Driver driver;
 
-	@Column
-	private String userConfigure;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "device")
+	@MapKey(name = "name")
+	private Map<String, DeviceConfigurationItem> userConfigurationItems = new HashMap<String, DeviceConfigurationItem>();
+
 	@Column
 	private String deviceState;
 
@@ -121,12 +128,13 @@ public class Device {
 		this.driver = driver;
 	}
 
-	public String getUserConfigure() {
-		return userConfigure;
+	public Map<String, DeviceConfigurationItem> getUserConfigurationItems() {
+		return userConfigurationItems;
 	}
 
-	public void setUserConfigure(String userConfigure) {
-		this.userConfigure = userConfigure;
+	public void setUserConfigurationItems(
+			Map<String, DeviceConfigurationItem> userConfigurationItems) {
+		this.userConfigurationItems = userConfigurationItems;
 	}
 
 	public String getDeviceState() {
@@ -170,7 +178,8 @@ public class Device {
 
 		String modelConfigStr = model.getConfigure();
 		String deviceConfigStr = this.factoryConfigure;
-		String userConfigStr = this.getUserConfigure();
+		// String userConfigStr = this.getUserConfigure();
+		String userConfigStr = null;
 
 		if (modelConfigStr == null)
 			modelConfigStr = "{}";
@@ -198,7 +207,7 @@ public class Device {
 			computedConfig.add(entry.getKey(), entry.getValue());
 		}
 
-		// overwrite with user configure
+		// overwrite with user configuration
 		for (Entry<String, JsonElement> entry : userConfig.entrySet()) {
 			computedConfig.add(entry.getKey(), entry.getValue());
 		}
@@ -211,4 +220,10 @@ public class Device {
 		return new DeviceInfo(id, model.getVO(), getFinalConfigure());
 
 	}
+
+	public void addConfigurationItem(DeviceConfigurationItem item) {
+		item.setDevice(this);
+		userConfigurationItems.put(item.getName(), item);
+	}
+
 }

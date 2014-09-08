@@ -40,12 +40,12 @@ public class DriverConfigurationDefinitionItem {
 	private int order;
 	
 	@Column
-	private String fieldName;
+	private String name;
 	/**
 	 * display name
 	 */
 	@Column
-	private String name;
+	private String displayName;
 
 	@Column
 	private String description;
@@ -73,12 +73,12 @@ public class DriverConfigurationDefinitionItem {
 
 	public DriverConfigurationDefinitionItem(
 			DriverConfigurationDefinition configurationDefinition, int order,
-			String fieldName, String name, String description, String type,
+			String name, String displayName, String description, String type,
 			String constraints, String locale) {
 		this.configurationDefinition = configurationDefinition;
 		this.order = order;
-		this.fieldName = fieldName;
 		this.name = name;
+		this.displayName = displayName;
 		this.description = description;
 		this.type = type;
 		this.constraints = constraints;
@@ -111,12 +111,14 @@ public class DriverConfigurationDefinitionItem {
 		this.order = order;
 	}
 
-	public String getFieldName() {
-		return fieldName;
+	 
+
+	public String getDisplayName() {
+		return displayName;
 	}
 
-	public void setFieldName(String fieldName) {
-		this.fieldName = fieldName;
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
 	}
 
 	public String getType() {

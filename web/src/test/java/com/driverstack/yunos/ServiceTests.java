@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.transaction.Transactional;
 
@@ -18,6 +19,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.driverstack.yunos.dao.GenericDao;
+import com.driverstack.yunos.domain.DeviceConfigurationItem;
 import com.driverstack.yunos.domain.Vendor;
 import com.driverstack.yunos.domain.Device;
 import com.driverstack.yunos.domain.Driver;
@@ -68,6 +70,18 @@ public class ServiceTests {
 	}
 
 	@Test
+	public void testDeviceService() throws Exception {
+		String deviceId = "cb170afb-087f-11e4-b721-08002785c3ec";
+		Device dev = (Device) genericDao.get(Device.class, deviceId);
+
+		Map<String, DeviceConfigurationItem> map = dev
+				.getUserConfigurationItems();
+		DeviceConfigurationItem item = map.get("port");
+		Assert.assertEquals("588", item.getValue());
+
+	}
+
+	@Test
 	public void testDriverService() throws Exception {
 		InputStream input = getClass().getResourceAsStream(
 				"/sampleDriver/RF-IR-Transmitter-Driver-1.0.jar");
@@ -80,7 +94,7 @@ public class ServiceTests {
 				.getConfigurationDefinition().getItems();
 
 		DriverConfigurationDefinitionItem item = items.get(0).get("zh_CN");
-		String actualName = item.getName();
+		String actualName = item.getDisplayName();
 		Assert.assertEquals("主机", actualName);
 
 		driverService.delete(driverId);

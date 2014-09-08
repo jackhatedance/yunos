@@ -38,8 +38,12 @@
     </li>   
     
     <li>    
-    <a href="api/1.0/drivers/a9d820ba-3834-4b19-87fb-6e6d75c48680/configrationItems?locale=zh_CN">list driver configuration definitions</a>     
+    <a href="api/1.0/drivers/dc098964-dd7d-451a-ad2e-e04d7287df78/configrationItems?locale=zh_CN">list driver configuration definitions</a>     
     </li>                 
+    
+    <li>    
+    <a href="api/1.0/devices/cb170afb-087f-11e4-b721-08002785c3ec/configuration?locale=zh_CN">get device configuration</a>     
+    </li> 
     
     </ul>
     

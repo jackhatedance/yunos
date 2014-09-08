@@ -3,6 +3,7 @@ package com.driverstack.yunos.service;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -21,8 +22,9 @@ import com.driverstack.yunos.dao.GenericDao;
 import com.driverstack.yunos.device.FunctionalDevice;
 import com.driverstack.yunos.device.PhysicalDevice;
 import com.driverstack.yunos.domain.DeviceClass;
+import com.driverstack.yunos.domain.DeviceConfigurationItem;
 import com.driverstack.yunos.domain.Token;
-import com.driverstack.yunos.domain.Vendor;
+import com.driverstack.yunos.remote.vo.ConfigurationItem;
 import com.driverstack.yunos.remote.vo.Device;
 import com.driverstack.yunos.remote.vo.DriverConfigurationDefinitionItem;
 
@@ -127,15 +129,37 @@ public class RemoteServiceImpl implements RemoteService {
 	}
 
 	@Override
-	public Object loadDeviceConfig(String deviceId) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<ConfigurationItem> getDeviceConfiguration(String deviceId) {
+		com.driverstack.yunos.domain.Device domainDevice = (com.driverstack.yunos.domain.Device) genericDao
+				.get(com.driverstack.yunos.domain.Device.class, deviceId);
+
+		List<ConfigurationItem> list = new ArrayList<ConfigurationItem>();
+		Map<String, DeviceConfigurationItem> map = domainDevice
+				.getUserConfigurationItems();
+		for (DeviceConfigurationItem domainItem : map.values()) {
+			list.add(domainItem.toRemoteVO());
+		}
+
+		return list;
 	}
 
 	@Override
-	public void updateDeviceConfig(String deviceId, String config) {
-		// TODO Auto-generated method stub
+	public void updateDeviceConfiguration(String deviceId,
+			List<ConfigurationItem> configuration) {
 
+		com.driverstack.yunos.domain.Device domainDevice = deviceDao
+				.get(deviceId);
+		Map<String, DeviceConfigurationItem> map = domainDevice
+				.getUserConfigurationItems();
+		map.clear();
+
+		for (ConfigurationItem remoteItem : configuration) {
+			DeviceConfigurationItem domainItem = new DeviceConfigurationItem(
+					remoteItem);
+			domainDevice.addConfigurationItem(domainItem);
+		}
+
+		genericDao.saveOrUpdate(domainDevice);
 	}
 
 	@Override

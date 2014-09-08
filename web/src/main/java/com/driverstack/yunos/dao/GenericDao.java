@@ -12,5 +12,7 @@ public interface GenericDao {
 	Object get(Class clazz, Serializable id);
 
 	List getAll(Class entityClass);
+	
+	void saveOrUpdate(Object entity);
 
 }

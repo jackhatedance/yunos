@@ -8,6 +8,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +17,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.driverstack.yunos.dao.ApplicationDao;
 import com.driverstack.yunos.domain.Application;
+import com.driverstack.yunos.remote.vo.ConfigurationItem;
 import com.driverstack.yunos.remote.vo.Device;
 import com.driverstack.yunos.service.ApplicationService;
 import com.driverstack.yunos.service.RemoteService;
@@ -35,7 +37,7 @@ public class DeviceController {
 	private RemoteService remoteService;
 	@Autowired
 	ApplicationService applicationService;
-	
+
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public List<com.driverstack.yunos.remote.vo.Device> listUserDevices(
 			@RequestParam("userId") String userId) {
@@ -72,10 +74,8 @@ public class DeviceController {
 			@PathVariable String operation,
 			@RequestParam Map<String, String> parameters) {
 
-		
 		String appId = parameters.get("appId");
 
-		
 		if (!applicationService.isValid(appId))
 			throw new RuntimeException("error:appId invalid");
 
@@ -85,4 +85,18 @@ public class DeviceController {
 				functionalDeviceIndex, operation, parameters);
 
 	}
+
+	@RequestMapping(value = "/{deviceId}/configuration", method = RequestMethod.GET)
+	public List<ConfigurationItem> getConfiguration(
+			@PathVariable String deviceId) {
+		return remoteService.getDeviceConfiguration(deviceId);
+
+	}
+
+	@RequestMapping(value = "/{deviceId}/configuration", method = RequestMethod.POST)
+	public void updateConfiguration(@PathVariable String deviceId,
+			@RequestBody List<ConfigurationItem> configurationItems) {
+		remoteService.updateDeviceConfiguration(deviceId, configurationItems);
+	}
+
 }

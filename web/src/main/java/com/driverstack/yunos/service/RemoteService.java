@@ -3,7 +3,9 @@ package com.driverstack.yunos.service;
 import java.util.List;
 import java.util.Map;
 
+import com.driverstack.yunos.domain.DeviceConfigurationItem;
 import com.driverstack.yunos.domain.Vendor;
+import com.driverstack.yunos.remote.vo.ConfigurationItem;
 import com.driverstack.yunos.remote.vo.Device;
 import com.driverstack.yunos.remote.vo.DriverConfigurationDefinitionItem;
 
@@ -43,20 +45,20 @@ public interface RemoteService {
 	void removeDevice(String deviceId);
 
 	/**
-	 * load device-specific configure
+	 * get device configuration.
 	 * 
 	 * @param deviceId
 	 * @return
 	 */
-	Object loadDeviceConfig(String deviceId);
+	List<ConfigurationItem> getDeviceConfiguration(String deviceId);
 
 	/**
-	 * update user configure
+	 * update user configuration
 	 * 
 	 * @param deviceId
 	 * @param config
 	 */
-	void updateDeviceConfig(String deviceId, String config);
+	void updateDeviceConfiguration(String deviceId, List<ConfigurationItem> configuration);
 
 	/**
 	 * operate a device. the functional device API is varying.
