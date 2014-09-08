@@ -33,10 +33,7 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 	
-	<servlet-mapping>
-		<servlet-name>spring</servlet-name>
-		<url-pattern>index.html</url-pattern>
-	</servlet-mapping>
+	
 
 	
 
