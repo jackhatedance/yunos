@@ -26,7 +26,7 @@
     </li>        
     
     <li>    
-    <a href="api/1.0/device_classes/?locale=zh_CN">list device classes</a>     
+    <a href="api/1.0/device_classes?locale=zh_CN">list device classes</a>     
     </li>          
     
     <li>    

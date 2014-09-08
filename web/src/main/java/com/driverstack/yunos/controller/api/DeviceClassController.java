@@ -23,12 +23,12 @@ import com.driverstack.yunos.service.RemoteService;
 @RestController
 @RequestMapping("/api/1.0/device_classes")
 // @Secured("ROLE_USER")
-public class ProductController {
+public class DeviceClassController {
 
 	@Autowired
 	private RemoteService remoteService;
 	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "", method = RequestMethod.GET)
 	public List<DeviceClass> getModels(@RequestParam("locale")String locale) {
 		return remoteService.getDeviceClasses(locale);
 	}
