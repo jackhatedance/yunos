@@ -46,7 +46,7 @@
 				<artifactId>tomcat7-maven-plugin</artifactId>
 				<version>2.2</version>
 				<configuration>
-					<url>http://www:8080/manager/text</url>
+					<url>http://deviceyunweb:8080/manager/text</url>
 					<server>tomcat</server>
 					<path>/yunos</path>
 				</configuration>

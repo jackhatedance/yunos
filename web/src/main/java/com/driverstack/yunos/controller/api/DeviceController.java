@@ -62,6 +62,11 @@ public class DeviceController {
 		remoteService.addDevice(userId, device);
 	}
 
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public void updateDevice(@RequestBody Device device) {
+		remoteService.updateDevice(device);
+	}
+	
 	@RequestMapping(value = "/{deviceId}", method = RequestMethod.DELETE)
 	public void removeDevice(@PathVariable String deviceId) {
 		remoteService.removeDevice(deviceId);

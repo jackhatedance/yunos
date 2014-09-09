@@ -83,9 +83,12 @@ public interface RemoteService {
 	List<com.driverstack.yunos.remote.vo.DeviceClass> getDeviceClasses(
 			String locale);
 
-	List<com.driverstack.yunos.remote.vo.Model> getModels(String productId,
+	List<com.driverstack.yunos.remote.vo.Model> getModels(String vendorId,String deviceClassId,
 			String locale);
 
 	List<DriverConfigurationDefinitionItem> getDriverConfigurationDefinitionItems(
 			String driverId, String locale);
+
+	void updateDevice(Device device);
+	
 }

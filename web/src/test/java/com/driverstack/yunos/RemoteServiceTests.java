@@ -17,6 +17,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.driverstack.yunos.remote.vo.ConfigurationItem;
+import com.driverstack.yunos.remote.vo.Device;
 import com.driverstack.yunos.service.RemoteService;
 
 @ContextConfiguration(locations = "classpath:/com/driverstack/yunos/ServiceTests-context.xml")
@@ -39,7 +40,14 @@ public class RemoteServiceTests {
 		Assert.assertFalse(devices.isEmpty());
 
 	}
+	@Test
+	public void testDevice() throws Exception {
 
+		String deviceId = "cb170afb-087f-11e4-b721-08002785c3ec";
+	
+		Device remoteDev =  remoteService.getDevice(deviceId);
+		Assert.assertEquals("c0bbb53f-2489-11e4-9fa1-08002785c3ec", remoteDev.getDeviceClassId());
+	}
 	@Test
 	public void testDeviceConfiguration() throws Exception {
 

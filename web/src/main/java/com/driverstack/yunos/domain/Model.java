@@ -45,6 +45,10 @@ public class Model {
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Model primary;
 
+	@JoinColumn(name = "deviceClassId")
+	@ManyToOne(cascade = CascadeType.ALL)
+	private DeviceClass deviceClass ;
+	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "primary")
 	@MapKey(name = "locale")
 	private Map<String, Model> locales = new HashMap<String, Model>();
@@ -146,6 +150,14 @@ public class Model {
 
 	public void setLocales(Map<String, Model> locales) {
 		this.locales = locales;
+	}
+
+	public DeviceClass getDeviceClass() {
+		return deviceClass;
+	}
+
+	public void setDeviceClass(DeviceClass deviceClass) {
+		this.deviceClass = deviceClass;
 	}
 
 	public Model get(String locale){

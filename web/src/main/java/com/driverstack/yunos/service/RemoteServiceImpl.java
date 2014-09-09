@@ -23,6 +23,7 @@ import com.driverstack.yunos.device.FunctionalDevice;
 import com.driverstack.yunos.device.PhysicalDevice;
 import com.driverstack.yunos.domain.DeviceClass;
 import com.driverstack.yunos.domain.DeviceConfigurationItem;
+import com.driverstack.yunos.domain.Model;
 import com.driverstack.yunos.domain.Token;
 import com.driverstack.yunos.remote.vo.ConfigurationItem;
 import com.driverstack.yunos.remote.vo.Device;
@@ -44,6 +45,9 @@ public class RemoteServiceImpl implements RemoteService {
 
 	@Autowired
 	private DeviceClassService deviceClassService;
+
+	@Autowired
+	private ModelService modelService;
 
 	@Autowired
 	private DeviceManager deviceManager;
@@ -106,9 +110,11 @@ public class RemoteServiceImpl implements RemoteService {
 
 		remoteDevice.setHardwareType(hardwareType);
 
-		remoteDevice.setModelId(domainDevice.getModel().getId());
+		
 		remoteDevice.setVendorId(domainDevice.getModel().getVendor().getId());
-
+		remoteDevice.setDeviceClassId(domainDevice.getModel().getDeviceClass().getId());
+		remoteDevice.setModelId(domainDevice.getModel().getId());
+		
 		return remoteDevice;
 	}
 
@@ -127,7 +133,27 @@ public class RemoteServiceImpl implements RemoteService {
 		com.driverstack.yunos.domain.Device domainDevice = new com.driverstack.yunos.domain.Device();
 		BeanUtils.copyProperties(device, domainDevice);
 
-		deviceService.saveDevice(domainDevice);
+		deviceService.save(domainDevice);
+	}
+
+	@Override
+	public void updateDevice(Device device) {
+
+		com.driverstack.yunos.domain.Device domainDevice = (com.driverstack.yunos.domain.Device) genericDao
+				.get(com.driverstack.yunos.domain.Device.class, device.getId());
+
+		// update fields:modelId, deviceCLassId,name.location,description
+		if (!device.getModelId().equals(domainDevice.getModel().getId())) {
+			Model domainModel = (Model) genericDao.get(Model.class,
+					device.getModelId());
+			domainDevice.setModel(domainModel);
+		}
+
+		domainDevice.setName(device.getName());
+		domainDevice.setLocation(device.getLocation());
+		domainDevice.setDescription(device.getDescription());
+
+		deviceService.update(domainDevice);
 	}
 
 	@Override
@@ -246,12 +272,16 @@ public class RemoteServiceImpl implements RemoteService {
 
 	@Override
 	public List<com.driverstack.yunos.remote.vo.Model> getModels(
-			String vendorId, String locale) {
+			String vendorId, String deviceClassId, String locale) {
 
 		com.driverstack.yunos.domain.Vendor vendor = (com.driverstack.yunos.domain.Vendor) genericDao
 				.load(com.driverstack.yunos.domain.Vendor.class, vendorId);
-		List<com.driverstack.yunos.domain.Model> domainModels = vendor
-				.getModels();
+		com.driverstack.yunos.domain.DeviceClass deviceClass = (com.driverstack.yunos.domain.DeviceClass) genericDao
+				.load(com.driverstack.yunos.domain.DeviceClass.class,
+						deviceClassId);
+
+		List<com.driverstack.yunos.domain.Model> domainModels = modelService
+				.getModels(vendor, deviceClass, locale);
 
 		List<com.driverstack.yunos.remote.vo.Model> remoteModels = new ArrayList<com.driverstack.yunos.remote.vo.Model>();
 		for (com.driverstack.yunos.domain.Model dm : domainModels) {

@@ -16,22 +16,31 @@ import com.driverstack.yunos.domain.DeviceClass;
 import com.driverstack.yunos.domain.Vendor;
 
 @Component
-public class DeviceServiceImpl extends AbstractService implements DeviceClassService {
+public class DeviceServiceImpl extends AbstractService implements DeviceService {
+
+	@Autowired
+	private DeviceDao deviceDao;
 
 	@Override
-	public List<DeviceClass> getAll(String locale) {
-	
-		Session s = getCurrentSession();
-		Criteria c = s.createCriteria(DeviceClass.class);
-		c.add(Restrictions.isNull("primary"));
-
-		List<DeviceClass> primarys = c.list();
-
-		List<DeviceClass> localeItems = new ArrayList<DeviceClass>();
-		for (DeviceClass obj : primarys)
-			localeItems.add(obj.get(locale));
-
-		return localeItems;
+	public List<Device> listByUserId(String userId) {
+		return deviceDao.listByUser(userId);
 	}
 
+	@Override
+	public String save(Device device) {
+		return (String) getCurrentSession().save(device);
+	}
+
+	@Override
+	public void remove(String deviceId) {
+		Session s = getCurrentSession();
+		Device d = (Device) s.load(Device.class, deviceId);
+		s.delete(s);
+	}
+
+	@Override
+	public void update(Device device) {
+		getCurrentSession().update(device);
+
+	}
 }
