@@ -10,7 +10,11 @@ public class Device implements Serializable {
 	private static final long serialVersionUID = -9146674463860579186L;
 
 	private String id;
-
+	
+	private String modelId;
+	private String classId;
+	private String vendorId;
+	
 	private HardwareType hardwareType;
 
 	private String revision;
@@ -34,6 +38,30 @@ public class Device implements Serializable {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getModelId() {
+		return modelId;
+	}
+
+	public void setModelId(String modelId) {
+		this.modelId = modelId;
+	}
+
+	public String getVendorId() {
+		return vendorId;
+	}
+
+	public void setVendorId(String vendorId) {
+		this.vendorId = vendorId;
+	}
+
+	public String getClassId() {
+		return classId;
+	}
+
+	public void setClassId(String classId) {
+		this.classId = classId;
 	}
 
 	public HardwareType getHardwareType() {

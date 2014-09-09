@@ -43,6 +43,9 @@ public class RemoteServiceImpl implements RemoteService {
 	private VendorService vendorService;
 
 	@Autowired
+	private DeviceClassService deviceClassService;
+
+	@Autowired
 	private DeviceManager deviceManager;
 
 	@Autowired
@@ -102,6 +105,10 @@ public class RemoteServiceImpl implements RemoteService {
 		BeanUtils.copyProperties(domainDevice, remoteDevice, "model");
 
 		remoteDevice.setHardwareType(hardwareType);
+
+		remoteDevice.setModelId(domainDevice.getModel().getId());
+		remoteDevice.setVendorId(domainDevice.getModel().getVendor().getId());
+
 		return remoteDevice;
 	}
 
@@ -203,8 +210,9 @@ public class RemoteServiceImpl implements RemoteService {
 	@Override
 	public List<com.driverstack.yunos.remote.vo.DeviceClass> getDeviceClasses(
 			String locale) {
-		List<DeviceClass> domainDeviceClasses = genericDao
-				.getAll(DeviceClass.class);
+		List<DeviceClass> domainDeviceClasses = deviceClassService
+				.getAll(locale);
+
 		List<com.driverstack.yunos.remote.vo.DeviceClass> remoteObjects = new ArrayList<com.driverstack.yunos.remote.vo.DeviceClass>();
 		for (DeviceClass d : domainDeviceClasses) {
 			com.driverstack.yunos.remote.vo.DeviceClass r = new com.driverstack.yunos.remote.vo.DeviceClass();
