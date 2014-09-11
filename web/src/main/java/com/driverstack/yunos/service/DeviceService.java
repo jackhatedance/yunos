@@ -3,6 +3,7 @@ package com.driverstack.yunos.service;
 import java.util.List;
 
 import com.driverstack.yunos.domain.Device;
+import com.driverstack.yunos.domain.Driver;
 
 public interface DeviceService {
 
@@ -11,6 +12,14 @@ public interface DeviceService {
 	String save(Device device);
 
 	void update(Device device);
-	
+
 	void remove(String deviceId);
+
+	/**
+	 * init configuration items from driver configuration definition, pre-fill
+	 * with factory values
+	 * 
+	 * @param driver
+	 */
+	void initConfiguration(Device device);
 }

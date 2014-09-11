@@ -3,8 +3,6 @@ package com.driverstack.yunos.service;
 import java.util.List;
 import java.util.Map;
 
-import com.driverstack.yunos.domain.DeviceConfigurationItem;
-import com.driverstack.yunos.domain.Vendor;
 import com.driverstack.yunos.remote.vo.ConfigurationItem;
 import com.driverstack.yunos.remote.vo.Device;
 import com.driverstack.yunos.remote.vo.DriverConfigurationDefinitionItem;

@@ -21,7 +21,6 @@ import com.driverstack.yunos.dao.GenericDao;
 import com.driverstack.yunos.device.FunctionalDevice;
 import com.driverstack.yunos.device.PhysicalDevice;
 import com.driverstack.yunos.domain.DeviceClass;
-import com.driverstack.yunos.domain.DeviceConfigurationItem;
 import com.driverstack.yunos.domain.Model;
 import com.driverstack.yunos.domain.Token;
 import com.driverstack.yunos.domain.Vendor;
@@ -167,9 +166,9 @@ public class RemoteServiceImpl implements RemoteService {
 				.get(com.driverstack.yunos.domain.Device.class, deviceId);
 
 		List<ConfigurationItem> list = new ArrayList<ConfigurationItem>();
-		Map<String, DeviceConfigurationItem> map = domainDevice
+		Map<String, com.driverstack.yunos.domain.ConfigurationItem> map = domainDevice
 				.getUserConfigurationItems();
-		for (DeviceConfigurationItem domainItem : map.values()) {
+		for (com.driverstack.yunos.domain.ConfigurationItem domainItem : map.values()) {
 			list.add(domainItem.toRemoteVO());
 		}
 
@@ -182,12 +181,12 @@ public class RemoteServiceImpl implements RemoteService {
 
 		com.driverstack.yunos.domain.Device domainDevice = deviceDao
 				.get(deviceId);
-		Map<String, DeviceConfigurationItem> map = domainDevice
+		Map<String,  com.driverstack.yunos.domain.ConfigurationItem> map = domainDevice
 				.getUserConfigurationItems();
 		map.clear();
 
 		for (ConfigurationItem remoteItem : configuration) {
-			DeviceConfigurationItem domainItem = new DeviceConfigurationItem(
+			 com.driverstack.yunos.domain.ConfigurationItem domainItem = new com.driverstack.yunos.domain.ConfigurationItem(
 					remoteItem);
 			domainDevice.addConfigurationItem(domainItem);
 		}

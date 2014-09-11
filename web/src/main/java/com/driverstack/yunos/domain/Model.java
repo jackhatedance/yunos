@@ -38,6 +38,11 @@ public class Model {
 	@Column
 	private String description;
 
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinTable(name = "ModelConfigurationItem", joinColumns = @JoinColumn(name = "modelId"), inverseJoinColumns = @JoinColumn(name = "configurationItemId"))
+	@MapKey(name = "name")
+	private Map<String, ConfigurationItem> configurationItems = new HashMap<String, ConfigurationItem>();
+
 	@Column
 	private String locale;
 
@@ -67,9 +72,6 @@ public class Model {
 	 */
 	@Column
 	private String sampleConfigure;
-
-	@Column
-	private String configure;
 
 	public String getId() {
 		return id;
@@ -111,12 +113,15 @@ public class Model {
 		this.sampleConfigure = sampleConfigure;
 	}
 
-	public String getConfigure() {
-		return configure;
+	 
+
+	public Map<String, ConfigurationItem> getConfigurationItems() {
+		return configurationItems;
 	}
 
-	public void setConfigure(String configure) {
-		this.configure = configure;
+	public void setConfigurationItems(
+			Map<String, ConfigurationItem> configurationItems) {
+		this.configurationItems = configurationItems;
 	}
 
 	public Set<Model> getCompatibleModels() {
@@ -182,4 +187,14 @@ public class Model {
 				vendor.getShortName(), name);
 		return m;
 	}
+	
+	public ConfigurationItem getCalculatedConfigurationItem(String name){
+		ConfigurationItem item =configurationItems.get(name);
+		if(item!=null)
+			return item;
+		else
+			return vendor.getCalculatedConfigurationItem(name);
+			
+	}
+
 }

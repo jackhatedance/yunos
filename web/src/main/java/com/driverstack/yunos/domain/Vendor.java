@@ -11,6 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
@@ -50,6 +51,11 @@ public class Vendor {
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "primary")
 	@MapKey(name = "locale")
 	private Map<String, Vendor> locales = new HashMap<String, Vendor>();
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinTable(name = "VendorConfigurationItem", joinColumns = @JoinColumn(name = "vendorId"), inverseJoinColumns = @JoinColumn(name = "configurationItemId"))
+	@MapKey(name = "name")
+	private Map<String, ConfigurationItem> configurationItems = new HashMap<String, ConfigurationItem>();
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "vendor")
 	@OrderBy("name")
@@ -111,6 +117,15 @@ public class Vendor {
 		this.locales = locales;
 	}
 
+	public Map<String, ConfigurationItem> getConfigurationItems() {
+		return configurationItems;
+	}
+
+	public void setConfigurationItems(
+			Map<String, ConfigurationItem> configurationItems) {
+		this.configurationItems = configurationItems;
+	}
+
 	public List<Model> getModels() {
 		return models;
 	}
@@ -143,5 +158,10 @@ public class Vendor {
 			copyLocaleFields(lb);
 
 		return this;
+	}
+
+	public ConfigurationItem getCalculatedConfigurationItem(String name) {
+		ConfigurationItem item =configurationItems.get(name);	
+		return item;
 	}
 }

@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
@@ -44,12 +45,6 @@ public class Device {
 	@Column
 	private String mfgSerialNumber;
 
-	/**
-	 * factory configure
-	 */
-	@Column
-	private String factoryConfigure;
-
 	@JoinColumn(name = "userId")
 	@ManyToOne(cascade = CascadeType.ALL)
 	private User user;
@@ -58,9 +53,15 @@ public class Device {
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Driver driver;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "device")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinTable(name = "DeviceFactoryConfigurationItem", joinColumns = @JoinColumn(name = "deviceId"), inverseJoinColumns = @JoinColumn(name = "configurationItemId"))
 	@MapKey(name = "name")
-	private Map<String, DeviceConfigurationItem> userConfigurationItems = new HashMap<String, DeviceConfigurationItem>();
+	private Map<String, ConfigurationItem> factoryConfigurationItems = new HashMap<String, ConfigurationItem>();
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinTable(name = "DeviceUserConfigurationItem", joinColumns = @JoinColumn(name = "deviceId"), inverseJoinColumns = @JoinColumn(name = "configurationItemId"))
+	@MapKey(name = "name")
+	private Map<String, ConfigurationItem> userConfigurationItems = new HashMap<String, ConfigurationItem>();
 
 	@Column
 	private String deviceState;
@@ -104,14 +105,6 @@ public class Device {
 		this.mfgSerialNumber = mfgSerialNumber;
 	}
 
-	public String getFactoryConfigure() {
-		return factoryConfigure;
-	}
-
-	public void setFactoryConfigure(String factoryConfigure) {
-		this.factoryConfigure = factoryConfigure;
-	}
-
 	public User getUser() {
 		return user;
 	}
@@ -128,12 +121,21 @@ public class Device {
 		this.driver = driver;
 	}
 
-	public Map<String, DeviceConfigurationItem> getUserConfigurationItems() {
+	public Map<String, ConfigurationItem> getFactoryConfigurationItems() {
+		return factoryConfigurationItems;
+	}
+
+	public void setFactoryConfigurationItems(
+			Map<String, ConfigurationItem> factoryConfigurationItems) {
+		this.factoryConfigurationItems = factoryConfigurationItems;
+	}
+
+	public Map<String, ConfigurationItem> getUserConfigurationItems() {
 		return userConfigurationItems;
 	}
 
 	public void setUserConfigurationItems(
-			Map<String, DeviceConfigurationItem> userConfigurationItems) {
+			Map<String, ConfigurationItem> userConfigurationItems) {
 		this.userConfigurationItems = userConfigurationItems;
 	}
 
@@ -176,8 +178,10 @@ public class Device {
 	 */
 	public JsonObject getFinalConfigure() {
 
-		String modelConfigStr = model.getConfigure();
-		String deviceConfigStr = this.factoryConfigure;
+		// TODO redesign it
+
+		String modelConfigStr = null;
+		String deviceConfigStr = null;
 		// String userConfigStr = this.getUserConfigure();
 		String userConfigStr = null;
 
@@ -221,9 +225,16 @@ public class Device {
 
 	}
 
-	public void addConfigurationItem(DeviceConfigurationItem item) {
-		item.setDevice(this);
+	public void addConfigurationItem(ConfigurationItem item) {
+
 		userConfigurationItems.put(item.getName(), item);
 	}
 
+	public ConfigurationItem getCalculatedFactoryValue(String name) {
+		ConfigurationItem item = getFactoryConfigurationItems().get(name);
+		if (item != null)
+			return item;
+		else
+			return model.getCalculatedConfigurationItem(name);
+	}
 }

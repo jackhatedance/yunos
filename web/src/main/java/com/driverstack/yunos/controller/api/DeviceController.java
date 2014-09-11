@@ -105,4 +105,9 @@ public class DeviceController {
 		remoteService.updateDeviceConfiguration(deviceId, configurationItems);
 	}
 
+	@RequestMapping(value = "/{deviceId}/initConfiguration", method = RequestMethod.GET)
+	public void initConfiguration(String driverId){
+		//TODO
+	}
+	
 }

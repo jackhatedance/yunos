@@ -10,10 +10,15 @@ import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import com.driverstack.yunos.remote.vo.ConfigurationItem;
-
+/**
+ * configuration item (name and value) for device, model default and vendor
+ * default.
+ * 
+ * @author jack
+ * 
+ */
 @Entity
-public class DeviceConfigurationItem {
+public class ConfigurationItem {
 	@Id
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
@@ -25,10 +30,6 @@ public class DeviceConfigurationItem {
 	private String type;
 	@Column
 	private String value;
-
-	@JoinColumn(name = "deviceId")
-	@ManyToOne(cascade = CascadeType.ALL)
-	private Device device;
 
 	public String getId() {
 		return id;
@@ -46,6 +47,14 @@ public class DeviceConfigurationItem {
 		this.name = name;
 	}
 
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
 	public String getValue() {
 		return value;
 	}
@@ -54,30 +63,40 @@ public class DeviceConfigurationItem {
 		this.value = value;
 	}
 
-	public Device getDevice() {
-		return device;
+	public ConfigurationItem() {
 	}
 
-	public void setDevice(Device device) {
-		this.device = device;
+	public ConfigurationItem(String name, String type, String value) {
+		this.name = name;
+		this.type = type;
+		this.value = value;
 	}
 
-	public DeviceConfigurationItem() {
+	/**
+	 * copy constructor
+	 * 
+	 * @param remoteConfigurationItem
+	 */
+	public ConfigurationItem(ConfigurationItem src) {
+		this.name = src.getName();
+		this.type = src.getType();
+		this.value = src.getValue();
 	}
 
-	public DeviceConfigurationItem(ConfigurationItem remoteConfigurationItem) {
+	public ConfigurationItem(
+			com.driverstack.yunos.remote.vo.ConfigurationItem remoteConfigurationItem) {
 		this.name = remoteConfigurationItem.getName();
 		this.type = remoteConfigurationItem.getType();
 		this.value = remoteConfigurationItem.getValue();
 	}
-	
-	public ConfigurationItem toRemoteVO(){
-		ConfigurationItem remoteItem = new ConfigurationItem();
+
+	public com.driverstack.yunos.remote.vo.ConfigurationItem toRemoteVO() {
+		com.driverstack.yunos.remote.vo.ConfigurationItem remoteItem = new com.driverstack.yunos.remote.vo.ConfigurationItem();
 		remoteItem.setName(name);
 		remoteItem.setType(type);
 		remoteItem.setValue(value);
-		
+
 		return remoteItem;
 	}
-	
+
 }

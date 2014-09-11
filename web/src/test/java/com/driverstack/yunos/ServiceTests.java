@@ -19,9 +19,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.driverstack.yunos.dao.GenericDao;
+import com.driverstack.yunos.domain.ConfigurationItem;
 import com.driverstack.yunos.domain.Device;
 import com.driverstack.yunos.domain.DeviceClass;
-import com.driverstack.yunos.domain.DeviceConfigurationItem;
 import com.driverstack.yunos.domain.Driver;
 import com.driverstack.yunos.domain.DriverConfigurationDefinitionItem;
 import com.driverstack.yunos.domain.User;
@@ -92,11 +92,17 @@ public class ServiceTests {
 		String deviceId = "cb170afb-087f-11e4-b721-08002785c3ec";
 		Device dev = (Device) genericDao.get(Device.class, deviceId);
 
-		Map<String, DeviceConfigurationItem> map = dev
+		Map<String, ConfigurationItem> map = dev
 				.getUserConfigurationItems();
-		DeviceConfigurationItem item = map.get("port");
+		ConfigurationItem item = map.get("port");
 		Assert.assertEquals("588", item.getValue());
+		
+		//another device
+		deviceId = "94a1c5a8-39c9-11e4-8a8f-08002785c3ec";
+		dev = (Device) genericDao.get(Device.class, deviceId);
 
+		item = dev.getCalculatedFactoryValue("bits");
+		Assert.assertEquals("24", item.getValue());
 	}
 
 	@Test
