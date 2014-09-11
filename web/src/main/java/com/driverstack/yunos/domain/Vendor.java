@@ -33,10 +33,10 @@ public class Vendor {
 
 	@Column
 	private String shortName;
-	
+
 	@Column
 	private String fullName;
-	
+
 	@Column
 	private String description;
 
@@ -63,7 +63,6 @@ public class Vendor {
 		this.id = id;
 	}
 
-	 
 	public String getShortName() {
 		return shortName;
 	}
@@ -110,7 +109,7 @@ public class Vendor {
 
 	public void setLocales(Map<String, Vendor> locales) {
 		this.locales = locales;
-	}	 
+	}
 
 	public List<Model> getModels() {
 		return models;
@@ -125,11 +124,24 @@ public class Vendor {
 		return shortName;
 	}
 
+	/**
+	 * after this operation, the entity should not be save to DB again.
+	 * 
+	 * @param locale
+	 */
+	private void copyLocaleFields(Vendor src) {
+
+		this.shortName = src.getShortName();
+		this.fullName = src.getFullName();
+		this.description = src.getDescription();
+		this.shortName = src.getShortName();
+	}
+
 	public Vendor get(String locale) {
 		Vendor lb = locales.get(locale);
 		if (lb != null)
-			return lb;
-		else
-			return this;
+			copyLocaleFields(lb);
+
+		return this;
 	}
 }

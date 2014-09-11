@@ -63,8 +63,9 @@ public class DeviceController {
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public void updateDevice(@RequestBody Device device) {
+	public boolean updateDevice(@RequestBody Device device) {
 		remoteService.updateDevice(device);
+		return true;//always true, ignore it on client side
 	}
 	
 	@RequestMapping(value = "/{deviceId}", method = RequestMethod.DELETE)

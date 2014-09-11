@@ -3,6 +3,7 @@ package com.driverstack.yunos.controller.api;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,11 +28,14 @@ public class DeviceClassController {
 
 	@Autowired
 	private RemoteService remoteService;
-	
+
 	@RequestMapping(value = "", method = RequestMethod.GET)
-	public List<DeviceClass> getModels(@RequestParam("locale")String locale) {
-		return remoteService.getDeviceClasses(locale);
+	public List<DeviceClass> getModels(
+			@RequestParam(value = "vendorId", required = false) String vendorId,
+			@RequestParam("locale") String locale) {
+
+		return remoteService.getDeviceClasses(vendorId, locale);
+
 	}
-	
-	
+
 }

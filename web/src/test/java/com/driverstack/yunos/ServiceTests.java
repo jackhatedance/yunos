@@ -19,12 +19,14 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.driverstack.yunos.dao.GenericDao;
-import com.driverstack.yunos.domain.DeviceConfigurationItem;
-import com.driverstack.yunos.domain.Vendor;
 import com.driverstack.yunos.domain.Device;
+import com.driverstack.yunos.domain.DeviceClass;
+import com.driverstack.yunos.domain.DeviceConfigurationItem;
 import com.driverstack.yunos.domain.Driver;
 import com.driverstack.yunos.domain.DriverConfigurationDefinitionItem;
 import com.driverstack.yunos.domain.User;
+import com.driverstack.yunos.domain.Vendor;
+import com.driverstack.yunos.service.DeviceClassService;
 import com.driverstack.yunos.service.DeviceService;
 import com.driverstack.yunos.service.DriverService;
 import com.driverstack.yunos.service.UserService;
@@ -46,6 +48,9 @@ public class ServiceTests {
 	@Autowired
 	private DeviceService deviceService;
 
+	@Autowired
+	private DeviceClassService deviceClassService;
+
 	@Test
 	public void testAll() throws Exception {
 		assertNotNull(userService);
@@ -66,6 +71,19 @@ public class ServiceTests {
 
 		// Brand baihuon = chineseBrands.get(chineseBrands.size() - 1);
 		// Assert.assertEquals("zh_CN", baihuon.getLocale());
+
+	}
+
+	@Test
+	public void testDeviceClassService() throws Exception {
+		// 7eggs
+		String vendorId = "c20c8c53-2485-11e4-9fa1-08002785c3ec";
+		Vendor vendor = (Vendor) genericDao.get(Vendor.class, vendorId);
+
+		List<DeviceClass> deviceClasses = deviceClassService.find(vendor,
+				"zh_CN");
+
+		Assert.assertFalse(deviceClasses.isEmpty());
 
 	}
 

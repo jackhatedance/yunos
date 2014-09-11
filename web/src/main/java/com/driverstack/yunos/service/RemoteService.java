@@ -58,7 +58,8 @@ public interface RemoteService {
 	 * @param deviceId
 	 * @param config
 	 */
-	void updateDeviceConfiguration(String deviceId, List<ConfigurationItem> configuration);
+	void updateDeviceConfiguration(String deviceId,
+			List<ConfigurationItem> configuration);
 
 	/**
 	 * operate a device. the functional device API is varying.
@@ -81,14 +82,14 @@ public interface RemoteService {
 	List<com.driverstack.yunos.remote.vo.Vendor> getAllVendors(String locale);
 
 	List<com.driverstack.yunos.remote.vo.DeviceClass> getDeviceClasses(
-			String locale);
+			String vendorId, String locale);
 
-	List<com.driverstack.yunos.remote.vo.Model> getModels(String vendorId,String deviceClassId,
-			String locale);
+	List<com.driverstack.yunos.remote.vo.Model> getModels(String vendorId,
+			String deviceClassId, String locale);
 
 	List<DriverConfigurationDefinitionItem> getDriverConfigurationDefinitionItems(
 			String driverId, String locale);
 
 	void updateDevice(Device device);
-	
+
 }

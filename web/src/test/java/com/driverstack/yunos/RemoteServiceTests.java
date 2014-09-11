@@ -18,6 +18,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.driverstack.yunos.remote.vo.ConfigurationItem;
 import com.driverstack.yunos.remote.vo.Device;
+import com.driverstack.yunos.remote.vo.Vendor;
 import com.driverstack.yunos.service.RemoteService;
 
 @ContextConfiguration(locations = "classpath:/com/driverstack/yunos/ServiceTests-context.xml")
@@ -40,27 +41,59 @@ public class RemoteServiceTests {
 		Assert.assertFalse(devices.isEmpty());
 
 	}
+
+	@Test
+	public void testVendor() throws Exception {
+
+		// vendor 7eggs
+		String vendorId = "c20c8c53-2485-11e4-9fa1-08002785c3ec";
+
+		List<Vendor> vendors = remoteService.getAllVendors("zh_CN");
+
+		Map<String, Vendor> map = new HashMap<String, Vendor>();
+		for (Vendor v : vendors)
+			map.put(v.getShortName(), v);
+
+		Vendor vendor = map.get("柏煌");
+
+		//it should be the primary ID
+		Assert.assertEquals("f525b8e7-2485-11e4-9fa1-08002785c3ec",
+				vendor.getId());
+	}
+
 	@Test
 	public void testDevice() throws Exception {
 
 		String deviceId = "cb170afb-087f-11e4-b721-08002785c3ec";
-	
-		Device remoteDev =  remoteService.getDevice(deviceId);
-		Assert.assertEquals("c0bbb53f-2489-11e4-9fa1-08002785c3ec", remoteDev.getDeviceClassId());
+
+		Device remoteDev = remoteService.getDevice(deviceId);
+		Assert.assertEquals("c0bbb53f-2489-11e4-9fa1-08002785c3ec",
+				remoteDev.getDeviceClassId());
+		
+		remoteDev.setLocation("Loc1");
+		
+		remoteService.updateDevice(remoteDev);
+		
+		Device remoteDev2 = remoteService.getDevice(deviceId);
+		Assert.assertEquals("Loc1",
+				remoteDev2.getLocation());
+		
+		
 	}
+
 	@Test
 	public void testDeviceConfiguration() throws Exception {
 
 		String deviceId = "cb170afb-087f-11e4-b721-08002785c3ec";
 		List<ConfigurationItem> items = remoteService
 				.getDeviceConfiguration(deviceId);
-		
+
 		Map<String, ConfigurationItem> map = new HashMap<String, ConfigurationItem>();
-		for(ConfigurationItem item : items)
+		for (ConfigurationItem item : items)
 			map.put(item.getName(), item);
 
 		ConfigurationItem portItem = map.get("port");
-		
+
 		Assert.assertEquals("port", portItem.getName());
 		Assert.assertEquals("588", portItem.getValue());
 

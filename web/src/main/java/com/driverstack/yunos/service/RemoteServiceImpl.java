@@ -3,7 +3,6 @@ package com.driverstack.yunos.service;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -25,6 +24,7 @@ import com.driverstack.yunos.domain.DeviceClass;
 import com.driverstack.yunos.domain.DeviceConfigurationItem;
 import com.driverstack.yunos.domain.Model;
 import com.driverstack.yunos.domain.Token;
+import com.driverstack.yunos.domain.Vendor;
 import com.driverstack.yunos.remote.vo.ConfigurationItem;
 import com.driverstack.yunos.remote.vo.Device;
 import com.driverstack.yunos.remote.vo.DriverConfigurationDefinitionItem;
@@ -110,11 +110,11 @@ public class RemoteServiceImpl implements RemoteService {
 
 		remoteDevice.setHardwareType(hardwareType);
 
-		
 		remoteDevice.setVendorId(domainDevice.getModel().getVendor().getId());
-		remoteDevice.setDeviceClassId(domainDevice.getModel().getDeviceClass().getId());
+		remoteDevice.setDeviceClassId(domainDevice.getModel().getDeviceClass()
+				.getId());
 		remoteDevice.setModelId(domainDevice.getModel().getId());
-		
+
 		return remoteDevice;
 	}
 
@@ -235,9 +235,15 @@ public class RemoteServiceImpl implements RemoteService {
 
 	@Override
 	public List<com.driverstack.yunos.remote.vo.DeviceClass> getDeviceClasses(
-			String locale) {
-		List<DeviceClass> domainDeviceClasses = deviceClassService
-				.getAll(locale);
+			String vendorId, String locale) {
+
+		List<DeviceClass> domainDeviceClasses;
+		if (vendorId != null) {
+			Vendor vendor = (Vendor) genericDao.load(Vendor.class, vendorId);
+
+			domainDeviceClasses = deviceClassService.find(vendor, locale);
+		} else
+			domainDeviceClasses = deviceClassService.getAll(locale);
 
 		List<com.driverstack.yunos.remote.vo.DeviceClass> remoteObjects = new ArrayList<com.driverstack.yunos.remote.vo.DeviceClass>();
 		for (DeviceClass d : domainDeviceClasses) {
@@ -248,7 +254,6 @@ public class RemoteServiceImpl implements RemoteService {
 		}
 
 		return remoteObjects;
-
 	}
 
 	@Override

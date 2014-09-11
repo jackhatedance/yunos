@@ -47,8 +47,8 @@ public class Model {
 
 	@JoinColumn(name = "deviceClassId")
 	@ManyToOne(cascade = CascadeType.ALL)
-	private DeviceClass deviceClass ;
-	
+	private DeviceClass deviceClass;
+
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "primary")
 	@MapKey(name = "locale")
 	private Map<String, Model> locales = new HashMap<String, Model>();
@@ -78,7 +78,6 @@ public class Model {
 	public void setId(String id) {
 		this.id = id;
 	}
- 
 
 	public Vendor getVendor() {
 		return vendor;
@@ -160,16 +159,27 @@ public class Model {
 		this.deviceClass = deviceClass;
 	}
 
-	public Model get(String locale){
-		Model localeModel = locales.get(locale);
-		if(localeModel!=null)
-			return localeModel;
-		else
-			return this;
+	/**
+	 * after this operation, the entity should not be save to DB again.
+	 * 
+	 * @param locale
+	 */
+	private void copyLocaleFields(Model src) {
+		this.name = src.getName();
+		this.description = src.getDescription();
 	}
+
+	public Model get(String locale) {
+		Model localeModel = locales.get(locale);
+		if (localeModel != null)
+			copyLocaleFields(localeModel);
+
+		return this;
+	}
+
 	public com.driverstack.yunos.device.Model getVO() {
 		com.driverstack.yunos.device.Model m = new com.driverstack.yunos.device.Model(
-				vendor.getShortName(),  name);
+				vendor.getShortName(), name);
 		return m;
 	}
 }

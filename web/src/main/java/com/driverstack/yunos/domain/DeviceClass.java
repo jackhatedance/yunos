@@ -97,11 +97,22 @@ public class DeviceClass {
 		this.locales = locales;
 	}
 
+	/**
+	 * after this operation, the entity should not be save to DB again.
+	 * 
+	 * @param locale
+	 */
+	private void copyLocaleFields(DeviceClass src) {
+
+		this.name = src.getName();
+		this.description = src.getDescription();
+	}
+
 	public DeviceClass get(String locale) {
 		DeviceClass lb = locales.get(locale);
 		if (lb != null)
-			return lb;
-		else
-			return this;
+			copyLocaleFields(lb);
+
+		return this;
 	}
 }
