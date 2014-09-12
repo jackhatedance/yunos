@@ -15,21 +15,6 @@ import com.driverstack.yunos.domain.Vendor;
 @Component
 public class DeviceClassServiceImpl extends AbstractService implements
 		DeviceClassService {
-	@Override
-	public List<DeviceClass> getAll(String locale) {
-
-		Session s = getCurrentSession();
-		Criteria c = s.createCriteria(DeviceClass.class);
-		c.add(Restrictions.isNull("primary"));
-
-		List<DeviceClass> primarys = c.list();
-
-		List<DeviceClass> localeItems = new ArrayList<DeviceClass>();
-		for (DeviceClass obj : primarys)
-			localeItems.add(obj.get(locale));
-
-		return localeItems;
-	}
 
 	@Override
 	public List<DeviceClass> find(Vendor vendor, String locale) {

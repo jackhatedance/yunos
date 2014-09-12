@@ -6,7 +6,6 @@ import com.driverstack.yunos.domain.Vendor;
 
 public interface DeviceClassService {
 
-	List<com.driverstack.yunos.domain.DeviceClass> getAll(String locale);
-	
-	List<com.driverstack.yunos.domain.DeviceClass> find(Vendor vendor, String locale);
+	List<com.driverstack.yunos.domain.DeviceClass> find(Vendor vendor,
+			String locale);
 }

@@ -25,20 +25,18 @@ import com.driverstack.yunos.domain.Vendor;
 public class ModelServiceImpl extends AbstractService implements ModelService {
 
 	@Override
-	public List<Model> getModels(Vendor vendor,DeviceClass deviceClass, String locale) {
+	public List<Model> getModels(Vendor vendor, DeviceClass deviceClass,
+			String locale) {
 		Session s = getCurrentSession();
 		Criteria c = s.createCriteria(Model.class);
-		c.add(Restrictions.isNull("primary"));
 		c.add(Restrictions.eq("vendor", vendor));
-		c.add(Restrictions.eq("deviceClass", deviceClass));
 
-		List<Model> primarys = c.list();
+		if (deviceClass != null)
+			c.add(Restrictions.eq("deviceClass", deviceClass));
 
-		List<Model> localeObjects = new ArrayList<Model>();
-		for (Model obj : primarys)
-			localeObjects.add(obj.get(locale));
+		List<Model> models = c.list();
 
-		return localeObjects;
+		return models;
 	}
 
 }

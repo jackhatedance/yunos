@@ -35,10 +35,11 @@ public class VendorController {
 	}
 
 	@RequestMapping(value = "/{vendorId}/models", method = RequestMethod.GET)
-	public List<Model> getModels(@PathVariable("vendorId") String vendorId,
-			@RequestParam("deviceClassId") String deviceClassId,
+	public List<Model> getModels(
+			@PathVariable("vendorId") String vendorId,
+			@RequestParam(value = "deviceClassId", required = false) String deviceClassId,
 			@RequestParam("locale") String locale) {
-		
+
 		return remoteService.getModels(vendorId, deviceClassId, locale);
 	}
 }

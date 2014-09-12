@@ -56,7 +56,7 @@ public class RemoteServiceTests {
 
 		Vendor vendor = map.get("柏煌");
 
-		//it should be the primary ID
+		
 		Assert.assertEquals("f525b8e7-2485-11e4-9fa1-08002785c3ec",
 				vendor.getId());
 	}

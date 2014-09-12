@@ -168,7 +168,8 @@ public class RemoteServiceImpl implements RemoteService {
 		List<ConfigurationItem> list = new ArrayList<ConfigurationItem>();
 		Map<String, com.driverstack.yunos.domain.ConfigurationItem> map = domainDevice
 				.getUserConfigurationItems();
-		for (com.driverstack.yunos.domain.ConfigurationItem domainItem : map.values()) {
+		for (com.driverstack.yunos.domain.ConfigurationItem domainItem : map
+				.values()) {
 			list.add(domainItem.toRemoteVO());
 		}
 
@@ -181,12 +182,12 @@ public class RemoteServiceImpl implements RemoteService {
 
 		com.driverstack.yunos.domain.Device domainDevice = deviceDao
 				.get(deviceId);
-		Map<String,  com.driverstack.yunos.domain.ConfigurationItem> map = domainDevice
+		Map<String, com.driverstack.yunos.domain.ConfigurationItem> map = domainDevice
 				.getUserConfigurationItems();
 		map.clear();
 
 		for (ConfigurationItem remoteItem : configuration) {
-			 com.driverstack.yunos.domain.ConfigurationItem domainItem = new com.driverstack.yunos.domain.ConfigurationItem(
+			com.driverstack.yunos.domain.ConfigurationItem domainItem = new com.driverstack.yunos.domain.ConfigurationItem(
 					remoteItem);
 			domainDevice.addConfigurationItem(domainItem);
 		}
@@ -242,7 +243,7 @@ public class RemoteServiceImpl implements RemoteService {
 
 			domainDeviceClasses = deviceClassService.find(vendor, locale);
 		} else
-			domainDeviceClasses = deviceClassService.getAll(locale);
+			domainDeviceClasses = genericDao.getAll(DeviceClass.class);
 
 		List<com.driverstack.yunos.remote.vo.DeviceClass> remoteObjects = new ArrayList<com.driverstack.yunos.remote.vo.DeviceClass>();
 		for (DeviceClass d : domainDeviceClasses) {
@@ -260,7 +261,8 @@ public class RemoteServiceImpl implements RemoteService {
 			String locale) {
 		Locale aLocale = Locale.forLanguageTag(locale.replaceAll("_", "-"));
 
-		List<com.driverstack.yunos.domain.Vendor> domainVendors = genericDao.getAll(Vendor.class);
+		List<com.driverstack.yunos.domain.Vendor> domainVendors = genericDao
+				.getAll(Vendor.class);
 
 		List<com.driverstack.yunos.remote.vo.Vendor> remoteVendors = new ArrayList<com.driverstack.yunos.remote.vo.Vendor>();
 		for (com.driverstack.yunos.domain.Vendor d : domainVendors) {
@@ -279,9 +281,12 @@ public class RemoteServiceImpl implements RemoteService {
 
 		com.driverstack.yunos.domain.Vendor vendor = (com.driverstack.yunos.domain.Vendor) genericDao
 				.load(com.driverstack.yunos.domain.Vendor.class, vendorId);
-		com.driverstack.yunos.domain.DeviceClass deviceClass = (com.driverstack.yunos.domain.DeviceClass) genericDao
-				.load(com.driverstack.yunos.domain.DeviceClass.class,
-						deviceClassId);
+
+		com.driverstack.yunos.domain.DeviceClass deviceClass = null;
+		if (deviceClassId != null)
+			deviceClass = (com.driverstack.yunos.domain.DeviceClass) genericDao
+					.load(com.driverstack.yunos.domain.DeviceClass.class,
+							deviceClassId);
 
 		List<com.driverstack.yunos.domain.Model> domainModels = modelService
 				.getModels(vendor, deviceClass, locale);

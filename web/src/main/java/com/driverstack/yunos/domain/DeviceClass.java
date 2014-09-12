@@ -16,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -33,21 +34,17 @@ public class DeviceClass {
 	private String id;
 
 	@Column
-	private String name;
+	private String defaultLocale;
 
-	@Column
-	private String description;
-
-	@Column
+	/**
+	 * current locale
+	 */
+	@Transient
 	private String locale;
 
-	@JoinColumn(name = "primaryId")
-	@ManyToOne(cascade = CascadeType.ALL)
-	private DeviceClass primary;
-
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "primary")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "deviceClass")
 	@MapKey(name = "locale")
-	private Map<String, DeviceClass> locales = new HashMap<String, DeviceClass>();
+	private Map<String, LocalDeviceClass> localDeviceClasses = new HashMap<String, LocalDeviceClass>();
 
 	public String getId() {
 		return id;
@@ -55,22 +52,6 @@ public class DeviceClass {
 
 	public void setId(String id) {
 		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
 	}
 
 	public String getLocale() {
@@ -81,38 +62,60 @@ public class DeviceClass {
 		this.locale = locale;
 	}
 
-	public DeviceClass getPrimary() {
-		return primary;
+	public String getName() {
+		return getLocalDeviceClass().getName();
 	}
 
-	public void setPrimary(DeviceClass primary) {
-		this.primary = primary;
+	public void setName(String name) {
+		this.getLocalDeviceClass().setName(name);
 	}
 
-	public Map<String, DeviceClass> getLocales() {
-		return locales;
+	public String getDescription() {
+		return getLocalDeviceClass().getDescription();
 	}
 
-	public void setLocales(Map<String, DeviceClass> locales) {
-		this.locales = locales;
+	public void setDescription(String description) {
+		this.getLocalDeviceClass().setDescription(description);
+	}
+
+	public String getDefaultLocale() {
+		return defaultLocale;
+	}
+
+	public void setDefaultLocale(String defaultLocale) {
+		this.defaultLocale = defaultLocale;
+	}
+
+	public Map<String, LocalDeviceClass> getLocalDeviceClasses() {
+		return localDeviceClasses;
+	}
+
+	public void setLocalDeviceClasses(
+			Map<String, LocalDeviceClass> localeDeviceClasses) {
+		this.localDeviceClasses = localeDeviceClasses;
+	}
+
+	public LocalDeviceClass getLocalDeviceClass(String locale) {
+		LocalDeviceClass l = localDeviceClasses.get(locale);
+		if (l == null)
+			l = localDeviceClasses.get(defaultLocale);
+
+		return l;
 	}
 
 	/**
-	 * after this operation, the entity should not be save to DB again.
+	 * depends on current locale value
 	 * 
-	 * @param locale
+	 * @return
 	 */
-	private void copyLocaleFields(DeviceClass src) {
-
-		this.name = src.getName();
-		this.description = src.getDescription();
+	public LocalDeviceClass getLocalDeviceClass() {
+		return getLocalDeviceClass(locale);
 	}
 
 	public DeviceClass get(String locale) {
-		DeviceClass lb = locales.get(locale);
-		if (lb != null)
-			copyLocaleFields(lb);
+		setLocale(locale);
 
 		return this;
 	}
+
 }

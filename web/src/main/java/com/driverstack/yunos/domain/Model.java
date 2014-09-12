@@ -88,11 +88,11 @@ public class Model {
 
 	public String getName() {
 		return getLocalModel().getName();
-				
+
 	}
 
 	public void setName(String name) {
-		getLocalModel().setName(name);		
+		getLocalModel().setName(name);
 	}
 
 	public String getDescription() {
@@ -135,9 +135,6 @@ public class Model {
 	public void setLocale(String locale) {
 		this.locale = locale;
 	}
-
-	
-	
 
 	public DeviceClass getDeviceClass() {
 		return deviceClass;
