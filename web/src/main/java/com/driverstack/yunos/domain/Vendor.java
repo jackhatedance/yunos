@@ -16,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -33,24 +34,17 @@ public class Vendor {
 	private String id;
 
 	@Column
-	private String shortName;
+	private String defaultLocale;
 
-	@Column
-	private String fullName;
-
-	@Column
-	private String description;
-
-	@Column
+	/**
+	 * current locale
+	 */
+	@Transient
 	private String locale;
 
-	@JoinColumn(name = "primaryId")
-	@ManyToOne(cascade = CascadeType.ALL)
-	private Vendor primary;
-
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "primary")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "vendor")
 	@MapKey(name = "locale")
-	private Map<String, Vendor> locales = new HashMap<String, Vendor>();
+	private Map<String, LocalVendor> localVendors = new HashMap<String, LocalVendor>();
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "VendorConfigurationItem", joinColumns = @JoinColumn(name = "vendorId"), inverseJoinColumns = @JoinColumn(name = "configurationItemId"))
@@ -69,28 +63,36 @@ public class Vendor {
 		this.id = id;
 	}
 
+	public String getDefaultLocale() {
+		return defaultLocale;
+	}
+
+	public void setDefaultLocale(String defaultLocale) {
+		this.defaultLocale = defaultLocale;
+	}
+
 	public String getShortName() {
-		return shortName;
+		return getLocalVendor().getShortName();
 	}
 
 	public void setShortName(String shortName) {
-		this.shortName = shortName;
+		getLocalVendor().setShortName(shortName);
 	}
 
 	public String getFullName() {
-		return fullName;
+		return getLocalVendor().getFullName();
 	}
 
 	public void setFullName(String fullName) {
-		this.fullName = fullName;
+		getLocalVendor().setShortName(fullName);
 	}
 
 	public String getDescription() {
-		return description;
+		return getLocalVendor().getDescription();
 	}
 
 	public void setDescription(String description) {
-		this.description = description;
+		getLocalVendor().setDescription(description);
 	}
 
 	public String getLocale() {
@@ -101,20 +103,12 @@ public class Vendor {
 		this.locale = locale;
 	}
 
-	public Vendor getPrimary() {
-		return primary;
+	public Map<String, LocalVendor> getLocalVendors() {
+		return localVendors;
 	}
 
-	public void setPrimary(Vendor primary) {
-		this.primary = primary;
-	}
-
-	public Map<String, Vendor> getLocales() {
-		return locales;
-	}
-
-	public void setLocales(Map<String, Vendor> locales) {
-		this.locales = locales;
+	public void setLocalVendors(Map<String, LocalVendor> localVendors) {
+		this.localVendors = localVendors;
 	}
 
 	public Map<String, ConfigurationItem> getConfigurationItems() {
@@ -136,32 +130,34 @@ public class Vendor {
 
 	@Override
 	public String toString() {
-		return shortName;
+		return getShortName();
+	}
+
+	public LocalVendor getLocalVendor(String locale) {
+		LocalVendor vl = localVendors.get(locale);
+		if (vl == null)
+			vl = localVendors.get(defaultLocale);
+
+		return vl;
 	}
 
 	/**
-	 * after this operation, the entity should not be save to DB again.
+	 * depends on current locale value
 	 * 
-	 * @param locale
+	 * @return
 	 */
-	private void copyLocaleFields(Vendor src) {
-
-		this.shortName = src.getShortName();
-		this.fullName = src.getFullName();
-		this.description = src.getDescription();
-		this.shortName = src.getShortName();
+	public LocalVendor getLocalVendor() {
+		return getLocalVendor(locale);
 	}
 
 	public Vendor get(String locale) {
-		Vendor lb = locales.get(locale);
-		if (lb != null)
-			copyLocaleFields(lb);
+		setLocale(locale);
 
 		return this;
 	}
 
 	public ConfigurationItem getCalculatedConfigurationItem(String name) {
-		ConfigurationItem item =configurationItems.get(name);	
+		ConfigurationItem item = configurationItems.get(name);
 		return item;
 	}
 }

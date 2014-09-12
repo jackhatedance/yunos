@@ -7,6 +7,6 @@ import com.driverstack.yunos.domain.Vendor;
 
 public interface VendorService {
 
-	List<Vendor> getAll(String locale);
+	
 	
 }

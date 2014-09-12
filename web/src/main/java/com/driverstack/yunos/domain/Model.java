@@ -16,6 +16,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -33,30 +34,21 @@ public class Model {
 	private String id;
 
 	@Column
-	private String name;
+	private String defaultLocale;
 
-	@Column
-	private String description;
-
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinTable(name = "ModelConfigurationItem", joinColumns = @JoinColumn(name = "modelId"), inverseJoinColumns = @JoinColumn(name = "configurationItemId"))
-	@MapKey(name = "name")
-	private Map<String, ConfigurationItem> configurationItems = new HashMap<String, ConfigurationItem>();
-
-	@Column
+	/**
+	 * current locale
+	 */
+	@Transient
 	private String locale;
-
-	@JoinColumn(name = "primaryId")
-	@ManyToOne(cascade = CascadeType.ALL)
-	private Model primary;
 
 	@JoinColumn(name = "deviceClassId")
 	@ManyToOne(cascade = CascadeType.ALL)
 	private DeviceClass deviceClass;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "primary")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "model")
 	@MapKey(name = "locale")
-	private Map<String, Model> locales = new HashMap<String, Model>();
+	private Map<String, LocalModel> localModels = new HashMap<String, LocalModel>();
 
 	@JoinColumn(name = "vendorId")
 	@ManyToOne(cascade = CascadeType.ALL)
@@ -72,6 +64,11 @@ public class Model {
 	 */
 	@Column
 	private String sampleConfigure;
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinTable(name = "ModelConfigurationItem", joinColumns = @JoinColumn(name = "modelId"), inverseJoinColumns = @JoinColumn(name = "configurationItemId"))
+	@MapKey(name = "name")
+	private Map<String, ConfigurationItem> configurationItems = new HashMap<String, ConfigurationItem>();
 
 	public String getId() {
 		return id;
@@ -90,19 +87,20 @@ public class Model {
 	}
 
 	public String getName() {
-		return name;
+		return getLocalModel().getName();
+				
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		getLocalModel().setName(name);		
 	}
 
 	public String getDescription() {
-		return description;
+		return getLocalModel().getDescription();
 	}
 
 	public void setDescription(String description) {
-		this.description = description;
+		getLocalModel().setDescription(description);
 	}
 
 	public String getSampleConfigure() {
@@ -112,8 +110,6 @@ public class Model {
 	public void setSampleConfigure(String sampleConfigure) {
 		this.sampleConfigure = sampleConfigure;
 	}
-
-	 
 
 	public Map<String, ConfigurationItem> getConfigurationItems() {
 		return configurationItems;
@@ -140,21 +136,8 @@ public class Model {
 		this.locale = locale;
 	}
 
-	public Model getPrimary() {
-		return primary;
-	}
-
-	public void setPrimary(Model primary) {
-		this.primary = primary;
-	}
-
-	public Map<String, Model> getLocales() {
-		return locales;
-	}
-
-	public void setLocales(Map<String, Model> locales) {
-		this.locales = locales;
-	}
+	
+	
 
 	public DeviceClass getDeviceClass() {
 		return deviceClass;
@@ -164,37 +147,42 @@ public class Model {
 		this.deviceClass = deviceClass;
 	}
 
+	public LocalModel getLocalModel(String locale) {
+		LocalModel l = localModels.get(locale);
+		if (l == null)
+			l = localModels.get(defaultLocale);
+
+		return l;
+	}
+
 	/**
-	 * after this operation, the entity should not be save to DB again.
+	 * depends on current locale value
 	 * 
-	 * @param locale
+	 * @return
 	 */
-	private void copyLocaleFields(Model src) {
-		this.name = src.getName();
-		this.description = src.getDescription();
+	public LocalModel getLocalModel() {
+		return getLocalModel(locale);
 	}
 
 	public Model get(String locale) {
-		Model localeModel = locales.get(locale);
-		if (localeModel != null)
-			copyLocaleFields(localeModel);
+		setLocale(locale);
 
 		return this;
 	}
 
 	public com.driverstack.yunos.device.Model getVO() {
 		com.driverstack.yunos.device.Model m = new com.driverstack.yunos.device.Model(
-				vendor.getShortName(), name);
+				vendor.getShortName(), getName());
 		return m;
 	}
-	
-	public ConfigurationItem getCalculatedConfigurationItem(String name){
-		ConfigurationItem item =configurationItems.get(name);
-		if(item!=null)
+
+	public ConfigurationItem getCalculatedConfigurationItem(String name) {
+		ConfigurationItem item = configurationItems.get(name);
+		if (item != null)
 			return item;
 		else
 			return vendor.getCalculatedConfigurationItem(name);
-			
+
 	}
 
 }

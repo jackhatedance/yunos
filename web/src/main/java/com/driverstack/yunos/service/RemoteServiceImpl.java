@@ -260,8 +260,7 @@ public class RemoteServiceImpl implements RemoteService {
 			String locale) {
 		Locale aLocale = Locale.forLanguageTag(locale.replaceAll("_", "-"));
 
-		List<com.driverstack.yunos.domain.Vendor> domainVendors = vendorService
-				.getAll(locale);
+		List<com.driverstack.yunos.domain.Vendor> domainVendors = genericDao.getAll(Vendor.class);
 
 		List<com.driverstack.yunos.remote.vo.Vendor> remoteVendors = new ArrayList<com.driverstack.yunos.remote.vo.Vendor>();
 		for (com.driverstack.yunos.domain.Vendor d : domainVendors) {

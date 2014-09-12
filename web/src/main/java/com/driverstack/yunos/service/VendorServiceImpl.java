@@ -22,18 +22,5 @@ import com.driverstack.yunos.domain.Vendor;
 @Component
 public class VendorServiceImpl extends AbstractService implements VendorService {
 
-	@Override
-	public List<Vendor> getAll(String locale) {
-		Session s = getCurrentSession();
-		Criteria c = s.createCriteria(Vendor.class);
-		c.add(Restrictions.isNull("primary"));
-
-		List<Vendor> primarys = c.list();
-
-		List<Vendor> localeVendors = new ArrayList<Vendor>();
-		for (Vendor v : primarys)
-			localeVendors.add(v.get(locale));
-
-		return localeVendors;
-	}
+	
 }

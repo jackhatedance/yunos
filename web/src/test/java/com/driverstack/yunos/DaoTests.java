@@ -89,7 +89,7 @@ public class DaoTests {
 		 
 		Assert.assertNotNull(baihuon);
 		
-		Vendor zhCNBaihoun = baihuon.getLocales().get("zh_CN");
+		Vendor zhCNBaihoun = baihuon.get("zh_CN");
 		
 		Assert.assertNotNull(zhCNBaihoun);
 		
