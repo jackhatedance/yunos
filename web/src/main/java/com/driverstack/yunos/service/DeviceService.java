@@ -21,5 +21,5 @@ public interface DeviceService {
 	 * 
 	 * @param driver
 	 */
-	void initConfiguration(Device device);
+	List<com.driverstack.yunos.domain.ConfigurationItem> createConfiguration(Device device, Driver driver);
 }

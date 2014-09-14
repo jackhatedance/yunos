@@ -43,6 +43,16 @@ public interface RemoteService {
 	void removeDevice(String deviceId);
 
 	/**
+	 * get initial device configuration. note that the initial configuration are
+	 * not bound to the device until you save them.
+	 * 
+	 * @param deviceId
+	 * @return
+	 */
+	List<ConfigurationItem> getDeviceInitialConfiguration(String deviceId,
+			String driverId);
+
+	/**
 	 * get device configuration.
 	 * 
 	 * @param deviceId

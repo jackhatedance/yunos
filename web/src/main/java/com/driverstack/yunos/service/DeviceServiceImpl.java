@@ -1,5 +1,6 @@
 package com.driverstack.yunos.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -47,27 +48,34 @@ public class DeviceServiceImpl extends AbstractService implements DeviceService 
 	}
 
 	@Override
-	public void initConfiguration(Device device) {
+	public List<com.driverstack.yunos.domain.ConfigurationItem> createConfiguration(
+			Device device, Driver driver) {
 		Session s = getCurrentSession();
-		
-		//get configuration definitions from driver
-		Driver driver = device.getDriver();
+
+		List<com.driverstack.yunos.domain.ConfigurationItem> userItems = new ArrayList<com.driverstack.yunos.domain.ConfigurationItem>();
+
+		// get configuration definitions from driver
 		DriverConfigurationDefinition def = driver.getConfigurationDefinition();
-		
-		Map<String, com.driverstack.yunos.domain.ConfigurationItem> userItemsMap= device.getUserConfigurationItems();		
-		userItemsMap.clear();
-		
-		for(DriverConfigurationDefinitionItem defItem : def.getItems())
-		{
-			
-			 String name = defItem.getName(); 
-			 com.driverstack.yunos.domain.ConfigurationItem factoryItem =  device.getCalculatedFactoryValue(name);
-			 
-			 //clone
-			 com.driverstack.yunos.domain.ConfigurationItem userItem = new com.driverstack.yunos.domain.ConfigurationItem(factoryItem);
-			
-			 userItemsMap.put(name, userItem);			
+
+		for (DriverConfigurationDefinitionItem defItem : def.getItems()) {
+
+			String name = defItem.getName();
+			com.driverstack.yunos.domain.ConfigurationItem factoryItem = device
+					.getCalculatedFactoryValue(name);
+
+			com.driverstack.yunos.domain.ConfigurationItem userItem = null;
+			if (factoryItem != null) {
+				// clone
+				userItem = new com.driverstack.yunos.domain.ConfigurationItem(
+						factoryItem);
+			} else
+				userItem = new com.driverstack.yunos.domain.ConfigurationItem(
+						defItem.getName(), defItem.getType(), "");
+
+			userItems.add(userItem);
+
 		}
-		
+
+		return userItems;
 	}
 }

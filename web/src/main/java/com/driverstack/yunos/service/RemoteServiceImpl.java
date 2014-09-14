@@ -161,6 +161,25 @@ public class RemoteServiceImpl implements RemoteService {
 	}
 
 	@Override
+	public List<ConfigurationItem> getDeviceInitialConfiguration(
+			String deviceId, String driverId) {
+		com.driverstack.yunos.domain.Device domainDevice = (com.driverstack.yunos.domain.Device) genericDao
+				.load(com.driverstack.yunos.domain.Device.class, deviceId);
+		com.driverstack.yunos.domain.Driver domainDriver = (com.driverstack.yunos.domain.Driver) genericDao
+				.load(com.driverstack.yunos.domain.Driver.class, driverId);
+
+		List<com.driverstack.yunos.domain.ConfigurationItem> domainItems = deviceService
+				.createConfiguration(domainDevice, domainDriver);
+
+		List<ConfigurationItem> remoteItems = new ArrayList<ConfigurationItem>();
+		for (com.driverstack.yunos.domain.ConfigurationItem domainItem : domainItems) {
+			remoteItems.add(domainItem.toRemoteVO());
+		}
+
+		return remoteItems;
+	}
+
+	@Override
 	public List<ConfigurationItem> getDeviceConfiguration(String deviceId) {
 		com.driverstack.yunos.domain.Device domainDevice = (com.driverstack.yunos.domain.Device) genericDao
 				.get(com.driverstack.yunos.domain.Device.class, deviceId);

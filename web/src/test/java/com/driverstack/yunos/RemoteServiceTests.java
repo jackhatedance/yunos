@@ -18,8 +18,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.driverstack.yunos.remote.vo.ConfigurationItem;
 import com.driverstack.yunos.remote.vo.Device;
+import com.driverstack.yunos.remote.vo.DeviceClass;
 import com.driverstack.yunos.remote.vo.Vendor;
 import com.driverstack.yunos.service.RemoteService;
+import com.driverstack.yunos.service.RemoteServiceImpl;
 
 @ContextConfiguration(locations = "classpath:/com/driverstack/yunos/ServiceTests-context.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -56,9 +58,20 @@ public class RemoteServiceTests {
 
 		Vendor vendor = map.get("柏煌");
 
-		
 		Assert.assertEquals("f525b8e7-2485-11e4-9fa1-08002785c3ec",
 				vendor.getId());
+	}
+
+	@Test
+	public void testDeviceClass() throws Exception {
+
+		// vendor 7eggs
+		String vendorId = "c20c8c53-2485-11e4-9fa1-08002785c3ec";
+		String locale = "zh_CN";
+		List<DeviceClass> deviceClasses = remoteService.getDeviceClasses(null,
+				locale);
+
+		Assert.assertFalse(deviceClasses.isEmpty());
 	}
 
 	@Test
@@ -69,16 +82,14 @@ public class RemoteServiceTests {
 		Device remoteDev = remoteService.getDevice(deviceId);
 		Assert.assertEquals("c0bbb53f-2489-11e4-9fa1-08002785c3ec",
 				remoteDev.getDeviceClassId());
-		
+
 		remoteDev.setLocation("Loc1");
-		
+
 		remoteService.updateDevice(remoteDev);
-		
+
 		Device remoteDev2 = remoteService.getDevice(deviceId);
-		Assert.assertEquals("Loc1",
-				remoteDev2.getLocation());
-		
-		
+		Assert.assertEquals("Loc1", remoteDev2.getLocation());
+
 	}
 
 	@Test
@@ -96,6 +107,18 @@ public class RemoteServiceTests {
 
 		Assert.assertEquals("port", portItem.getName());
 		Assert.assertEquals("588", portItem.getValue());
+
+		// test init config dc098964-dd7d-451a-ad2e-e04d7287df78
+		
+		String driverId = "dc098964-dd7d-451a-ad2e-e04d7287df78";
+		items = remoteService.getDeviceInitialConfiguration(deviceId, driverId);
+		for (ConfigurationItem item : items)
+			map.put(item.getName(), item);
+
+		portItem = map.get("port");
+
+		Assert.assertEquals("port", portItem.getName());
+		Assert.assertEquals("60", portItem.getValue());
 
 	}
 

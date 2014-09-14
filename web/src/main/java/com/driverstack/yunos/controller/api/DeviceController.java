@@ -65,9 +65,9 @@ public class DeviceController {
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public boolean updateDevice(@RequestBody Device device) {
 		remoteService.updateDevice(device);
-		return true;//always true, ignore it on client side
+		return true;// always true, ignore it on client side
 	}
-	
+
 	@RequestMapping(value = "/{deviceId}", method = RequestMethod.DELETE)
 	public void removeDevice(@PathVariable String deviceId) {
 		remoteService.removeDevice(deviceId);
@@ -92,6 +92,26 @@ public class DeviceController {
 
 	}
 
+	/**
+	 * just generate initial configuration items, won't save to DB with these
+	 * values and driver ID.
+	 * 
+	 * @param driverId
+	 */
+	@RequestMapping(value = "/{deviceId}/initialConfiguration", method = RequestMethod.GET)
+	public List<ConfigurationItem> createConfiguration(
+			@PathVariable String deviceId, @RequestParam String driverId) {
+
+		return remoteService.getDeviceInitialConfiguration(deviceId, driverId);
+
+	}
+
+	/**
+	 * get current configurations
+	 * 
+	 * @param deviceId
+	 * @return
+	 */
 	@RequestMapping(value = "/{deviceId}/configuration", method = RequestMethod.GET)
 	public List<ConfigurationItem> getConfiguration(
 			@PathVariable String deviceId) {
@@ -105,9 +125,4 @@ public class DeviceController {
 		remoteService.updateDeviceConfiguration(deviceId, configurationItems);
 	}
 
-	@RequestMapping(value = "/{deviceId}/initConfiguration", method = RequestMethod.GET)
-	public void initConfiguration(String driverId){
-		//TODO
-	}
-	
 }
