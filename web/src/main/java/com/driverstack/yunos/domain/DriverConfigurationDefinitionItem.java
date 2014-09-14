@@ -10,9 +10,11 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -31,24 +33,15 @@ public class DriverConfigurationDefinitionItem {
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	private String id;
 
-	
 	@JoinColumn(name = "definitionId")
 	@ManyToOne(cascade = CascadeType.ALL)
 	private DriverConfigurationDefinition configurationDefinition;
 
-	@Column(name="\"order\"")
+	@Column(name = "\"order\"")
 	private int order;
-	
-	@Column
-	private String name;
-	/**
-	 * display name
-	 */
-	@Column
-	private String displayName;
 
 	@Column
-	private String description;
+	private String name;
 
 	@Column
 	private String type;
@@ -57,15 +50,16 @@ public class DriverConfigurationDefinitionItem {
 	private String constraints;
 
 	@Column
+	private String defaultLocale;
+	/**
+	 * current locale
+	 */
+	@Transient
 	private String locale;
 
-	@JoinColumn(name = "primaryId")
-	@ManyToOne(cascade = CascadeType.ALL)
-	private DriverConfigurationDefinitionItem primary;
-
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "primary")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "item")
 	@MapKey(name = "locale")
-	private Map<String, DriverConfigurationDefinitionItem> locales = new HashMap<String, DriverConfigurationDefinitionItem>();
+	private Map<String, LocalDriverConfigurationDefinitionItem> localItems = new HashMap<String, LocalDriverConfigurationDefinitionItem>();
 
 	public DriverConfigurationDefinitionItem() {
 
@@ -73,16 +67,18 @@ public class DriverConfigurationDefinitionItem {
 
 	public DriverConfigurationDefinitionItem(
 			DriverConfigurationDefinition configurationDefinition, int order,
-			String name, String displayName, String description, String type,
-			String constraints, String locale) {
+			String name, String type, String constraints, String defaultLocale) {
 		this.configurationDefinition = configurationDefinition;
 		this.order = order;
 		this.name = name;
-		this.displayName = displayName;
-		this.description = description;
+
+		// LocalDriverConfigurationDefinitionItem localItem = new
+		// LocalDriverConfigurationDefinitionItem(displayName,description,locale);
+		// this.addLocale(locale, localItem);
+
 		this.type = type;
 		this.constraints = constraints;
-		this.locale = locale;
+		this.defaultLocale = defaultLocale;
 
 	}
 
@@ -111,14 +107,12 @@ public class DriverConfigurationDefinitionItem {
 		this.order = order;
 	}
 
-	 
-
 	public String getDisplayName() {
-		return displayName;
+		return getCurentLocalItem().getDisplayName();
 	}
 
 	public void setDisplayName(String displayName) {
-		this.displayName = displayName;
+		getCurentLocalItem().setDisplayName(displayName);
 	}
 
 	public String getType() {
@@ -146,11 +140,21 @@ public class DriverConfigurationDefinitionItem {
 	}
 
 	public String getDescription() {
-		return description;
+		return getCurentLocalItem().getDescription();
+
 	}
 
 	public void setDescription(String description) {
-		this.description = description;
+		getCurentLocalItem().setDescription(description);
+
+	}
+
+	public String getDefaultLocale() {
+		return defaultLocale;
+	}
+
+	public void setDefaultLocale(String defaultLocale) {
+		this.defaultLocale = defaultLocale;
 	}
 
 	public String getLocale() {
@@ -161,26 +165,39 @@ public class DriverConfigurationDefinitionItem {
 		this.locale = locale;
 	}
 
-	public DriverConfigurationDefinitionItem getPrimary() {
-		return primary;
+	public LocalDriverConfigurationDefinitionItem getLocalItem(String locale) {
+		LocalDriverConfigurationDefinitionItem localItem = localItems
+				.get(locale);
+		if (localItem == null)
+			localItem = localItems.get(defaultLocale);
+
+		return localItem;
 	}
 
-	public void setPrimary(DriverConfigurationDefinitionItem primary) {
-		this.primary = primary;
+	public LocalDriverConfigurationDefinitionItem getCurentLocalItem() {
+		return getLocalItem(locale);
+
 	}
 
-	public Map<String, DriverConfigurationDefinitionItem> getLocales() {
-		return locales;
+	public Map<String, LocalDriverConfigurationDefinitionItem> getLocalItems() {
+		return localItems;
 	}
 
-	public void setLocales(
-			Map<String, DriverConfigurationDefinitionItem> locales) {
-		this.locales = locales;
+	public void setLocalItems(
+			Map<String, LocalDriverConfigurationDefinitionItem> localItems) {
+		this.localItems = localItems;
 	}
 
-	public void addLocales(String locale, DriverConfigurationDefinitionItem item) {
-		locales.put(locale, item);
-		item.setPrimary(this);		
+	public void addLocalItem(String locale,
+			LocalDriverConfigurationDefinitionItem item) {
+		localItems.put(locale, item);
+		item.setItem(this);
+	}
+
+	public DriverConfigurationDefinitionItem get(String locale) {
+		setLocale(locale);
+
+		return this;
 	}
 
 	@Override
@@ -188,11 +205,4 @@ public class DriverConfigurationDefinitionItem {
 		return name;
 	}
 
-	public DriverConfigurationDefinitionItem get(String locale) {
-		DriverConfigurationDefinitionItem lb = locales.get(locale);
-		if (lb != null)
-			return lb;
-		else
-			return this;
-	}
 }

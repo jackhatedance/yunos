@@ -24,10 +24,10 @@ public class DeviceClassServiceImpl extends AbstractService implements
 				.createQuery("select distinct dc from Model m join m.deviceClass as dc join m.vendor as v where v=:vendor ");
 		q.setEntity("vendor", vendor);
 
-		List<DeviceClass> primarys = q.list();
+		List<DeviceClass> deviceClasses = q.list();
 
 		List<DeviceClass> localeItems = new ArrayList<DeviceClass>();
-		for (DeviceClass obj : primarys)
+		for (DeviceClass obj : deviceClasses)
 			localeItems.add(obj.get(locale));
 
 		return localeItems;

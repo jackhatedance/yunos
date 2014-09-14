@@ -7,13 +7,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 
 import org.apache.commons.io.IOUtils;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -25,8 +22,7 @@ import com.driverstack.yunos.dao.DriverDao;
 import com.driverstack.yunos.domain.Driver;
 import com.driverstack.yunos.domain.DriverConfigurationDefinition;
 import com.driverstack.yunos.domain.DriverConfigurationDefinitionItem;
-import com.driverstack.yunos.domain.Model;
-import com.driverstack.yunos.domain.DeviceClass;
+import com.driverstack.yunos.domain.LocalDriverConfigurationDefinitionItem;
 import com.driverstack.yunos.driver.DriverProperties;
 import com.driverstack.yunos.driver.config.ConfigurationDefinition;
 import com.driverstack.yunos.driver.config.ConfigurationItem;
@@ -110,38 +106,33 @@ public class DriverServiceImpl extends AbstractService implements DriverService 
 	private DriverConfigurationDefinition convertToDomainObject(
 			ConfigurationDefinition def) {
 
-		DriverConfigurationDefinition configureDefinitionDomain = new DriverConfigurationDefinition(
+		DriverConfigurationDefinition domainConfigureDefinition = new DriverConfigurationDefinition(
 				def.getDefaultLocaleTag(), def.getSupportedLocaleTags());
 
-		DriverConfigurationDefinitionItem primaryDomainItem = null;
+		DriverConfigurationDefinitionItem domainItem = null;
 		for (ConfigurationItem dci : def.getItems()) {
 			Locale defaultLocale = def.getDefaultLocale();
-			primaryDomainItem = new DriverConfigurationDefinitionItem(
-					configureDefinitionDomain, dci.getOrder(),
-					dci.getFieldName(), dci.getName().get(
-							defaultLocale.toString()), dci.getDescription()
-							.get(defaultLocale.toString()), dci.getType()
-							.toString(), null, def.getDefaultLocale()
-							.toString());
+			domainItem = new DriverConfigurationDefinitionItem(
+					domainConfigureDefinition, dci.getOrder(),
+					dci.getFieldName(), dci.getType().toString(), null, def
+							.getDefaultLocale().toString());
 
 			for (Locale locale : def.getSupportedLocales()) {
-				
-				if(locale==defaultLocale)
-					continue;
-				
-				String localeTag = locale.toString();
-				DriverConfigurationDefinitionItem subDomainItem = new DriverConfigurationDefinitionItem(
-						null, dci.getOrder(),
-						dci.getFieldName(), dci.getName().get(localeTag), dci
-								.getDescription().get(localeTag), dci.getType()
-								.toString(), null, locale.toString());
 
-				primaryDomainItem.addLocales(localeTag, subDomainItem);
+				if (locale == defaultLocale)
+					continue;
+
+				String localeTag = locale.toString();
+				LocalDriverConfigurationDefinitionItem domainLocalItem = new LocalDriverConfigurationDefinitionItem(
+						dci.getName().get(localeTag), dci.getDescription().get(
+								localeTag), locale.toString());
+
+				domainItem.addLocalItem(localeTag, domainLocalItem);
 			}
 
-			configureDefinitionDomain.addItem(primaryDomainItem);
+			domainConfigureDefinition.addItem(domainItem);
 		}
-		return configureDefinitionDomain;
+		return domainConfigureDefinition;
 	}
 
 	@Override
@@ -160,5 +151,4 @@ public class DriverServiceImpl extends AbstractService implements DriverService 
 
 	}
 
-	 
 }

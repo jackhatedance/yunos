@@ -17,9 +17,8 @@ public class DriverConfigurationDefinitionItem implements Serializable {
 
 	private String id;
 	private int order;
-	private String fieldName;
 	private String name;
-
+	private String displayName;
 	private String description;
 	private String type;
 	private String constraints;
@@ -40,12 +39,12 @@ public class DriverConfigurationDefinitionItem implements Serializable {
 		this.order = order;
 	}
 
-	public String getFieldName() {
-		return fieldName;
+	public String getDisplayName() {
+		return displayName;
 	}
 
-	public void setFieldName(String fieldName) {
-		this.fieldName = fieldName;
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
 	}
 
 	public String getName() {
