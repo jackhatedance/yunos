@@ -13,30 +13,20 @@ public class ConfigurationItem {
 	private I18nString name;
 	private I18nString description;
 	private ConfigurationItemType type;
+	private String defaultValue;
 	private int order;
 
-	public ConfigurationItem(String fieldName,I18nString name, I18nString description,
-			ConfigurationItemType type, int order) {
+	public ConfigurationItem(String fieldName, I18nString name,
+			I18nString description, ConfigurationItemType type,
+			String defaultValue, int order) {
 		this.fieldName = fieldName;
 		this.name = name;
 		this.description = description;
 		this.type = type;
+		this.defaultValue = defaultValue;
 		this.order = order;
 	}
 
-	/**
-	 * only available when type is complex type. such as functional device or
-	 * enum.
-	 * 
-	 * if type is functional device, then this is functional device name;
-	 * 
-	 * if type is enum, then this is enum name;
-	 */
-	private String subType;
-
-	private I18nString defaultValue;
-
-	
 	public String getFieldName() {
 		return fieldName;
 	}
@@ -69,19 +59,11 @@ public class ConfigurationItem {
 		this.type = type;
 	}
 
-	public String getSubType() {
-		return subType;
-	}
-
-	public void setSubType(String subType) {
-		this.subType = subType;
-	}
-
-	public I18nString getDefaultValue() {
+	public String getDefaultValue() {
 		return defaultValue;
 	}
 
-	public void setDefaultValue(I18nString defaultValue) {
+	public void setDefaultValue(String defaultValue) {
 		this.defaultValue = defaultValue;
 	}
 

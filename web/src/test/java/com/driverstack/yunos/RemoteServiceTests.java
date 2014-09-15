@@ -115,6 +115,11 @@ public class RemoteServiceTests {
 		for (ConfigurationItem item : items)
 			map.put(item.getName(), item);
 
+		ConfigurationItem hostItem = map.get("host");
+
+		Assert.assertEquals("host", hostItem.getName());
+		Assert.assertEquals("0.0.0.0", hostItem.getValue());
+		
 		portItem = map.get("port");
 
 		Assert.assertEquals("port", portItem.getName());

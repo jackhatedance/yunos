@@ -36,39 +36,38 @@ public class ConfigureAnnotationParser {
 
 		List<ConfigurationItem> items = new ArrayList<ConfigurationItem>();
 
-		
 		for (Field field : configClass.getDeclaredFields()) {
 
 			Item item = field.getAnnotation(Item.class);
 			if (item != null) {
 				String name = field.getName();
 
-				ConfigurationItemType type = ConfigurationItemType.getType(field
-						.getType());
+				ConfigurationItemType type = ConfigurationItemType
+						.getType(field.getType());
 
 				I18nString i18nName = getI18nString(resource, classLoader,
 						defaultLocale, supportedLocales, name + ".name");
 				I18nString i18nDesc = getI18nString(resource, classLoader,
 						defaultLocale, supportedLocales, name + ".description");
 
-				ConfigurationItem configItem = new ConfigurationItem(name, i18nName,
-						i18nDesc, type, item.order());
+				ConfigurationItem configItem = new ConfigurationItem(name,
+						i18nName, i18nDesc, type, item.defaultValue(),
+						item.order());
 
 				items.add(configItem);
 			}
 
 		}
 
-		//sort items, re-set order value
+		// sort items, re-set order value
 		Collections.sort(items, new Comparator<ConfigurationItem>() {
 			public int compare(ConfigurationItem o1, ConfigurationItem o2) {
 				return o1.getOrder() - o2.getOrder();
 			};
 		});
-		for(int i=0;i<items.size();i++)
+		for (int i = 0; i < items.size(); i++)
 			items.get(i).setOrder(i);
-		
-		
+
 		ConfigurationDefinition configureDef = new com.driverstack.yunos.driver.config.ConfigurationDefinition(
 				defaultLocale, supportedLocales, items);
 

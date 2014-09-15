@@ -114,8 +114,9 @@ public class DriverServiceImpl extends AbstractService implements DriverService 
 			Locale defaultLocale = def.getDefaultLocale();
 			domainItem = new DriverConfigurationDefinitionItem(
 					domainConfigureDefinition, dci.getOrder(),
-					dci.getFieldName(), dci.getType().toString(), null, def
-							.getDefaultLocale().toString());
+					dci.getFieldName(), dci.getType().toString(),
+					dci.getDefaultValue(), null, def.getDefaultLocale()
+							.toString());
 
 			for (Locale locale : def.getSupportedLocales()) {
 

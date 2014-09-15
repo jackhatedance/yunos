@@ -70,7 +70,8 @@ public class DeviceServiceImpl extends AbstractService implements DeviceService 
 						factoryItem);
 			} else
 				userItem = new com.driverstack.yunos.domain.ConfigurationItem(
-						defItem.getName(), defItem.getType(), "");
+						defItem.getName(), defItem.getType(),
+						defItem.getDefaultValue());
 
 			userItems.add(userItem);
 

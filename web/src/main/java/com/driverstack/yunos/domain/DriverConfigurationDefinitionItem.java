@@ -47,6 +47,9 @@ public class DriverConfigurationDefinitionItem {
 	private String type;
 
 	@Column
+	private String defaultValue;
+
+	@Column
 	private String constraints;
 
 	@Column
@@ -67,16 +70,13 @@ public class DriverConfigurationDefinitionItem {
 
 	public DriverConfigurationDefinitionItem(
 			DriverConfigurationDefinition configurationDefinition, int order,
-			String name, String type, String constraints, String defaultLocale) {
+			String name, String type, String defaultValue, String constraints,
+			String defaultLocale) {
 		this.configurationDefinition = configurationDefinition;
 		this.order = order;
 		this.name = name;
-
-		// LocalDriverConfigurationDefinitionItem localItem = new
-		// LocalDriverConfigurationDefinitionItem(displayName,description,locale);
-		// this.addLocale(locale, localItem);
-
 		this.type = type;
+		this.defaultValue = defaultValue;
 		this.constraints = constraints;
 		this.defaultLocale = defaultLocale;
 
@@ -121,6 +121,14 @@ public class DriverConfigurationDefinitionItem {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public String getDefaultValue() {
+		return defaultValue;
+	}
+
+	public void setDefaultValue(String defaultValue) {
+		this.defaultValue = defaultValue;
 	}
 
 	public String getConstraints() {
