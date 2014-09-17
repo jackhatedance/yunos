@@ -31,14 +31,6 @@ public interface DriverManager {
 	Driver loadDriver(com.driverstack.yunos.domain.Driver driverEntity);
 
 	/**
-	 * find best device driver for model
-	 * 
-	 * @param model
-	 * @return
-	 */
-	Driver findDriver(Model model);
-
-	/**
 	 * load device driver object
 	 * 
 	 * @param deviceEntity

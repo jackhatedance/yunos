@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.springframework.stereotype.Component;
 
 import com.driverstack.yunos.domain.Driver;
+import com.driverstack.yunos.domain.Model;
 
 @Component
 public class DriverDaoImpl extends AbstractDao implements DriverDao {
@@ -17,17 +18,21 @@ public class DriverDaoImpl extends AbstractDao implements DriverDao {
 		return (Driver) session.get(Driver.class, id);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public List<Driver> findDriver(com.driverstack.yunos.device.Model model) {
-		Session session = getCurrentSession();
-		Query query = session
-				.createQuery("select d from Driver as d inner join d.supportedModels as m where m.vendor.name=:vendor and m.name=:model");
+	public List<Driver> findDriver(Model model) {
+		// 1 find driver that support the model directly.
+		// 2 find those support indirectly(compatible)
+		Session s = getCurrentSession();
+		// Query q = s
+		// .createQuery("select d from Driver d join d.supportedModels sm left join sm.compatibleModels cm where sm=:m or cm=:m");
 
-		query.setString("vendor", model.getVendor());
-		query.setString("model", model.getModel());
+		Query q = s
+				.createQuery("select d from Driver d join d.supportedModels m "
+						+" left join m.compliedBy cm where m=:m or cm=:m");
 
-		return query.list();
+		q.setEntity("m", model);
 
+		return q.list();
 	}
+
 }

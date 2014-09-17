@@ -27,11 +27,11 @@ public class Application {
 	@Column
 	private String key;
 	@Column
-	private String authorName;
+	private String developerName;
 	@Column
-	private String authorEmail;
+	private String developerEmail;
 	@Column
-	private String authorPhone;
+	private String developerPhone;
 
 	public String getId() {
 		return id;
@@ -63,30 +63,6 @@ public class Application {
 
 	public void setKey(String key) {
 		this.key = key;
-	}
-
-	public String getAuthorName() {
-		return authorName;
-	}
-
-	public void setAuthorName(String authorName) {
-		this.authorName = authorName;
-	}
-
-	public String getAuthorEmail() {
-		return authorEmail;
-	}
-
-	public void setAuthorEmail(String authorEmail) {
-		this.authorEmail = authorEmail;
-	}
-
-	public String getAuthorPhone() {
-		return authorPhone;
-	}
-
-	public void setAuthorPhone(String authorPhone) {
-		this.authorPhone = authorPhone;
 	}
 
 }

@@ -84,28 +84,14 @@ public class DaoTests {
 		Assert.assertNotNull(da);
 		Assert.assertNotNull(da.getVersions().get("1.0"));
 
-		
-		Vendor baihuon = (Vendor)session.get(Vendor.class, "f525b8e7-2485-11e4-9fa1-08002785c3ec");
-		 
+		Vendor baihuon = (Vendor) session.get(Vendor.class,
+				"f525b8e7-2485-11e4-9fa1-08002785c3ec");
+
 		Assert.assertNotNull(baihuon);
-		
+
 		Vendor zhCNBaihoun = baihuon.get("zh_CN");
-		
+
 		Assert.assertNotNull(zhCNBaihoun);
-		
-	}
-
-	@Ignore
-	@Test
-	public void testDriverDao() throws Exception {
-
-		assertNotNull(driverDao);
-		Model model = new Model("7eggs", 
-				"IR-RF433");
-		List<Driver> drivers = driverDao.findDriver(model);
-		Assert.assertNotNull(drivers);
-		Assert.assertFalse(drivers.isEmpty());
-		Assert.assertEquals("jack ding", drivers.get(0).getAuthorName());
 
 	}
 

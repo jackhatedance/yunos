@@ -8,8 +8,9 @@ public class DriverProperties {
 	public static final String VERSION = "version";
 	public static final String CLASS_NAME = "className";
 	public static final String SDK_VERSION = "sdkVersion";
-	public static final String AUTHOR_NAME = "authorName";
-	public static final String AUTHOR_EMAIL = "authorEmail";
+	public static final String DEVELOPER_NAME = "developer.name";
+	public static final String DEVELOPER_EMAIL = "developer.email";
+	public static final String DEVELOPER_WEB = "developer.web";
 
 	private Properties props;
 
@@ -33,12 +34,15 @@ public class DriverProperties {
 		return props.getProperty(SDK_VERSION);
 	}
 
-	public String getAuthorName() {
-		return props.getProperty(AUTHOR_NAME);
+	public String getDeveloperName() {
+		return props.getProperty(DEVELOPER_NAME);
 	}
 
-	public String getAuthorEmail() {
-		return props.getProperty(AUTHOR_EMAIL);
+	public String getDeveloperEmail() {
+		return props.getProperty(DEVELOPER_EMAIL);
 	}
 
+	public String getDeveloperWeb() {
+		return props.getProperty(DEVELOPER_WEB);
+	}
 }

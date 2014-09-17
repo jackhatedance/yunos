@@ -7,10 +7,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 
 import org.apache.commons.io.IOUtils;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,6 +25,7 @@ import com.driverstack.yunos.domain.Driver;
 import com.driverstack.yunos.domain.DriverConfigurationDefinition;
 import com.driverstack.yunos.domain.DriverConfigurationDefinitionItem;
 import com.driverstack.yunos.domain.LocalDriverConfigurationDefinitionItem;
+import com.driverstack.yunos.domain.Model;
 import com.driverstack.yunos.driver.DriverProperties;
 import com.driverstack.yunos.driver.config.ConfigurationDefinition;
 import com.driverstack.yunos.driver.config.ConfigurationItem;
@@ -73,7 +76,7 @@ public class DriverServiceImpl extends AbstractService implements DriverService 
 					driverProps.getName(), driverProps.getVersion());
 
 			String path = String.format("%s%s", resourcePath.getDriverPath(),
-					driverProps.getAuthorName());
+					driverProps.getDeveloperName());
 
 			File dir = new File(path);
 			dir.mkdir();
@@ -87,8 +90,8 @@ public class DriverServiceImpl extends AbstractService implements DriverService 
 		// save to DB.
 		Driver driverDomain = new Driver(driverProps.getName(),
 				driverProps.getVersion(), driverProps.getSdkVersion(),
-				driverProps.getClassName(), driverProps.getAuthorName(),
-				driverProps.getAuthorEmail());
+				driverProps.getClassName(), driverProps.getDeveloperName(),
+				driverProps.getDeveloperEmail(), driverProps.getDeveloperWeb());
 
 		DriverConfigurationDefinition configDefDomain = convertToDomainObject(def);
 		driverDomain.setConfigurationDefinition(configDefDomain);
@@ -152,4 +155,8 @@ public class DriverServiceImpl extends AbstractService implements DriverService 
 
 	}
 
+	@Override
+	public List<Driver> findAvailableDrivers(Model model) {
+		return driverDao.findDriver(model);
+	}
 }

@@ -40,6 +40,10 @@
     <li>    
     <a href="api/1.0/drivers/dc098964-dd7d-451a-ad2e-e04d7287df78/configrationItems?locale=zh_CN">list driver configuration definitions</a>     
     </li>                 
+
+    <li>    
+    <a href="api/1.0/drivers/?modelId=3a2725d7-087e-11e4-b721-08002785c3ec">list available drivers for model</a>     
+    </li>                 
     
     <li>    
     <a href="api/1.0/devices/cb170afb-087f-11e4-b721-08002785c3ec/configuration?locale=zh_CN">get device configuration</a>     

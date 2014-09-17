@@ -26,6 +26,7 @@ import com.driverstack.yunos.domain.Token;
 import com.driverstack.yunos.domain.Vendor;
 import com.driverstack.yunos.remote.vo.ConfigurationItem;
 import com.driverstack.yunos.remote.vo.Device;
+import com.driverstack.yunos.remote.vo.Driver;
 import com.driverstack.yunos.remote.vo.DriverConfigurationDefinitionItem;
 
 /**
@@ -319,6 +320,26 @@ public class RemoteServiceImpl implements RemoteService {
 		}
 
 		return remoteModels;
+	}
+
+	@Override
+	public List<Driver> getAvailableDrivers(String modelId) {
+
+		com.driverstack.yunos.domain.Model model = (com.driverstack.yunos.domain.Model) genericDao
+				.load(com.driverstack.yunos.domain.Model.class, modelId);
+		List<com.driverstack.yunos.domain.Driver> domainDrivers = driverService
+				.findAvailableDrivers(model);
+
+		
+		List<Driver> remoteObjects = new ArrayList<Driver>();
+		for (com.driverstack.yunos.domain.Driver domainObject : domainDrivers) {
+			Driver driver = new Driver(domainObject.getId(),
+					domainObject.getName(), domainObject.getVersion());
+
+			remoteObjects.add(driver);
+		}
+
+		return remoteObjects;
 	}
 
 	@Override

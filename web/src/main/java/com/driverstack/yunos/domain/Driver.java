@@ -34,10 +34,13 @@ public class Driver {
 	private String className;
 
 	@Column
-	private String authorName;
+	private String developerName;
 
 	@Column
-	private String authorEmail;
+	private String developerEmail;
+
+	@Column
+	private String developerWeb;
 
 	@Column
 	private Date submitTime;
@@ -54,13 +57,15 @@ public class Driver {
 	}
 
 	public Driver(String name, String version, String sdkVersion,
-			String className, String authorName, String authorEmail) {
+			String className, String developerName, String developerEmail,
+			String developerWeb) {
 		this.name = name;
 		this.version = version;
 		this.sdkVersion = sdkVersion;
 		this.className = className;
-		this.authorName = authorName;
-		this.authorEmail = authorEmail;
+		this.developerName = developerName;
+		this.developerEmail = developerEmail;
+		this.developerWeb = developerWeb;
 
 		submitTime = new Date();
 	}
@@ -105,20 +110,28 @@ public class Driver {
 		this.className = className;
 	}
 
-	public String getAuthorName() {
-		return authorName;
+	public String getDeveloperName() {
+		return developerName;
 	}
 
-	public void setAuthorName(String authorName) {
-		this.authorName = authorName;
+	public void setDeveloperName(String developerName) {
+		this.developerName = developerName;
 	}
 
-	public String getAuthorEmail() {
-		return authorEmail;
+	public String getDeveloperEmail() {
+		return developerEmail;
 	}
 
-	public void setAuthorEmail(String authorEmail) {
-		this.authorEmail = authorEmail;
+	public void setDeveloperEmail(String developerEmail) {
+		this.developerEmail = developerEmail;
+	}
+
+	public String getDeveloperWeb() {
+		return developerWeb;
+	}
+
+	public void setDeveloperWeb(String developerWeb) {
+		this.developerWeb = developerWeb;
 	}
 
 	public Date getSubmitTime() {
@@ -144,7 +157,7 @@ public class Driver {
 	public void setConfigurationDefinition(
 			DriverConfigurationDefinition configurationDefinition) {
 		this.configurationDefinition = configurationDefinition;
-		
+
 		configurationDefinition.setDriver(this);
 	}
 

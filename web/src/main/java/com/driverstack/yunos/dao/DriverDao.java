@@ -13,5 +13,5 @@ public interface DriverDao {
 	 * @param model
 	 * @return
 	 */
-	List<Driver> findDriver(Model model);
+	List<Driver> findDriver(com.driverstack.yunos.domain.Model model);
 }

@@ -34,4 +34,18 @@ public class DriverController {
 				locale);
 	}
 
+	/**
+	 * list matching driver for specified model.
+	 * 
+	 * @param modelId
+	 * @return
+	 */
+	@RequestMapping(value = "", method = RequestMethod.GET)
+	public List<com.driverstack.yunos.remote.vo.Driver> findDrivers(
+			@RequestParam("modelId") String modelId) {
+
+		return remoteService.getAvailableDrivers(modelId);
+
+	}
+
 }

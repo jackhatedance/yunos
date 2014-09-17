@@ -55,8 +55,12 @@ public class Model {
 	private Vendor vendor;
 
 	@ManyToMany(cascade = { CascadeType.ALL })
-	@JoinTable(name = "compatible_models", joinColumns = { @JoinColumn(name = "modelId") }, inverseJoinColumns = { @JoinColumn(name = "compatibleModelId") })
+	@JoinTable(name = "CompatibleModel", joinColumns = { @JoinColumn(name = "modelId") }, inverseJoinColumns = { @JoinColumn(name = "compatibleModelId") })
 	private Set<Model> compatibleModels = new HashSet<Model>();
+	
+	@ManyToMany(mappedBy="compatibleModels")
+	private Set<Model> compliedBy = new HashSet<Model>();
+	 
 	/**
 	 * it is a good habit to create a sample configure and save beside the
 	 * actual configure. sometime we may want to take a look what it should
@@ -126,6 +130,30 @@ public class Model {
 
 	public void setCompatibleModels(Set<Model> compatibleModels) {
 		this.compatibleModels = compatibleModels;
+	}
+
+	public String getDefaultLocale() {
+		return defaultLocale;
+	}
+
+	public void setDefaultLocale(String defaultLocale) {
+		this.defaultLocale = defaultLocale;
+	}
+
+	public Map<String, LocalModel> getLocalModels() {
+		return localModels;
+	}
+
+	public void setLocalModels(Map<String, LocalModel> localModels) {
+		this.localModels = localModels;
+	}
+
+	public Set<Model> getCompliedBy() {
+		return compliedBy;
+	}
+
+	public void setCompliedBy(Set<Model> compliedBy) {
+		this.compliedBy = compliedBy;
 	}
 
 	public String getLocale() {

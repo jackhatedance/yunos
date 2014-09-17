@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.driverstack.yunos.remote.vo.ConfigurationItem;
 import com.driverstack.yunos.remote.vo.Device;
+import com.driverstack.yunos.remote.vo.Driver;
 import com.driverstack.yunos.remote.vo.DriverConfigurationDefinitionItem;
 
 public interface RemoteService {
@@ -94,6 +95,8 @@ public interface RemoteService {
 
 	List<com.driverstack.yunos.remote.vo.Model> getModels(String vendorId,
 			String deviceClassId, String locale);
+
+	List<Driver> getAvailableDrivers(String modelId);
 
 	List<DriverConfigurationDefinitionItem> getDriverConfigurationDefinitionItems(
 			String driverId, String locale);

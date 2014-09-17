@@ -52,16 +52,6 @@ public class DriverManagerImpl implements DriverManager {
 		return driverDao;
 	}
 
-	public Driver findDriver(Model model) {
-
-		List<com.driverstack.yunos.domain.Driver> drivers = driverDao
-				.findDriver(model);
-		com.driverstack.yunos.domain.Driver domainDriver = drivers.get(0);
-
-		Driver driver = driverClassLoader.loadDriver(domainDriver);
-		return driver;
-	}
-
 	@Override
 	public Driver loadDriver(Device deviceEntity) {
 		Driver driver = driverClassLoader.loadDriver(deviceEntity.getDriver());
@@ -127,7 +117,5 @@ public class DriverManagerImpl implements DriverManager {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	 
 
 }

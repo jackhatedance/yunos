@@ -23,4 +23,6 @@ public interface DriverService {
 	
 	void delete(Serializable id);
 	
+	List<Driver> findAvailableDrivers(Model model);
+	
 }

@@ -24,6 +24,7 @@ import com.driverstack.yunos.domain.Device;
 import com.driverstack.yunos.domain.DeviceClass;
 import com.driverstack.yunos.domain.Driver;
 import com.driverstack.yunos.domain.DriverConfigurationDefinitionItem;
+import com.driverstack.yunos.domain.Model;
 import com.driverstack.yunos.domain.User;
 import com.driverstack.yunos.domain.Vendor;
 import com.driverstack.yunos.service.DeviceClassService;
@@ -92,12 +93,11 @@ public class ServiceTests {
 		String deviceId = "cb170afb-087f-11e4-b721-08002785c3ec";
 		Device dev = (Device) genericDao.get(Device.class, deviceId);
 
-		Map<String, ConfigurationItem> map = dev
-				.getUserConfigurationItems();
+		Map<String, ConfigurationItem> map = dev.getUserConfigurationItems();
 		ConfigurationItem item = map.get("port");
 		Assert.assertEquals("588", item.getValue());
-		
-		//another device
+
+		// another device
 		deviceId = "94a1c5a8-39c9-11e4-8a8f-08002785c3ec";
 		dev = (Device) genericDao.get(Device.class, deviceId);
 
@@ -107,13 +107,17 @@ public class ServiceTests {
 
 	@Test
 	public void testDriverService() throws Exception {
+
+		// 1. upload driver
 		InputStream input = getClass().getResourceAsStream(
 				"/sampleDriver/RF-IR-Transmitter-Driver-1.0.jar");
 		Serializable driverId = driverService.upload(input);
 		Assert.assertNotNull(driverId);
 
+		// 2. retrieve uploaded driver
 		Driver d = driverService.get(driverId);
 
+		// check driver configuration definitions
 		List<DriverConfigurationDefinitionItem> items = d
 				.getConfigurationDefinition().getItems();
 
@@ -121,7 +125,18 @@ public class ServiceTests {
 		String actualName = item.getDisplayName();
 		Assert.assertEquals("主机", actualName);
 
+		// test delete driver
 		driverService.delete(driverId);
+
+		// test matching models
+		// jack 7eggs multi-function transmitter
+		String modelId = "3a2725d7-087e-11e4-b721-08002785c3ec";
+		modelId="da50f304-3e26-11e4-8a8f-08002785c3ec";
+		
+		Model model = (Model) genericDao.load(Model.class, modelId);
+		List<Driver> availableDrivers = driverService
+				.findAvailableDrivers(model);
+		Assert.assertFalse(availableDrivers.isEmpty());
 
 	}
 }
