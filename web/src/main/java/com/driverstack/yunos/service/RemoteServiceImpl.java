@@ -114,6 +114,8 @@ public class RemoteServiceImpl implements RemoteService {
 		remoteDevice.setDeviceClassId(domainDevice.getModel().getDeviceClass()
 				.getId());
 		remoteDevice.setModelId(domainDevice.getModel().getId());
+		if (domainDevice.getDriver() != null)
+			remoteDevice.setDriverId(domainDevice.getDriver().getId());
 
 		return remoteDevice;
 	}
@@ -330,11 +332,11 @@ public class RemoteServiceImpl implements RemoteService {
 		List<com.driverstack.yunos.domain.Driver> domainDrivers = driverService
 				.findAvailableDrivers(model);
 
-		
 		List<Driver> remoteObjects = new ArrayList<Driver>();
 		for (com.driverstack.yunos.domain.Driver domainObject : domainDrivers) {
 			Driver driver = new Driver(domainObject.getId(),
-					domainObject.getName(), domainObject.getVersion());
+					domainObject.getName(), domainObject.getVersion(),
+					domainObject.getDeveloperName());
 
 			remoteObjects.add(driver);
 		}

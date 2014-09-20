@@ -120,9 +120,12 @@ public class DeviceController {
 	}
 
 	@RequestMapping(value = "/{deviceId}/configuration", method = RequestMethod.POST)
-	public void updateConfiguration(@PathVariable String deviceId,
+	public boolean updateConfiguration(@PathVariable String deviceId,
 			@RequestBody List<ConfigurationItem> configurationItems) {
 		remoteService.updateDeviceConfiguration(deviceId, configurationItems);
+		//always true.
+		return true;
+		
 	}
 
 }

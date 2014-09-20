@@ -171,6 +171,7 @@ public class Device {
 		this.description = description;
 	}
 
+	 
 	/**
 	 * override model configure by device factory configure then user configure
 	 * 

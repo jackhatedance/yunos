@@ -46,7 +46,7 @@
     </li>                 
     
     <li>    
-    <a href="api/1.0/devices/cb170afb-087f-11e4-b721-08002785c3ec/configuration?locale=zh_CN">get device configuration</a>     
+    <a href="api/1.0/devices/cb170afb-087f-11e4-b721-08002785c3ec/configuration">get device configuration</a>     
     </li> 
     
     </ul>
