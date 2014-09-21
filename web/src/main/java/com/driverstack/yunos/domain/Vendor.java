@@ -33,6 +33,10 @@ public class Vendor {
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	private String id;
 
+
+	@Column
+	private String codeName;
+	
 	@Column
 	private String defaultLocale;
 
@@ -61,6 +65,14 @@ public class Vendor {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getCodeName() {
+		return codeName;
+	}
+
+	public void setCodeName(String codeName) {
+		this.codeName = codeName;
 	}
 
 	public String getDefaultLocale() {

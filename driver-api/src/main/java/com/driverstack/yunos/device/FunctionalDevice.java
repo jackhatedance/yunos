@@ -1,15 +1,14 @@
 package com.driverstack.yunos.device;
 
 /**
- * it is function device.
+ * it is functional device.
  * 
  * @author jack
  * 
  */
 public interface FunctionalDevice {
 
-	DeviceApi getApi();
+	//don't know what to put here. leave it empty.
 
-	String getApiVersion();
-
+	
 }

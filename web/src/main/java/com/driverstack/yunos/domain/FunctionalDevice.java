@@ -1,12 +1,16 @@
 package com.driverstack.yunos.domain;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -27,16 +31,26 @@ public class FunctionalDevice {
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	private String id;
+	
+	@JoinColumn(name = "vendorId")
+	@ManyToOne(cascade = CascadeType.ALL)	
+	private Vendor vendor;
 	@Column
-	private String brand;
+	private String className;
 	@Column
-	private String category;
+	private String sdkVersion;
+	
+	@JoinColumn(name = "submitUserId")
+	@ManyToOne(cascade = CascadeType.ALL)
+	private User submitter;
 	@Column
-	private String product;
+	private Date submitTime;
+	@Column
+	private String defaultLocale;
 
-	@OneToMany(mappedBy = "functionalDevice", cascade = { CascadeType.ALL })
-	@MapKey(name = "version")
-	private Map<String, FunctionalDeviceApi> apis = new HashMap<String, FunctionalDeviceApi>();
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "functionalDevice")
+	@MapKey(name = "locale")
+	private Map<String, LocalFunctionalDevice> localFunctionalDevices = new HashMap<String, LocalFunctionalDevice>();
 
 	public String getId() {
 		return id;
@@ -46,36 +60,61 @@ public class FunctionalDevice {
 		this.id = id;
 	}
 
-	public String getBrand() {
-		return brand;
+	public Vendor getVendor() {
+		return vendor;
 	}
 
-	public void setBrand(String brand) {
-		this.brand = brand;
+	public void setVendor(Vendor vendor) {
+		this.vendor = vendor;
 	}
 
-	public String getCategory() {
-		return category;
+	public String getClassName() {
+		return className;
 	}
 
-	public void setCategory(String category) {
-		this.category = category;
+	public void setClassName(String className) {
+		this.className = className;
 	}
 
-	public String getProduct() {
-		return product;
+	public String getSdkVersion() {
+		return sdkVersion;
 	}
 
-	public void setProduct(String product) {
-		this.product = product;
+	public void setSdkVersion(String sdkVersion) {
+		this.sdkVersion = sdkVersion;
 	}
 
-	public Map<String, FunctionalDeviceApi> getVersions() {
-		return apis;
+	public User getSubmitter() {
+		return submitter;
 	}
 
-	public void setVersions(Map<String, FunctionalDeviceApi> versions) {
-		this.apis = versions;
+	public void setSubmitter(User submitter) {
+		this.submitter = submitter;
+	}
+
+	public Date getSubmitTime() {
+		return submitTime;
+	}
+
+	public void setSubmitTime(Date submitTime) {
+		this.submitTime = submitTime;
+	}
+
+	public String getDefaultLocale() {
+		return defaultLocale;
+	}
+
+	public void setDefaultLocale(String defaultLocale) {
+		this.defaultLocale = defaultLocale;
+	}
+
+	public Map<String, LocalFunctionalDevice> getLocalFunctionalDevices() {
+		return localFunctionalDevices;
+	}
+
+	public void setLocalFunctionalDevices(
+			Map<String, LocalFunctionalDevice> localFunctionalDevices) {
+		this.localFunctionalDevices = localFunctionalDevices;
 	}
 
 }

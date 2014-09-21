@@ -6,7 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -17,25 +16,24 @@ import org.hibernate.annotations.GenericGenerator;
  * 
  */
 @javax.persistence.Entity
-@Table
-public class FunctionalDeviceApi {
+public class LocalFunctionalDevice {
 	@Id
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	private String id;
 
-	@ManyToOne(cascade = { CascadeType.ALL })
-	@JoinColumn(name = "functionalDeviceId")
-	private FunctionalDevice functionalDevice;
-
 	@Column
-	private String version;
+	private String name;
 
 	@Column
 	private String description;
 
 	@Column
-	private String className;
+	private String locale;
+
+	@JoinColumn(name = "functionalDeviceId")
+	@ManyToOne(cascade = CascadeType.ALL)
+	private FunctionalDevice functionalDevice;
 
 	public String getId() {
 		return id;
@@ -45,7 +43,14 @@ public class FunctionalDeviceApi {
 		this.id = id;
 	}
 
- 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public FunctionalDevice getFunctionalDevice() {
 		return functionalDevice;
 	}
@@ -54,28 +59,20 @@ public class FunctionalDeviceApi {
 		this.functionalDevice = functionalDevice;
 	}
 
-	public String getClassName() {
-		return className;
-	}
-
-	public void setClassName(String className) {
-		this.className = className;
-	}
-
-	public String getVersion() {
-		return version;
-	}
-
-	public void setVersion(String version) {
-		this.version = version;
-	}
-
 	public String getDescription() {
 		return description;
 	}
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getLocale() {
+		return locale;
+	}
+
+	public void setLocale(String locale) {
+		this.locale = locale;
 	}
 
 }
