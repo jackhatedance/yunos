@@ -24,12 +24,15 @@ import com.driverstack.yunos.domain.Device;
 import com.driverstack.yunos.domain.DeviceClass;
 import com.driverstack.yunos.domain.Driver;
 import com.driverstack.yunos.domain.DriverConfigurationDefinitionItem;
+import com.driverstack.yunos.domain.FunctionalDevice;
+import com.driverstack.yunos.domain.LocalFunctionalDevice;
 import com.driverstack.yunos.domain.Model;
 import com.driverstack.yunos.domain.User;
 import com.driverstack.yunos.domain.Vendor;
 import com.driverstack.yunos.service.DeviceClassService;
 import com.driverstack.yunos.service.DeviceService;
 import com.driverstack.yunos.service.DriverService;
+import com.driverstack.yunos.service.FunctionalDeviceService;
 import com.driverstack.yunos.service.UserService;
 
 @ContextConfiguration(locations = "classpath:/com/driverstack/yunos/ServiceTests-context.xml")
@@ -42,6 +45,9 @@ public class ServiceTests {
 
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private FunctionalDeviceService functionalDeviceService;
 
 	@Autowired
 	private DriverService driverService;
@@ -106,6 +112,22 @@ public class ServiceTests {
 	}
 
 	@Test
+	public void testFunctionalDeviceService() throws Exception {
+
+		// 1. upload
+		InputStream input = getClass()
+				.getResourceAsStream(
+						"/sampleFunctionalDevice/MultifunctionTransmitterInterface-1.0.jar");
+		Serializable functionalDeviceId = functionalDeviceService.upload(input);
+		Assert.assertNotNull(functionalDeviceId);
+		
+		FunctionalDevice fd =(FunctionalDevice) genericDao.load(FunctionalDevice.class, functionalDeviceId);
+		LocalFunctionalDevice lfd = fd.getLocalFunctionalDevices().get("zh_CN");
+		Assert.assertEquals("多功能无线信号发射器", lfd.getDisplayName());
+
+	}
+
+	@Test
 	public void testDriverService() throws Exception {
 
 		// 1. upload driver
@@ -131,8 +153,8 @@ public class ServiceTests {
 		// test matching models
 		// jack 7eggs multi-function transmitter
 		String modelId = "3a2725d7-087e-11e4-b721-08002785c3ec";
-		modelId="da50f304-3e26-11e4-8a8f-08002785c3ec";
-		
+		modelId = "da50f304-3e26-11e4-8a8f-08002785c3ec";
+
 		Model model = (Model) genericDao.load(Model.class, modelId);
 		List<Driver> availableDrivers = driverService
 				.findAvailableDrivers(model);

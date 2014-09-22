@@ -21,11 +21,11 @@ import com.driverstack.yunos.dao.DeviceDao;
 import com.driverstack.yunos.dao.DriverDao;
 import com.driverstack.yunos.dao.mybatisMapper.DeviceMapper;
 import com.driverstack.yunos.dao.mybatisMapper.UserMapper;
-import com.driverstack.yunos.device.Model;
 import com.driverstack.yunos.domain.Vendor;
 import com.driverstack.yunos.domain.Device;
 import com.driverstack.yunos.domain.Driver;
 import com.driverstack.yunos.domain.User;
+import com.driverstack.yunos.driver.device.Model;
 
 @ContextConfiguration(locations = "classpath:/com/driverstack/yunos/DaoTests-context.xml")
 @RunWith(SpringJUnit4ClassRunner.class)

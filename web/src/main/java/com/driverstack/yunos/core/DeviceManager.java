@@ -1,6 +1,6 @@
 package com.driverstack.yunos.core;
 
-import com.driverstack.yunos.device.PhysicalDevice;
+import com.driverstack.yunos.driver.device.PhysicalDevice;
 
 
 

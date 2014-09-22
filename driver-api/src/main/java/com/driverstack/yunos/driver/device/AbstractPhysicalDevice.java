@@ -1,7 +1,9 @@
-package com.driverstack.yunos.device;
+package com.driverstack.yunos.driver.device;
 
 import java.util.ArrayList;
 import java.util.List;
+
+
 
 public abstract class AbstractPhysicalDevice implements PhysicalDevice {
 	protected List<FunctionalDevice> functionalDevices = new ArrayList<FunctionalDevice>();

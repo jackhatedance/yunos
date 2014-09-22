@@ -4,9 +4,9 @@ import java.io.File;
 import java.io.InputStream;
 import java.util.Properties;
 
-import com.driverstack.yunos.device.Model;
 import com.driverstack.yunos.domain.Device;
 import com.driverstack.yunos.driver.Driver;
+import com.driverstack.yunos.driver.device.Model;
 
 public interface DriverManager {
 
@@ -16,8 +16,6 @@ public interface DriverManager {
 	 * @param input
 	 * @return
 	 */
-	Properties readDriverInfoFromJarFile(File file);
-
 	Properties readDriverInfoFromJarFile(InputStream input);
 
 	/**

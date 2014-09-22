@@ -13,9 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.driverstack.yunos.dao.DriverDao;
-import com.driverstack.yunos.device.Model;
 import com.driverstack.yunos.domain.Device;
 import com.driverstack.yunos.driver.Driver;
+import com.driverstack.yunos.driver.device.Model;
 
 /**
  * driver manager responsibilities:
@@ -57,25 +57,6 @@ public class DriverManagerImpl implements DriverManager {
 		Driver driver = driverClassLoader.loadDriver(deviceEntity.getDriver());
 		return driver;
 
-	}
-
-	public Properties readDriverInfoFromJarFile(File file) {
-		Properties prop = null;
-		JarFile jarFile;
-		try {
-			jarFile = new JarFile(file);
-			JarEntry entry = jarFile.getJarEntry("driver.properties");
-			InputStream stream = jarFile.getInputStream(entry);
-			prop = new Properties();
-			prop.load(stream);
-
-			jarFile.close();
-		} catch (Exception e) {
-
-			throw new RuntimeException(e);
-		}
-
-		return prop;
 	}
 
 	private JarEntry getJarEntry(JarInputStream jarInputStream, String entryName)

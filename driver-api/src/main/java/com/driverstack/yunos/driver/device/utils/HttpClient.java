@@ -1,4 +1,4 @@
-package com.driverstack.yunos.device.utils;
+package com.driverstack.yunos.driver.device.utils;
 
 import java.util.Map;
 

@@ -52,7 +52,7 @@ public class DriverClassLoader {
 
 		// add jar file list later
 		deviceApiClassLoader = new JarClassLoader();
-		deviceApiClassLoader.add(resourceFolder.getApiPath());
+		deviceApiClassLoader.add(resourceFolder.getFunctionalDevicePath());
 
 		deviceApiClassLoaderDelegate = new DelegateProxyClassLoader(
 				deviceApiClassLoader);

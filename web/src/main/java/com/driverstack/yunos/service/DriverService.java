@@ -17,7 +17,7 @@ public interface DriverService {
 	 * 
 	 * @param driverJarFile
 	 */
-	Serializable upload(InputStream stream);
+	Serializable upload(InputStream in);
 
 	Driver get(Serializable id);
 	

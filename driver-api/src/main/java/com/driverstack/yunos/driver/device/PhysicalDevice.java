@@ -1,6 +1,8 @@
-package com.driverstack.yunos.device;
+package com.driverstack.yunos.driver.device;
 
 import java.util.List;
+
+
 
 /**
  * it is physical device.

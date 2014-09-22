@@ -22,5 +22,14 @@ import com.driverstack.yunos.domain.Vendor;
 @Component
 public class VendorServiceImpl extends AbstractService implements VendorService {
 
-	
+	@Override
+	public Vendor loadByCodeName(String codeName) {
+		Session s = getCurrentSession();
+
+		Criteria c = s.createCriteria(Vendor.class).add(
+				Restrictions.eq("codeName", codeName));
+
+		return (Vendor) c.uniqueResult();
+	}
+
 }

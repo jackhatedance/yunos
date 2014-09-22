@@ -42,6 +42,12 @@
 			<artifactId>gson</artifactId>
 			<version>2.2.4</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>com.driverstack.yunos</groupId>
+			<artifactId>common</artifactId>
+			<version>0.1</version>
+		</dependency>
 
 	</dependencies>
 

@@ -7,8 +7,8 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.stereotype.Component;
 
-import com.driverstack.yunos.device.Model;
 import com.driverstack.yunos.domain.Driver;
+import com.driverstack.yunos.driver.device.Model;
 
 @Component
 public class GenericDaoImpl extends AbstractDao implements GenericDao {

@@ -2,10 +2,10 @@ package com.driverstack.yunos.driver;
 
 import java.util.List;
 
-import com.driverstack.yunos.device.DeviceInfo;
-import com.driverstack.yunos.device.FunctionalDevice;
-import com.driverstack.yunos.device.Model;
-import com.driverstack.yunos.device.PhysicalDevice;
+import com.driverstack.yunos.driver.device.DeviceInfo;
+import com.driverstack.yunos.driver.device.FunctionalDevice;
+import com.driverstack.yunos.driver.device.Model;
+import com.driverstack.yunos.driver.device.PhysicalDevice;
 
 /**
  * a driver submit by developers.

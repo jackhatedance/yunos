@@ -195,8 +195,8 @@ public class Model {
 		return this;
 	}
 
-	public com.driverstack.yunos.device.Model getVO() {
-		com.driverstack.yunos.device.Model m = new com.driverstack.yunos.device.Model(
+	public com.driverstack.yunos.driver.device.Model getVO() {
+		com.driverstack.yunos.driver.device.Model m = new com.driverstack.yunos.driver.device.Model(
 				vendor.getShortName(), getName());
 		return m;
 	}

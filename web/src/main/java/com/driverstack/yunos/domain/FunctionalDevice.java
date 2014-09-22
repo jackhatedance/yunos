@@ -31,15 +31,15 @@ public class FunctionalDevice {
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	private String id;
-	
-	@JoinColumn(name = "vendorId")
-	@ManyToOne(cascade = CascadeType.ALL)	
-	private Vendor vendor;
+
+	@JoinColumn(name = "organizationId")
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Vendor orgnization;
 	@Column
 	private String className;
 	@Column
 	private String sdkVersion;
-	
+
 	@JoinColumn(name = "submitUserId")
 	@ManyToOne(cascade = CascadeType.ALL)
 	private User submitter;
@@ -60,12 +60,12 @@ public class FunctionalDevice {
 		this.id = id;
 	}
 
-	public Vendor getVendor() {
-		return vendor;
+	public Vendor getOrgnization() {
+		return orgnization;
 	}
 
-	public void setVendor(Vendor vendor) {
-		this.vendor = vendor;
+	public void setOrgnization(Vendor orgnization) {
+		this.orgnization = orgnization;
 	}
 
 	public String getClassName() {
@@ -115,6 +115,29 @@ public class FunctionalDevice {
 	public void setLocalFunctionalDevices(
 			Map<String, LocalFunctionalDevice> localFunctionalDevices) {
 		this.localFunctionalDevices = localFunctionalDevices;
+	}
+
+	public FunctionalDevice() {
+
+	}
+
+	public FunctionalDevice(Vendor orgnization, String className,
+			String sdkVersion, User submitter, Date submitTime,
+			String defaultLocale) {
+		this.orgnization = orgnization;
+		this.className = className;
+		this.sdkVersion = sdkVersion;
+		this.submitter = submitter;
+		this.submitTime = submitTime;
+		this.defaultLocale = defaultLocale;
+	}
+
+	public void addLocalFunctionalDevice(
+			LocalFunctionalDevice localFunctionalDevice) {
+		localFunctionalDevice.setFunctionalDevice(this);
+
+		localFunctionalDevices.put(localFunctionalDevice.getLocale(),
+				localFunctionalDevice);
 	}
 
 }

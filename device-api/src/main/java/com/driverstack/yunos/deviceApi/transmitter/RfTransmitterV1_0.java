@@ -1,6 +1,6 @@
 package com.driverstack.yunos.deviceApi.transmitter;
 
-import com.driverstack.yunos.device.FunctionalDevice;
+import com.driverstack.yunos.driver.device.FunctionalDevice;
 
 public interface RfTransmitterV1_0 extends FunctionalDevice {
 	static final String brand = "Generic";

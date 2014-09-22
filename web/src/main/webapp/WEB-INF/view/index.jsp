@@ -53,7 +53,9 @@
     
     <h2>driver and API upload</h2>
     <ul>
-    
+    <li>
+    <a href="functional-device/">functional device CRUD</a>         
+    </li>
     <li>
     <a href="driver/">driver CRUD</a>         
     </li>

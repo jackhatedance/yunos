@@ -1,4 +1,4 @@
-package com.driverstack.yunos.device;
+package com.driverstack.yunos.driver.device;
 
 import com.google.gson.JsonObject;
 

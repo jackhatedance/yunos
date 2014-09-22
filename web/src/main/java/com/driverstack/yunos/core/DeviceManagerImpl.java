@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.driverstack.yunos.dao.DeviceDao;
-import com.driverstack.yunos.device.PhysicalDevice;
 import com.driverstack.yunos.domain.Device;
 import com.driverstack.yunos.driver.Driver;
+import com.driverstack.yunos.driver.device.PhysicalDevice;
 
 /**
  * device manager responsibilities:

@@ -23,7 +23,7 @@ public class LocalFunctionalDevice {
 	private String id;
 
 	@Column
-	private String name;
+	private String displayName;
 
 	@Column
 	private String description;
@@ -43,12 +43,12 @@ public class LocalFunctionalDevice {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getDisplayName() {
+		return displayName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
 	}
 
 	public FunctionalDevice getFunctionalDevice() {
@@ -75,4 +75,12 @@ public class LocalFunctionalDevice {
 		this.locale = locale;
 	}
 
+	public LocalFunctionalDevice() {
+	
+	}
+	public LocalFunctionalDevice(String displayName,String description, String locale) {
+		 this.displayName = displayName;
+		 this.description = description;
+		 this.locale = locale;
+	}
 }

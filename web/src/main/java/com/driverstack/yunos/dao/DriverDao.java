@@ -2,8 +2,8 @@ package com.driverstack.yunos.dao;
 
 import java.util.List;
 
-import com.driverstack.yunos.device.Model;
 import com.driverstack.yunos.domain.Driver;
+import com.driverstack.yunos.driver.device.Model;
 
 public interface DriverDao {
 	Driver get(String id);

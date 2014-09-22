@@ -1,4 +1,4 @@
-package com.driverstack.yunos.device;
+package com.driverstack.yunos.driver.device;
 
 public class FunctionalDeviceReference {
 	private String deviceId;

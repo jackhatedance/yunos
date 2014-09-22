@@ -3,8 +3,8 @@ package com.driverstack.yunos.driver;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.driverstack.yunos.device.DeviceInfo;
-import com.driverstack.yunos.device.Model;
+import com.driverstack.yunos.driver.device.DeviceInfo;
+import com.driverstack.yunos.driver.device.Model;
 
 public abstract class AbstractDriver implements Driver {
 

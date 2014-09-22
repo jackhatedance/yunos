@@ -1,6 +1,6 @@
 package com.driverstack.yunos.deviceApi.tv;
 
-import com.driverstack.yunos.device.FunctionalDevice;
+import com.driverstack.yunos.driver.device.FunctionalDevice;
 
 public interface SetTopBox extends FunctionalDevice {
 	// =========manufacturer specification keys begin===================

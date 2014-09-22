@@ -7,6 +7,7 @@ import com.driverstack.yunos.domain.Vendor;
 
 public interface VendorService {
 
+	Vendor loadByCodeName(String codeName);
 	
 	
 }

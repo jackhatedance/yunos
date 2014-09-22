@@ -2,7 +2,7 @@ package com.driverstack.yunos.driver.config;
 
 import javax.management.RuntimeErrorException;
 
-import com.driverstack.yunos.device.FunctionalDevice;
+import com.driverstack.yunos.driver.device.FunctionalDevice;
 
 public enum ConfigurationItemType {
 

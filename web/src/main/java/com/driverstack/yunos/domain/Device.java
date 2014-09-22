@@ -18,7 +18,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import com.driverstack.yunos.device.DeviceInfo;
+import com.driverstack.yunos.driver.device.DeviceInfo;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;

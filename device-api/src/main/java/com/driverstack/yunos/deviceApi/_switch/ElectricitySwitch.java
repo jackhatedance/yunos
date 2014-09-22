@@ -1,6 +1,6 @@
 package com.driverstack.yunos.deviceApi._switch;
 
-import com.driverstack.yunos.device.FunctionalDevice;
+import com.driverstack.yunos.driver.device.FunctionalDevice;
 
 public interface ElectricitySwitch extends FunctionalDevice{
 	void on();

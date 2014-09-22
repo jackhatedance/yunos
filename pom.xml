@@ -24,6 +24,7 @@
 	</build>
 
 	<modules>
+		<module>common</module>
 		<module>driver-api</module>
 		<module>device-api</module>
 		<module>remote-api</module>

@@ -25,7 +25,7 @@ public class ResoucePath {
 		return resourcePath + "driver/";
 	}
 
-	public String getApiPath() {
-		return resourcePath + "api/";
+	public String getFunctionalDevicePath() {
+		return resourcePath + "functional-device/";
 	}
 }
