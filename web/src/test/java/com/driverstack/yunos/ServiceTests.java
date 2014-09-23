@@ -115,15 +115,17 @@ public class ServiceTests {
 	public void testFunctionalDeviceService() throws Exception {
 
 		// 1. upload
-		InputStream input = getClass()
-				.getResourceAsStream(
-						"/sampleFunctionalDevice/IrTransmitterInterface-1.0.jar");
+		InputStream input = getClass().getResourceAsStream(
+				"/sampleFunctionalDevice/ExampleInterface-1.0.jar");
 		Serializable functionalDeviceId = functionalDeviceService.upload(input);
 		Assert.assertNotNull(functionalDeviceId);
-		
-		FunctionalDevice fd =(FunctionalDevice) genericDao.load(FunctionalDevice.class, functionalDeviceId);
-		LocalFunctionalDevice lfd = fd.getLocalFunctionalDevices().get("zh_CN");
-		Assert.assertEquals("红外信号发射器", lfd.getDisplayName());
+
+		FunctionalDevice fd = (FunctionalDevice) genericDao.load(
+				FunctionalDevice.class, functionalDeviceId);
+
+		fd.setLocale("zh_CN");
+
+		Assert.assertEquals("我的开关", fd.getDisplayName());
 
 	}
 
