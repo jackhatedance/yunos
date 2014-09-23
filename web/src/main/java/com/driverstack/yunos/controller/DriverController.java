@@ -42,7 +42,7 @@ public class DriverController {
 					+ " because the file was empty.";
 		}
 
-		model.addAttribute("message", msg);
+		model.addAttribute("operationResult", msg);
 
 		return "driver/driver";
 	}

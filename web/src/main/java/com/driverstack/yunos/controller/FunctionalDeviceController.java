@@ -43,7 +43,7 @@ public class FunctionalDeviceController {
 					+ " because the file was empty.";
 		}
 
-		model.addAttribute("message", msg);
+		model.addAttribute("operationResult", msg);
 
 		return "functional-device/main";
 	}

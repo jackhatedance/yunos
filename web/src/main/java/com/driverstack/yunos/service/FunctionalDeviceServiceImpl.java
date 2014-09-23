@@ -10,8 +10,11 @@ import java.io.Serializable;
 import java.util.Date;
 
 import org.apache.commons.io.IOUtils;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 
 import com.driverstack.yunos.core.FunctionalDeviceManager;
@@ -115,6 +118,27 @@ public class FunctionalDeviceServiceImpl extends AbstractService implements
 					.addLocalFunctionalDevice(domainLocalFunctionalDevice);
 		}
 
-		return getCurrentSession().save(domainFunctionalDevice);
+		return save(domainFunctionalDevice);
+	}
+
+	@Override
+	public FunctionalDevice getByClassName(String className) {
+		Session s = getCurrentSession();
+		Criteria c = s.createCriteria(FunctionalDevice.class);
+		c.add(Restrictions.eq("className", className));
+
+		return (FunctionalDevice) c.uniqueResult();
+	}
+
+	@Override
+	public Serializable save(FunctionalDevice obj) {
+
+		FunctionalDevice fd = getByClassName(obj.getClassName());
+		if (fd != null)
+			throw new RuntimeException("classname is already existing:"
+					+ obj.getClassName());
+
+		return getCurrentSession().save(obj);
+
 	}
 }
