@@ -21,7 +21,7 @@ import com.driverstack.yunos.service.RemoteService;
  */
 @RestController
 @RequestMapping("/api/1.0/service")
-public class RemoteServiceController {
+public class RemoteServiceApiController {
 
 	@Autowired
 	private RemoteService remoteService;

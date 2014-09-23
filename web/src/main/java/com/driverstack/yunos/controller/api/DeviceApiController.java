@@ -19,6 +19,7 @@ import com.driverstack.yunos.dao.ApplicationDao;
 import com.driverstack.yunos.domain.Application;
 import com.driverstack.yunos.remote.vo.ConfigurationItem;
 import com.driverstack.yunos.remote.vo.Device;
+import com.driverstack.yunos.remote.vo.FunctionalDevice;
 import com.driverstack.yunos.service.ApplicationService;
 import com.driverstack.yunos.service.RemoteService;
 
@@ -31,7 +32,7 @@ import com.driverstack.yunos.service.RemoteService;
 @RestController
 @RequestMapping("/api/1.0/devices")
 // @Secured("ROLE_USER")
-public class DeviceController {
+public class DeviceApiController {
 
 	@Autowired
 	private RemoteService remoteService;
@@ -123,9 +124,15 @@ public class DeviceController {
 	public boolean updateConfiguration(@PathVariable String deviceId,
 			@RequestBody List<ConfigurationItem> configurationItems) {
 		remoteService.updateDeviceConfiguration(deviceId, configurationItems);
-		//always true.
+		// always true.
 		return true;
-		
+
 	}
 
+	@RequestMapping(value = "/{deviceId}/functional-devices", method = RequestMethod.GET)
+	public List<FunctionalDevice> getFunctionalDevices(
+			@PathVariable String deviceId, @RequestParam("locale") String locale) {
+		return remoteService.getFunctionalDevices(deviceId, locale);
+
+	}
 }

@@ -71,11 +71,11 @@ public class FunctionalDeviceServiceImpl extends AbstractService implements
 		try {
 
 			String shortFileName = String.format("%s.jar",
-					defaultBundle.get(FunctionalDeviceProperties.NAME));
+					defaultBundle.get(FunctionalDeviceProperties.ARTIFACT_ID));
 
 			String path = String.format("%s%s", resourcePath
 					.getFunctionalDevicePath(), defaultBundle
-					.get(FunctionalDeviceProperties.DEVELOPER_NAME));
+					.get(FunctionalDeviceProperties.ORGANIZATION_ID));
 
 			File dir = new File(path);
 			dir.mkdir();
@@ -92,13 +92,18 @@ public class FunctionalDeviceServiceImpl extends AbstractService implements
 		User user = null;
 
 		String orgId = defaultBundle
-				.get(FunctionalDeviceProperties.ORGNIZATION_ID);
-		Vendor orgnization = null;
-		if (orgId != null)
-			orgnization = vendorService.loadByCodeName(orgId);
+				.get(FunctionalDeviceProperties.ORGANIZATION_ID);
+		if(orgId==null)
+			throw new RuntimeException("organizationId is not set.");
+		
+		Vendor orgnization  = vendorService.loadByCodeName(orgId);
+		if(orgnization==null)
+			throw new RuntimeException("organizationId is invalid:"+orgId);
+		
 
 		FunctionalDevice domainFunctionalDevice = new FunctionalDevice(
 				orgnization,
+				defaultBundle.get(FunctionalDeviceProperties.ARTIFACT_ID),
 				defaultBundle.get(FunctionalDeviceProperties.CLASS_NAME),
 				defaultBundle.get(FunctionalDeviceProperties.SDK_VERSION),
 				user, new Date(),
@@ -131,12 +136,34 @@ public class FunctionalDeviceServiceImpl extends AbstractService implements
 	}
 
 	@Override
+	public FunctionalDevice get(String organizationId, String artifactId) {
+
+		Session s = getCurrentSession();
+		Criteria c = s.createCriteria(FunctionalDevice.class);
+
+		Vendor org = (Vendor) s.load(Vendor.class, organizationId);
+		c.add(Restrictions.eq("organization", org));
+
+		c.add(Restrictions.eq("artifactId", artifactId));
+
+		return (FunctionalDevice) c.uniqueResult();
+	}
+
+	@Override
 	public Serializable save(FunctionalDevice obj) {
 
 		FunctionalDevice fd = getByClassName(obj.getClassName());
 		if (fd != null)
 			throw new RuntimeException("classname is already existing:"
 					+ obj.getClassName());
+
+		String organizationId = obj.getOrganization().getId();
+
+		fd = get(organizationId, obj.getArtifactId());
+		if (fd != null)
+			throw new RuntimeException(String.format(
+					"organizationId-artifactId:%s-%s already existing:",
+					organizationId, obj.getClassName()));
 
 		return getCurrentSession().save(obj);
 

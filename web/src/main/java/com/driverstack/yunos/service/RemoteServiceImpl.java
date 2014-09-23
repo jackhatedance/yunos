@@ -59,6 +59,9 @@ public class RemoteServiceImpl implements RemoteService {
 	private DeviceService deviceService;
 
 	@Autowired
+	private FunctionalDeviceService functionalDeviceService;
+
+	@Autowired
 	private DriverService driverService;
 
 	@Autowired
@@ -365,5 +368,34 @@ public class RemoteServiceImpl implements RemoteService {
 
 		return remoteItems;
 
+	}
+
+	@Override
+	public List<com.driverstack.yunos.remote.vo.FunctionalDevice> getFunctionalDevices(
+			String deviceId, String locale) {
+
+		/**
+		 * the functional device list is runtime value.
+		 */
+		PhysicalDevice pd = deviceManager.getPhysicalDeviceObject(deviceId);
+
+		// runtime FD to domain object
+		List<com.driverstack.yunos.remote.vo.FunctionalDevice> voFunctionalDeviceList = new ArrayList<com.driverstack.yunos.remote.vo.FunctionalDevice>();
+		for (FunctionalDevice fd : pd.getFunctionDevices()) {
+			
+			String className = fd.getClass().getInterfaces()[0].getCanonicalName();			
+			com.driverstack.yunos.domain.FunctionalDevice domainFD = functionalDeviceService
+					.getByClassName(className);
+
+			domainFD.setLocale(locale);
+
+			com.driverstack.yunos.remote.vo.FunctionalDevice voFD = new com.driverstack.yunos.remote.vo.FunctionalDevice(
+					domainFD.getOrganization().getShortName(),
+					domainFD.getDisplayName());
+
+			voFunctionalDeviceList.add(voFD);
+		}
+
+		return voFunctionalDeviceList;
 	}
 }

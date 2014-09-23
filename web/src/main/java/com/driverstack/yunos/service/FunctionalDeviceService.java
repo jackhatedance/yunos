@@ -9,6 +9,7 @@ public interface FunctionalDeviceService {
 	
 	
 	void delete(Serializable id);
+	FunctionalDevice get(String organizationId, String artifactId);
 	FunctionalDevice getByClassName(String className);
 	Serializable upload(InputStream in);
 	

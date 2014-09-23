@@ -1,14 +1,12 @@
 package com.driverstack.yunos.driver.device;
 
 /**
- * it is functional device.
+ * it is functional device of runtime.
  * 
  * @author jack
  * 
  */
 public interface FunctionalDevice {
+	// empty
 
-	//don't know what to put here. leave it empty.
-
-	
 }

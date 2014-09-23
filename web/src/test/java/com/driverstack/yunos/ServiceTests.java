@@ -117,13 +117,13 @@ public class ServiceTests {
 		// 1. upload
 		InputStream input = getClass()
 				.getResourceAsStream(
-						"/sampleFunctionalDevice/MultifunctionTransmitterInterface-1.0.jar");
+						"/sampleFunctionalDevice/IrTransmitterInterface-1.0.jar");
 		Serializable functionalDeviceId = functionalDeviceService.upload(input);
 		Assert.assertNotNull(functionalDeviceId);
 		
 		FunctionalDevice fd =(FunctionalDevice) genericDao.load(FunctionalDevice.class, functionalDeviceId);
 		LocalFunctionalDevice lfd = fd.getLocalFunctionalDevices().get("zh_CN");
-		Assert.assertEquals("多功能无线信号发射器", lfd.getDisplayName());
+		Assert.assertEquals("红外信号发射器", lfd.getDisplayName());
 
 	}
 

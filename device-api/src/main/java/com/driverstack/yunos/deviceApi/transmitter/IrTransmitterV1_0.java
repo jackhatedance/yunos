@@ -3,6 +3,7 @@ package com.driverstack.yunos.deviceApi.transmitter;
 import com.driverstack.yunos.driver.device.FunctionalDevice;
 
 public interface IrTransmitterV1_0 extends FunctionalDevice {
+	
 	static final String brand = "Generic";
 	static final String category = "Transmitter";
 	static final String name = "IrTransmitter";

@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -34,7 +35,11 @@ public class FunctionalDevice {
 
 	@JoinColumn(name = "organizationId")
 	@ManyToOne(cascade = CascadeType.ALL)
-	private Vendor orgnization;
+	private Vendor organization;
+
+	@Column
+	private String artifactId;
+
 	@Column
 	private String className;
 	@Column
@@ -48,6 +53,12 @@ public class FunctionalDevice {
 	@Column
 	private String defaultLocale;
 
+	/**
+	 * current locale
+	 */
+	@Transient
+	private String locale;
+
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "functionalDevice")
 	@MapKey(name = "locale")
 	private Map<String, LocalFunctionalDevice> localFunctionalDevices = new HashMap<String, LocalFunctionalDevice>();
@@ -60,12 +71,20 @@ public class FunctionalDevice {
 		this.id = id;
 	}
 
-	public Vendor getOrgnization() {
-		return orgnization;
+	public Vendor getOrganization() {
+		return organization;
 	}
 
-	public void setOrgnization(Vendor orgnization) {
-		this.orgnization = orgnization;
+	public void setOrganization(Vendor organization) {
+		this.organization = organization;
+	}
+
+	public String getArtifactId() {
+		return artifactId;
+	}
+
+	public void setArtifactId(String artifactId) {
+		this.artifactId = artifactId;
 	}
 
 	public String getClassName() {
@@ -108,6 +127,17 @@ public class FunctionalDevice {
 		this.defaultLocale = defaultLocale;
 	}
 
+	public String getLocale() {
+		return locale;
+	}
+
+	public void setLocale(String locale) {
+		this.locale = locale;
+		
+		//update cascade
+		organization.setLocale(locale);
+	}
+
 	public Map<String, LocalFunctionalDevice> getLocalFunctionalDevices() {
 		return localFunctionalDevices;
 	}
@@ -117,14 +147,31 @@ public class FunctionalDevice {
 		this.localFunctionalDevices = localFunctionalDevices;
 	}
 
+	public LocalFunctionalDevice getLocalFunctionalDevice(String locale) {
+		LocalFunctionalDevice lfd = localFunctionalDevices.get(locale);
+		if (lfd == null)
+			lfd = localFunctionalDevices.get(defaultLocale);
+
+		return lfd;
+	}
+
+	public String getDisplayName() {
+		return getLocalFunctionalDevice(locale).getDisplayName();
+	}
+
+	public String getDescription() {
+		return getLocalFunctionalDevice(locale).getDescription();
+	}
+
 	public FunctionalDevice() {
 
 	}
 
-	public FunctionalDevice(Vendor orgnization, String className,
-			String sdkVersion, User submitter, Date submitTime,
-			String defaultLocale) {
-		this.orgnization = orgnization;
+	public FunctionalDevice(Vendor organization, String artifactId,
+			String className, String sdkVersion, User submitter,
+			Date submitTime, String defaultLocale) {
+		this.organization = organization;
+		this.artifactId = artifactId;
 		this.className = className;
 		this.sdkVersion = sdkVersion;
 		this.submitter = submitter;

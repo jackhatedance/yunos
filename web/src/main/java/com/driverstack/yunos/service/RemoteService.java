@@ -7,6 +7,7 @@ import com.driverstack.yunos.remote.vo.ConfigurationItem;
 import com.driverstack.yunos.remote.vo.Device;
 import com.driverstack.yunos.remote.vo.Driver;
 import com.driverstack.yunos.remote.vo.DriverConfigurationDefinitionItem;
+import com.driverstack.yunos.remote.vo.FunctionalDevice;
 
 public interface RemoteService {
 	/**
@@ -102,5 +103,7 @@ public interface RemoteService {
 			String driverId, String locale);
 
 	void updateDevice(Device device);
+
+	List<FunctionalDevice> getFunctionalDevices(String deviceId, String locale);
 
 }

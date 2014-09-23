@@ -17,10 +17,10 @@ import com.driverstack.yunos.service.RemoteService;
  * @author jackding
  * 
  */
-@RestController("driverApiController")
+@RestController
 @RequestMapping("/api/1.0/drivers")
 // @Secured("ROLE_USER")
-public class DriverController {
+public class DriverApiController {
 
 	@Autowired
 	private RemoteService remoteService;
