@@ -2,15 +2,12 @@ package com.driverstack.yunos;
 
 import static junit.framework.Assert.assertNotNull;
 
-import java.util.List;
-
 import javax.transaction.Transactional;
 
 import junit.framework.Assert;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +18,8 @@ import com.driverstack.yunos.dao.DeviceDao;
 import com.driverstack.yunos.dao.DriverDao;
 import com.driverstack.yunos.dao.mybatisMapper.DeviceMapper;
 import com.driverstack.yunos.dao.mybatisMapper.UserMapper;
-import com.driverstack.yunos.domain.Vendor;
 import com.driverstack.yunos.domain.Device;
-import com.driverstack.yunos.domain.Driver;
 import com.driverstack.yunos.domain.User;
-import com.driverstack.yunos.driver.device.Model;
 
 @ContextConfiguration(locations = "classpath:/com/driverstack/yunos/DaoTests-context.xml")
 @RunWith(SpringJUnit4ClassRunner.class)

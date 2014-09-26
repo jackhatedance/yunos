@@ -26,7 +26,7 @@
     </li>        
     
     <li>    
-    <a href="api/1.0/device_classes?locale=zh_CN">list device classes</a>     
+    <a href="api/1.0/deviceClasses?locale=zh_CN">list device classes</a>     
     </li>          
     
     <li>    
@@ -48,13 +48,16 @@
     <li>    
     <a href="api/1.0/devices/cb170afb-087f-11e4-b721-08002785c3ec/configuration">get device configuration</a>     
     </li> 
+    <li>    
+    <a href="api/1.0/devices/cb170afb-087f-11e4-b721-08002785c3ec/functionalDevices?locale=zh_CN">get device's functional devices </a>     
+    </li>
     
     </ul>
     
     <h2>driver and API upload</h2>
     <ul>
     <li>
-    <a href="functional-device/">functional device CRUD</a>         
+    <a href="functionalDevice/">functional device CRUD</a>         
     </li>
     <li>
     <a href="driver/">driver CRUD</a>         

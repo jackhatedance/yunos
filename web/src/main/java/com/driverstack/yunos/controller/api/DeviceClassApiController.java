@@ -22,7 +22,7 @@ import com.driverstack.yunos.service.RemoteService;
  * 
  */
 @RestController
-@RequestMapping("/api/1.0/device_classes")
+@RequestMapping("/api/1.0/deviceClasses")
 // @Secured("ROLE_USER")
 public class DeviceClassApiController {
 

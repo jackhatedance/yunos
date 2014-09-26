@@ -129,7 +129,7 @@ public class DeviceApiController {
 
 	}
 
-	@RequestMapping(value = "/{deviceId}/functional-devices", method = RequestMethod.GET)
+	@RequestMapping(value = "/{deviceId}/functionalDevices", method = RequestMethod.GET)
 	public List<FunctionalDevice> getFunctionalDevices(
 			@PathVariable String deviceId, @RequestParam("locale") String locale) {
 		return remoteService.getFunctionalDevices(deviceId, locale);

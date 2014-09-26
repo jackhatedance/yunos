@@ -126,6 +126,9 @@ public class ServiceTests {
 		fd.setLocale("zh_CN");
 
 		Assert.assertEquals("我的开关", fd.getDisplayName());
+		
+		
+		
 
 	}
 

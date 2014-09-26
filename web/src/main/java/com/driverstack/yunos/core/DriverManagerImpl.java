@@ -1,12 +1,9 @@
 package com.driverstack.yunos.core;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
 import java.util.Properties;
 import java.util.jar.JarEntry;
-import java.util.jar.JarFile;
 import java.util.jar.JarInputStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +12,6 @@ import org.springframework.stereotype.Component;
 import com.driverstack.yunos.dao.DriverDao;
 import com.driverstack.yunos.domain.Device;
 import com.driverstack.yunos.driver.Driver;
-import com.driverstack.yunos.driver.device.Model;
 
 /**
  * driver manager responsibilities:
@@ -54,6 +50,9 @@ public class DriverManagerImpl implements DriverManager {
 
 	@Override
 	public Driver loadDriver(Device deviceEntity) {
+		if(deviceEntity.getDriver()==null)
+			throw new RuntimeException("no driver is set for device");
+		
 		Driver driver = driverClassLoader.loadDriver(deviceEntity.getDriver());
 		return driver;
 

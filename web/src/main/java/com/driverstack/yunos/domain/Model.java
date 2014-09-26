@@ -43,7 +43,7 @@ public class Model {
 	private String locale;
 
 	@JoinColumn(name = "deviceClassId")
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	private DeviceClass deviceClass;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "model")
@@ -51,7 +51,7 @@ public class Model {
 	private Map<String, LocalModel> localModels = new HashMap<String, LocalModel>();
 
 	@JoinColumn(name = "vendorId")
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	private Vendor vendor;
 
 	@ManyToMany(cascade = { CascadeType.ALL })

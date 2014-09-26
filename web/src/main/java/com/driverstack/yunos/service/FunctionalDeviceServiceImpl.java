@@ -46,12 +46,22 @@ public class FunctionalDeviceServiceImpl extends AbstractService implements
 
 		FunctionalDevice fd = (FunctionalDevice) s.load(FunctionalDevice.class,
 				id);
+
+		// remove file
+		String fullFileName = getFullFunctionalDeviceJarFileName(fd
+				.getOrganization().getCodeName(), fd.getArtifactId());
+		File file = new File(fullFileName);
+		file.delete();
+
+		// delete from DB
 		getCurrentSession().delete(fd);
+
 	}
 
 	@Override
 	public Serializable upload(InputStream in) {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
 		try {
 			org.apache.commons.io.IOUtils.copy(in, baos);
 		} catch (IOException e) {
@@ -70,19 +80,24 @@ public class FunctionalDeviceServiceImpl extends AbstractService implements
 		// 3 save to file system
 		try {
 
-			String shortFileName = String.format("%s.jar",
-					defaultBundle.get(FunctionalDeviceProperties.ARTIFACT_ID));
+			String artifactId = defaultBundle
+					.get(FunctionalDeviceProperties.ARTIFACT_ID);
 
-			String path = String.format("%s%s", resourcePath
-					.getFunctionalDevicePath(), defaultBundle
-					.get(FunctionalDeviceProperties.ORGANIZATION_ID));
+			String organizationId = defaultBundle
+					.get(FunctionalDeviceProperties.ORGANIZATION_ID);
+
+			String path = getFunctionalDeviceJarDir();
 
 			File dir = new File(path);
 			dir.mkdir();
 
-			FileOutputStream out = new FileOutputStream(dir + "/"
-					+ shortFileName);
-			IOUtils.copy(in, out);
+			String fullFileName = getFullFunctionalDeviceJarFileName(
+					organizationId, artifactId);
+			FileOutputStream out = new FileOutputStream(fullFileName);
+
+			bais.reset();
+			IOUtils.copy(bais, out);
+			out.close();
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -93,13 +108,12 @@ public class FunctionalDeviceServiceImpl extends AbstractService implements
 
 		String orgId = defaultBundle
 				.get(FunctionalDeviceProperties.ORGANIZATION_ID);
-		if(orgId==null)
+		if (orgId == null)
 			throw new RuntimeException("organizationId is not set.");
-		
-		Vendor orgnization  = vendorService.loadByCodeName(orgId);
-		if(orgnization==null)
-			throw new RuntimeException("organizationId is invalid:"+orgId);
-		
+
+		Vendor orgnization = vendorService.loadByCodeName(orgId);
+		if (orgnization == null)
+			throw new RuntimeException("organizationId is invalid:" + orgId);
 
 		FunctionalDevice domainFunctionalDevice = new FunctionalDevice(
 				orgnization,
@@ -124,6 +138,28 @@ public class FunctionalDeviceServiceImpl extends AbstractService implements
 		}
 
 		return save(domainFunctionalDevice);
+	}
+
+	private String getFunctionalDeviceJarShortFileName(String organizationId,
+			String artifactId) {
+		String shortFileName = String.format("%s-%s.jar", organizationId,
+				artifactId);
+		return shortFileName;
+	}
+
+	private String getFunctionalDeviceJarDir() {
+
+		String dir = resourcePath.getFunctionalDevicePath();
+		return dir;
+	}
+
+	private String getFullFunctionalDeviceJarFileName(String organizationId,
+			String artifactId) {
+		return String
+				.format("%s/%s",
+						getFunctionalDeviceJarDir(),
+						getFunctionalDeviceJarShortFileName(organizationId,
+								artifactId));
 	}
 
 	@Override
@@ -157,7 +193,7 @@ public class FunctionalDeviceServiceImpl extends AbstractService implements
 			throw new RuntimeException("classname is already existing:"
 					+ obj.getClassName());
 
-		String organizationId = obj.getOrganization().getId();
+		String organizationId = obj.getOrganization().getCodeName();
 
 		fd = get(organizationId, obj.getArtifactId());
 		if (fd != null)

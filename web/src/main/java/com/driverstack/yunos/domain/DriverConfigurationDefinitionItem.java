@@ -34,7 +34,7 @@ public class DriverConfigurationDefinitionItem {
 	private String id;
 
 	@JoinColumn(name = "definitionId")
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	private DriverConfigurationDefinition configurationDefinition;
 
 	@Column(name = "\"order\"")

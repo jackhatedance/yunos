@@ -42,7 +42,7 @@ public class LocalModel {
 	private String locale;
 
 	@JoinColumn(name = "modelId")
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	private Model model;
 
 	public String getId() {

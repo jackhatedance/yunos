@@ -42,7 +42,7 @@ public class LocalDeviceClass {
 	private String locale;
 
 	@JoinColumn(name = "deviceClassId")
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	private DeviceClass deviceClass;
 
 	public String getId() {

@@ -34,7 +34,7 @@ public class FunctionalDevice {
 	private String id;
 
 	@JoinColumn(name = "organizationId")
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	private Vendor organization;
 
 	@Column
@@ -46,7 +46,7 @@ public class FunctionalDevice {
 	private String sdkVersion;
 
 	@JoinColumn(name = "submitUserId")
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	private User submitter;
 	@Column
 	private Date submitTime;

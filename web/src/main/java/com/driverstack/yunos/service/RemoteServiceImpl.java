@@ -157,6 +157,14 @@ public class RemoteServiceImpl implements RemoteService {
 		domainDevice.setName(device.getName());
 		domainDevice.setLocation(device.getLocation());
 		domainDevice.setDescription(device.getDescription());
+		
+		
+		com.driverstack.yunos.domain.Driver driver = null;
+		if(device.getDriverId()!=null)
+			driver = (com.driverstack.yunos.domain.Driver) genericDao.get(com.driverstack.yunos.domain.Driver.class,
+				device.getDriverId());
+		
+		domainDevice.setDriver(driver);
 
 		deviceService.update(domainDevice);
 	}
@@ -377,8 +385,12 @@ public class RemoteServiceImpl implements RemoteService {
 		/**
 		 * the functional device list is runtime value.
 		 */
-		PhysicalDevice pd = deviceManager.getPhysicalDeviceObject(deviceId);
-
+		PhysicalDevice pd=null;
+		try{
+			pd = deviceManager.getPhysicalDeviceObject(deviceId);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		// runtime FD to domain object
 		List<com.driverstack.yunos.remote.vo.FunctionalDevice> voFunctionalDeviceList = new ArrayList<com.driverstack.yunos.remote.vo.FunctionalDevice>();
 		for (FunctionalDevice fd : pd.getFunctionDevices()) {

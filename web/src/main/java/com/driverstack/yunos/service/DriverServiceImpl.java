@@ -72,18 +72,20 @@ public class DriverServiceImpl extends AbstractService implements DriverService 
 
 		// 3 save to file system
 		try {
-			String shortFileName = String.format("%s-%s.jar",
-					driverProps.getName(), driverProps.getVersion());
+			String shortFileName = getShortFileName(driverProps.getName(),
+					driverProps.getVersion());
 
-			String path = String.format("%s%s", resourcePath.getDriverPath(),
-					driverProps.getDeveloperName());
+			String path = getFilePath(driverProps.getDeveloperName());
 
 			File dir = new File(path);
 			dir.mkdir();
 
 			FileOutputStream out = new FileOutputStream(dir + "/"
 					+ shortFileName);
-			IOUtils.copy(in, out);
+
+			bais.reset();
+			IOUtils.copy(bais, out);
+			out.close();
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -98,6 +100,17 @@ public class DriverServiceImpl extends AbstractService implements DriverService 
 
 		return getCurrentSession().save(driverDomain);
 
+	}
+
+	private String getFilePath(String developerName) {
+		String path = String.format("%s%s", resourcePath.getDriverPath(),
+				developerName);
+		return path;
+	}
+
+	private String getShortFileName(String driverName, String version) {
+		String shortFileName = String.format("%s-%s.jar", driverName, version);
+		return shortFileName;
 	}
 
 	/**
@@ -150,7 +163,16 @@ public class DriverServiceImpl extends AbstractService implements DriverService 
 	@Override
 	public void delete(Serializable id) {
 		Session s = getCurrentSession();
-		Object obj = s.load(Driver.class, id);
+		Driver obj = (Driver) s.load(Driver.class, id);
+
+		// remove file
+		String shortFileName = getShortFileName(obj.getName(), obj.getVersion());
+		String path = getFilePath(obj.getDeveloperName());
+
+		String fullFileName = path + "/" + shortFileName;
+		File file = new File(fullFileName);
+		file.delete();
+		// remove from DB
 		s.delete(obj);
 
 	}

@@ -56,7 +56,6 @@ public class Vendor {
 	private Map<String, ConfigurationItem> configurationItems = new HashMap<String, ConfigurationItem>();
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "vendor")
-	@OrderBy("name")
 	private List<Model> models = new ArrayList<Model>();
 
 	public String getId() {

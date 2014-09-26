@@ -32,7 +32,7 @@ public class LocalFunctionalDevice {
 	private String locale;
 
 	@JoinColumn(name = "functionalDeviceId")
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	private FunctionalDevice functionalDevice;
 
 	public String getId() {

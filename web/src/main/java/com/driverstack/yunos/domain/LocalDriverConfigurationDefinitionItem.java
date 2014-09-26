@@ -42,7 +42,7 @@ public class LocalDriverConfigurationDefinitionItem {
 	private String locale;
 
 	@JoinColumn(name = "itemId")
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	private DriverConfigurationDefinitionItem item;
 
 	public String getId() {

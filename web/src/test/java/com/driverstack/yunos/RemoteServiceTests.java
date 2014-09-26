@@ -19,9 +19,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.driverstack.yunos.remote.vo.ConfigurationItem;
 import com.driverstack.yunos.remote.vo.Device;
 import com.driverstack.yunos.remote.vo.DeviceClass;
+import com.driverstack.yunos.remote.vo.FunctionalDevice;
 import com.driverstack.yunos.remote.vo.Vendor;
 import com.driverstack.yunos.service.RemoteService;
-import com.driverstack.yunos.service.RemoteServiceImpl;
 
 @ContextConfiguration(locations = "classpath:/com/driverstack/yunos/ServiceTests-context.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -90,6 +90,9 @@ public class RemoteServiceTests {
 		Device remoteDev2 = remoteService.getDevice(deviceId);
 		Assert.assertEquals("Loc1", remoteDev2.getLocation());
 
+		
+		List<FunctionalDevice> functionalDeviceList = remoteService.getFunctionalDevices(deviceId, "zh_CN");
+		Assert.assertFalse(functionalDeviceList.isEmpty());
 	}
 
 	@Test
@@ -109,8 +112,8 @@ public class RemoteServiceTests {
 		Assert.assertEquals("57", portItem.getValue());
 
 		// test init config dc098964-dd7d-451a-ad2e-e04d7287df78
-		
-		String driverId = "dc098964-dd7d-451a-ad2e-e04d7287df78";
+
+		String driverId = "fc6e1b6b-febb-4de6-a3c7-3f7841eb69d9";
 		items = remoteService.getDeviceInitialConfiguration(deviceId, driverId);
 		for (ConfigurationItem item : items)
 			map.put(item.getName(), item);
@@ -119,7 +122,7 @@ public class RemoteServiceTests {
 
 		Assert.assertEquals("host", hostItem.getName());
 		Assert.assertEquals("0.0.0.0", hostItem.getValue());
-		
+
 		portItem = map.get("port");
 
 		Assert.assertEquals("port", portItem.getName());

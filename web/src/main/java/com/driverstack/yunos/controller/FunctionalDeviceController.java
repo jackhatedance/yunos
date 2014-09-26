@@ -15,7 +15,7 @@ import com.driverstack.yunos.service.DriverService;
 import com.driverstack.yunos.service.FunctionalDeviceService;
 
 @Controller
-@RequestMapping(value = "/functional-device")
+@RequestMapping(value = "/functionalDevice")
 public class FunctionalDeviceController {
 	@Autowired
 	private FunctionalDeviceService functionalDeviceService;

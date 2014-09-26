@@ -24,7 +24,7 @@ public class Token {
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	private String id;
 
-	@ManyToOne(cascade = { CascadeType.ALL })
+	@ManyToOne
 	@JoinColumn(name = "userId")
 	private User user;
 

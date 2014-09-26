@@ -45,7 +45,7 @@ public class LocalVendor {
 	private String locale;
 
 	@JoinColumn(name = "vendorId")
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	private Vendor vendor;
 
 	public String getId() {

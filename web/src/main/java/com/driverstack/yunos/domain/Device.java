@@ -38,7 +38,7 @@ public class Device {
 	private String id;
 
 	@JoinColumn(name = "modelId")
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	private Model model;
 	@Column
 	private String revision;
@@ -46,11 +46,11 @@ public class Device {
 	private String mfgSerialNumber;
 
 	@JoinColumn(name = "userId")
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	private User user;
 
 	@JoinColumn(name = "driverId")
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	private Driver driver;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
