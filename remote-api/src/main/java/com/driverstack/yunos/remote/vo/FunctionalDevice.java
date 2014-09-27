@@ -2,11 +2,20 @@ package com.driverstack.yunos.remote.vo;
 
 public class FunctionalDevice {
 
+	private int index;
 	private String organizationId;
 	private String artifactId;
 
 	private String organizationName;
 	private String artifactName;
+
+	public int getIndex() {
+		return index;
+	}
+
+	public void setIndex(int index) {
+		this.index = index;
+	}
 
 	public String getOrganizationId() {
 		return organizationId;

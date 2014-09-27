@@ -64,6 +64,9 @@ public class Device {
 	private Map<String, ConfigurationItem> userConfigurationItems = new HashMap<String, ConfigurationItem>();
 
 	@Column
+	private int defaultFunctionalDeviceIndex;
+	
+	@Column
 	private String deviceState;
 
 	@Column
@@ -137,6 +140,14 @@ public class Device {
 	public void setUserConfigurationItems(
 			Map<String, ConfigurationItem> userConfigurationItems) {
 		this.userConfigurationItems = userConfigurationItems;
+	}
+
+	public int getDefaultFunctionalDeviceIndex() {
+		return defaultFunctionalDeviceIndex;
+	}
+
+	public void setDefaultFunctionalDeviceIndex(int defaultFunctionalDeviceIndex) {
+		this.defaultFunctionalDeviceIndex = defaultFunctionalDeviceIndex;
 	}
 
 	public String getDeviceState() {

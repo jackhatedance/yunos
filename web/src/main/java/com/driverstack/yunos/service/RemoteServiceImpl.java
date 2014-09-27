@@ -120,6 +120,9 @@ public class RemoteServiceImpl implements RemoteService {
 		if (domainDevice.getDriver() != null)
 			remoteDevice.setDriverId(domainDevice.getDriver().getId());
 
+		remoteDevice.setDefaultFunctionalDeviceIndex(domainDevice
+				.getDefaultFunctionalDeviceIndex());
+
 		return remoteDevice;
 	}
 
@@ -165,6 +168,7 @@ public class RemoteServiceImpl implements RemoteService {
 					device.getDriverId());
 
 		domainDevice.setDriver(driver);
+		domainDevice.setDefaultFunctionalDeviceIndex(device.getDefaultFunctionalDeviceIndex());
 
 		deviceService.update(domainDevice);
 	}
@@ -393,6 +397,7 @@ public class RemoteServiceImpl implements RemoteService {
 		}
 		// runtime FD to domain object
 		List<com.driverstack.yunos.remote.vo.FunctionalDevice> voFunctionalDeviceList = new ArrayList<com.driverstack.yunos.remote.vo.FunctionalDevice>();
+		
 		for (FunctionalDevice fd : pd.getFunctionDevices()) {
 
 			String className = fd.getClass().getInterfaces()[0]
@@ -410,6 +415,11 @@ public class RemoteServiceImpl implements RemoteService {
 			voFunctionalDeviceList.add(voFD);
 		}
 
+		//set index
+		for(int i=0;i<voFunctionalDeviceList.size();i++)
+			voFunctionalDeviceList.get(i).setIndex(i);
+		
+		
 		return voFunctionalDeviceList;
 	}
 }

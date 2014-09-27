@@ -31,8 +31,9 @@ public class Device implements Serializable {
 	private String location;
 
 	private String description;
-	
+
 	private String driverId;
+	private int defaultFunctionalDeviceIndex;
 
 	public String getId() {
 		return id;
@@ -144,6 +145,14 @@ public class Device implements Serializable {
 
 	public void setDriverId(String driverId) {
 		this.driverId = driverId;
+	}
+
+	public int getDefaultFunctionalDeviceIndex() {
+		return defaultFunctionalDeviceIndex;
+	}
+
+	public void setDefaultFunctionalDeviceIndex(int defaultFunctionalDeviceIndex) {
+		this.defaultFunctionalDeviceIndex = defaultFunctionalDeviceIndex;
 	}
 
 }
