@@ -152,13 +152,18 @@ public class ServiceTests {
 		String actualName = item.getDisplayName();
 		Assert.assertEquals("主机", actualName);
 
+		item = items.get(0).get("en_US");
+		actualName = item.getDisplayName();
+		Assert.assertEquals("Host", actualName);
+		
+		
 		// test delete driver
 		driverService.delete(driverId);
 
 		// test matching models
 		// jack 7eggs multi-function transmitter
-		String modelId = "3a2725d7-087e-11e4-b721-08002785c3ec";
-		modelId = "da50f304-3e26-11e4-8a8f-08002785c3ec";
+		String modelId = "00bc12ed-0999-11e4-b721-08002785c3ec";
+		
 
 		Model model = (Model) genericDao.load(Model.class, modelId);
 		List<Driver> availableDrivers = driverService

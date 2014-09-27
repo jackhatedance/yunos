@@ -68,11 +68,10 @@ public class DriverConfigurationDefinitionItem {
 
 	}
 
-	public DriverConfigurationDefinitionItem(
-			DriverConfigurationDefinition configurationDefinition, int order,
-			String name, String type, String defaultValue, String constraints,
+	public DriverConfigurationDefinitionItem(int order, String name,
+			String type, String defaultValue, String constraints,
 			String defaultLocale) {
-		this.configurationDefinition = configurationDefinition;
+
 		this.order = order;
 		this.name = name;
 		this.type = type;
@@ -176,8 +175,15 @@ public class DriverConfigurationDefinitionItem {
 	public LocalDriverConfigurationDefinitionItem getLocalItem(String locale) {
 		LocalDriverConfigurationDefinitionItem localItem = localItems
 				.get(locale);
-		if (localItem == null)
+		if (localItem == null) {
 			localItem = localItems.get(defaultLocale);
+			if (localItem == null) {
+				String s = String
+						.format("defaultLocale '%s' of DriverConfigurationDefinitionItem #%s does not exist.",
+								defaultLocale, id);
+				throw new RuntimeException(s);
+			}
+		}
 
 		return localItem;
 	}

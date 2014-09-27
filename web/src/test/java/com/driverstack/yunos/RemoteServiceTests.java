@@ -113,7 +113,7 @@ public class RemoteServiceTests {
 
 		// test init config dc098964-dd7d-451a-ad2e-e04d7287df78
 
-		String driverId = "fc6e1b6b-febb-4de6-a3c7-3f7841eb69d9";
+		String driverId = "592cd54e-275b-4cd1-ab1b-1e8676d4a6a4";
 		items = remoteService.getDeviceInitialConfiguration(deviceId, driverId);
 		for (ConfigurationItem item : items)
 			map.put(item.getName(), item);

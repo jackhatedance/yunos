@@ -114,5 +114,6 @@ public class DriverConfigurationDefinition {
 
 	public void addItem(DriverConfigurationDefinitionItem item) {
 		items.add(item);
+		item.setConfigurationDefinition(this);
 	}
 }

@@ -48,7 +48,7 @@ public class Driver {
 	@OneToOne(mappedBy = "driver", cascade = CascadeType.ALL)
 	private DriverConfigurationDefinition configurationDefinition;
 
-	@ManyToMany(cascade = { CascadeType.ALL })
+	@ManyToMany
 	@JoinTable(name = "DriverSupportedModel", joinColumns = { @JoinColumn(name = "driverId") }, inverseJoinColumns = { @JoinColumn(name = "modelId") })
 	private Set<Model> supportedModels;
 

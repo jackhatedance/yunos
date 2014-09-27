@@ -60,6 +60,11 @@ public class DriverClassLoader {
 
 	}
 
+	public void addFunctionalDeviceJar(String fileName) {
+		deviceApiClassLoader.add(resourceFolder.getFunctionalDevicePath()
+				+ fileName);
+	}
+
 	public com.driverstack.yunos.driver.Driver loadDriver(
 			com.driverstack.yunos.domain.Driver driver) {
 

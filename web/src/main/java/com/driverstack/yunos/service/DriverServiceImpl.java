@@ -127,17 +127,13 @@ public class DriverServiceImpl extends AbstractService implements DriverService 
 
 		DriverConfigurationDefinitionItem domainItem = null;
 		for (ConfigurationItem dci : def.getItems()) {
-			Locale defaultLocale = def.getDefaultLocale();
-			domainItem = new DriverConfigurationDefinitionItem(
-					domainConfigureDefinition, dci.getOrder(),
+
+			domainItem = new DriverConfigurationDefinitionItem(dci.getOrder(),
 					dci.getFieldName(), dci.getType().toString(),
 					dci.getDefaultValue(), null, def.getDefaultLocale()
 							.toString());
 
 			for (Locale locale : def.getSupportedLocales()) {
-
-				if (locale == defaultLocale)
-					continue;
 
 				String localeTag = locale.toString();
 				LocalDriverConfigurationDefinitionItem domainLocalItem = new LocalDriverConfigurationDefinitionItem(
