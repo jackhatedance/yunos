@@ -162,7 +162,9 @@ public class ServiceTests {
 
 		// test matching models
 		// jack 7eggs multi-function transmitter
-		String modelId = "00bc12ed-0999-11e4-b721-08002785c3ec";
+		
+		//rf model 
+		String modelId = "da50f304-3e26-11e4-8a8f-08002785c3ec";
 		
 
 		Model model = (Model) genericDao.load(Model.class, modelId);
