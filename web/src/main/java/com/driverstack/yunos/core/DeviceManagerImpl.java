@@ -40,26 +40,26 @@ public class DeviceManagerImpl implements DeviceManager {
 		this.deviceDao = deviceDao;
 	}
 
-	public PhysicalDevice getPhysicalDeviceObject(String id) {
+	public PhysicalDevice getPhysicalDeviceObject(Device domainDevice) {
 
-		if (devices.containsKey(id))
-			return devices.get(id);
-		else {
-			PhysicalDevice device = loadDevice(id);
+		String deviceId= domainDevice.getId();
+		if (devices.containsKey(deviceId))
+			return devices.get(deviceId);
+		else {			
+			PhysicalDevice device = loadDevice(domainDevice);
 			return device;
 		}
 
 	}
 
-	private PhysicalDevice loadDevice(String id) {
-		Device deviceEntity = deviceDao.get(id);
-		// System.out.println("device name:"+deviceEntity.getName());
+	private PhysicalDevice loadDevice(Device domainDevice) {
 
-		Driver driverObject = driverManager.loadDriver(deviceEntity);
+		Driver runtimeDriver = driverManager.loadDriver(domainDevice);
 
-		PhysicalDevice physicalDevice = driverObject.createDevice(deviceEntity
+		PhysicalDevice physicalDevice = runtimeDriver.createDevice(domainDevice
 				.getInfo());
 
 		return physicalDevice;
+
 	}
 }

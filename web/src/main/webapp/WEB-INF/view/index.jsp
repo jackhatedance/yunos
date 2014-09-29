@@ -48,8 +48,11 @@
     <li>    
     <a href="api/1.0/devices/cb170afb-087f-11e4-b721-08002785c3ec/configuration">get device configuration</a>     
     </li> 
-    <li>    
-    <a href="api/1.0/devices/cb170afb-087f-11e4-b721-08002785c3ec/functionalDevices?locale=zh_CN">get device's functional devices </a>     
+    <li>
+    <a href="api/1.0/functionalDevices/by-device?deviceId=cb170afb-087f-11e4-b721-08002785c3ec&locale=zh_CN">get functional devices by device</a>     
+    </li>
+    <li>
+    <a href="api/1.0/functionalDevices/by-user?userId=jackding&organizationId=generic&artifactId=IrTransmitter&locale=zh_CN">query functional devices by user, organization, and artifact</a>     
     </li>
     
     </ul>

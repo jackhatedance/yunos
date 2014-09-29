@@ -1,14 +1,15 @@
 package com.driverstack.yunos.domain;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.GenericGenerator;
+
+import com.driverstack.yunos.driver.config.ConfigurationItemType;
 
 /**
  * configuration item (name and value) for device, model default and vendor
@@ -26,8 +27,10 @@ public class ConfigurationItem {
 
 	@Column
 	private String name;
+
+	@Enumerated(EnumType.STRING)
 	@Column
-	private String type;
+	private ConfigurationItemType type;
 	@Column
 	private String value;
 
@@ -47,11 +50,12 @@ public class ConfigurationItem {
 		this.name = name;
 	}
 
-	public String getType() {
+
+	public ConfigurationItemType getType() {
 		return type;
 	}
 
-	public void setType(String type) {
+	public void setType(ConfigurationItemType type) {
 		this.type = type;
 	}
 
@@ -66,7 +70,7 @@ public class ConfigurationItem {
 	public ConfigurationItem() {
 	}
 
-	public ConfigurationItem(String name, String type, String value) {
+	public ConfigurationItem(String name, ConfigurationItemType type, String value) {
 		this.name = name;
 		this.type = type;
 		this.value = value;

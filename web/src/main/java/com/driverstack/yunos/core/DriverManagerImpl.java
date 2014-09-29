@@ -9,6 +9,7 @@ import java.util.jar.JarInputStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.driverstack.yunos.core.exception.DriverNotSetException;
 import com.driverstack.yunos.dao.DriverDao;
 import com.driverstack.yunos.domain.Device;
 import com.driverstack.yunos.driver.Driver;
@@ -49,11 +50,11 @@ public class DriverManagerImpl implements DriverManager {
 	}
 
 	@Override
-	public Driver loadDriver(Device deviceEntity) {
-		if(deviceEntity.getDriver()==null)
-			throw new RuntimeException("no driver is set for device");
+	public Driver loadDriver(Device domainDevice) {
+		if(domainDevice.getDriver()==null)
+			throw new DriverNotSetException(domainDevice.getId());
 		
-		Driver driver = driverClassLoader.loadDriver(deviceEntity.getDriver());
+		Driver driver = driverClassLoader.loadDriver(domainDevice.getDriver());
 		return driver;
 
 	}

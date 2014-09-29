@@ -1,9 +1,11 @@
 package com.driverstack.yunos.remote.vo;
 
+import com.driverstack.yunos.driver.config.ConfigurationItemType;
+
 public class ConfigurationItem {
 
 	private String name;
-	private String type;
+	private ConfigurationItemType type;
 	private String value;
 
 	public String getName() {
@@ -14,12 +16,11 @@ public class ConfigurationItem {
 		this.name = name;
 	}
 
-	
-	public String getType() {
+	public ConfigurationItemType getType() {
 		return type;
 	}
 
-	public void setType(String type) {
+	public void setType(ConfigurationItemType type) {
 		this.type = type;
 	}
 

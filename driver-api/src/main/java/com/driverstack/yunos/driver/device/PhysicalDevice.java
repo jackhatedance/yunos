@@ -2,8 +2,6 @@ package com.driverstack.yunos.driver.device;
 
 import java.util.List;
 
-
-
 /**
  * it is physical device.
  * 
@@ -12,11 +10,9 @@ import java.util.List;
  */
 public interface PhysicalDevice {
 
+	void init(Object configure);
+
 	Object getConfigure();
-
-	void setConfigure(Object configure);
-
-	void init();
 
 	List<FunctionalDevice> getFunctionDevices();
 

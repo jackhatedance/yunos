@@ -25,7 +25,7 @@ public interface RemoteService {
 	 * @param userId
 	 * @return
 	 */
-	List<Device> listDevice(String userId);
+	List<Device> queryUserDevices(String userId);
 
 	Device getDevice(String deviceId);
 
@@ -105,5 +105,9 @@ public interface RemoteService {
 	void updateDevice(Device device);
 
 	List<FunctionalDevice> getFunctionalDevices(String deviceId, String locale);
+
+	List<FunctionalDevice> queryUserFunctionalDevices(String userId,
+			String organizationId, String artifactId, String locale);
+	
 
 }

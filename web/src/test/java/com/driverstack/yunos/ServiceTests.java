@@ -116,7 +116,7 @@ public class ServiceTests {
 
 		// 1. upload
 		InputStream input = getClass().getResourceAsStream(
-				"/sampleFunctionalDevice/ExampleInterface-1.0.jar");
+				"/sampleFunctionalDevice/MySwitchInterface-1.0.jar");
 		Serializable functionalDeviceId = functionalDeviceService.upload(input);
 		Assert.assertNotNull(functionalDeviceId);
 
@@ -137,7 +137,7 @@ public class ServiceTests {
 
 		// 1. upload driver
 		InputStream input = getClass().getResourceAsStream(
-				"/sampleDriver/RF-IR-Transmitter-Driver-1.0.jar");
+				"/sampleDriver/MySwitchDriver-1.0.jar");
 		Serializable driverId = driverService.upload(input);
 		Assert.assertNotNull(driverId);
 
@@ -150,11 +150,11 @@ public class ServiceTests {
 
 		DriverConfigurationDefinitionItem item = items.get(0).get("zh_CN");
 		String actualName = item.getDisplayName();
-		Assert.assertEquals("主机", actualName);
+		Assert.assertEquals("打开代码", actualName);
 
 		item = items.get(0).get("en_US");
 		actualName = item.getDisplayName();
-		Assert.assertEquals("Host", actualName);
+		Assert.assertEquals("Code On", actualName);
 		
 		
 		// test delete driver

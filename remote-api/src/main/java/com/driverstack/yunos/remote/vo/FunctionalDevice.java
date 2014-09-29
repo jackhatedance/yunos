@@ -1,13 +1,21 @@
 package com.driverstack.yunos.remote.vo;
 
 public class FunctionalDevice {
-
+	private String deviceId;
 	private int index;
 	private String organizationId;
 	private String artifactId;
 
 	private String organizationName;
 	private String artifactName;
+
+	public String getDeviceId() {
+		return deviceId;
+	}
+
+	public void setDeviceId(String deviceId) {
+		this.deviceId = deviceId;
+	}
 
 	public int getIndex() {
 		return index;
@@ -53,8 +61,9 @@ public class FunctionalDevice {
 
 	}
 
-	public FunctionalDevice(String organizationId, String artifactId,
-			String organizationName, String artifactName) {
+	public FunctionalDevice(String deviceId, String organizationId,
+			String artifactId, String organizationName, String artifactName) {
+		this.deviceId = deviceId;
 		this.organizationId = organizationId;
 		this.artifactId = artifactId;
 		this.organizationName = organizationName;

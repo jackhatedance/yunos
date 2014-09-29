@@ -1,5 +1,6 @@
 package com.driverstack.yunos.core;
 
+import com.driverstack.yunos.domain.Device;
 import com.driverstack.yunos.driver.device.PhysicalDevice;
 
 
@@ -12,5 +13,5 @@ public interface DeviceManager {
 	 * @param id
 	 * @return
 	 */
-	PhysicalDevice getPhysicalDeviceObject(String id);
+	PhysicalDevice getPhysicalDeviceObject(Device domainDevice);
 }

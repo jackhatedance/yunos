@@ -1,16 +1,16 @@
 package com.driverstack.yunos.domain;
 
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
@@ -18,7 +18,7 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import com.driverstack.yunos.driver.config.ConfigurationItem;
+import com.driverstack.yunos.driver.config.ConfigurationItemType;
 
 /**
  * it is a entity.
@@ -43,8 +43,9 @@ public class DriverConfigurationDefinitionItem {
 	@Column
 	private String name;
 
+	@Enumerated(EnumType.STRING)
 	@Column
-	private String type;
+	private ConfigurationItemType type;
 
 	@Column
 	private String defaultValue;
@@ -69,8 +70,8 @@ public class DriverConfigurationDefinitionItem {
 	}
 
 	public DriverConfigurationDefinitionItem(int order, String name,
-			String type, String defaultValue, String constraints,
-			String defaultLocale) {
+			ConfigurationItemType type, String defaultValue,
+			String constraints, String defaultLocale) {
 
 		this.order = order;
 		this.name = name;
@@ -114,11 +115,11 @@ public class DriverConfigurationDefinitionItem {
 		getCurentLocalItem().setDisplayName(displayName);
 	}
 
-	public String getType() {
+	public ConfigurationItemType getType() {
 		return type;
 	}
 
-	public void setType(String type) {
+	public void setType(ConfigurationItemType type) {
 		this.type = type;
 	}
 

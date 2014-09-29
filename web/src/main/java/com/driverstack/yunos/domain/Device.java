@@ -58,14 +58,14 @@ public class Device {
 	@MapKey(name = "name")
 	private Map<String, ConfigurationItem> factoryConfigurationItems = new HashMap<String, ConfigurationItem>();
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@JoinTable(name = "DeviceUserConfigurationItem", joinColumns = @JoinColumn(name = "deviceId"), inverseJoinColumns = @JoinColumn(name = "configurationItemId"))
 	@MapKey(name = "name")
 	private Map<String, ConfigurationItem> userConfigurationItems = new HashMap<String, ConfigurationItem>();
 
 	@Column
 	private int defaultFunctionalDeviceIndex;
-	
+
 	@Column
 	private String deviceState;
 
@@ -182,7 +182,6 @@ public class Device {
 		this.description = description;
 	}
 
-	 
 	/**
 	 * override model configure by device factory configure then user configure
 	 * 

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.driverstack.yunos.remote.vo.DeviceClass;
+import com.driverstack.yunos.remote.vo.FunctionalDevice;
 import com.driverstack.yunos.remote.vo.HardwareType;
 import com.driverstack.yunos.remote.vo.Model;
 import com.driverstack.yunos.service.RemoteService;
@@ -38,4 +39,21 @@ public class FunctionalDeviceApiController {
 
 	}
 
+	@RequestMapping(value = "/by-device", method = RequestMethod.GET)
+	public List<FunctionalDevice> getFunctionalDevices(
+			@RequestParam("deviceId") String deviceId,
+			@RequestParam("locale") String locale) {
+		return remoteService.getFunctionalDevices(deviceId, locale);
+	}
+
+	@RequestMapping(value = "/by-user", method = RequestMethod.GET)
+	public List<FunctionalDevice> queryUserFunctionalDevices(
+			@RequestParam("userId") String userId,
+			@RequestParam("organizationId") String organizationId,
+			@RequestParam("artifactId") String artifactId,
+			@RequestParam("locale") String locale) {
+		return remoteService.queryUserFunctionalDevices(userId, organizationId,
+				artifactId, locale);
+
+	}
 }

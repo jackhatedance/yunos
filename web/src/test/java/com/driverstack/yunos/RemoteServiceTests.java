@@ -36,7 +36,7 @@ public class RemoteServiceTests {
 		assertNotNull(remoteService);
 
 		List<com.driverstack.yunos.remote.vo.Device> devices = remoteService
-				.listDevice("jackding");
+				.queryUserDevices("jackding");
 
 		assertNotNull(devices);
 

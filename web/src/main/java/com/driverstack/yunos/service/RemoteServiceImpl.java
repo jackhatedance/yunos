@@ -15,6 +15,7 @@ import com.driverstack.yunos.api.ApiUtils;
 import com.driverstack.yunos.api.Parameter;
 import com.driverstack.yunos.api.ParameterType;
 import com.driverstack.yunos.core.DeviceManager;
+import com.driverstack.yunos.core.exception.DriverNotSetException;
 import com.driverstack.yunos.dao.ApplicationDao;
 import com.driverstack.yunos.dao.DeviceDao;
 import com.driverstack.yunos.dao.GenericDao;
@@ -89,7 +90,7 @@ public class RemoteServiceImpl implements RemoteService {
 	}
 
 	@Override
-	public List<Device> listDevice(String userId) {
+	public List<Device> queryUserDevices(String userId) {
 		List<com.driverstack.yunos.domain.Device> domainDeviceList = deviceService
 				.listByUserId(userId);
 		List<Device> remoteDeviceList = new ArrayList<Device>();
@@ -168,7 +169,8 @@ public class RemoteServiceImpl implements RemoteService {
 					device.getDriverId());
 
 		domainDevice.setDriver(driver);
-		domainDevice.setDefaultFunctionalDeviceIndex(device.getDefaultFunctionalDeviceIndex());
+		domainDevice.setDefaultFunctionalDeviceIndex(device
+				.getDefaultFunctionalDeviceIndex());
 
 		deviceService.update(domainDevice);
 	}
@@ -236,8 +238,10 @@ public class RemoteServiceImpl implements RemoteService {
 	public Object operateDevice(String deviceId, int functionalDeviceIndex,
 			String operation, Map<String, String> parameters) {
 
+		com.driverstack.yunos.domain.Device domainDevice = deviceDao
+				.get(deviceId);
 		PhysicalDevice physicalDevice = deviceManager
-				.getPhysicalDeviceObject(deviceId);
+				.getPhysicalDeviceObject(domainDevice);
 
 		FunctionalDevice functionalDevice = physicalDevice
 				.getFunctionDevice(functionalDeviceIndex);
@@ -385,41 +389,86 @@ public class RemoteServiceImpl implements RemoteService {
 	@Override
 	public List<com.driverstack.yunos.remote.vo.FunctionalDevice> getFunctionalDevices(
 			String deviceId, String locale) {
-
+		List<com.driverstack.yunos.remote.vo.FunctionalDevice> voFunctionalDeviceList = new ArrayList<com.driverstack.yunos.remote.vo.FunctionalDevice>();
 		/**
 		 * the functional device list is runtime value.
 		 */
-		PhysicalDevice pd = null;
-		try {
-			pd = deviceManager.getPhysicalDeviceObject(deviceId);
-		} catch (Exception e) {
-			e.printStackTrace();
+
+		com.driverstack.yunos.domain.Device domainDevice = deviceDao
+				.get(deviceId);
+
+		if (domainDevice.getDriver() != null) {
+			PhysicalDevice pd = deviceManager
+					.getPhysicalDeviceObject(domainDevice);
+
+			// runtime FD to domain object
+
+			for (FunctionalDevice fd : pd.getFunctionDevices()) {
+
+				String className = fd.getClass().getInterfaces()[0]
+						.getCanonicalName();
+				com.driverstack.yunos.domain.FunctionalDevice domainFD = functionalDeviceService
+						.getByClassName(className);
+
+				domainFD.setLocale(locale);
+
+				com.driverstack.yunos.remote.vo.FunctionalDevice voFD = new com.driverstack.yunos.remote.vo.FunctionalDevice(
+						deviceId, domainFD.getOrganization().getCodeName(),
+						domainFD.getArtifactId(), domainFD.getOrganization()
+								.getShortName(), domainFD.getDisplayName());
+
+				voFunctionalDeviceList.add(voFD);
+			}
+
+			// set index
+			for (int i = 0; i < voFunctionalDeviceList.size(); i++)
+				voFunctionalDeviceList.get(i).setIndex(i);
 		}
-		// runtime FD to domain object
+
+		return voFunctionalDeviceList;
+	}
+
+	@Override
+	public List<com.driverstack.yunos.remote.vo.FunctionalDevice> queryUserFunctionalDevices(
+			String userId, String organizationId, String artifactId,
+			String locale) {
+
+		// 1. query device(physical) from DB.
+		List<com.driverstack.yunos.domain.Device> domainDeviceList = deviceService
+				.listByUserId(userId);
+
+		// 2. collect functional device in memory
 		List<com.driverstack.yunos.remote.vo.FunctionalDevice> voFunctionalDeviceList = new ArrayList<com.driverstack.yunos.remote.vo.FunctionalDevice>();
-		
-		for (FunctionalDevice fd : pd.getFunctionDevices()) {
 
-			String className = fd.getClass().getInterfaces()[0]
-					.getCanonicalName();
-			com.driverstack.yunos.domain.FunctionalDevice domainFD = functionalDeviceService
-					.getByClassName(className);
+		for (com.driverstack.yunos.domain.Device dd : domainDeviceList) {
 
-			domainFD.setLocale(locale);
+			if (dd.getDriver() == null)
+				continue;
 
-			com.driverstack.yunos.remote.vo.FunctionalDevice voFD = new com.driverstack.yunos.remote.vo.FunctionalDevice(
-					domainFD.getOrganization().getCodeName(),
-					domainFD.getArtifactId(), domainFD.getOrganization()
-							.getShortName(), domainFD.getDisplayName());
+			PhysicalDevice pd = deviceManager.getPhysicalDeviceObject(dd);
 
-			voFunctionalDeviceList.add(voFD);
+			List<FunctionalDevice> runtimeFDList = pd.getFunctionDevices();
+			for (FunctionalDevice rfd : runtimeFDList) {
+				String className = rfd.getClass().getInterfaces()[0]
+						.getCanonicalName();
+				com.driverstack.yunos.domain.FunctionalDevice domainFD = functionalDeviceService
+						.getByClassName(className);
+
+				domainFD.setLocale(locale);
+
+				String deviceId = dd.getId();
+				com.driverstack.yunos.remote.vo.FunctionalDevice voFD = new com.driverstack.yunos.remote.vo.FunctionalDevice(
+						deviceId, domainFD.getOrganization().getCodeName(),
+						domainFD.getArtifactId(), domainFD.getOrganization()
+								.getShortName(), domainFD.getDisplayName());
+
+				// filter by orgId and artifactId
+				if (voFD.getOrganizationId().equals(organizationId)
+						&& voFD.getArtifactId().equals(artifactId))
+					voFunctionalDeviceList.add(voFD);
+			}
 		}
 
-		//set index
-		for(int i=0;i<voFunctionalDeviceList.size();i++)
-			voFunctionalDeviceList.get(i).setIndex(i);
-		
-		
 		return voFunctionalDeviceList;
 	}
 }

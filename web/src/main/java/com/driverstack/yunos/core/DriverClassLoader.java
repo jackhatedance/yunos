@@ -38,8 +38,8 @@ public class DriverClassLoader {
 
 	private JclObjectFactory factory;
 
-	private JarClassLoader deviceApiClassLoader;
-	private ProxyClassLoader deviceApiClassLoaderDelegate;
+	private JarClassLoader functionalDeviceClassLoader;
+	private ProxyClassLoader functionalDeviceClassLoaderDelegate;
 
 	@PostConstruct
 	public void init() {
@@ -51,42 +51,42 @@ public class DriverClassLoader {
 		factory = JclObjectFactory.getInstance(true);
 
 		// add jar file list later
-		deviceApiClassLoader = new JarClassLoader();
-		deviceApiClassLoader.add(resourceFolder.getFunctionalDevicePath());
+		functionalDeviceClassLoader = new JarClassLoader();
+		functionalDeviceClassLoader.add(resourceFolder.getFunctionalDevicePath());
 
-		deviceApiClassLoaderDelegate = new DelegateProxyClassLoader(
-				deviceApiClassLoader);
-		deviceApiClassLoaderDelegate.setOrder(6);
+		functionalDeviceClassLoaderDelegate = new DelegateProxyClassLoader(
+				functionalDeviceClassLoader);
+		functionalDeviceClassLoaderDelegate.setOrder(6);
 
 	}
 
 	public void addFunctionalDeviceJar(String fileName) {
-		deviceApiClassLoader.add(resourceFolder.getFunctionalDevicePath()
+		functionalDeviceClassLoader.add(resourceFolder.getFunctionalDevicePath()
 				+ fileName);
 	}
 
 	public com.driverstack.yunos.driver.Driver loadDriver(
-			com.driverstack.yunos.domain.Driver driver) {
+			com.driverstack.yunos.domain.Driver domainDriver) {
 
-		JarClassLoader jcl = classLoaderCache.get(driver.getId());
+		JarClassLoader jcl = classLoaderCache.get(domainDriver.getId());
 		if (jcl == null) {
 			jcl = new JarClassLoader();
 
 			String driverFileName = String.format("%s/%s-%s.jar",
-					driver.getDeveloperName(), driver.getName(),
-					driver.getVersion());
+					domainDriver.getDeveloperName(), domainDriver.getName(),
+					domainDriver.getVersion());
 			// String driverFileName = driver.getId() + ".jar";
 
 			jcl.add(resourceFolder.getDriverPath() + driverFileName);
 
-			jcl.addLoader(deviceApiClassLoaderDelegate);
+			jcl.addLoader(functionalDeviceClassLoaderDelegate);
 
-			classLoaderCache.put(driver.getId(), jcl);
+			classLoaderCache.put(domainDriver.getId(), jcl);
 
 		}
 
 		return (com.driverstack.yunos.driver.Driver) factory.create(jcl,
-				driver.getClassName());
+				domainDriver.getClassName());
 	}
 
 	/**

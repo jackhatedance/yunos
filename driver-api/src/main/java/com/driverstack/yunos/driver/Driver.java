@@ -27,7 +27,7 @@ public interface Driver {
 	 * 
 	 * @return
 	 */
-	String getDriverId();
+	String getArtifactId();
 
 	/**
 	 * version of the driver

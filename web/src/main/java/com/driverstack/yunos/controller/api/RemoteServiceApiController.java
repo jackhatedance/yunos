@@ -37,7 +37,7 @@ public class RemoteServiceApiController {
 	public List<com.driverstack.yunos.remote.vo.Device> listUserDevice(
 			@RequestParam("userId") String userId) {
 
-		return remoteService.listDevice(userId);
+		return remoteService.queryUserDevices(userId);
 	}
 
 	@RequestMapping(value = "/addDevice", method = RequestMethod.POST)

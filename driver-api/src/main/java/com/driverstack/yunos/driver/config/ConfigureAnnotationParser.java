@@ -7,7 +7,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
-import java.util.SortedSet;
 
 import com.driverstack.yunos.driver.config.annotation.Configure;
 import com.driverstack.yunos.driver.config.annotation.Item;
@@ -42,7 +41,7 @@ public class ConfigureAnnotationParser {
 			if (item != null) {
 				String name = field.getName();
 
-				ConfigurationItemType type = ConfigurationItemType
+				ConfigurationItemType type = ConfigurationItemTypeHelper
 						.getType(field.getType());
 
 				I18nString i18nName = getI18nString(resource, classLoader,

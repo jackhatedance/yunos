@@ -48,7 +48,7 @@ public class DeviceApiController {
 		// User user =
 		// (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		// String name = user.getUsername(); //get logged in username
-		return remoteService.listDevice(userId);
+		return remoteService.queryUserDevices(userId);
 	}
 
 	@RequestMapping(value = "/{deviceId}", method = RequestMethod.GET)
@@ -129,10 +129,8 @@ public class DeviceApiController {
 
 	}
 
-	@RequestMapping(value = "/{deviceId}/functionalDevices", method = RequestMethod.GET)
-	public List<FunctionalDevice> getFunctionalDevices(
-			@PathVariable String deviceId, @RequestParam("locale") String locale) {
-		return remoteService.getFunctionalDevices(deviceId, locale);
 
-	}
+
+	
+
 }

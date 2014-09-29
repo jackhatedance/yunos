@@ -129,9 +129,8 @@ public class DriverServiceImpl extends AbstractService implements DriverService 
 		for (ConfigurationItem dci : def.getItems()) {
 
 			domainItem = new DriverConfigurationDefinitionItem(dci.getOrder(),
-					dci.getFieldName(), dci.getType().toString(),
-					dci.getDefaultValue(), null, def.getDefaultLocale()
-							.toString());
+					dci.getFieldName(), dci.getType(), dci.getDefaultValue(),
+					null, def.getDefaultLocale().toString());
 
 			for (Locale locale : def.getSupportedLocales()) {
 
@@ -168,6 +167,7 @@ public class DriverServiceImpl extends AbstractService implements DriverService 
 		String fullFileName = path + "/" + shortFileName;
 		File file = new File(fullFileName);
 		file.delete();
+		
 		// remove from DB
 		s.delete(obj);
 
