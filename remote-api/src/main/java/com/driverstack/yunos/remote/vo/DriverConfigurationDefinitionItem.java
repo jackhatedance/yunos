@@ -2,6 +2,8 @@ package com.driverstack.yunos.remote.vo;
 
 import java.io.Serializable;
 
+import com.driverstack.yunos.driver.config.ConfigurationItemType;
+
 /**
  * 
  * 
@@ -20,7 +22,7 @@ public class DriverConfigurationDefinitionItem implements Serializable {
 	private String name;
 	private String displayName;
 	private String description;
-	private String type;
+	private ConfigurationItemType type;
 	private String constraints;
 
 	public String getId() {
@@ -63,11 +65,11 @@ public class DriverConfigurationDefinitionItem implements Serializable {
 		this.description = description;
 	}
 
-	public String getType() {
+	public ConfigurationItemType getType() {
 		return type;
 	}
 
-	public void setType(String type) {
+	public void setType(ConfigurationItemType type) {
 		this.type = type;
 	}
 

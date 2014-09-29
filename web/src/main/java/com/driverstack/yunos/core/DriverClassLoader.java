@@ -52,7 +52,8 @@ public class DriverClassLoader {
 
 		// add jar file list later
 		functionalDeviceClassLoader = new JarClassLoader();
-		functionalDeviceClassLoader.add(resourceFolder.getFunctionalDevicePath());
+		functionalDeviceClassLoader.add(resourceFolder
+				.getFunctionalDevicePath());
 
 		functionalDeviceClassLoaderDelegate = new DelegateProxyClassLoader(
 				functionalDeviceClassLoader);
@@ -61,8 +62,8 @@ public class DriverClassLoader {
 	}
 
 	public void addFunctionalDeviceJar(String fileName) {
-		functionalDeviceClassLoader.add(resourceFolder.getFunctionalDevicePath()
-				+ fileName);
+		functionalDeviceClassLoader.add(resourceFolder
+				.getFunctionalDevicePath() + fileName);
 	}
 
 	public com.driverstack.yunos.driver.Driver loadDriver(
@@ -101,7 +102,7 @@ public class DriverClassLoader {
 			String className) {
 
 		JarClassLoader jcl = new JarClassLoader();
-
+		jcl.addLoader(functionalDeviceClassLoaderDelegate);
 		jcl.add(input);
 
 		return (com.driverstack.yunos.driver.Driver) factory.create(jcl,

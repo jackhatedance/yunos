@@ -86,7 +86,7 @@ public class FunctionalDeviceServiceImpl extends AbstractService implements
 			String organizationId = defaultBundle
 					.get(FunctionalDeviceProperties.ORGANIZATION_ID);
 
-			String path = getFunctionalDeviceJarDir();
+			String path = getFunctionalDeviceJarPath();
 
 			File dir = new File(path);
 			dir.mkdir();
@@ -147,7 +147,7 @@ public class FunctionalDeviceServiceImpl extends AbstractService implements
 		return shortFileName;
 	}
 
-	private String getFunctionalDeviceJarDir() {
+	private String getFunctionalDeviceJarPath() {
 
 		String dir = resourcePath.getFunctionalDevicePath();
 		return dir;
@@ -156,8 +156,8 @@ public class FunctionalDeviceServiceImpl extends AbstractService implements
 	private String getFullFunctionalDeviceJarFileName(String organizationId,
 			String artifactId) {
 		return String
-				.format("%s/%s",
-						getFunctionalDeviceJarDir(),
+				.format("%s%s",
+						getFunctionalDeviceJarPath(),
 						getFunctionalDeviceJarShortFileName(organizationId,
 								artifactId));
 	}
