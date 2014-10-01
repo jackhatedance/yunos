@@ -23,6 +23,7 @@ import com.driverstack.yunos.domain.DeviceClass;
 import com.driverstack.yunos.domain.Model;
 import com.driverstack.yunos.domain.Token;
 import com.driverstack.yunos.domain.Vendor;
+import com.driverstack.yunos.driver.config.ConfigurationItemType;
 import com.driverstack.yunos.driver.device.FunctionalDevice;
 import com.driverstack.yunos.driver.device.PhysicalDevice;
 import com.driverstack.yunos.remote.vo.ConfigurationItem;
@@ -377,7 +378,12 @@ public class RemoteServiceImpl implements RemoteService {
 		for (com.driverstack.yunos.domain.DriverConfigurationDefinitionItem di : domainItems) {
 			com.driverstack.yunos.remote.vo.DriverConfigurationDefinitionItem ri = new com.driverstack.yunos.remote.vo.DriverConfigurationDefinitionItem();
 
-			BeanUtils.copyProperties(di.get(locale), ri);
+			com.driverstack.yunos.domain.DriverConfigurationDefinitionItem localDomainDefItem = di
+					.get(locale);
+			BeanUtils.copyProperties(localDomainDefItem, ri);
+
+			ri.setType(new ConfigurationItemType(localDomainDefItem.getType(),
+					localDomainDefItem.getTypeParameter()));
 
 			remoteItems.add(ri);
 		}
@@ -430,8 +436,7 @@ public class RemoteServiceImpl implements RemoteService {
 
 	@Override
 	public List<com.driverstack.yunos.remote.vo.FunctionalDevice> queryUserFunctionalDevices(
-			String userId, String organizationId, String artifactId,
-			String locale) {
+			String userId, String className, String locale) {
 
 		// 1. query device(physical) from DB.
 		List<com.driverstack.yunos.domain.Device> domainDeviceList = deviceService
@@ -449,23 +454,25 @@ public class RemoteServiceImpl implements RemoteService {
 
 			List<FunctionalDevice> runtimeFDList = pd.getFunctionDevices();
 			for (FunctionalDevice rfd : runtimeFDList) {
-				String className = rfd.getClass().getInterfaces()[0]
+				String fdClassName = rfd.getClass().getInterfaces()[0]
 						.getCanonicalName();
-				com.driverstack.yunos.domain.FunctionalDevice domainFD = functionalDeviceService
-						.getByClassName(className);
 
-				domainFD.setLocale(locale);
+				if (className.equals(fdClassName)) {
 
-				String deviceId = dd.getId();
-				com.driverstack.yunos.remote.vo.FunctionalDevice voFD = new com.driverstack.yunos.remote.vo.FunctionalDevice(
-						deviceId, domainFD.getOrganization().getCodeName(),
-						domainFD.getArtifactId(), domainFD.getOrganization()
-								.getShortName(), domainFD.getDisplayName());
+					com.driverstack.yunos.domain.FunctionalDevice domainFD = functionalDeviceService
+							.getByClassName(fdClassName);
 
-				// filter by orgId and artifactId
-				if (voFD.getOrganizationId().equals(organizationId)
-						&& voFD.getArtifactId().equals(artifactId))
+					domainFD.setLocale(locale);
+
+					String deviceId = dd.getId();
+					com.driverstack.yunos.remote.vo.FunctionalDevice voFD = new com.driverstack.yunos.remote.vo.FunctionalDevice(
+							deviceId, domainFD.getOrganization().getCodeName(),
+							domainFD.getArtifactId(), domainFD
+									.getOrganization().getShortName(),
+							domainFD.getDisplayName());
+
 					voFunctionalDeviceList.add(voFD);
+				}
 			}
 		}
 

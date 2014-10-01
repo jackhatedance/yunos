@@ -18,6 +18,7 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.driverstack.yunos.driver.config.ConfigurationItemPrimaryType;
 import com.driverstack.yunos.driver.config.ConfigurationItemType;
 
 /**
@@ -45,7 +46,10 @@ public class DriverConfigurationDefinitionItem {
 
 	@Enumerated(EnumType.STRING)
 	@Column
-	private ConfigurationItemType type;
+	private ConfigurationItemPrimaryType type;
+
+	@Column
+	private String typeParameter;
 
 	@Column
 	private String defaultValue;
@@ -75,7 +79,8 @@ public class DriverConfigurationDefinitionItem {
 
 		this.order = order;
 		this.name = name;
-		this.type = type;
+		this.type = type.getType();
+		this.typeParameter = type.getParameter();
 		this.defaultValue = defaultValue;
 		this.constraints = constraints;
 		this.defaultLocale = defaultLocale;
@@ -115,12 +120,20 @@ public class DriverConfigurationDefinitionItem {
 		getCurentLocalItem().setDisplayName(displayName);
 	}
 
-	public ConfigurationItemType getType() {
+	public ConfigurationItemPrimaryType getType() {
 		return type;
 	}
 
-	public void setType(ConfigurationItemType type) {
+	public void setType(ConfigurationItemPrimaryType type) {
 		this.type = type;
+	}
+
+	public String getTypeParameter() {
+		return typeParameter;
+	}
+
+	public void setTypeParameter(String typeParameter) {
+		this.typeParameter = typeParameter;
 	}
 
 	public String getDefaultValue() {

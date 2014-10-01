@@ -9,6 +9,7 @@ import javax.persistence.Id;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.driverstack.yunos.driver.config.ConfigurationItemPrimaryType;
 import com.driverstack.yunos.driver.config.ConfigurationItemType;
 
 /**
@@ -30,7 +31,9 @@ public class ConfigurationItem {
 
 	@Enumerated(EnumType.STRING)
 	@Column
-	private ConfigurationItemType type;
+	private ConfigurationItemPrimaryType type;
+	@Column
+	private String typeParameter;
 	@Column
 	private String value;
 
@@ -50,13 +53,20 @@ public class ConfigurationItem {
 		this.name = name;
 	}
 
-
-	public ConfigurationItemType getType() {
+	public ConfigurationItemPrimaryType getType() {
 		return type;
 	}
 
-	public void setType(ConfigurationItemType type) {
+	public void setType(ConfigurationItemPrimaryType type) {
 		this.type = type;
+	}
+
+	public String getTypeParameter() {
+		return typeParameter;
+	}
+
+	public void setTypeParameter(String typeParameter) {
+		this.typeParameter = typeParameter;
 	}
 
 	public String getValue() {
@@ -70,7 +80,8 @@ public class ConfigurationItem {
 	public ConfigurationItem() {
 	}
 
-	public ConfigurationItem(String name, ConfigurationItemType type, String value) {
+	public ConfigurationItem(String name, ConfigurationItemPrimaryType type,
+			String value) {
 		this.name = name;
 		this.type = type;
 		this.value = value;
@@ -90,15 +101,14 @@ public class ConfigurationItem {
 	public ConfigurationItem(
 			com.driverstack.yunos.remote.vo.ConfigurationItem remoteConfigurationItem) {
 		this.name = remoteConfigurationItem.getName();
-		this.type = remoteConfigurationItem.getType();
+		this.type = remoteConfigurationItem.getType().getType();
+		this.typeParameter = remoteConfigurationItem.getType().getParameter();
 		this.value = remoteConfigurationItem.getValue();
 	}
 
 	public com.driverstack.yunos.remote.vo.ConfigurationItem toRemoteVO() {
-		com.driverstack.yunos.remote.vo.ConfigurationItem remoteItem = new com.driverstack.yunos.remote.vo.ConfigurationItem();
-		remoteItem.setName(name);
-		remoteItem.setType(type);
-		remoteItem.setValue(value);
+		com.driverstack.yunos.remote.vo.ConfigurationItem remoteItem = new com.driverstack.yunos.remote.vo.ConfigurationItem(
+				name, new ConfigurationItemType(type, typeParameter), value);
 
 		return remoteItem;
 	}

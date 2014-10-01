@@ -106,8 +106,16 @@ public interface RemoteService {
 
 	List<FunctionalDevice> getFunctionalDevices(String deviceId, String locale);
 
+	/**
+	 * query all functional devices for a user.
+	 * 
+	 * @param userId
+	 * @param className
+	 *            class name of functional device
+	 * @param locale
+	 * @return
+	 */
 	List<FunctionalDevice> queryUserFunctionalDevices(String userId,
-			String organizationId, String artifactId, String locale);
-	
+			String className, String locale);
 
 }

@@ -29,7 +29,7 @@ import com.driverstack.yunos.domain.LocalFunctionalDevice;
 import com.driverstack.yunos.domain.Model;
 import com.driverstack.yunos.domain.User;
 import com.driverstack.yunos.domain.Vendor;
-import com.driverstack.yunos.driver.config.ConfigurationItemType;
+import com.driverstack.yunos.driver.config.ConfigurationItemPrimaryType;
 import com.driverstack.yunos.service.DeviceClassService;
 import com.driverstack.yunos.service.DeviceService;
 import com.driverstack.yunos.service.DriverService;
@@ -152,13 +152,16 @@ public class ServiceTests {
 		DriverConfigurationDefinitionItem item = items.get(0).get("zh_CN");
 		String actualName = item.getDisplayName();
 		Assert.assertEquals("打开代码", actualName);
-		Assert.assertEquals(ConfigurationItemType.LONG, item.getType());
+		Assert.assertEquals(ConfigurationItemPrimaryType.LONG, item.getType());
 
 		item = items.get(0).get("en_US");
 		actualName = item.getDisplayName();
 		Assert.assertEquals("Code On", actualName);
 		
-		
+		item = items.get(2).get("en_US");
+		String actualTypeParameter = item.getTypeParameter();
+		Assert.assertEquals("com.driverstack.yunos.deviceApi.transmitter.MySwitch", actualTypeParameter);
+				
 		// test delete driver
 		driverService.delete(driverId);
 

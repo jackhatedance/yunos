@@ -69,4 +69,8 @@ public class FunctionalDevice {
 		this.organizationName = organizationName;
 		this.artifactName = artifactName;
 	}
+
+	public String getFullId() {
+		return String.format("%s.%s", organizationId, artifactId);
+	}
 }

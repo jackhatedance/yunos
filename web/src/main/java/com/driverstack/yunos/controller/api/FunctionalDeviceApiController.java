@@ -48,12 +48,11 @@ public class FunctionalDeviceApiController {
 
 	@RequestMapping(value = "/by-user", method = RequestMethod.GET)
 	public List<FunctionalDevice> queryUserFunctionalDevices(
-			@RequestParam("userId") String userId,
-			@RequestParam("organizationId") String organizationId,
-			@RequestParam("artifactId") String artifactId,
+			@RequestParam("userId") String userId,			
+			@RequestParam("className") String className,
 			@RequestParam("locale") String locale) {
-		return remoteService.queryUserFunctionalDevices(userId, organizationId,
-				artifactId, locale);
+		return remoteService.queryUserFunctionalDevices(userId, 
+				className, locale);
 
 	}
 }

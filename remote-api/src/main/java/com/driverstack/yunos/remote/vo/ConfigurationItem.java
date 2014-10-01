@@ -8,6 +8,17 @@ public class ConfigurationItem {
 	private ConfigurationItemType type;
 	private String value;
 
+	public ConfigurationItem() {
+		// keep this constructor for JSON de-serializer.
+	}
+
+	public ConfigurationItem(String name, ConfigurationItemType type,
+			String value) {
+		this.name = name;
+		this.type = type;
+		this.value = value;
+	}
+
 	public String getName() {
 		return name;
 	}

@@ -38,7 +38,7 @@
     </li>   
     
     <li>    
-    <a href="api/1.0/drivers/dc098964-dd7d-451a-ad2e-e04d7287df78/configrationItems?locale=zh_CN">list driver configuration definitions</a>     
+    <a href="api/1.0/drivers/b04a226f-2829-461d-8156-146c095e8794/configrationItems?locale=zh_CN">list driver configuration definitions</a>     
     </li>                 
 
     <li>    
@@ -52,7 +52,7 @@
     <a href="api/1.0/functionalDevices/by-device?deviceId=cb170afb-087f-11e4-b721-08002785c3ec&locale=zh_CN">get functional devices by device</a>     
     </li>
     <li>
-    <a href="api/1.0/functionalDevices/by-user?userId=jackding&organizationId=generic&artifactId=IrTransmitter&locale=zh_CN">query functional devices by user, organization, and artifact</a>     
+    <a href="api/1.0/functionalDevices/by-user?userId=jackding&className=com.driverstack.yunos.deviceApi.transmitter.RfTransmitter&locale=zh_CN">query functional devices by user, organization, and artifact</a>     
     </li>
     
     </ul>

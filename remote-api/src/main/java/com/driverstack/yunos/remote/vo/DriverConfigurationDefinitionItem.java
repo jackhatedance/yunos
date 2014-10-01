@@ -2,6 +2,7 @@ package com.driverstack.yunos.remote.vo;
 
 import java.io.Serializable;
 
+import com.driverstack.yunos.driver.config.ConfigurationItemPrimaryType;
 import com.driverstack.yunos.driver.config.ConfigurationItemType;
 
 /**

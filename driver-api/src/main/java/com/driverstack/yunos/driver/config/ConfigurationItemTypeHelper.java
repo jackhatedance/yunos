@@ -14,19 +14,24 @@ import com.driverstack.yunos.driver.device.FunctionalDevice;
 public class ConfigurationItemTypeHelper {
 
 	public static ConfigurationItemType getType(Class clazz) {
+
 		if (clazz == String.class)
-			return ConfigurationItemType.STRING;
+			return new ConfigurationItemType(
+					ConfigurationItemPrimaryType.STRING);
 		else if (clazz == Integer.class || clazz == int.class)
-			return ConfigurationItemType.INTEGER;
+			return new ConfigurationItemType(
+					ConfigurationItemPrimaryType.INTEGER);
 		else if (clazz == Long.class || clazz == long.class)
-			return ConfigurationItemType.LONG;
+			return new ConfigurationItemType(ConfigurationItemPrimaryType.LONG);
 		else if (clazz == Float.class || clazz == float.class)
-			return ConfigurationItemType.FLOAT;
+			return new ConfigurationItemType(ConfigurationItemPrimaryType.FLOAT);
 		else if (clazz.isEnum())
-			return ConfigurationItemType.ENUM;
-		else if (FunctionalDevice.class.isAssignableFrom(clazz))
-			return ConfigurationItemType.DEVICE;
-		else
+			return new ConfigurationItemType(ConfigurationItemPrimaryType.ENUM);
+		else if (FunctionalDevice.class.isAssignableFrom(clazz)) {
+			String className = clazz.getCanonicalName();
+			return new ConfigurationItemType(
+					ConfigurationItemPrimaryType.DEVICE, className);
+		} else
 			throw new RuntimeException("unknown type:" + clazz.getTypeName());
 	}
 }
