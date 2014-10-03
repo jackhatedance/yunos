@@ -76,7 +76,7 @@ public class DeviceApiController {
 
 	@RequestMapping(value = { "/{deviceId}/{functionalDeviceIndex}/{operation}" }, method = {
 			RequestMethod.POST, RequestMethod.GET })
-	public void operate(@PathVariable String deviceId,
+	public boolean operate(@PathVariable String deviceId,
 			@PathVariable int functionalDeviceIndex,
 			@PathVariable String operation,
 			@RequestParam Map<String, String> parameters) {
@@ -90,6 +90,8 @@ public class DeviceApiController {
 
 		Object result = remoteService.operateDevice(deviceId,
 				functionalDeviceIndex, operation, parameters);
+		
+		return true;
 
 	}
 

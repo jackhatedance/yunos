@@ -1,8 +1,15 @@
 package com.driverstack.yunos.remote.vo;
 
+import java.io.Serializable;
+
 import com.driverstack.yunos.driver.config.ConfigurationItemType;
 
-public class ConfigurationItem {
+public class ConfigurationItem implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1802839022179893943L;
 
 	private String name;
 	private ConfigurationItemType type;

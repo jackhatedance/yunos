@@ -1,6 +1,15 @@
 package com.driverstack.yunos.remote.vo;
 
-public class FunctionalDevice {
+import java.io.Serializable;
+
+public class FunctionalDevice implements Serializable{
+	
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7964179447087234634L;
+	
 	private String deviceId;
 	private int index;
 	private String organizationId;
