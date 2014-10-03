@@ -19,9 +19,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
 import com.driverstack.yunos.driver.device.DeviceInfo;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+
 
 /**
  * physical device
@@ -182,57 +180,11 @@ public class Device {
 		this.description = description;
 	}
 
-	/**
-	 * override model configure by device factory configure then user configure
-	 * 
-	 * @return
-	 */
-	public JsonObject getFinalConfigure() {
-
-		// TODO redesign it
-
-		String modelConfigStr = null;
-		String deviceConfigStr = null;
-		// String userConfigStr = this.getUserConfigure();
-		String userConfigStr = null;
-
-		if (modelConfigStr == null)
-			modelConfigStr = "{}";
-
-		if (deviceConfigStr == null)
-			deviceConfigStr = "{}";
-
-		if (userConfigStr == null)
-			userConfigStr = "{}";
-
-		JsonParser jsonParser = new JsonParser();
-		JsonObject modelConfig = jsonParser.parse(modelConfigStr)
-				.getAsJsonObject();
-		JsonObject deviceConfig = jsonParser.parse(deviceConfigStr)
-				.getAsJsonObject();
-		JsonObject userConfig = jsonParser.parse(userConfigStr)
-				.getAsJsonObject();
-
-		JsonObject computedConfig = new JsonObject();
-		for (Entry<String, JsonElement> entry : modelConfig.entrySet()) {
-			computedConfig.add(entry.getKey(), entry.getValue());
-		}
-		// overwrite with device configure
-		for (Entry<String, JsonElement> entry : deviceConfig.entrySet()) {
-			computedConfig.add(entry.getKey(), entry.getValue());
-		}
-
-		// overwrite with user configuration
-		for (Entry<String, JsonElement> entry : userConfig.entrySet()) {
-			computedConfig.add(entry.getKey(), entry.getValue());
-		}
-
-		return computedConfig;
-	}
+	
 
 	public DeviceInfo getInfo() {
 
-		return new DeviceInfo(id, model.getVO(), getFinalConfigure());
+		return new DeviceInfo(id, model.getVO());
 
 	}
 

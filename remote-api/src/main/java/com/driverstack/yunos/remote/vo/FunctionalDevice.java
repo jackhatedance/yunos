@@ -61,9 +61,10 @@ public class FunctionalDevice {
 
 	}
 
-	public FunctionalDevice(String deviceId, String organizationId,
+	public FunctionalDevice(String deviceId, int index, String organizationId,
 			String artifactId, String organizationName, String artifactName) {
 		this.deviceId = deviceId;
+		this.index = index;
 		this.organizationId = organizationId;
 		this.artifactId = artifactId;
 		this.organizationName = organizationName;
@@ -71,6 +72,6 @@ public class FunctionalDevice {
 	}
 
 	public String getFullId() {
-		return String.format("%s.%s", organizationId, artifactId);
+		return String.format("%s:%d", deviceId, index);
 	}
 }

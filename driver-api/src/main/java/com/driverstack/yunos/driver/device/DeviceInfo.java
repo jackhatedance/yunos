@@ -1,6 +1,5 @@
 package com.driverstack.yunos.driver.device;
 
-import com.google.gson.JsonObject;
 
 /**
  * device descriptions
@@ -16,12 +15,12 @@ public class DeviceInfo {
 	 * configures combined by device configure and model configure. device
 	 * configure has higher priority.
 	 */
-	private JsonObject configure;
+	private Object configure;
 
-	public DeviceInfo(String id, Model model, JsonObject configure) {
+	public DeviceInfo(String id, Model model) {
 		this.id = id;
 		this.model = model;
-		this.configure = configure;
+		
 	}
 
 	public String getId() {
@@ -40,11 +39,11 @@ public class DeviceInfo {
 		this.model = model;
 	}
 
-	public JsonObject getConfigure() {
+	public Object getConfigure() {
 		return configure;
 	}
 
-	public void setConfigure(JsonObject configure) {
+	public void setConfigure(Object configure) {
 		this.configure = configure;
 	}
 

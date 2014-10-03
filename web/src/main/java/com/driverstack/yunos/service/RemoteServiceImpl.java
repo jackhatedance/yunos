@@ -15,7 +15,6 @@ import com.driverstack.yunos.api.ApiUtils;
 import com.driverstack.yunos.api.Parameter;
 import com.driverstack.yunos.api.ParameterType;
 import com.driverstack.yunos.core.DeviceManager;
-import com.driverstack.yunos.core.exception.DriverNotSetException;
 import com.driverstack.yunos.dao.ApplicationDao;
 import com.driverstack.yunos.dao.DeviceDao;
 import com.driverstack.yunos.dao.GenericDao;
@@ -408,10 +407,11 @@ public class RemoteServiceImpl implements RemoteService {
 					.getPhysicalDeviceObject(domainDevice);
 
 			// runtime FD to domain object
+			List<FunctionalDevice> runtimeFDList = pd.getFunctionDevices();
+			for (int i = 0; i < runtimeFDList.size(); i++) {
+				FunctionalDevice rfd = runtimeFDList.get(i);
 
-			for (FunctionalDevice fd : pd.getFunctionDevices()) {
-
-				String className = fd.getClass().getInterfaces()[0]
+				String className = rfd.getClass().getInterfaces()[0]
 						.getCanonicalName();
 				com.driverstack.yunos.domain.FunctionalDevice domainFD = functionalDeviceService
 						.getByClassName(className);
@@ -419,9 +419,10 @@ public class RemoteServiceImpl implements RemoteService {
 				domainFD.setLocale(locale);
 
 				com.driverstack.yunos.remote.vo.FunctionalDevice voFD = new com.driverstack.yunos.remote.vo.FunctionalDevice(
-						deviceId, domainFD.getOrganization().getCodeName(),
-						domainFD.getArtifactId(), domainFD.getOrganization()
-								.getShortName(), domainFD.getDisplayName());
+						deviceId, i, domainFD.getOrganization()
+								.getCodeName(), domainFD.getArtifactId(),
+						domainFD.getOrganization().getShortName(),
+						domainFD.getDisplayName());
 
 				voFunctionalDeviceList.add(voFD);
 			}
@@ -453,7 +454,8 @@ public class RemoteServiceImpl implements RemoteService {
 			PhysicalDevice pd = deviceManager.getPhysicalDeviceObject(dd);
 
 			List<FunctionalDevice> runtimeFDList = pd.getFunctionDevices();
-			for (FunctionalDevice rfd : runtimeFDList) {
+			for (int i = 0; i < runtimeFDList.size(); i++) {
+				FunctionalDevice rfd = runtimeFDList.get(i);
 				String fdClassName = rfd.getClass().getInterfaces()[0]
 						.getCanonicalName();
 
@@ -466,9 +468,9 @@ public class RemoteServiceImpl implements RemoteService {
 
 					String deviceId = dd.getId();
 					com.driverstack.yunos.remote.vo.FunctionalDevice voFD = new com.driverstack.yunos.remote.vo.FunctionalDevice(
-							deviceId, domainFD.getOrganization().getCodeName(),
-							domainFD.getArtifactId(), domainFD
-									.getOrganization().getShortName(),
+							deviceId, i, domainFD.getOrganization()
+									.getCodeName(), domainFD.getArtifactId(),
+							domainFD.getOrganization().getShortName(),
 							domainFD.getDisplayName());
 
 					voFunctionalDeviceList.add(voFD);

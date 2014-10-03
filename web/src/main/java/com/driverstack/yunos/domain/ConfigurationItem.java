@@ -113,4 +113,7 @@ public class ConfigurationItem {
 		return remoteItem;
 	}
 
+	public Object getValueAsObject() {
+		return type.fromString(value);
+	}
 }
