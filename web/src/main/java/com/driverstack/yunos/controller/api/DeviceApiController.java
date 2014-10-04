@@ -58,8 +58,8 @@ public class DeviceApiController {
 		return remoteService.getDevice(deviceId);
 	}
 
-	@RequestMapping(value = "/", method = RequestMethod.POST)
-	public void addDevice(String userId, Device device) {
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	public void addDevice(@RequestParam String userId, @RequestBody Device device) {
 		remoteService.addDevice(userId, device);
 	}
 

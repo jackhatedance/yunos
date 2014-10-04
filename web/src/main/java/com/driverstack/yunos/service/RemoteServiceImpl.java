@@ -21,6 +21,7 @@ import com.driverstack.yunos.dao.GenericDao;
 import com.driverstack.yunos.domain.DeviceClass;
 import com.driverstack.yunos.domain.Model;
 import com.driverstack.yunos.domain.Token;
+import com.driverstack.yunos.domain.User;
 import com.driverstack.yunos.domain.Vendor;
 import com.driverstack.yunos.driver.config.ConfigurationItemType;
 import com.driverstack.yunos.driver.device.FunctionalDevice;
@@ -140,7 +141,11 @@ public class RemoteServiceImpl implements RemoteService {
 	@Override
 	public void addDevice(String userId, Device device) {
 		com.driverstack.yunos.domain.Device domainDevice = new com.driverstack.yunos.domain.Device();
-		BeanUtils.copyProperties(device, domainDevice);
+
+		updateDomainDeviceWithVo(device, domainDevice);
+
+		User user = (User) genericDao.load(User.class, userId);
+		domainDevice.setUser(user);
 
 		deviceService.save(domainDevice);
 	}
@@ -151,12 +156,17 @@ public class RemoteServiceImpl implements RemoteService {
 		com.driverstack.yunos.domain.Device domainDevice = (com.driverstack.yunos.domain.Device) genericDao
 				.get(com.driverstack.yunos.domain.Device.class, device.getId());
 
+		updateDomainDeviceWithVo(device, domainDevice);
+
+		deviceService.update(domainDevice);
+	}
+
+	private void updateDomainDeviceWithVo(Device device,
+			com.driverstack.yunos.domain.Device domainDevice) {
 		// update fields:modelId, deviceCLassId,name.location,description
-		if (!device.getModelId().equals(domainDevice.getModel().getId())) {
-			Model domainModel = (Model) genericDao.get(Model.class,
-					device.getModelId());
-			domainDevice.setModel(domainModel);
-		}
+		Model domainModel = (Model) genericDao.get(Model.class,
+				device.getModelId());
+		domainDevice.setModel(domainModel);
 
 		domainDevice.setName(device.getName());
 		domainDevice.setLocation(device.getLocation());
@@ -171,8 +181,6 @@ public class RemoteServiceImpl implements RemoteService {
 		domainDevice.setDriver(driver);
 		domainDevice.setDefaultFunctionalDeviceIndex(device
 				.getDefaultFunctionalDeviceIndex());
-
-		deviceService.update(domainDevice);
 	}
 
 	@Override
@@ -419,10 +427,9 @@ public class RemoteServiceImpl implements RemoteService {
 				domainFD.setLocale(locale);
 
 				com.driverstack.yunos.remote.vo.FunctionalDevice voFD = new com.driverstack.yunos.remote.vo.FunctionalDevice(
-						deviceId, i, domainFD.getOrganization()
-								.getCodeName(), domainFD.getArtifactId(),
-						domainFD.getOrganization().getShortName(),
-						domainFD.getDisplayName());
+						deviceId, i, domainFD.getOrganization().getCodeName(),
+						domainFD.getArtifactId(), domainFD.getOrganization()
+								.getShortName(), domainFD.getDisplayName());
 
 				voFunctionalDeviceList.add(voFD);
 			}
