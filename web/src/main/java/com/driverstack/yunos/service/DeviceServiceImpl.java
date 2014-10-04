@@ -38,7 +38,7 @@ public class DeviceServiceImpl extends AbstractService implements DeviceService 
 	public void remove(String deviceId) {
 		Session s = getCurrentSession();
 		Device d = (Device) s.load(Device.class, deviceId);
-		s.delete(s);
+		s.delete(d);
 	}
 
 	@Override

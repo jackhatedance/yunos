@@ -427,7 +427,8 @@ public class RemoteServiceImpl implements RemoteService {
 				domainFD.setLocale(locale);
 
 				com.driverstack.yunos.remote.vo.FunctionalDevice voFD = new com.driverstack.yunos.remote.vo.FunctionalDevice(
-						deviceId, i, domainFD.getOrganization().getCodeName(),
+						deviceId, domainDevice.getName(), i, domainFD
+								.getOrganization().getCodeName(),
 						domainFD.getArtifactId(), domainFD.getOrganization()
 								.getShortName(), domainFD.getDisplayName());
 
@@ -474,10 +475,12 @@ public class RemoteServiceImpl implements RemoteService {
 					domainFD.setLocale(locale);
 
 					String deviceId = dd.getId();
+
 					com.driverstack.yunos.remote.vo.FunctionalDevice voFD = new com.driverstack.yunos.remote.vo.FunctionalDevice(
-							deviceId, i, domainFD.getOrganization()
-									.getCodeName(), domainFD.getArtifactId(),
-							domainFD.getOrganization().getShortName(),
+							deviceId, dd.getName(), i, domainFD
+									.getOrganization().getCodeName(),
+							domainFD.getArtifactId(), domainFD
+									.getOrganization().getShortName(),
 							domainFD.getDisplayName());
 
 					voFunctionalDeviceList.add(voFD);

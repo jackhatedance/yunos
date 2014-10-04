@@ -2,15 +2,16 @@ package com.driverstack.yunos.remote.vo;
 
 import java.io.Serializable;
 
-public class FunctionalDevice implements Serializable{
-	
-	
+public class FunctionalDevice implements Serializable {
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 7964179447087234634L;
-	
+
 	private String deviceId;
+	private String deviceName;
+
 	private int index;
 	private String organizationId;
 	private String artifactId;
@@ -24,6 +25,14 @@ public class FunctionalDevice implements Serializable{
 
 	public void setDeviceId(String deviceId) {
 		this.deviceId = deviceId;
+	}
+
+	public String getDeviceName() {
+		return deviceName;
+	}
+
+	public void setDeviceName(String deviceName) {
+		this.deviceName = deviceName;
 	}
 
 	public int getIndex() {
@@ -70,9 +79,11 @@ public class FunctionalDevice implements Serializable{
 
 	}
 
-	public FunctionalDevice(String deviceId, int index, String organizationId,
-			String artifactId, String organizationName, String artifactName) {
+	public FunctionalDevice(String deviceId, String deviceName, int index,
+			String organizationId, String artifactId, String organizationName,
+			String artifactName) {
 		this.deviceId = deviceId;
+		this.deviceName = deviceName;
 		this.index = index;
 		this.organizationId = organizationId;
 		this.artifactId = artifactId;

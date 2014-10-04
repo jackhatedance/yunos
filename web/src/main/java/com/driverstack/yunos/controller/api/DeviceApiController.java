@@ -70,8 +70,9 @@ public class DeviceApiController {
 	}
 
 	@RequestMapping(value = "/{deviceId}", method = RequestMethod.DELETE)
-	public void removeDevice(@PathVariable String deviceId) {
+	public boolean removeDevice(@PathVariable String deviceId) {
 		remoteService.removeDevice(deviceId);
+		return true;
 	}
 
 	@RequestMapping(value = { "/{deviceId}/{functionalDeviceIndex}/{operation}" }, method = {
