@@ -105,7 +105,7 @@ public class ServiceTests {
 		Assert.assertEquals("57", item.getValue());
 
 		// another device
-		deviceId = "94a1c5a8-39c9-11e4-8a8f-08002785c3ec";
+		deviceId = "434c64c5-adbf-4e2d-929c-6671f9f61045";
 		dev = (Device) genericDao.get(Device.class, deviceId);
 
 		item = dev.getCalculatedFactoryValue("bits");

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -30,6 +31,8 @@ import com.driverstack.yunos.driver.device.PhysicalDevice;
  */
 @Component("deviceManager")
 public class DeviceManagerImpl implements DeviceManager {
+	private Logger logger = Logger.getLogger(DeviceManagerImpl.class);
+
 	@Autowired
 	private DeviceDao deviceDao;
 	@Autowired
@@ -106,7 +109,12 @@ public class DeviceManagerImpl implements DeviceManager {
 
 			map.put(ci.getName(), valueObject);
 		}
-		BeanUtils.populate(config, map);
+		try {
+			BeanUtils.populate(config, map);
+		} catch (IllegalArgumentException e) {
+			logger.warn("error setting configuration fields", e);
+
+		}
 		return config;
 	}
 }

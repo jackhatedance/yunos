@@ -1,6 +1,16 @@
 package com.driverstack.yunos.driver.config;
 
-public class ConfigurationItemType {
+import java.io.Serializable;
+
+public class ConfigurationItemType implements Serializable{
+	
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7004623713466814794L;
+	
+	
 	private ConfigurationItemPrimaryType type;
 	private String parameter;
 
