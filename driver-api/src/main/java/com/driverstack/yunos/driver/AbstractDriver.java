@@ -3,6 +3,7 @@ package com.driverstack.yunos.driver;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.driverstack.yunos.ExecutionEnvironment;
 import com.driverstack.yunos.driver.device.DeviceInfo;
 import com.driverstack.yunos.driver.device.Model;
 
@@ -12,7 +13,7 @@ public abstract class AbstractDriver implements Driver {
 
 	protected List<Model> supportedModels = new ArrayList<Model>();
 
-	
+	protected ExecutionEnvironment executionEnvironment;
 
 	public AbstractDriver() {
 		sdkVersion = "1.0";

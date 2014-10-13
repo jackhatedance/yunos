@@ -2,6 +2,7 @@ package com.driverstack.yunos.driver;
 
 import java.util.List;
 
+import com.driverstack.yunos.ExecutionEnvironment;
 import com.driverstack.yunos.driver.device.DeviceInfo;
 import com.driverstack.yunos.driver.device.FunctionalDevice;
 import com.driverstack.yunos.driver.device.Model;
@@ -37,7 +38,7 @@ public interface Driver {
 	String getVersion();
 
 	/**
-	 * the version of SDK 
+	 * the version of SDK
 	 * 
 	 * @return
 	 */
@@ -47,6 +48,7 @@ public interface Driver {
 
 	/**
 	 * the configure class is used to collect configure items by its annotations
+	 * 
 	 * @return
 	 */
 	Class getConfigureClass();
@@ -71,5 +73,6 @@ public interface Driver {
 	 * @param info
 	 * @return
 	 */
-	PhysicalDevice createDevice(DeviceInfo info);
+	PhysicalDevice createDevice(ExecutionEnvironment executionEnvironment,
+			DeviceInfo info);
 }

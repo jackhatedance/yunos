@@ -102,7 +102,7 @@ public class ServiceTests {
 
 		Map<String, ConfigurationItem> map = dev.getUserConfigurationItems();
 		ConfigurationItem item = map.get("port");
-		Assert.assertEquals("57", item.getValue());
+		Assert.assertEquals("80", item.getValue());
 
 		// another device
 		deviceId = "434c64c5-adbf-4e2d-929c-6671f9f61045";

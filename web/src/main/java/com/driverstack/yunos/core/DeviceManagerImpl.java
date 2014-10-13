@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.driverstack.yunos.ExecutionEnvironment;
 import com.driverstack.yunos.dao.DeviceDao;
 import com.driverstack.yunos.domain.ConfigurationItem;
 import com.driverstack.yunos.domain.Device;
@@ -38,6 +39,9 @@ public class DeviceManagerImpl implements DeviceManager {
 	@Autowired
 	private DriverManager driverManager;
 
+	@Autowired
+	private ExecutionEnvironment kernel;
+
 	// memory cache
 	Map<String, PhysicalDevice> devices = new HashMap<String, PhysicalDevice>();
 
@@ -47,6 +51,10 @@ public class DeviceManagerImpl implements DeviceManager {
 
 	public void setDeviceDao(DeviceDao deviceDao) {
 		this.deviceDao = deviceDao;
+	}
+
+	public void setKernel(ExecutionEnvironment kernel) {
+		this.kernel = kernel;
 	}
 
 	public PhysicalDevice getPhysicalDeviceObject(Device domainDevice) {
@@ -71,7 +79,8 @@ public class DeviceManagerImpl implements DeviceManager {
 			DeviceInfo devInfo = domainDevice.getInfo();
 			devInfo.setConfigure(config);
 
-			PhysicalDevice physicalDevice = runtimeDriver.createDevice(devInfo);
+			PhysicalDevice physicalDevice = runtimeDriver.createDevice(kernel,
+					devInfo);
 
 			return physicalDevice;
 		} catch (Exception e) {

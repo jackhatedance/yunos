@@ -3,12 +3,17 @@ package com.driverstack.yunos.driver.device;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.driverstack.yunos.ExecutionEnvironment;
+
 public abstract class AbstractPhysicalDevice implements PhysicalDevice {
 	protected List<FunctionalDevice> functionalDevices = new ArrayList<FunctionalDevice>();
+	
+	protected ExecutionEnvironment executionEnvironment;
 	protected Object config;
 
 	@Override
-	public void init(Object config) {
+	public void init(ExecutionEnvironment executionEnvironment, Object config) {
+		this.executionEnvironment = executionEnvironment;
 		this.config = config;
 	}
 

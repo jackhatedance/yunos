@@ -109,7 +109,7 @@ public class RemoteServiceTests {
 		ConfigurationItem portItem = map.get("port");
 
 		Assert.assertEquals("port", portItem.getName());
-		Assert.assertEquals("57", portItem.getValue());
+		Assert.assertEquals("80", portItem.getValue());
 
 		// test init config dc098964-dd7d-451a-ad2e-e04d7287df78
 
