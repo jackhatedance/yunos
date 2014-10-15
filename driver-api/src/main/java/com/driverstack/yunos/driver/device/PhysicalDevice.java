@@ -13,10 +13,12 @@ import com.driverstack.yunos.ExecutionEnvironment;
 public interface PhysicalDevice {
 
 	void init(ExecutionEnvironment executionEnvironment, Object configure);
-
+	void destroy();
+	
 	Object getConfigure();
 
 	List<FunctionalDevice> getFunctionDevices();
 
 	FunctionalDevice getFunctionDevice(int index);
+		
 }

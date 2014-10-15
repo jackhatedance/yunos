@@ -14,4 +14,10 @@ public interface DeviceManager {
 	 * @return
 	 */
 	PhysicalDevice getPhysicalDeviceObject(Device domainDevice);
+	/**
+	 * unload old driver, load new driver.
+	 * @param domainDevice
+	 * @return
+	 */
+	PhysicalDevice reloadDriver(Device domainDevice);
 }

@@ -40,7 +40,7 @@ public class DeviceManagerImpl implements DeviceManager {
 	private DriverManager driverManager;
 
 	@Autowired
-	private ExecutionEnvironment kernel;
+	private ExecutionEnvironment executionEnvironment;
 
 	// memory cache
 	Map<String, PhysicalDevice> devices = new HashMap<String, PhysicalDevice>();
@@ -54,7 +54,7 @@ public class DeviceManagerImpl implements DeviceManager {
 	}
 
 	public void setKernel(ExecutionEnvironment kernel) {
-		this.kernel = kernel;
+		this.executionEnvironment = kernel;
 	}
 
 	public PhysicalDevice getPhysicalDeviceObject(Device domainDevice) {
@@ -69,6 +69,16 @@ public class DeviceManagerImpl implements DeviceManager {
 
 	}
 
+	private void unloadDevice(Device domainDevice) {
+		String deviceId = domainDevice.getId();
+		if (devices.containsKey(deviceId)) {
+			PhysicalDevice device = devices.remove(deviceId);
+			device.destroy();
+		} else
+			throw new RuntimeException("unload device error, invalid deviceId:"
+					+ deviceId);
+	}
+
 	private PhysicalDevice loadDevice(Device domainDevice) {
 
 		Driver runtimeDriver = driverManager.loadDriver(domainDevice);
@@ -79,8 +89,8 @@ public class DeviceManagerImpl implements DeviceManager {
 			DeviceInfo devInfo = domainDevice.getInfo();
 			devInfo.setConfigure(config);
 
-			PhysicalDevice physicalDevice = runtimeDriver.createDevice(kernel,
-					devInfo);
+			PhysicalDevice physicalDevice = runtimeDriver.createDevice(
+					executionEnvironment, devInfo);
 
 			return physicalDevice;
 		} catch (Exception e) {
@@ -125,5 +135,12 @@ public class DeviceManagerImpl implements DeviceManager {
 
 		}
 		return config;
+	}
+
+	@Override
+	public PhysicalDevice reloadDriver(Device domainDevice) {
+		unloadDevice(domainDevice);
+		return loadDevice(domainDevice);
+
 	}
 }

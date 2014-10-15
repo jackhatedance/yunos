@@ -117,5 +117,10 @@ public interface RemoteService {
 	 */
 	List<FunctionalDevice> queryUserFunctionalDevices(String userId,
 			String className, String locale);
+	/**
+	 * reload device driver after driver, configuration changes
+	 * @param deviceId
+	 */
+	void reloadDriver(String deviceId);
 
 }

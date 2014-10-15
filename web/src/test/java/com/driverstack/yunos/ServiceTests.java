@@ -101,8 +101,8 @@ public class ServiceTests {
 		Device dev = (Device) genericDao.get(Device.class, deviceId);
 
 		Map<String, ConfigurationItem> map = dev.getUserConfigurationItems();
-		ConfigurationItem item = map.get("port");
-		Assert.assertEquals("80", item.getValue());
+		ConfigurationItem item = map.get("url");
+		Assert.assertEquals("http://tianhu.dingjianghao.com/rcweb/", item.getValue());
 
 		// another device
 		deviceId = "434c64c5-adbf-4e2d-929c-6671f9f61045";

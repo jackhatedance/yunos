@@ -490,4 +490,12 @@ public class RemoteServiceImpl implements RemoteService {
 
 		return voFunctionalDeviceList;
 	}
+
+	@Override
+	public void reloadDriver(String deviceId) {
+		com.driverstack.yunos.domain.Device domainDevice = deviceDao
+				.get(deviceId);
+		deviceManager.reloadDriver(domainDevice);
+
+	}
 }

@@ -106,10 +106,10 @@ public class RemoteServiceTests {
 		for (ConfigurationItem item : items)
 			map.put(item.getName(), item);
 
-		ConfigurationItem portItem = map.get("port");
+		ConfigurationItem urlItem = map.get("url");
 
-		Assert.assertEquals("port", portItem.getName());
-		Assert.assertEquals("80", portItem.getValue());
+		Assert.assertEquals("url", urlItem.getName());
+		Assert.assertEquals("http://tianhu.dingjianghao.com/rcweb/", urlItem.getValue());
 
 		// test init config dc098964-dd7d-451a-ad2e-e04d7287df78
 
@@ -123,7 +123,7 @@ public class RemoteServiceTests {
 		Assert.assertEquals("host", hostItem.getName());
 		Assert.assertEquals("0.0.0.0", hostItem.getValue());
 
-		portItem = map.get("port");
+		ConfigurationItem portItem = map.get("port");
 
 		Assert.assertEquals("port", portItem.getName());
 		Assert.assertEquals("60", portItem.getValue());

@@ -7,7 +7,7 @@ import com.driverstack.yunos.ExecutionEnvironment;
 
 public abstract class AbstractPhysicalDevice implements PhysicalDevice {
 	protected List<FunctionalDevice> functionalDevices = new ArrayList<FunctionalDevice>();
-	
+
 	protected ExecutionEnvironment executionEnvironment;
 	protected Object config;
 
@@ -15,6 +15,11 @@ public abstract class AbstractPhysicalDevice implements PhysicalDevice {
 	public void init(ExecutionEnvironment executionEnvironment, Object config) {
 		this.executionEnvironment = executionEnvironment;
 		this.config = config;
+	}
+
+	@Override
+	public void destroy() {
+	
 	}
 
 	@Override
