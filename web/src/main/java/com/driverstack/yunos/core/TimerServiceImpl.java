@@ -4,7 +4,9 @@ import static org.quartz.CronScheduleBuilder.cronSchedule;
 import static org.quartz.TriggerBuilder.newTrigger;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.quartz.JobBuilder;
@@ -25,9 +27,7 @@ import com.driverstack.yunos.driver.device.TimerListener;
 public class TimerServiceImpl implements TimerService {
 	static Logger logger = Logger.getLogger(TimerServiceImpl.class);
 
-	Scheduler scheduler;
-
-	Map<TimerListener, JobKey> jobs = new HashMap<TimerListener, JobKey>();
+	private Scheduler scheduler;
 
 	public TimerServiceImpl() {
 
@@ -51,7 +51,7 @@ public class TimerServiceImpl implements TimerService {
 	 * .driver.device.TimerListener, int)
 	 */
 	@Override
-	public synchronized void subscribe(TimerListener listener, int interval,
+	public synchronized Object subscribe(TimerListener listener, int interval,
 			int code) {
 
 		JobDetail job = JobBuilder.newJob(MyJob.class).build();
@@ -65,16 +65,14 @@ public class TimerServiceImpl implements TimerService {
 
 		.build();
 
-		if (trigger != null) {
-			try {
-				scheduler.scheduleJob(job, trigger);
+		try {
+			scheduler.scheduleJob(job, trigger);
+			return job.getKey();
+		} catch (SchedulerException e) {
 
-				jobs.put(listener, job.getKey());
-			} catch (SchedulerException e) {
-
-				throw new RuntimeException(e);
-			}
+			throw new RuntimeException(e);
 		}
+
 	}
 
 	/*
@@ -85,7 +83,7 @@ public class TimerServiceImpl implements TimerService {
 	 * .driver.device.TimerListener, java.lang.String)
 	 */
 	@Override
-	public synchronized void subscribe(TimerListener listener,
+	public synchronized Object subscribe(TimerListener listener,
 			String cronExpression, int code) {
 
 		JobDetail job = JobBuilder.newJob(MyJob.class).build();
@@ -93,21 +91,17 @@ public class TimerServiceImpl implements TimerService {
 		job.getJobDataMap().put(MyJob.TIMER_LISTENER, listener);
 		job.getJobDataMap().put(MyJob.TIMER_CODE, code);
 
-		Trigger
+		Trigger trigger = newTrigger()
+				.withSchedule(cronSchedule(cronExpression)).forJob(job).build();
 
-		trigger = newTrigger().withSchedule(cronSchedule(cronExpression))
-				.forJob(job).build();
+		try {
+			scheduler.scheduleJob(job, trigger);
+			return job.getKey();
+		} catch (SchedulerException e) {
 
-		if (trigger != null) {
-			try {
-				scheduler.scheduleJob(job, trigger);
-
-				jobs.put(listener, job.getKey());
-			} catch (SchedulerException e) {
-
-				throw new RuntimeException(e);
-			}
+			throw new RuntimeException(e);
 		}
+
 	}
 
 	/*
@@ -118,12 +112,13 @@ public class TimerServiceImpl implements TimerService {
 	 * .driver.device.TimerListener)
 	 */
 	@Override
-	public synchronized void unsubscribe(TimerListener listener) {
+	public synchronized void unsubscribe(Object jobId) {
 
-		JobKey jobKey = jobs.get(listener);
 		try {
-			scheduler.deleteJob(jobKey);
-		} catch (SchedulerException e) {
+			JobKey key = (JobKey) jobId;
+			scheduler.deleteJob(key);
+
+		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}

@@ -59,7 +59,8 @@ public class DeviceApiController {
 	}
 
 	@RequestMapping(value = "", method = RequestMethod.POST)
-	public void addDevice(@RequestParam String userId, @RequestBody Device device) {
+	public void addDevice(@RequestParam String userId,
+			@RequestBody Device device) {
 		remoteService.addDevice(userId, device);
 	}
 
@@ -91,7 +92,7 @@ public class DeviceApiController {
 
 		Object result = remoteService.operateDevice(deviceId,
 				functionalDeviceIndex, operation, parameters);
-		
+
 		return true;
 
 	}
@@ -132,8 +133,12 @@ public class DeviceApiController {
 
 	}
 
+	@RequestMapping(value = "/reload", method = RequestMethod.GET)
+	public boolean reloadDevice(@RequestParam String deviceId) {
+		remoteService.reloadDriver(deviceId);
+		// always true.
+		return true;
 
-
-	
+	}
 
 }

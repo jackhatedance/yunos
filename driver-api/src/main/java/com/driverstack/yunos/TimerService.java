@@ -10,10 +10,10 @@ public interface TimerService {
 	 * @param interval
 	 *            in milliseconds
 	 */
-	public abstract void subscribe(TimerListener listener, int interval, int code);
+	public abstract Object subscribe(TimerListener listener, int interval, int code);
 
-	public abstract void subscribe(TimerListener listener, String cronExpression, int code);
+	public abstract Object subscribe(TimerListener listener, String cronExpression, int code);
 
-	public abstract void unsubscribe(TimerListener listener);
+	public abstract void unsubscribe(Object jobId);
 
 }

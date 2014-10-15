@@ -53,8 +53,13 @@ public class DeviceManagerImpl implements DeviceManager {
 		this.deviceDao = deviceDao;
 	}
 
-	public void setKernel(ExecutionEnvironment kernel) {
-		this.executionEnvironment = kernel;
+	public ExecutionEnvironment getExecutionEnvironment() {
+		return executionEnvironment;
+	}
+
+	public void setExecutionEnvironment(
+			ExecutionEnvironment executionEnvironment) {
+		this.executionEnvironment = executionEnvironment;
 	}
 
 	public PhysicalDevice getPhysicalDeviceObject(Device domainDevice) {
@@ -64,6 +69,8 @@ public class DeviceManagerImpl implements DeviceManager {
 			return devices.get(deviceId);
 		else {
 			PhysicalDevice device = loadDevice(domainDevice);
+			devices.put(deviceId, device);
+			
 			return device;
 		}
 
