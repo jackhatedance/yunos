@@ -15,6 +15,7 @@ import junit.framework.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -59,6 +60,9 @@ public class ServiceTests {
 	@Autowired
 	private DeviceClassService deviceClassService;
 
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+
 	@Test
 	public void testAll() throws Exception {
 		assertNotNull(userService);
@@ -67,7 +71,7 @@ public class ServiceTests {
 		User user = userService.getUserByEmail("jack@example.com");
 		assertNotNull(user);
 
-		List<Device> devices = deviceService.listByUserId(user.getId());
+		List<Device> devices = deviceService.listByUserId(user.getId(), null);
 		assertNotNull(devices);
 		Assert.assertFalse(devices.isEmpty());
 
@@ -102,7 +106,8 @@ public class ServiceTests {
 
 		Map<String, ConfigurationItem> map = dev.getUserConfigurationItems();
 		ConfigurationItem item = map.get("url");
-		Assert.assertEquals("http://tianhu.dingjianghao.com/rcweb/", item.getValue());
+		Assert.assertEquals("http://tianhu.dingjianghao.com/rcweb/",
+				item.getValue());
 
 		// another device
 		deviceId = "434c64c5-adbf-4e2d-929c-6671f9f61045";
@@ -127,9 +132,6 @@ public class ServiceTests {
 		fd.setLocale("zh_CN");
 
 		Assert.assertEquals("我的开关", fd.getDisplayName());
-		
-		
-		
 
 	}
 
@@ -157,25 +159,35 @@ public class ServiceTests {
 		item = items.get(0).get("en_US");
 		actualName = item.getDisplayName();
 		Assert.assertEquals("Code On", actualName);
-		
+
 		item = items.get(2).get("en_US");
 		String actualTypeParameter = item.getTypeParameter();
-		Assert.assertEquals("com.driverstack.yunos.deviceApi.transmitter.MySwitch", actualTypeParameter);
-				
+		Assert.assertEquals(
+				"com.driverstack.yunos.deviceApi.transmitter.MySwitch",
+				actualTypeParameter);
+
 		// test delete driver
 		driverService.delete(driverId);
 
 		// test matching models
 		// jack 7eggs multi-function transmitter
-		
-		//rf model 
+
+		// rf model
 		String modelId = "da50f304-3e26-11e4-8a8f-08002785c3ec";
-		
 
 		Model model = (Model) genericDao.load(Model.class, modelId);
 		List<Driver> availableDrivers = driverService
 				.findAvailableDrivers(model);
 		Assert.assertFalse(availableDrivers.isEmpty());
 
+	}
+
+	@Test
+	public void testPasswordEncoder() throws Exception {
+		String raw = "pass";
+		String hash = passwordEncoder.encode(raw);
+
+		Assert.assertTrue(passwordEncoder.matches(raw, hash));
+		System.out.println("hash password:" + hash);
 	}
 }

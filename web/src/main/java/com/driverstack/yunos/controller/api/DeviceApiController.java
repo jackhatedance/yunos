@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,13 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import com.driverstack.yunos.dao.ApplicationDao;
-import com.driverstack.yunos.domain.Application;
 import com.driverstack.yunos.remote.vo.ConfigurationItem;
 import com.driverstack.yunos.remote.vo.Device;
-import com.driverstack.yunos.remote.vo.FunctionalDevice;
 import com.driverstack.yunos.service.ApplicationService;
 import com.driverstack.yunos.service.RemoteService;
 
@@ -31,7 +27,7 @@ import com.driverstack.yunos.service.RemoteService;
  */
 @RestController
 @RequestMapping("/api/1.0/devices")
-// @Secured("ROLE_USER")
+@Secured({ "ROLE_USER", "ROLE_APP" })
 public class DeviceApiController {
 
 	@Autowired
@@ -39,16 +35,18 @@ public class DeviceApiController {
 	@Autowired
 	ApplicationService applicationService;
 
+	@Secured("ROLE_USER")
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public List<com.driverstack.yunos.remote.vo.Device> listUserDevices(
-			@RequestParam("userId") String userId) {
+			@RequestParam("userId") String userId,
+			@RequestParam(value = "deviceClassId", required = false) String deviceClassId) {
 		Authentication auth = SecurityContextHolder.getContext()
 				.getAuthentication();
 		String name = auth.getName(); // get logged in username
 		// User user =
 		// (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		// String name = user.getUsername(); //get logged in username
-		return remoteService.queryUserDevices(userId);
+		return remoteService.queryUserDevices(userId, deviceClassId);
 	}
 
 	@RequestMapping(value = "/{deviceId}", method = RequestMethod.GET)

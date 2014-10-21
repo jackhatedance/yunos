@@ -3,11 +3,12 @@ package com.driverstack.yunos.service;
 import java.util.List;
 
 import com.driverstack.yunos.domain.Device;
+import com.driverstack.yunos.domain.DeviceClass;
 import com.driverstack.yunos.domain.Driver;
 
 public interface DeviceService {
 
-	List<Device> listByUserId(String userId);
+	List<Device> listByUserId(String userId, DeviceClass deviceClass);
 
 	String save(Device device);
 
@@ -21,5 +22,6 @@ public interface DeviceService {
 	 * 
 	 * @param driver
 	 */
-	List<com.driverstack.yunos.domain.ConfigurationItem> createConfiguration(Device device, Driver driver);
+	List<com.driverstack.yunos.domain.ConfigurationItem> createConfiguration(
+			Device device, Driver driver);
 }

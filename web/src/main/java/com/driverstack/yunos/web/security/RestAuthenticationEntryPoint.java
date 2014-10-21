@@ -14,9 +14,9 @@ import org.springframework.stereotype.Component;
 public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
 	@Override
-	public void commence(HttpServletRequest arg0, HttpServletResponse arg1,
-			AuthenticationException arg2) throws IOException, ServletException {
-		arg1.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+	public void commence(HttpServletRequest req, HttpServletResponse resp,
+			AuthenticationException ae) throws IOException, ServletException {
+		resp.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
 
 	}
 

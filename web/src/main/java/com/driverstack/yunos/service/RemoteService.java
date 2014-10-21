@@ -20,12 +20,20 @@ public interface RemoteService {
 	String login(String userId, String password);
 
 	/**
+	 * revoke the token.
+	 * 
+	 * @param token
+	 * @return
+	 */
+	void logout(String token);
+
+	/**
 	 * list devices of a user.
 	 * 
 	 * @param userId
 	 * @return
 	 */
-	List<Device> queryUserDevices(String userId);
+	List<Device> queryUserDevices(String userId, String deviceClassId);
 
 	Device getDevice(String deviceId);
 

@@ -19,5 +19,9 @@ public interface SetTopBox extends FunctionalDevice {
 	void recordedTv(String program);
 
 	void movie(String name);
-
+	
+	void goToChannel(int number);
+	
+	void goToChannel(String channelName);
+	
 }

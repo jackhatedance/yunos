@@ -20,9 +20,9 @@ import com.driverstack.yunos.dao.DeviceDao;
 import com.driverstack.yunos.dao.GenericDao;
 import com.driverstack.yunos.domain.DeviceClass;
 import com.driverstack.yunos.domain.Model;
-import com.driverstack.yunos.domain.Token;
 import com.driverstack.yunos.domain.User;
 import com.driverstack.yunos.domain.Vendor;
+import com.driverstack.yunos.domain.auth.Token;
 import com.driverstack.yunos.driver.config.ConfigurationItemType;
 import com.driverstack.yunos.driver.device.FunctionalDevice;
 import com.driverstack.yunos.driver.device.PhysicalDevice;
@@ -91,9 +91,21 @@ public class RemoteServiceImpl implements RemoteService {
 	}
 
 	@Override
-	public List<Device> queryUserDevices(String userId) {
+	public void logout(String token) {
+		Token tokenObj = (Token) genericDao.get(Token.class, token);
+		authenticationService.revoke(tokenObj);
+
+	}
+
+	@Override
+	public List<Device> queryUserDevices(String userId, String deviceClassId) {
+		DeviceClass deviceClass = null;
+		if (deviceClassId != null)
+			deviceClass = (DeviceClass) genericDao.load(DeviceClass.class,
+					deviceClassId);
+
 		List<com.driverstack.yunos.domain.Device> domainDeviceList = deviceService
-				.listByUserId(userId);
+				.listByUserId(userId, deviceClass);
 		List<Device> remoteDeviceList = new ArrayList<Device>();
 
 		for (com.driverstack.yunos.domain.Device d : domainDeviceList) {
@@ -449,7 +461,7 @@ public class RemoteServiceImpl implements RemoteService {
 
 		// 1. query device(physical) from DB.
 		List<com.driverstack.yunos.domain.Device> domainDeviceList = deviceService
-				.listByUserId(userId);
+				.listByUserId(userId, null);
 
 		// 2. collect functional device in memory
 		List<com.driverstack.yunos.remote.vo.FunctionalDevice> voFunctionalDeviceList = new ArrayList<com.driverstack.yunos.remote.vo.FunctionalDevice>();

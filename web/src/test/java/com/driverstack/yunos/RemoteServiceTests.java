@@ -36,7 +36,7 @@ public class RemoteServiceTests {
 		assertNotNull(remoteService);
 
 		List<com.driverstack.yunos.remote.vo.Device> devices = remoteService
-				.queryUserDevices("jackding");
+				.queryUserDevices("jackding", null);
 
 		assertNotNull(devices);
 
@@ -90,8 +90,8 @@ public class RemoteServiceTests {
 		Device remoteDev2 = remoteService.getDevice(deviceId);
 		Assert.assertEquals("Loc1", remoteDev2.getLocation());
 
-		
-		List<FunctionalDevice> functionalDeviceList = remoteService.getFunctionalDevices(deviceId, "zh_CN");
+		List<FunctionalDevice> functionalDeviceList = remoteService
+				.getFunctionalDevices(deviceId, "zh_CN");
 		Assert.assertFalse(functionalDeviceList.isEmpty());
 	}
 
@@ -109,7 +109,8 @@ public class RemoteServiceTests {
 		ConfigurationItem urlItem = map.get("url");
 
 		Assert.assertEquals("url", urlItem.getName());
-		Assert.assertEquals("http://tianhu.dingjianghao.com/rcweb/", urlItem.getValue());
+		Assert.assertEquals("http://tianhu.dingjianghao.com/rcweb/",
+				urlItem.getValue());
 
 		// test init config dc098964-dd7d-451a-ad2e-e04d7287df78
 

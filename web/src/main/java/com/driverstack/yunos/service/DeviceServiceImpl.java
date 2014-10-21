@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import com.driverstack.yunos.dao.DeviceDao;
 import com.driverstack.yunos.domain.Device;
+import com.driverstack.yunos.domain.DeviceClass;
 import com.driverstack.yunos.domain.Driver;
 import com.driverstack.yunos.domain.DriverConfigurationDefinition;
 import com.driverstack.yunos.domain.DriverConfigurationDefinitionItem;
@@ -25,8 +26,8 @@ public class DeviceServiceImpl extends AbstractService implements DeviceService 
 	private DriverService driverService;
 
 	@Override
-	public List<Device> listByUserId(String userId) {
-		return deviceDao.listByUser(userId);
+	public List<Device> listByUserId(String userId, DeviceClass deviceClass) {
+		return deviceDao.listByUser(userId, deviceClass);
 	}
 
 	@Override

@@ -10,5 +10,7 @@ public interface UserService {
 	User getUserByEmail(String email);
 
 	List<User> list();
+	
+	void save(User user);
 
 }

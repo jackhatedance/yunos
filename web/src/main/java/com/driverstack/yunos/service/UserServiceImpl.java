@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.driverstack.yunos.dao.UserDao;
@@ -20,6 +21,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserDao userDao;
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	protected Session getCurrentSession() {
 		return sessionFactory.getCurrentSession();
@@ -41,5 +45,13 @@ public class UserServiceImpl implements UserService {
 	public List<User> list() {
 		return getCurrentSession().createCriteria(User.class).list();
 
+	}
+
+	@Override
+	public void save(User user) {
+		String hash = passwordEncoder.encode(user.getPassword());
+		user.setPasswordHash(hash);
+
+		getCurrentSession().save(user);
 	}
 }

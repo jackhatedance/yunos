@@ -6,8 +6,9 @@ import org.springframework.util.DigestUtils;
 
 import com.driverstack.yunos.dao.TokenDao;
 import com.driverstack.yunos.dao.UserDao;
-import com.driverstack.yunos.domain.Token;
 import com.driverstack.yunos.domain.User;
+import com.driverstack.yunos.domain.auth.Token;
+import com.driverstack.yunos.domain.auth.TokenUserAuthorization;
 
 @Component
 public class AuthenticationServiceImpl implements AuthenticationService {
@@ -26,7 +27,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		if (user.getPasswordHash().equalsIgnoreCase(hash)) {
 			Token token = new Token();
 
-			token.setUser(user);
+			TokenUserAuthorization tua = new TokenUserAuthorization(user,true,true,true,true);
+			
+			token.addAuthorization(tua);
 
 			tokenDao.save(token);
 
@@ -34,5 +37,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		}
 
 		return null;
+	}
+	
+	@Override
+	public void revoke(Token token) {
+		tokenDao.delete(token);
+		
 	}
 }
