@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
 
-@ControllerAdvice
+@ControllerAdvice(basePackages = "com.driverstack.yunos.controller.api")
 public class ApiExceptionHandlerAdvice {
 	private Logger logger = Logger.getLogger(ApiExceptionHandlerAdvice.class);
 

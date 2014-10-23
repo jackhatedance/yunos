@@ -7,14 +7,18 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.driverstack.yunos.dao.UserDao;
 import com.driverstack.yunos.domain.User;
+import com.driverstack.yunos.web.security.MyUserDetail;
 
-@Component
-public class UserServiceImpl implements UserService {
+@Component("userService")
+public class UserServiceImpl implements UserService, UserDetailsService {
 
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -27,6 +31,18 @@ public class UserServiceImpl implements UserService {
 
 	protected Session getCurrentSession() {
 		return sessionFactory.getCurrentSession();
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String username)
+			throws UsernameNotFoundException {
+		User user = getUser(username);
+
+		MyUserDetail detail = new MyUserDetail(user);
+
+		detail.getUsername();
+
+		return detail;
 	}
 
 	@Override
@@ -50,7 +66,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void save(User user) {
 		String hash = passwordEncoder.encode(user.getPassword());
-		user.setPasswordHash(hash);
+		user.setPassword(hash);
 
 		getCurrentSession().save(user);
 	}

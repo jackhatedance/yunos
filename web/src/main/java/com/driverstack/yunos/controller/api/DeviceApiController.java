@@ -27,7 +27,7 @@ import com.driverstack.yunos.service.RemoteService;
  */
 @RestController
 @RequestMapping("/api/1.0/devices")
-@Secured({ "ROLE_USER", "ROLE_APP" })
+@Secured({ "ROLE_USER", "ROLE_APPLICATION" })
 public class DeviceApiController {
 
 	@Autowired

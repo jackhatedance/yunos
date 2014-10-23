@@ -35,7 +35,14 @@ public class Token {
 	private String id;
 
 	@Column
-	private Date startTime;
+	private String password;
+	
+	@JoinColumn(name = "userId")
+	@ManyToOne
+	private User owner;
+
+	@Column
+	private Date createTime;
 
 	@Column
 	private Date expireTime;
@@ -56,12 +63,28 @@ public class Token {
 		this.id = id;
 	}
 
-	public Date getStartTime() {
-		return startTime;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setStartTime(Date startTime) {
-		this.startTime = startTime;
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public User getOwner() {
+		return owner;
+	}
+
+	public void setOwner(User owner) {
+		this.owner = owner;
+	}
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
 	}
 
 	public Date getExpireTime() {

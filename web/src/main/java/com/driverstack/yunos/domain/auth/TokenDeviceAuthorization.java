@@ -9,6 +9,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import com.driverstack.yunos.domain.Device;
+import com.driverstack.yunos.domain.User;
 
 @javax.persistence.Entity
 public class TokenDeviceAuthorization {
@@ -88,4 +89,12 @@ public class TokenDeviceAuthorization {
 		this.deletable = deletable;
 	}
 
+	public TokenDeviceAuthorization(Device device, boolean readable,
+			boolean writable, boolean executable, boolean deletable) {
+		this.device = device;
+		this.readable = readable;
+		this.writable = writable;
+		this.executable = executable;
+		this.deletable = deletable;
+	}
 }

@@ -9,38 +9,42 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.driverstack.yunos.domain.User;
+import com.driverstack.yunos.domain.auth.Token;
 
-/** This object wraps {@link User} and makes it {@link UserDetails} so that Spring Security can use it. */
-public class MyUserDetail implements UserDetails {
+/**
+ * This object wraps {@link User} and makes it {@link UserDetails} so that
+ * Spring Security can use it.
+ */
+public class TokenUserDetail implements UserDetails {
 
-	private User user;
+	private Token token;
 
-	public MyUserDetail(User user) {
-		this.user = user;
+	public TokenUserDetail(Token token) {
+		this.token = token;
 	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-		
-		/*for (String role : user.getRoles()) {
-			authorities.add(new SimpleGrantedAuthority(role));
-		}*/
-		
-		authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-		authorities.add(new SimpleGrantedAuthority("ROLE_DEV"));
-		
+
+		/*
+		 * for (String role : user.getRoles()) { authorities.add(new
+		 * SimpleGrantedAuthority(role)); }
+		 */
+
+		authorities.add(new SimpleGrantedAuthority("ROLE_APPLICATION"));
+
 		return authorities;
 	}
 
 	@Override
 	public String getPassword() {
-		return user.getPassword();
+		return token.getPassword();
 	}
 
 	@Override
 	public String getUsername() {
-		return user.getId();
+		return token.getId();
 	}
 
 	@Override
@@ -65,20 +69,17 @@ public class MyUserDetail implements UserDetails {
 
 	@Override
 	public boolean equals(Object o) {
-		return this == o
-			|| o != null && o instanceof MyUserDetail
-			&& Objects.equals(user, ((MyUserDetail) o).user);
+		return this == o || o != null && o instanceof TokenUserDetail
+				&& Objects.equals(token, ((TokenUserDetail) o).token);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hashCode(user);
+		return Objects.hashCode(token);
 	}
 
 	@Override
 	public String toString() {
-		return "UserContext{" +
-			"user=" + user +
-			'}';
+		return "UserContext{" + "user=" + token + '}';
 	}
 }

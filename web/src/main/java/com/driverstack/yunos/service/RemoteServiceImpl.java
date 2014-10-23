@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import com.driverstack.yunos.api.ApiUtils;
@@ -67,9 +68,6 @@ public class RemoteServiceImpl implements RemoteService {
 	private DriverService driverService;
 
 	@Autowired
-	private AuthenticationService authenticationService;
-
-	@Autowired
 	private ApplicationDao applicationDao;
 
 	public DeviceManager getDeviceManager() {
@@ -80,22 +78,9 @@ public class RemoteServiceImpl implements RemoteService {
 		this.deviceManager = deviceManager;
 	}
 
-	@Override
-	public String login(String userId, String password) {
-		Token t = authenticationService.login(userId, password);
+	
 
-		if (t != null)
-			return t.getId();
-		else
-			return null;
-	}
-
-	@Override
-	public void logout(String token) {
-		Token tokenObj = (Token) genericDao.get(Token.class, token);
-		authenticationService.revoke(tokenObj);
-
-	}
+	
 
 	@Override
 	public List<Device> queryUserDevices(String userId, String deviceClassId) {

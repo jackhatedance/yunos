@@ -8,10 +8,9 @@ import javax.persistence.Transient;
 public class User {
 	@Id
 	private String id;
-	@Transient
-	private String password;
 	@Column
-	private String passwordHash;
+	private String password;
+
 	@Column
 	private String firstName;
 	@Column
@@ -33,14 +32,6 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public String getPasswordHash() {
-		return passwordHash;
-	}
-
-	public void setPasswordHash(String passwordHash) {
-		this.passwordHash = passwordHash;
 	}
 
 	public String getFirstName() {

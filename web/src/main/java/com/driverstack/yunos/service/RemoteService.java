@@ -10,22 +10,6 @@ import com.driverstack.yunos.remote.vo.DriverConfigurationDefinitionItem;
 import com.driverstack.yunos.remote.vo.FunctionalDevice;
 
 public interface RemoteService {
-	/**
-	 * login to get token, which will be used for later calling API
-	 * 
-	 * @param userId
-	 * @param password
-	 * @return token
-	 */
-	String login(String userId, String password);
-
-	/**
-	 * revoke the token.
-	 * 
-	 * @param token
-	 * @return
-	 */
-	void logout(String token);
 
 	/**
 	 * list devices of a user.

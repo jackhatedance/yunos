@@ -16,37 +16,25 @@
 	<!-- Rest authentication entry point configuration -->
 	<http use-expressions="true" authentication-manager-ref="authenticationManager"
 		auto-config="true">
-		<intercept-url pattern="/api/1.0/login_check" access="IS_AUTHENTICATED_ANONYMOUSLY" />
-		<intercept-url pattern="/api/1.0/**" />
-
-		<sec:form-login login-processing-url="/api/1.0/login_check"
-			default-target-url="/" authentication-success-handler-ref="mySuccessHandler"
-			authentication-failure-handler-ref="myFailureHandler" />
-
-		<logout logout-success-url="/"/>
-		<sec:form-login />
+		<intercept-url pattern="/api/**" />
+		<sec:http-basic />
 	</http>
-
-	<!-- Connect the custom authentication success handler -->
-	<beans:bean id="mySuccessHandler"
-		class="com.driverstack.yunos.web.security.RestAuthenticationSuccessHandler" />
-	<!-- Using default failure handler -->
-	<beans:bean id="myFailureHandler"
-		class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler" />
-
-
-
 
 	<authentication-manager id="authenticationManager">
 		<authentication-provider>
 			<user-service>
 				<user name="admin" password="pass" authorities="ROLE_ADMIN" />
 				<user name="user" password="pass" authorities="ROLE_USER" />
-				<user name="dev" password="pass" authorities="ROLE_DEV,ROLE_USER,ROLE_APP" />
-				<user name="app" password="pass" authorities="ROLE_APP" />
+				<user name="dev" password="pass"
+					authorities="ROLE_DEVELOPER,ROLE_USER,ROLE_APPLICATION" />
+				<user name="app" password="pass" authorities="ROLE_APPLICATION" />
 			</user-service>
 		</authentication-provider>
-		<authentication-provider user-service-ref="myUserDetailService">
+
+		<authentication-provider user-service-ref="userService">
+			<sec:password-encoder hash="bcrypt"></sec:password-encoder>
+		</authentication-provider>
+		<authentication-provider user-service-ref="tokenService">
 			<sec:password-encoder hash="bcrypt"></sec:password-encoder>
 		</authentication-provider>
 	</authentication-manager>

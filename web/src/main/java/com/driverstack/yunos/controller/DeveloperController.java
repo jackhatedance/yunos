@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/developer")
-@Secured("ROLE_DEV")
+@Secured("ROLE_DEVELOPER")
 public class DeveloperController {
 	@RequestMapping("/")
 	public String index(
