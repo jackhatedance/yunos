@@ -38,6 +38,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 			throws UsernameNotFoundException {
 		User user = getUser(username);
 
+		if (user == null)
+			throw new UsernameNotFoundException("username:" + username);
+
 		MyUserDetail detail = new MyUserDetail(user);
 
 		detail.getUsername();

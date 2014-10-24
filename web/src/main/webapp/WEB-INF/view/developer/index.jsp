@@ -2,6 +2,8 @@
   <body>
     <h1>YunOS Web</h1>
     
+    <h2>You are: ${username }</h2>
+    
     <h2>device operation</h2>
     
     <ul>

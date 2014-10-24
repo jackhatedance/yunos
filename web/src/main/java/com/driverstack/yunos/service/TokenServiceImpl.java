@@ -13,7 +13,7 @@ import com.driverstack.yunos.domain.User;
 import com.driverstack.yunos.domain.auth.Token;
 import com.driverstack.yunos.domain.auth.TokenDeviceAuthorization;
 import com.driverstack.yunos.domain.auth.TokenUserAuthorization;
-import com.driverstack.yunos.web.security.TokenUserDetail;
+import com.driverstack.yunos.web.security.TokenUserDetails;
 
 @Component("tokenService")
 public class TokenServiceImpl extends AbstractService implements TokenService,
@@ -61,8 +61,11 @@ public class TokenServiceImpl extends AbstractService implements TokenService,
 		String tokenId = username;
 
 		Token token = tokenDao.get(tokenId);
+		if (token == null)
+			throw new UsernameNotFoundException("token ID:" + username);
 
-		return new TokenUserDetail(token);
+		TokenUserDetails tokenUserDetails = new TokenUserDetails(token);
+		return tokenUserDetails;
 	}
 
 }

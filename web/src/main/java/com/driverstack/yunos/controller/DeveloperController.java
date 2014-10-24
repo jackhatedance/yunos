@@ -9,12 +9,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping("/developer")
 @Secured("ROLE_DEVELOPER")
-public class DeveloperController {
+public class DeveloperController extends BaseController{
 	@RequestMapping("/")
 	public String index(
 			@RequestParam(value = "name", required = false, defaultValue = "World") String name,
 			Model model) {
 		model.addAttribute("name", name);
+		
+		setHeaderModel(model);
+		
 		return "developer/index";
 	}
 }

@@ -15,11 +15,11 @@ import com.driverstack.yunos.domain.auth.Token;
  * This object wraps {@link User} and makes it {@link UserDetails} so that
  * Spring Security can use it.
  */
-public class TokenUserDetail implements UserDetails {
+public class TokenUserDetails implements UserDetails {
 
 	private Token token;
 
-	public TokenUserDetail(Token token) {
+	public TokenUserDetails(Token token) {
 		this.token = token;
 	}
 
@@ -69,8 +69,8 @@ public class TokenUserDetail implements UserDetails {
 
 	@Override
 	public boolean equals(Object o) {
-		return this == o || o != null && o instanceof TokenUserDetail
-				&& Objects.equals(token, ((TokenUserDetail) o).token);
+		return this == o || o != null && o instanceof TokenUserDetails
+				&& Objects.equals(token, ((TokenUserDetails) o).token);
 	}
 
 	@Override
