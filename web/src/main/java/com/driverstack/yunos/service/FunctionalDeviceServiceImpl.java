@@ -79,28 +79,29 @@ public class FunctionalDeviceServiceImpl extends AbstractService implements
 		ResourceBundle defaultBundle = bundles.getBundle(null);
 
 		// 3 save to file system
+
+		String organizationId = defaultBundle
+				.get(FunctionalDeviceProperties.ORGANIZATION_ID);
+
+		String artifactId = defaultBundle
+				.get(FunctionalDeviceProperties.ARTIFACT_ID);
+
+		String versionStr = defaultBundle
+				.get(FunctionalDeviceProperties.ARTIFACT_VERSION);
+
+		int version = 0;
+		if (versionStr != null)
+			Integer.valueOf(versionStr);
+
+		String path = getFunctionalDeviceJarPath();
+
+		File dir = new File(path);
+		dir.mkdir();
+
+		String fullFileName = getFullFunctionalDeviceJarFileName(
+				organizationId, artifactId, version);
+		
 		try {
-
-			String organizationId = defaultBundle
-					.get(FunctionalDeviceProperties.ORGANIZATION_ID);
-
-			String artifactId = defaultBundle
-					.get(FunctionalDeviceProperties.ARTIFACT_ID);
-
-			String versionStr = defaultBundle
-					.get(FunctionalDeviceProperties.ARTIFACT_VERSION);
-
-			int version = 0;
-			if (versionStr != null)
-				Integer.valueOf(versionStr);
-
-			String path = getFunctionalDeviceJarPath();
-
-			File dir = new File(path);
-			dir.mkdir();
-
-			String fullFileName = getFullFunctionalDeviceJarFileName(
-					organizationId, artifactId, version);
 			FileOutputStream out = new FileOutputStream(fullFileName);
 
 			bais.reset();
@@ -124,8 +125,7 @@ public class FunctionalDeviceServiceImpl extends AbstractService implements
 			throw new RuntimeException("organizationId is invalid:" + orgId);
 
 		FunctionalDevice domainFunctionalDevice = new FunctionalDevice(
-				orgnization,
-				defaultBundle.get(FunctionalDeviceProperties.ARTIFACT_ID),
+				orgnization, artifactId, version,
 				defaultBundle.get(FunctionalDeviceProperties.CLASS_NAME),
 				defaultBundle.get(FunctionalDeviceProperties.SDK_VERSION),
 				user, new Date(),

@@ -179,10 +179,11 @@ public class FunctionalDevice {
 	}
 
 	public FunctionalDevice(Vendor organization, String artifactId,
-			String className, String sdkVersion, User submitter,
+			int version, String className, String sdkVersion, User submitter,
 			Date submitTime, String defaultLocale) {
 		this.organization = organization;
 		this.artifactId = artifactId;
+		this.version = version;
 		this.className = className;
 		this.sdkVersion = sdkVersion;
 		this.submitter = submitter;
