@@ -108,4 +108,24 @@ public class DriverClassLoader {
 		return (com.driverstack.yunos.driver.Driver) factory.create(jcl,
 				className);
 	}
+
+	public JarClassLoader getFunctionalDeviceClassLoader() {
+		return functionalDeviceClassLoader;
+	}
+
+	public void setFunctionalDeviceClassLoader(
+			JarClassLoader functionalDeviceClassLoader) {
+		this.functionalDeviceClassLoader = functionalDeviceClassLoader;
+	}
+
+	public ProxyClassLoader getFunctionalDeviceClassLoaderDelegate() {
+		return functionalDeviceClassLoaderDelegate;
+	}
+
+	public void setFunctionalDeviceClassLoaderDelegate(
+			ProxyClassLoader functionalDeviceClassLoaderDelegate) {
+		this.functionalDeviceClassLoaderDelegate = functionalDeviceClassLoaderDelegate;
+	}
+	
+	
 }

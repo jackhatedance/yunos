@@ -41,6 +41,9 @@ public class FunctionalDevice {
 	private String artifactId;
 
 	@Column
+	private int version;
+
+	@Column
 	private String className;
 	@Column
 	private String sdkVersion;
@@ -85,6 +88,14 @@ public class FunctionalDevice {
 
 	public void setArtifactId(String artifactId) {
 		this.artifactId = artifactId;
+	}
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
 	}
 
 	public String getClassName() {
@@ -133,8 +144,8 @@ public class FunctionalDevice {
 
 	public void setLocale(String locale) {
 		this.locale = locale;
-		
-		//update cascade
+
+		// update cascade
 		organization.setLocale(locale);
 	}
 

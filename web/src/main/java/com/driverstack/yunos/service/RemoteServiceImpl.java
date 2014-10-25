@@ -16,6 +16,7 @@ import com.driverstack.yunos.api.ApiUtils;
 import com.driverstack.yunos.api.Parameter;
 import com.driverstack.yunos.api.ParameterType;
 import com.driverstack.yunos.core.DeviceManager;
+import com.driverstack.yunos.core.DriverClassLoader;
 import com.driverstack.yunos.dao.ApplicationDao;
 import com.driverstack.yunos.dao.DeviceDao;
 import com.driverstack.yunos.dao.GenericDao;
@@ -54,6 +55,8 @@ public class RemoteServiceImpl implements RemoteService {
 
 	@Autowired
 	private DeviceManager deviceManager;
+	@Autowired
+	private DriverClassLoader driverClassLoader;
 
 	@Autowired
 	private DeviceDao deviceDao;
@@ -77,10 +80,6 @@ public class RemoteServiceImpl implements RemoteService {
 	public void setDeviceManager(DeviceManager deviceManager) {
 		this.deviceManager = deviceManager;
 	}
-
-	
-
-	
 
 	@Override
 	public List<Device> queryUserDevices(String userId, String deviceClassId) {
@@ -461,13 +460,20 @@ public class RemoteServiceImpl implements RemoteService {
 			List<FunctionalDevice> runtimeFDList = pd.getFunctionDevices();
 			for (int i = 0; i < runtimeFDList.size(); i++) {
 				FunctionalDevice rfd = runtimeFDList.get(i);
-				String fdClassName = rfd.getClass().getInterfaces()[0]
-						.getCanonicalName();
+				Class queryClass;
+				try {
+					queryClass = Class.forName(className, true,
+							driverClassLoader.getFunctionalDeviceClassLoader());
 
-				if (className.equals(fdClassName)) {
+				} catch (ClassNotFoundException e) {
+
+					throw new RuntimeException(e);
+				}
+
+				if (queryClass.isAssignableFrom(rfd.getClass())) {
 
 					com.driverstack.yunos.domain.FunctionalDevice domainFD = functionalDeviceService
-							.getByClassName(fdClassName);
+							.getByClassName(className);
 
 					domainFD.setLocale(locale);
 

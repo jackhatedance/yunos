@@ -49,7 +49,8 @@ public class FunctionalDeviceServiceImpl extends AbstractService implements
 
 		// remove file
 		String fullFileName = getFullFunctionalDeviceJarFileName(fd
-				.getOrganization().getCodeName(), fd.getArtifactId());
+				.getOrganization().getCodeName(), fd.getArtifactId(),
+				fd.getVersion());
 		File file = new File(fullFileName);
 		file.delete();
 
@@ -80,11 +81,18 @@ public class FunctionalDeviceServiceImpl extends AbstractService implements
 		// 3 save to file system
 		try {
 
+			String organizationId = defaultBundle
+					.get(FunctionalDeviceProperties.ORGANIZATION_ID);
+
 			String artifactId = defaultBundle
 					.get(FunctionalDeviceProperties.ARTIFACT_ID);
 
-			String organizationId = defaultBundle
-					.get(FunctionalDeviceProperties.ORGANIZATION_ID);
+			String versionStr = defaultBundle
+					.get(FunctionalDeviceProperties.ARTIFACT_VERSION);
+
+			int version = 0;
+			if (versionStr != null)
+				Integer.valueOf(versionStr);
 
 			String path = getFunctionalDeviceJarPath();
 
@@ -92,13 +100,13 @@ public class FunctionalDeviceServiceImpl extends AbstractService implements
 			dir.mkdir();
 
 			String fullFileName = getFullFunctionalDeviceJarFileName(
-					organizationId, artifactId);
+					organizationId, artifactId, version);
 			FileOutputStream out = new FileOutputStream(fullFileName);
 
 			bais.reset();
 			IOUtils.copy(bais, out);
 			out.close();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 
@@ -141,9 +149,9 @@ public class FunctionalDeviceServiceImpl extends AbstractService implements
 	}
 
 	private String getFunctionalDeviceJarShortFileName(String organizationId,
-			String artifactId) {
-		String shortFileName = String.format("%s-%s.jar", organizationId,
-				artifactId);
+			String artifactId, int version) {
+		String shortFileName = String.format("%s-%s-%d.jar", organizationId,
+				artifactId, version);
 		return shortFileName;
 	}
 
@@ -154,12 +162,12 @@ public class FunctionalDeviceServiceImpl extends AbstractService implements
 	}
 
 	private String getFullFunctionalDeviceJarFileName(String organizationId,
-			String artifactId) {
-		return String
-				.format("%s%s",
-						getFunctionalDeviceJarPath(),
-						getFunctionalDeviceJarShortFileName(organizationId,
-								artifactId));
+			String artifactId, int version) {
+		return String.format(
+				"%s%s",
+				getFunctionalDeviceJarPath(),
+				getFunctionalDeviceJarShortFileName(organizationId, artifactId,
+						version));
 	}
 
 	@Override
