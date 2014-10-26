@@ -51,13 +51,14 @@ public class DeviceApiController {
 
 	@RequestMapping(value = "/{deviceId}", method = RequestMethod.GET)
 	public com.driverstack.yunos.remote.vo.Device getDevice(
-			@PathVariable("deviceId") String deviceId) {
+			@PathVariable("deviceId") String deviceId,
+			@RequestParam("locale") String locale) {
 
-		return remoteService.getDevice(deviceId);
+		return remoteService.getDevice(deviceId,locale);
 	}
 
 	@RequestMapping(value = "", method = RequestMethod.POST)
-	public void addDevice(@RequestParam String userId,
+	public void addDevice(@RequestParam String userId,			
 			@RequestBody Device device) {
 		remoteService.addDevice(userId, device);
 	}

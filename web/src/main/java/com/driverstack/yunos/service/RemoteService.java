@@ -19,7 +19,7 @@ public interface RemoteService {
 	 */
 	List<Device> queryUserDevices(String userId, String deviceClassId);
 
-	Device getDevice(String deviceId);
+	Device getDevice(String deviceId, String locale);
 
 	/**
 	 * user add a new device. it returns a device ID;

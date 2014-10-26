@@ -12,8 +12,13 @@ public class Device implements Serializable {
 	private String id;
 
 	private String modelId;
+	private String modelName;
+	
 	private String deviceClassId;
+	private String deviceClassName;
+	
 	private String vendorId;
+	private String vendorName;
 
 	private HardwareType hardwareType;
 
@@ -65,6 +70,30 @@ public class Device implements Serializable {
 
 	public void setDeviceClassId(String deviceClassId) {
 		this.deviceClassId = deviceClassId;
+	}
+
+	public String getModelName() {
+		return modelName;
+	}
+
+	public void setModelName(String modelName) {
+		this.modelName = modelName;
+	}
+
+	public String getDeviceClassName() {
+		return deviceClassName;
+	}
+
+	public void setDeviceClassName(String deviceClassName) {
+		this.deviceClassName = deviceClassName;
+	}
+
+	public String getVendorName() {
+		return vendorName;
+	}
+
+	public void setVendorName(String vendorName) {
+		this.vendorName = vendorName;
 	}
 
 	public HardwareType getHardwareType() {

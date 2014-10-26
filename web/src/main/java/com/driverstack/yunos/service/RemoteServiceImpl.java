@@ -93,14 +93,14 @@ public class RemoteServiceImpl implements RemoteService {
 		List<Device> remoteDeviceList = new ArrayList<Device>();
 
 		for (com.driverstack.yunos.domain.Device d : domainDeviceList) {
-			Device remoteDevice = createRemoteDevice(d);
+			Device remoteDevice = createRemoteDevice(d,null);
 			remoteDeviceList.add(remoteDevice);
 		}
 		return remoteDeviceList;
 	}
 
 	protected Device createRemoteDevice(
-			com.driverstack.yunos.domain.Device domainDevice) {
+			com.driverstack.yunos.domain.Device domainDevice, String locale) {
 		Device remoteDevice = new Device();
 		com.driverstack.yunos.remote.vo.HardwareType hardwareType = new com.driverstack.yunos.remote.vo.HardwareType();
 		hardwareType.setVendor(domainDevice.getModel().getVendor()
@@ -111,10 +111,22 @@ public class RemoteServiceImpl implements RemoteService {
 
 		remoteDevice.setHardwareType(hardwareType);
 
-		remoteDevice.setVendorId(domainDevice.getModel().getVendor().getId());
-		remoteDevice.setDeviceClassId(domainDevice.getModel().getDeviceClass()
-				.getId());
-		remoteDevice.setModelId(domainDevice.getModel().getId());
+		Vendor vendor = domainDevice.getModel().getVendor();
+		vendor.setLocale(locale);
+
+		remoteDevice.setVendorId(vendor.getId());
+		remoteDevice.setVendorName(vendor.getShortName());
+
+		DeviceClass deviceClass = domainDevice.getModel().getDeviceClass();
+		deviceClass.setLocale(locale);
+		remoteDevice.setDeviceClassId(deviceClass.getId());
+		remoteDevice.setDeviceClassName(deviceClass.getName());
+
+		Model model = domainDevice.getModel();
+		model.setLocale(locale);
+		remoteDevice.setModelId(model.getId());
+		remoteDevice.setModelName(model.getName());
+
 		if (domainDevice.getDriver() != null)
 			remoteDevice.setDriverId(domainDevice.getDriver().getId());
 
@@ -125,11 +137,11 @@ public class RemoteServiceImpl implements RemoteService {
 	}
 
 	@Override
-	public Device getDevice(String deviceId) {
+	public Device getDevice(String deviceId, String locale) {
 		com.driverstack.yunos.domain.Device domainDevice = deviceDao
 				.get(deviceId);
 
-		Device remoteDevice = createRemoteDevice(domainDevice);
+		Device remoteDevice = createRemoteDevice(domainDevice, locale);
 
 		return remoteDevice;
 	}

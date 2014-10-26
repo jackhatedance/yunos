@@ -79,7 +79,7 @@ public class RemoteServiceTests {
 
 		String deviceId = "cb170afb-087f-11e4-b721-08002785c3ec";
 
-		Device remoteDev = remoteService.getDevice(deviceId);
+		Device remoteDev = remoteService.getDevice(deviceId,"zh_CN");
 		Assert.assertEquals("c0bbb53f-2489-11e4-9fa1-08002785c3ec",
 				remoteDev.getDeviceClassId());
 
@@ -87,7 +87,7 @@ public class RemoteServiceTests {
 
 		remoteService.updateDevice(remoteDev);
 
-		Device remoteDev2 = remoteService.getDevice(deviceId);
+		Device remoteDev2 = remoteService.getDevice(deviceId,"zh_CN");
 		Assert.assertEquals("Loc1", remoteDev2.getLocation());
 
 		List<FunctionalDevice> functionalDeviceList = remoteService
