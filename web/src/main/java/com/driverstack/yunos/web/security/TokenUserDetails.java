@@ -39,7 +39,7 @@ public class TokenUserDetails implements UserDetails {
 
 	@Override
 	public String getPassword() {
-		return token.getPassword();
+		return token.getPasswordHash();
 	}
 
 	@Override

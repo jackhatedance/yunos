@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.driverstack.yunos.remote.vo.AccessToken;
 import com.driverstack.yunos.remote.vo.ConfigurationItem;
 import com.driverstack.yunos.remote.vo.Device;
 import com.driverstack.yunos.remote.vo.DeviceClass;
@@ -79,7 +80,7 @@ public class RemoteServiceTests {
 
 		String deviceId = "cb170afb-087f-11e4-b721-08002785c3ec";
 
-		Device remoteDev = remoteService.getDevice(deviceId,"zh_CN");
+		Device remoteDev = remoteService.getDevice(deviceId, "zh_CN");
 		Assert.assertEquals("c0bbb53f-2489-11e4-9fa1-08002785c3ec",
 				remoteDev.getDeviceClassId());
 
@@ -87,7 +88,7 @@ public class RemoteServiceTests {
 
 		remoteService.updateDevice(remoteDev);
 
-		Device remoteDev2 = remoteService.getDevice(deviceId,"zh_CN");
+		Device remoteDev2 = remoteService.getDevice(deviceId, "zh_CN");
 		Assert.assertEquals("Loc1", remoteDev2.getLocation());
 
 		List<FunctionalDevice> functionalDeviceList = remoteService
@@ -131,4 +132,10 @@ public class RemoteServiceTests {
 
 	}
 
+	@Test
+	public void testAuth() throws Exception {
+		AccessToken at = remoteService.requestAccessToken("jackding");
+		Assert.assertTrue(at.getKey() != null);
+
+	}
 }

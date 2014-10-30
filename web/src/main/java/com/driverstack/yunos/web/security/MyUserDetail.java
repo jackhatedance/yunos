@@ -28,7 +28,7 @@ public class MyUserDetail implements UserDetails {
 		}*/
 		
 		authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-		authorities.add(new SimpleGrantedAuthority("ROLE_DEV"));
+		authorities.add(new SimpleGrantedAuthority("ROLE_DEVELOPER"));
 		
 		return authorities;
 	}

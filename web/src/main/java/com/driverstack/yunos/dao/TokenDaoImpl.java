@@ -17,6 +17,7 @@ public class TokenDaoImpl extends AbstractDao implements TokenDao {
 	@Override
 	public void save(Token token) {
 		getCurrentSession().save(token);
+		
 	}
 
 	@Override

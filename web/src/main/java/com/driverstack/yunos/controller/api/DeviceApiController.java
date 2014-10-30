@@ -35,7 +35,7 @@ public class DeviceApiController {
 	@Autowired
 	ApplicationService applicationService;
 
-	@Secured("ROLE_USER")
+	@Secured("ROLE_APPLICATION")
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public List<com.driverstack.yunos.remote.vo.Device> listUserDevices(
 			@RequestParam("userId") String userId,

@@ -15,6 +15,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -34,9 +35,12 @@ public class Token {
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	private String id;
 
-	@Column
+	@Transient
 	private String password;
 	
+	@Column
+	private String passwordHash;
+
 	@JoinColumn(name = "userId")
 	@ManyToOne
 	private User owner;
@@ -69,6 +73,14 @@ public class Token {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getPasswordHash() {
+		return passwordHash;
+	}
+
+	public void setPasswordHash(String passwordHash) {
+		this.passwordHash = passwordHash;
 	}
 
 	public User getOwner() {
@@ -114,10 +126,12 @@ public class Token {
 	}
 
 	public void addAuthorization(TokenDeviceAuthorization a) {
+		a.setToken(this);
 		deviceAuthorizations.put(a.getDevice(), a);
 	}
 
 	public void addAuthorization(TokenUserAuthorization a) {
+		a.setToken(this);
 		userAuthorizations.put(a.getUser(), a);
 	}
 }

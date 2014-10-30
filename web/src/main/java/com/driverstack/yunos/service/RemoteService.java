@@ -3,14 +3,23 @@ package com.driverstack.yunos.service;
 import java.util.List;
 import java.util.Map;
 
+import com.driverstack.yunos.remote.vo.AccessToken;
 import com.driverstack.yunos.remote.vo.ConfigurationItem;
 import com.driverstack.yunos.remote.vo.Device;
 import com.driverstack.yunos.remote.vo.Driver;
 import com.driverstack.yunos.remote.vo.DriverConfigurationDefinitionItem;
 import com.driverstack.yunos.remote.vo.FunctionalDevice;
+import com.driverstack.yunos.remote.vo.User;
 
 public interface RemoteService {
 
+	
+	AccessToken requestAccessToken(String userId);
+	
+	User getUser(String userId);
+	
+	void revokeAccessToken(String key);
+	
 	/**
 	 * list devices of a user.
 	 * 

@@ -9,7 +9,6 @@ import java.util.Map;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import com.driverstack.yunos.api.ApiUtils;
@@ -28,6 +27,7 @@ import com.driverstack.yunos.domain.auth.Token;
 import com.driverstack.yunos.driver.config.ConfigurationItemType;
 import com.driverstack.yunos.driver.device.FunctionalDevice;
 import com.driverstack.yunos.driver.device.PhysicalDevice;
+import com.driverstack.yunos.remote.vo.AccessToken;
 import com.driverstack.yunos.remote.vo.ConfigurationItem;
 import com.driverstack.yunos.remote.vo.Device;
 import com.driverstack.yunos.remote.vo.Driver;
@@ -43,6 +43,12 @@ import com.driverstack.yunos.remote.vo.DriverConfigurationDefinitionItem;
 public class RemoteServiceImpl implements RemoteService {
 	@Autowired
 	private GenericDao genericDao;
+
+	@Autowired
+	private TokenService tokenService;
+
+	@Autowired
+	private UserService userService;
 
 	@Autowired
 	private VendorService vendorService;
@@ -82,6 +88,28 @@ public class RemoteServiceImpl implements RemoteService {
 	}
 
 	@Override
+	public AccessToken requestAccessToken(String userId) {
+
+		User user = (User) genericDao.get(User.class, userId);
+
+		Token token = tokenService.createUserToken(user);
+
+		AccessToken accessToken = new AccessToken(token.getId(),
+				token.getPassword());
+
+		return accessToken;
+	}
+
+	@Override
+	public void revokeAccessToken(String key) {
+
+		Token token = (Token) genericDao.load(Token.class, key);
+
+		tokenService.deleteToken(token);
+
+	}
+
+	@Override
 	public List<Device> queryUserDevices(String userId, String deviceClassId) {
 		DeviceClass deviceClass = null;
 		if (deviceClassId != null)
@@ -93,7 +121,7 @@ public class RemoteServiceImpl implements RemoteService {
 		List<Device> remoteDeviceList = new ArrayList<Device>();
 
 		for (com.driverstack.yunos.domain.Device d : domainDeviceList) {
-			Device remoteDevice = createRemoteDevice(d,null);
+			Device remoteDevice = createRemoteDevice(d, null);
 			remoteDeviceList.add(remoteDevice);
 		}
 		return remoteDeviceList;
@@ -512,5 +540,16 @@ public class RemoteServiceImpl implements RemoteService {
 				.get(deviceId);
 		deviceManager.reloadDriver(domainDevice);
 
+	}
+
+	@Override
+	public com.driverstack.yunos.remote.vo.User getUser(String userId) {
+		User domainUser = userService.getUser(userId);
+
+		com.driverstack.yunos.remote.vo.User remoteUser = new com.driverstack.yunos.remote.vo.User(
+				domainUser.getId(), domainUser.getEmail(),
+				domainUser.getFirstName(), domainUser.getLastName());
+
+		return remoteUser;
 	}
 }

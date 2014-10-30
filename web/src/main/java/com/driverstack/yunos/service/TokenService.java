@@ -10,6 +10,6 @@ public interface TokenService {
 	Token createDeviceToken(Device device);
 	
 	 
-	
+	void deleteToken(Token token);
 	
 }
