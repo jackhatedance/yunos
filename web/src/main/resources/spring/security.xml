@@ -16,7 +16,7 @@
 	<!-- Rest authentication entry point configuration -->
 	<http use-expressions="true" authentication-manager-ref="authenticationManager"
 		auto-config="true">
-		<intercept-url pattern="/api/**" />
+		<intercept-url pattern="/api/**" access="permitAll"/>
 		<sec:http-basic />
 	</http>
 

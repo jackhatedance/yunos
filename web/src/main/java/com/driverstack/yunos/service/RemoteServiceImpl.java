@@ -547,9 +547,17 @@ public class RemoteServiceImpl implements RemoteService {
 		User domainUser = userService.getUser(userId);
 
 		com.driverstack.yunos.remote.vo.User remoteUser = new com.driverstack.yunos.remote.vo.User(
-				domainUser.getId(), domainUser.getEmail(),
+				domainUser.getId(), "",domainUser.getEmail(),
 				domainUser.getFirstName(), domainUser.getLastName());
 
 		return remoteUser;
+	}
+
+	@Override
+	public void createUser(com.driverstack.yunos.remote.vo.User user) {
+		User domainUser = new User();
+		BeanUtils.copyProperties(user, domainUser);
+		userService.save(domainUser);
+
 	}
 }

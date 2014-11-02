@@ -13,13 +13,14 @@ import com.driverstack.yunos.remote.vo.User;
 
 public interface RemoteService {
 
-	
 	AccessToken requestAccessToken(String userId);
-	
+
+	void createUser(User user);
+
 	User getUser(String userId);
-	
+
 	void revokeAccessToken(String key);
-	
+
 	/**
 	 * list devices of a user.
 	 * 

@@ -15,7 +15,7 @@ public class User implements Serializable {
 	private static final long serialVersionUID = -1l;
 
 	private String id;
-
+	private String password;
 	private String email;
 	private String firstName;
 	private String lastName;
@@ -23,8 +23,10 @@ public class User implements Serializable {
 	public User() {
 	}
 
-	public User(String id, String email, String firstName, String lastName) {
+	public User(String id, String password, String email, String firstName,
+			String lastName) {
 		this.id = id;
+		this.password = password;
 		this.email = email;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -37,6 +39,14 @@ public class User implements Serializable {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public String getEmail() {
