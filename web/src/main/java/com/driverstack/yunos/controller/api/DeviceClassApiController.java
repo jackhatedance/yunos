@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,7 +24,7 @@ import com.driverstack.yunos.service.RemoteService;
  */
 @RestController
 @RequestMapping("/api/1.0/deviceClasses")
-// @Secured("ROLE_USER")
+@Secured({ "ROLE_USER", "ROLE_APPLICATION" })
 public class DeviceClassApiController {
 
 	@Autowired
