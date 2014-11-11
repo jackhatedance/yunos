@@ -32,6 +32,6 @@ public class ConfigurationItemTypeHelper {
 			return new ConfigurationItemType(
 					ConfigurationItemPrimaryType.DEVICE, className);
 		} else
-			throw new RuntimeException("unknown type:" + clazz.getTypeName());
+			throw new RuntimeException("unknown type:" + clazz.getSimpleName());
 	}
 }
