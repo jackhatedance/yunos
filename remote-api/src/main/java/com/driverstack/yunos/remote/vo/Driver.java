@@ -17,6 +17,17 @@ public class Driver implements Serializable {
 
 	private String developerName;
 
+	public Driver() {
+
+	}
+
+	public Driver(String id, String name, String version, String developerName) {
+		this.id = id;
+		this.name = name;
+		this.version = version;
+		this.developerName = developerName;
+	}
+
 	public String getId() {
 		return id;
 	}
@@ -46,17 +57,6 @@ public class Driver implements Serializable {
 	}
 
 	public void setDeveloperName(String developerName) {
-		this.developerName = developerName;
-	}
-
-	public Driver() {
-
-	}
-
-	public Driver(String id, String name, String version, String developerName) {
-		this.id = id;
-		this.name = name;
-		this.version = version;
 		this.developerName = developerName;
 	}
 

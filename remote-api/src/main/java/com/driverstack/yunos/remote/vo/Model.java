@@ -2,7 +2,6 @@ package com.driverstack.yunos.remote.vo;
 
 import java.io.Serializable;
 
-
 /**
  * it is a entity.
  * 
@@ -21,8 +20,15 @@ public class Model implements Serializable {
 
 	private String description;
 
- 
-	
+	public Model() {
+	}
+
+	public Model(String id, String name, String description) {
+		this.id = id;
+		this.name = name;
+		this.description = description;
+	}
+
 	public String getId() {
 		return id;
 	}
@@ -47,7 +53,4 @@ public class Model implements Serializable {
 		this.description = description;
 	}
 
- 
-
- 
 }

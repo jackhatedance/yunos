@@ -23,6 +23,23 @@ public class Vendor implements Serializable {
 
 	private String description;
 
+	public Vendor() {
+
+	}
+
+	public Vendor(String id,
+
+	String shortName,
+
+	String fullNameName,
+
+	String description) {
+		this.id = id;
+		this.shortName = shortName;
+		this.fullNameName = fullNameName;
+		this.description = description;
+	}
+
 	public String getId() {
 		return id;
 	}
