@@ -20,6 +20,8 @@ public interface RemoteService {
 	User getUser(String userId);
 
 	void revokeAccessToken(String key);
+	
+	void changePassword(String userId, String newPassword);
 
 	/**
 	 * list devices of a user.

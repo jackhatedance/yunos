@@ -10,7 +10,9 @@ public interface UserService {
 	User getUserByEmail(String email);
 
 	List<User> list();
-	
+
 	void save(User user);
+
+	void changePassword(User user, String newPassword);
 
 }

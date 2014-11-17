@@ -5,6 +5,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.driverstack.yunos.remote.vo.AccessToken;
@@ -41,7 +42,16 @@ public class AuthApiController {
 
 		return remoteService.requestAccessToken(user.getUsername());
 	}
+	
+	@Secured("ROLE_USER")
+	@RequestMapping(value = "changePassword")
+	public boolean changePassword(@RequestParam String newPassword) {
+		UserDetails user = (UserDetails) SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
+		remoteService.changePassword(user.getUsername(), newPassword);
 
+		return true;
+	}
 	@Secured("ROLE_APPLICATION")
 	@RequestMapping(value = "destroyToken")
 	public boolean destroyToken() {
@@ -51,5 +61,7 @@ public class AuthApiController {
 
 		return true;
 	}
+
+
 
 }

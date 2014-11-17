@@ -110,6 +110,16 @@ public class RemoteServiceImpl implements RemoteService {
 	}
 
 	@Override
+	public void changePassword(String userId, String newPassword) {
+		User user = userService.getUser(userId);
+		if (user == null)
+			throw new RuntimeException("invalid userId: " + userId);
+
+		userService.changePassword(user, newPassword);
+
+	}
+
+	@Override
 	public List<Device> queryUserDevices(String userId, String deviceClassId) {
 		DeviceClass deviceClass = null;
 		if (deviceClassId != null)
@@ -547,7 +557,7 @@ public class RemoteServiceImpl implements RemoteService {
 		User domainUser = userService.getUser(userId);
 
 		com.driverstack.yunos.remote.vo.User remoteUser = new com.driverstack.yunos.remote.vo.User(
-				domainUser.getId(), "",domainUser.getEmail(),
+				domainUser.getId(), "", domainUser.getEmail(),
 				domainUser.getFirstName(), domainUser.getLastName());
 
 		return remoteUser;

@@ -73,4 +73,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 		getCurrentSession().save(user);
 	}
+	
+	@Override
+	public void changePassword(User user, String newPassword) {
+		String hash = passwordEncoder.encode(newPassword);
+		user.setPassword(hash);
+
+		getCurrentSession().update(user);
+		
+	}
 }
