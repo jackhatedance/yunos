@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
 
-import com.driverstack.yunos.remote.exception.RestApiError;
+import com.driverstack.yunos.remote.exception.RemoteError;
 
 @ControllerAdvice(basePackages = "com.driverstack.yunos.controller.api")
 public class ApiExceptionHandlerAdvice {
@@ -20,12 +20,49 @@ public class ApiExceptionHandlerAdvice {
 	@ExceptionHandler(value = Exception.class)
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	@ResponseBody
-	public RestApiError exception(Exception exception, WebRequest request) {
-		StringWriter errors = new StringWriter();
-		exception.printStackTrace(new PrintWriter(errors));
+	public RemoteError exception(Exception exception, WebRequest request) {
 
 		logger.error("MVC error:", exception);
 
-		return new RestApiError(errors.toString());
+		return new RemoteError(exception.getClass().getSimpleName(), exception
+				.getClass().getCanonicalName(),
+				getFirstNotNullMessage(exception),
+				getDetailedMessage(exception));
+	}
+
+	private String getFirstNotNullMessage(Throwable throwable) {
+		Throwable cause = throwable;
+
+		while (true) {
+			if (cause == null)
+				break;
+
+			if (cause.getMessage() != null)
+				return cause.getMessage();
+
+			cause = cause.getCause();
+
+		}
+
+		return "";
+	}
+
+	private String getDetailedMessage(Throwable throwable) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(throwable.getMessage());
+
+		Throwable cause = throwable;
+		while (true) {
+			cause = cause.getCause();
+			if (cause == null)
+				break;
+
+			sb.append(String.format("; caused by %s %s", cause.getClass()
+					.getSimpleName(), cause.getMessage()));
+
+		}
+		sb.append(".");
+
+		return sb.toString();
 	}
 }

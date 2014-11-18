@@ -320,11 +320,12 @@ public class RemoteServiceImpl implements RemoteService {
 
 		try {
 			return method.invoke(functionalDevice, parameterObjects);
-		} catch (IllegalAccessException | IllegalArgumentException
-				| InvocationTargetException e) {
-
-			e.printStackTrace();
-			throw new RuntimeException(e);
+		} catch (InvocationTargetException e) {
+			// it is not useful to throw the InvocationTargetException, the
+			// cause is more helpful.
+			throw new RuntimeException(e.getCause());
+		} catch (IllegalAccessException | IllegalArgumentException e) {
+			throw new RuntimeException(e.getMessage(), e);
 		}
 	}
 
