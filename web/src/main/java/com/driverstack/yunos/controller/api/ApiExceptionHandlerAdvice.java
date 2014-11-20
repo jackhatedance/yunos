@@ -52,7 +52,10 @@ public class ApiExceptionHandlerAdvice {
 		sb.append(throwable.getMessage());
 
 		Throwable cause = throwable;
-		while (true) {
+		
+		int i=0;
+		int max=50;
+		while (i++<max) {
 			cause = cause.getCause();
 			if (cause == null)
 				break;

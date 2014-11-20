@@ -16,6 +16,9 @@ import org.xeustechnologies.jcl.ProxyClassLoader;
 import org.xeustechnologies.jcl.proxy.CglibProxyProvider;
 import org.xeustechnologies.jcl.proxy.ProxyProviderFactory;
 
+import com.driverstack.yunos.core.device.DeviceStatusChangeListener;
+import com.driverstack.yunos.core.device.FunctionalDeviceProxy;
+
 /**
  * load device driver from user uploaded jar file. we allow multiple versions
  * for same driver ID, so class names could conflict if they are loaded by
@@ -26,7 +29,7 @@ import org.xeustechnologies.jcl.proxy.ProxyProviderFactory;
  * 
  */
 @Component
-public class DriverClassLoader {
+public class DriverObjectFactory {
 
 	@Autowired
 	private ResoucePath resourceFolder;
@@ -66,7 +69,7 @@ public class DriverClassLoader {
 				.getFunctionalDevicePath() + fileName);
 	}
 
-	public com.driverstack.yunos.driver.Driver loadDriver(
+	public com.driverstack.yunos.driver.Driver createDriverObject(
 			com.driverstack.yunos.domain.Driver domainDriver) {
 
 		JarClassLoader jcl = classLoaderCache.get(domainDriver.getId());
@@ -98,7 +101,7 @@ public class DriverClassLoader {
 	 * @param className
 	 * @return
 	 */
-	public com.driverstack.yunos.driver.Driver loadDriver(InputStream input,
+	public com.driverstack.yunos.driver.Driver createDriverObject(InputStream input,
 			String className) {
 
 		JarClassLoader jcl = new JarClassLoader();
@@ -126,6 +129,24 @@ public class DriverClassLoader {
 			ProxyClassLoader functionalDeviceClassLoaderDelegate) {
 		this.functionalDeviceClassLoaderDelegate = functionalDeviceClassLoaderDelegate;
 	}
-	
-	
+
+	public Object createFunctionalDeviceProxy(String interfaceClassName,
+			DeviceManager deviceManager, String deviceId, int index) {
+		Class interfaceClass;
+		try {
+			interfaceClass = Object.class.forName(interfaceClassName, true,
+					functionalDeviceClassLoader);
+
+		} catch (ClassNotFoundException e) {
+
+			e.printStackTrace();
+			throw new RuntimeException(
+					"functional device interface class not found", e);
+		}
+		return java.lang.reflect.Proxy.newProxyInstance(
+				functionalDeviceClassLoader, new Class[] { interfaceClass,
+						DeviceStatusChangeListener.class },
+				new FunctionalDeviceProxy(deviceManager, deviceId, index));
+
+	}
 }

@@ -17,7 +17,7 @@ import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.driverstack.yunos.core.DriverClassLoader;
+import com.driverstack.yunos.core.DriverObjectFactory;
 import com.driverstack.yunos.core.DriverManager;
 import com.driverstack.yunos.core.ResoucePath;
 import com.driverstack.yunos.dao.DriverDao;
@@ -41,7 +41,7 @@ public class DriverServiceImpl extends AbstractService implements DriverService 
 	private DriverDao driverDao;
 
 	@Autowired
-	private DriverClassLoader driverClassLoader;
+	private DriverObjectFactory driverObjectFactory;
 
 	@Autowired
 	private DriverManager driverManager;
@@ -64,8 +64,8 @@ public class DriverServiceImpl extends AbstractService implements DriverService 
 
 		// 2 get the configure info
 		bais.reset();
-		com.driverstack.yunos.driver.Driver driver = driverClassLoader
-				.loadDriver(bais, driverProps.getClassName());
+		com.driverstack.yunos.driver.Driver driver = driverObjectFactory
+				.createDriverObject(bais, driverProps.getClassName());
 
 		ConfigureAnnotationParser parser = new ConfigureAnnotationParser();
 		ConfigurationDefinition def = parser.parse(driver.getConfigureClass());

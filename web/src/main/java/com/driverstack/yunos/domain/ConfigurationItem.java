@@ -80,10 +80,11 @@ public class ConfigurationItem {
 	public ConfigurationItem() {
 	}
 
-	public ConfigurationItem(String name, ConfigurationItemPrimaryType type,
+	public ConfigurationItem(String name, ConfigurationItemPrimaryType type, String typeParameter,
 			String value) {
 		this.name = name;
 		this.type = type;
+		this.typeParameter=typeParameter;
 		this.value = value;
 	}
 
@@ -95,6 +96,7 @@ public class ConfigurationItem {
 	public ConfigurationItem(ConfigurationItem src) {
 		this.name = src.getName();
 		this.type = src.getType();
+		this.typeParameter = src.getTypeParameter();
 		this.value = src.getValue();
 	}
 

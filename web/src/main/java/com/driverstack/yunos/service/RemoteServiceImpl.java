@@ -15,7 +15,7 @@ import com.driverstack.yunos.api.ApiUtils;
 import com.driverstack.yunos.api.Parameter;
 import com.driverstack.yunos.api.ParameterType;
 import com.driverstack.yunos.core.DeviceManager;
-import com.driverstack.yunos.core.DriverClassLoader;
+import com.driverstack.yunos.core.DriverObjectFactory;
 import com.driverstack.yunos.dao.ApplicationDao;
 import com.driverstack.yunos.dao.DeviceDao;
 import com.driverstack.yunos.dao.GenericDao;
@@ -62,7 +62,7 @@ public class RemoteServiceImpl implements RemoteService {
 	@Autowired
 	private DeviceManager deviceManager;
 	@Autowired
-	private DriverClassLoader driverClassLoader;
+	private DriverObjectFactory driverObjectFactory;
 
 	@Autowired
 	private DeviceDao deviceDao;
@@ -292,10 +292,9 @@ public class RemoteServiceImpl implements RemoteService {
 	public Object operateDevice(String deviceId, int functionalDeviceIndex,
 			String operation, Map<String, String> parameters) {
 
-		com.driverstack.yunos.domain.Device domainDevice = deviceDao
-				.get(deviceId);
+	 
 		PhysicalDevice physicalDevice = deviceManager
-				.getPhysicalDeviceObject(domainDevice);
+				.getPhysicalDeviceObject(deviceId);
 
 		FunctionalDevice functionalDevice = physicalDevice
 				.getFunctionDevice(functionalDeviceIndex);
@@ -459,7 +458,7 @@ public class RemoteServiceImpl implements RemoteService {
 
 		if (domainDevice.getDriver() != null) {
 			PhysicalDevice pd = deviceManager
-					.getPhysicalDeviceObject(domainDevice);
+					.getPhysicalDeviceObject(deviceId);
 
 			// runtime FD to domain object
 			List<FunctionalDevice> runtimeFDList = pd.getFunctionDevices();
@@ -506,7 +505,7 @@ public class RemoteServiceImpl implements RemoteService {
 			if (dd.getDriver() == null)
 				continue;
 
-			PhysicalDevice pd = deviceManager.getPhysicalDeviceObject(dd);
+			PhysicalDevice pd = deviceManager.getPhysicalDeviceObject(dd.getId());
 
 			List<FunctionalDevice> runtimeFDList = pd.getFunctionDevices();
 			for (int i = 0; i < runtimeFDList.size(); i++) {
@@ -514,7 +513,7 @@ public class RemoteServiceImpl implements RemoteService {
 				Class queryClass;
 				try {
 					queryClass = Class.forName(className, true,
-							driverClassLoader.getFunctionalDeviceClassLoader());
+							driverObjectFactory.getFunctionalDeviceClassLoader());
 
 				} catch (ClassNotFoundException e) {
 

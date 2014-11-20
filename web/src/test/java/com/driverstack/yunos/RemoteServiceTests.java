@@ -110,7 +110,7 @@ public class RemoteServiceTests {
 		ConfigurationItem urlItem = map.get("url");
 
 		Assert.assertEquals("url", urlItem.getName());
-		Assert.assertEquals("http://tianhu.dingjianghao.com/rcweb/",
+		Assert.assertEquals("http://tianhu.dingjianghao.com:54180/rcweb/",
 				urlItem.getValue());
 
 		// test init config dc098964-dd7d-451a-ad2e-e04d7287df78

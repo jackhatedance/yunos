@@ -13,11 +13,13 @@ public interface DeviceManager {
 	 * @param id
 	 * @return
 	 */
-	PhysicalDevice getPhysicalDeviceObject(Device domainDevice);
+	PhysicalDevice getPhysicalDeviceObject(String deviceId);
 	/**
 	 * unload old driver, load new driver.
 	 * @param domainDevice
 	 * @return
 	 */
 	PhysicalDevice reloadDriver(Device domainDevice);
+	
+	
 }

@@ -106,7 +106,7 @@ public class ServiceTests {
 
 		Map<String, ConfigurationItem> map = dev.getUserConfigurationItems();
 		ConfigurationItem item = map.get("url");
-		Assert.assertEquals("http://tianhu.dingjianghao.com/rcweb/",
+		Assert.assertEquals("http://tianhu.dingjianghao.com:54180/rcweb/",
 				item.getValue());
 
 		// another device

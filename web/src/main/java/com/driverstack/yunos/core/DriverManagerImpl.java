@@ -31,18 +31,18 @@ public class DriverManagerImpl implements DriverManager {
 	private DriverDao driverDao;
 
 	@Autowired
-	private DriverClassLoader driverClassLoader;
+	private DriverObjectFactory driverObjectFactory;
 
 	public void setDriverDao(DriverDao driverDao) {
 		this.driverDao = driverDao;
 	}
 
-	public DriverClassLoader getDriverClassLoader() {
-		return driverClassLoader;
+	public DriverObjectFactory getDriverObjectFactory() {
+		return driverObjectFactory;
 	}
 
-	public void setDriverClassLoader(DriverClassLoader driverClassLoader) {
-		this.driverClassLoader = driverClassLoader;
+	public void setDriverObjectFactory(DriverObjectFactory driverObjectFactory) {
+		this.driverObjectFactory = driverObjectFactory;
 	}
 
 	public DriverDao getDriverDao() {
@@ -54,7 +54,7 @@ public class DriverManagerImpl implements DriverManager {
 		if(domainDevice.getDriver()==null)
 			throw new DriverNotSetException(domainDevice.getId());
 		
-		Driver driver = driverClassLoader.loadDriver(domainDevice.getDriver());
+		Driver driver = driverObjectFactory.createDriverObject(domainDevice.getDriver());
 		return driver;
 
 	}
