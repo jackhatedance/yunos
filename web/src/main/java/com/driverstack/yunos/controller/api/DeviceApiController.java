@@ -58,9 +58,9 @@ public class DeviceApiController {
 	}
 
 	@RequestMapping(value = "", method = RequestMethod.POST)
-	public void addDevice(@RequestParam String userId,			
+	public String addDevice(@RequestParam String userId,			
 			@RequestBody Device device) {
-		remoteService.addDevice(userId, device);
+		return remoteService.addDevice(userId, device);
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST)

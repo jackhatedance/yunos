@@ -185,7 +185,7 @@ public class RemoteServiceImpl implements RemoteService {
 	}
 
 	@Override
-	public void addDevice(String userId, Device device) {
+	public String addDevice(String userId, Device device) {
 		com.driverstack.yunos.domain.Device domainDevice = new com.driverstack.yunos.domain.Device();
 
 		updateDomainDeviceWithVo(device, domainDevice);
@@ -193,7 +193,7 @@ public class RemoteServiceImpl implements RemoteService {
 		User user = (User) genericDao.load(User.class, userId);
 		domainDevice.setUser(user);
 
-		deviceService.save(domainDevice);
+		return deviceService.save(domainDevice);
 	}
 
 	@Override

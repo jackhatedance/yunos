@@ -39,7 +39,7 @@ public interface RemoteService {
 	 * @param userId
 	 * @param device
 	 */
-	void addDevice(String userId, Device device);
+	String addDevice(String userId, Device device);
 
 	/**
 	 * can not delete others device
