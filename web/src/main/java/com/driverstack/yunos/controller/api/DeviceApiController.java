@@ -54,11 +54,11 @@ public class DeviceApiController {
 			@PathVariable("deviceId") String deviceId,
 			@RequestParam("locale") String locale) {
 
-		return remoteService.getDevice(deviceId,locale);
+		return remoteService.getDevice(deviceId, locale);
 	}
 
 	@RequestMapping(value = "", method = RequestMethod.POST)
-	public String addDevice(@RequestParam String userId,			
+	public String addDevice(@RequestParam String userId,
 			@RequestBody Device device) {
 		return remoteService.addDevice(userId, device);
 	}
@@ -75,9 +75,17 @@ public class DeviceApiController {
 		return true;
 	}
 
+	/**
+	 * 
+	 * @param deviceId
+	 * @param functionalDeviceIndex
+	 * @param operation
+	 * @param parameters
+	 * @return should be primitive type
+	 */
 	@RequestMapping(value = { "/{deviceId}/{functionalDeviceIndex}/{operation}" }, method = {
 			RequestMethod.POST, RequestMethod.GET })
-	public boolean operate(@PathVariable String deviceId,
+	public Object operate(@PathVariable String deviceId,
 			@PathVariable int functionalDeviceIndex,
 			@PathVariable String operation,
 			@RequestParam Map<String, String> parameters) {
@@ -92,7 +100,9 @@ public class DeviceApiController {
 		Object result = remoteService.operateDevice(deviceId,
 				functionalDeviceIndex, operation, parameters);
 
-		return true;
+		if(result==null)
+			result=true;
+		return result;
 
 	}
 
