@@ -66,20 +66,29 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 	}
 
-	@Override
-	public void save(User user) {
+	private void save(User user) {
 		String hash = passwordEncoder.encode(user.getPassword());
 		user.setPassword(hash);
 
 		getCurrentSession().save(user);
 	}
-	
+
+	@Override
+	public void createUser(User user) {
+		// check user ID
+		User duplicateUser = getUser(user.getId());
+		if (duplicateUser != null)
+			throw new RuntimeException("cannot create user, ID already exists.");
+
+		save(user);
+	}
+
 	@Override
 	public void changePassword(User user, String newPassword) {
 		String hash = passwordEncoder.encode(newPassword);
 		user.setPassword(hash);
 
 		getCurrentSession().update(user);
-		
+
 	}
 }

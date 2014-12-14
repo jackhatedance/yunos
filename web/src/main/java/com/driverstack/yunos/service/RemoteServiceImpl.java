@@ -7,8 +7,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 
 import com.driverstack.yunos.api.ApiUtils;
@@ -292,7 +294,6 @@ public class RemoteServiceImpl implements RemoteService {
 	public Object operateDevice(String deviceId, int functionalDeviceIndex,
 			String operation, Map<String, String> parameters) {
 
-	 
 		PhysicalDevice physicalDevice = deviceManager
 				.getPhysicalDeviceObject(deviceId);
 
@@ -457,8 +458,7 @@ public class RemoteServiceImpl implements RemoteService {
 				.get(deviceId);
 
 		if (domainDevice.getDriver() != null) {
-			PhysicalDevice pd = deviceManager
-					.getPhysicalDeviceObject(deviceId);
+			PhysicalDevice pd = deviceManager.getPhysicalDeviceObject(deviceId);
 
 			// runtime FD to domain object
 			List<FunctionalDevice> runtimeFDList = pd.getFunctionDevices();
@@ -505,7 +505,8 @@ public class RemoteServiceImpl implements RemoteService {
 			if (dd.getDriver() == null)
 				continue;
 
-			PhysicalDevice pd = deviceManager.getPhysicalDeviceObject(dd.getId());
+			PhysicalDevice pd = deviceManager.getPhysicalDeviceObject(dd
+					.getId());
 
 			List<FunctionalDevice> runtimeFDList = pd.getFunctionDevices();
 			for (int i = 0; i < runtimeFDList.size(); i++) {
@@ -513,7 +514,8 @@ public class RemoteServiceImpl implements RemoteService {
 				Class queryClass;
 				try {
 					queryClass = Class.forName(className, true,
-							driverObjectFactory.getFunctionalDeviceClassLoader());
+							driverObjectFactory
+									.getFunctionalDeviceClassLoader());
 
 				} catch (ClassNotFoundException e) {
 
@@ -567,7 +569,8 @@ public class RemoteServiceImpl implements RemoteService {
 	public void createUser(com.driverstack.yunos.remote.vo.User user) {
 		User domainUser = new User();
 		BeanUtils.copyProperties(user, domainUser);
-		userService.save(domainUser);
+
+		userService.createUser(domainUser);
 
 	}
 }

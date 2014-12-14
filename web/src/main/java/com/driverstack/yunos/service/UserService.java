@@ -11,7 +11,9 @@ public interface UserService {
 
 	List<User> list();
 
-	void save(User user);
+	
+	
+	void createUser(User user);
 
 	void changePassword(User user, String newPassword);
 
