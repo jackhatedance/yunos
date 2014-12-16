@@ -20,6 +20,14 @@ public interface DriverService {
 	Serializable upload(InputStream in);
 
 	Driver get(Serializable id);
+	/**
+	 * find drivers
+	 * @param developerName
+	 * @param driverName
+	 * @param version
+	 * @return
+	 */
+	List<Driver> find(String developerName, String driverName, String version);
 	
 	void delete(Serializable id);
 	

@@ -12,13 +12,15 @@ import java.util.Locale;
 import java.util.Properties;
 
 import org.apache.commons.io.IOUtils;
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.driverstack.yunos.core.DriverObjectFactory;
 import com.driverstack.yunos.core.DriverManager;
+import com.driverstack.yunos.core.DriverObjectFactory;
 import com.driverstack.yunos.core.ResoucePath;
 import com.driverstack.yunos.dao.DriverDao;
 import com.driverstack.yunos.domain.Driver;
@@ -98,6 +100,13 @@ public class DriverServiceImpl extends AbstractService implements DriverService 
 		DriverConfigurationDefinition configDefDomain = convertToDomainObject(def);
 		driverDomain.setConfigurationDefinition(configDefDomain);
 
+		// check version duplicate
+		List<Driver> drivers = find(driverDomain.getDeveloperName(),
+				driverDomain.getName(), driverDomain.getVersion());
+		if (driver != null && !drivers.isEmpty()) {
+			throw new RuntimeException("Driver already exists.");
+		}
+
 		return getCurrentSession().save(driverDomain);
 
 	}
@@ -156,6 +165,26 @@ public class DriverServiceImpl extends AbstractService implements DriverService 
 	}
 
 	@Override
+	public List<Driver> find(String developerName, String driverName,
+			String version) {
+		Session s = getCurrentSession();
+		// Query q = s
+		// .createQuery("select d from Driver d join d.supportedModels sm left join sm.compatibleModels cm where sm=:m or cm=:m");
+		Criteria c = s.createCriteria(Driver.class);
+
+		if (developerName != null)
+			c.add(Restrictions.eq("developerName", developerName));
+
+		if (driverName != null)
+			c.add(Restrictions.eq("name", driverName));
+
+		if (version != null)
+			c.add(Restrictions.eq("version", version));
+
+		return c.list();
+	}
+
+	@Override
 	public void delete(Serializable id) {
 		Session s = getCurrentSession();
 		Driver obj = (Driver) s.load(Driver.class, id);
@@ -167,7 +196,7 @@ public class DriverServiceImpl extends AbstractService implements DriverService 
 		String fullFileName = path + "/" + shortFileName;
 		File file = new File(fullFileName);
 		file.delete();
-		
+
 		// remove from DB
 		s.delete(obj);
 
