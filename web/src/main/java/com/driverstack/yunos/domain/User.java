@@ -18,6 +18,20 @@ public class User {
 	@Column
 	private String email;
 
+	public User() {
+
+	}
+
+	public User(String id, String password, String firstName, String lastName,
+			String email) {
+		this.id = id;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+
+	}
+
 	public String getId() {
 		return id;
 	}

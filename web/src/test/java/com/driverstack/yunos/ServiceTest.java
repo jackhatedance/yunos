@@ -40,7 +40,7 @@ import com.driverstack.yunos.service.UserService;
 @ContextConfiguration(locations = "classpath:/com/driverstack/yunos/ServiceTests-context.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
-public class ServiceTests {
+public class ServiceTest {
 
 	@Autowired
 	private GenericDao genericDao;

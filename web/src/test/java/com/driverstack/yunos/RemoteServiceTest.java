@@ -27,7 +27,7 @@ import com.driverstack.yunos.service.RemoteService;
 @ContextConfiguration(locations = "classpath:/com/driverstack/yunos/ServiceTests-context.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
-public class RemoteServiceTests {
+public class RemoteServiceTest {
 
 	@Autowired
 	private RemoteService remoteService;

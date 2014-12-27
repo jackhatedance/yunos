@@ -48,11 +48,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		return detail;
 	}
 
-	@Override
-	public User getUser(String id) {
+	
+	public User loadUser(String id) {
 		return (User) getCurrentSession().load(User.class, id);
 	}
-
+	
+	@Override
+	public User getUser(String id) {
+		return (User) getCurrentSession().get(User.class, id);
+	}
+	
 	@Override
 	public User getUserByEmail(String email) {
 		Criteria c = getCurrentSession().createCriteria(User.class).add(

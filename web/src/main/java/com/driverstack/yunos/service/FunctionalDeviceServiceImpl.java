@@ -145,6 +145,8 @@ public class FunctionalDeviceServiceImpl extends AbstractService implements
 					.addLocalFunctionalDevice(domainLocalFunctionalDevice);
 		}
 
+		//check version duplicate
+		
 		return save(domainFunctionalDevice);
 	}
 

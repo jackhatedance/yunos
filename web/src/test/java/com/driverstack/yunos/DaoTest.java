@@ -24,7 +24,7 @@ import com.driverstack.yunos.domain.User;
 @ContextConfiguration(locations = "classpath:/com/driverstack/yunos/DaoTests-context.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
-public class DaoTests {
+public class DaoTest {
 
 	@Autowired
 	private UserMapper userMapper;
