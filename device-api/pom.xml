@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>com.driverstack.yunos</groupId>
 		<artifactId>yunos</artifactId>
-		<version>0.1</version>
+		<version>0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>device-api</artifactId>
 	<name>device-api</name>
@@ -21,4 +21,5 @@
 			<version>0.1</version>
 		</dependency>
 	</dependencies>
+	<version>${release}-${revision}</version>
 </project>
