@@ -1,6 +1,6 @@
 <html>
 <body>
-	<h1>YunOS Web ${applicationVersion} }</h1>
+	<h1>YunOS Web version:${applicationVersion}</h1>
 	<h2>You are: ${username }</h2>
 
 
