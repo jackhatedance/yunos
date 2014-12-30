@@ -7,10 +7,8 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<release>0.1</release>
-		<revision>SNAPSHOT</revision>
-		
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>		
+		<build.number>SNAPSHOT</build.number>		
 	</properties>
 	<build>
 		<finalName>driverstack</finalName>
