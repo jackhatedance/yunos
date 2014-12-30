@@ -10,6 +10,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<release>0.1</release>
 		<revision>SNAPSHOT</revision>
+		
 	</properties>
 	<build>
 		<finalName>driverstack</finalName>
@@ -22,6 +23,7 @@
 					<target>1.7</target>
 				</configuration>
 			</plugin>
+			
 		</plugins>
 	</build>
 
