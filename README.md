@@ -1,4 +1,4 @@
 Yun OS
 =======
 
-a operation system for remote devices
+an operation system consists of drivers for remote devices, somebody calls that IoT.
