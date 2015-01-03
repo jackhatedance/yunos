@@ -7,8 +7,8 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>		
-		<build.number>SNAPSHOT</build.number>		
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<build.number>SNAPSHOT</build.number>
 	</properties>
 	<build>
 		<finalName>driverstack</finalName>
@@ -21,7 +21,11 @@
 					<target>1.7</target>
 				</configuration>
 			</plugin>
-			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.5.1</version>
+			</plugin>
 		</plugins>
 	</build>
 
@@ -33,4 +37,9 @@
 		<module>web</module>
 		<module>app</module>
 	</modules>
+	<scm>
+		<url>https://github.com/jackhatedance/yunos</url>
+		<connection>scm:git:git://github.com/jackhatedance/yunos.git</connection>
+		<developerConnection>scm:git:git@github.com:jackhatedance/yunos.git</developerConnection>
+	</scm>
 </project>
