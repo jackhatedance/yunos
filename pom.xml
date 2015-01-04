@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.driverstack</groupId>
 	<artifactId>yunos</artifactId>
-	<version>0.2-SNAPSHOT</version>
+	<version>0.2</version>
 	<packaging>pom</packaging>
 
 	<properties>
@@ -51,5 +51,6 @@
 		<url>https://github.com/jackhatedance/yunos</url>
 		<connection>scm:git:git://github.com/jackhatedance/yunos.git</connection>
 		<developerConnection>scm:git:git@github.com:jackhatedance/yunos.git</developerConnection>
-	</scm>
+	  <tag>yunos-0.2</tag>
+  </scm>
 </project>
