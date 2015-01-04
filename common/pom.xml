@@ -3,7 +3,7 @@
   <parent>
     <groupId>com.driverstack</groupId>
     <artifactId>yunos</artifactId>
-    <version>0.2</version>
+    <version>0.3-SNAPSHOT</version>
   </parent>
   <artifactId>common</artifactId>
   <name>common</name>
@@ -11,6 +11,6 @@
   <dependencies>
   	  	
   </dependencies>
-  <version>0.2</version>
+  <version>0.3-SNAPSHOT</version>
   <groupId>com.driverstack.yunos</groupId>
 </project>
