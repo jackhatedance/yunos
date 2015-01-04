@@ -3,6 +3,6 @@ package com.driverstack.yunos.remote.vo;
 public class Foo {
 
 	public String bar() {
-		return "test1";
+		return "test5";
 	};
 }
