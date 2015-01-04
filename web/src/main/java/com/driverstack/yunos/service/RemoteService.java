@@ -27,7 +27,7 @@ public interface RemoteService {
 	 * list devices of a user.
 	 * 
 	 * @param userId
-	 * @return
+	 * @return device list
 	 */
 	List<Device> queryUserDevices(String userId, String deviceClassId);
 
@@ -78,11 +78,11 @@ public interface RemoteService {
 	/**
 	 * operate a device. the functional device API is varying.
 	 * 
-	 * @param deviceId
-	 * @param functionalDeviceIndex
-	 * @param operationName
-	 * @param parameters
-	 * @return
+	 * @param deviceId ID of device
+	 * @param functionalDeviceIndex index
+	 * @param operationName operation
+	 * @param parameters parameters
+	 * @return result object, could be any object
 	 */
 	Object operateDevice(String deviceId, int functionalDeviceIndex,
 			String operationName, Map<String, String> parameters);
@@ -91,7 +91,7 @@ public interface RemoteService {
 	 * 
 	 * @param locale
 	 *            such as en_US
-	 * @return
+	 * @return list of vendors
 	 */
 	List<com.driverstack.yunos.remote.vo.Vendor> getAllVendors(String locale);
 
@@ -117,7 +117,7 @@ public interface RemoteService {
 	 * @param className
 	 *            class name of functional device
 	 * @param locale
-	 * @return
+	 * @return list of functional device
 	 */
 	List<FunctionalDevice> queryUserFunctionalDevices(String userId,
 			String className, String locale);
@@ -125,7 +125,7 @@ public interface RemoteService {
 	/**
 	 * reload device driver after changing driver, device configuration.
 	 * 
-	 * @param deviceId
+	 * @param deviceId ID of device
 	 */
 	void reloadDriver(String deviceId);
 

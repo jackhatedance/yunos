@@ -21,7 +21,8 @@
 	</listener>
 	<listener>
 		<listener-class>
-			org.springframework.web.context.request.RequestContextListener</listener-class>
+			org.springframework.web.context.request.RequestContextListener
+		</listener-class>
 	</listener>
 	<servlet>
 		<servlet-name>spring</servlet-name>
@@ -32,10 +33,10 @@
 		<servlet-name>spring</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-	
-	
 
-	
+
+
+
 
 
 </web-app>

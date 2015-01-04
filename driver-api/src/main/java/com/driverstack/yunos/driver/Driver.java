@@ -15,7 +15,8 @@ import com.driverstack.yunos.driver.device.PhysicalDevice;
  * 
  */
 public interface Driver {
-	/**
+	
+/**
 	 * be unique, usually is a domain name, such as com.example
 	 * 
 	 * @return

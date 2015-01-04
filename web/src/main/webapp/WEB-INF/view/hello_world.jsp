@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 
 
 <html>
@@ -7,6 +8,6 @@
 <title>Spring4 MVC -HelloWorld</title>
 </head>
 <body>
-<h1>Hello : ${name}</h1>
+	<h1>Hello : ${name}</h1>
 </body>
 </html>
