@@ -41,7 +41,7 @@
 		<dependency>
 			<groupId>com.driverstack.yunos</groupId>
 			<artifactId>common</artifactId>
-			<version>0.1</version>
+			<version>${project.version}</version>
 		</dependency>
 
 	</dependencies>

@@ -244,17 +244,17 @@
 		<dependency>
 			<groupId>com.driverstack.yunos</groupId>
 			<artifactId>driver-api</artifactId>
-			<version>0.1</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.driverstack.yunos</groupId>
 			<artifactId>device-api</artifactId>
-			<version>0.1</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.driverstack.yunos</groupId>
 			<artifactId>remote-api</artifactId>
-			<version>0.1</version>
+			<version>${project.version}</version>
 		</dependency>
 
 	</dependencies>

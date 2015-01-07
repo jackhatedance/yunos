@@ -13,7 +13,7 @@
 		<dependency>
 			<groupId>com.driverstack.yunos</groupId>
 			<artifactId>common</artifactId>
-			<version>0.1</version>
+			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
 	<version>0.6-SNAPSHOT</version>
