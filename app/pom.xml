@@ -3,12 +3,12 @@
 	<parent>
 		<groupId>com.driverstack</groupId>
 		<artifactId>yunos</artifactId>
-		<version>0.6-SNAPSHOT</version>
+		<version>0.6</version>
 	</parent>
 
 	<artifactId>app</artifactId>
 	<name>app</name>
-	<version>0.6-SNAPSHOT</version>
+	<version>0.6</version>
 
 
 	<dependencies>
