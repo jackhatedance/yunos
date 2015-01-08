@@ -3,10 +3,10 @@
 	<parent>
 		<groupId>com.driverstack</groupId>
 		<artifactId>yunos</artifactId>
-		<version>0.16-SNAPSHOT</version>
+		<version>0.16</version>
 	</parent>
 	<artifactId>web</artifactId>
-	<version>0.16-SNAPSHOT</version>
+	<version>0.16</version>
 	<packaging>war</packaging>
 
 	<name>web</name>
