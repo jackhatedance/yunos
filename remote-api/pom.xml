@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>com.driverstack</groupId>
 		<artifactId>yunos</artifactId>
-		<version>0.10</version>
+		<version>0.11-SNAPSHOT</version>
 	</parent>
 	<artifactId>remote-api</artifactId>
 	<name>remote-api</name>
@@ -16,6 +16,6 @@
 			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
-	<version>0.10</version>
+	<version>0.11-SNAPSHOT</version>
 	<groupId>com.driverstack.yunos</groupId>
 </project>
