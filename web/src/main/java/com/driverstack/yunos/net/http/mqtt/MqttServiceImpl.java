@@ -1,8 +1,9 @@
 package com.driverstack.yunos.net.http.mqtt;
 
+import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
@@ -22,12 +23,15 @@ import org.eclipse.paho.client.mqttv3.persist.MqttDefaultFilePersistence;
  *
  */
 public class MqttServiceImpl implements MqttService, MqttCallback {
+	org.apache.log4j.Logger logger = org.apache.log4j.Logger
+			.getLogger(MqttServiceImpl.class);
+
 	private MqttAsyncClient client;
 	String brokerUrl = "tcp://10.224.202.59:1883";
 	String clientId = "JavaSample";
 	private MqttConnectOptions conOpt;
 
-	Map<String, MqttTaskFuture> pendingSessions;
+	Map<String, MqttTaskFuture> pendingSessions = new HashMap<String, MqttTaskFuture>();
 
 	public MqttServiceImpl() {
 		try {
@@ -78,6 +82,8 @@ public class MqttServiceImpl implements MqttService, MqttCallback {
 		try {
 			publish(deviceId, message, sessionId);
 
+			String subTopic = String.format("+/to/yunos/#");
+			subscribe(subTopic, 2);
 			MqttTaskFuture future = new MqttTaskFuture();
 			pendingSessions.put(sessionId, future);
 			return future;
@@ -90,7 +96,8 @@ public class MqttServiceImpl implements MqttService, MqttCallback {
 	@Override
 	public String syncCall(String deviceId, String message) {
 		try {
-			return asyncCall(deviceId, message).get(10, TimeUnit.SECONDS);
+			Future<String> f = asyncCall(deviceId, message);
+			return f.get(10, TimeUnit.SECONDS);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -107,7 +114,7 @@ public class MqttServiceImpl implements MqttService, MqttCallback {
 	}
 
 	private void log(String msg) {
-		System.out.println(msg);
+		logger.info(msg);
 	}
 
 	public void publish(String topicName, int qos, byte[] payload)
@@ -148,6 +155,38 @@ public class MqttServiceImpl implements MqttService, MqttCallback {
 		log("Disconnected");
 	}
 
+	public void subscribe(String topicName, int qos) throws MqttException {
+
+		// Connect to the MQTT server
+		// issue a non-blocking connect and then use the token to wait until the
+		// connect completes. An exception is thrown if connect fails.
+		log("Connecting to " + brokerUrl + " with client ID "
+				+ client.getClientId());
+		IMqttToken conToken = client.connect(conOpt, null, null);
+		conToken.waitForCompletion();
+		log("Connected");
+
+		// Subscribe to the requested topic.
+		// Control is returned as soon client has accepted to deliver the
+		// subscription.
+		// Use a token to wait until the subscription is in place.
+		log("Subscribing to topic \"" + topicName + "\" qos " + qos);
+
+		IMqttToken subToken = client.subscribe(topicName, qos, null, null);
+		subToken.waitForCompletion();
+		log("Subscribed to topic \"" + topicName);
+
+		// Continue waiting for messages until the Enter is pressed
+		/*
+		log("Press <Enter> to exit");
+		try {
+			System.in.read();
+		} catch (IOException e) {
+			// If we can't read we'll just exit
+		}
+*/ 
+	}
+
 	@Override
 	public void connectionLost(Throwable arg0) {
 		// TODO Auto-generated method stub
@@ -155,10 +194,12 @@ public class MqttServiceImpl implements MqttService, MqttCallback {
 	}
 
 	@Override
-	public void messageArrived(String arg0, MqttMessage message)
+	public void messageArrived(String topic, MqttMessage message)
 			throws Exception {
 		// find future and notify
 
+		logger.info("message arrive:"+topic);
+		
 		String sessionId = "";
 
 		MqttTaskFuture future = pendingSessions.get(sessionId);
@@ -166,7 +207,8 @@ public class MqttServiceImpl implements MqttService, MqttCallback {
 			future.onResult(new String(message.getPayload()));
 			pendingSessions.remove(future);
 		} else {
-			throw new RuntimeException("invalid session id:" + sessionId);
+			logger.warn("invalid session id:" + sessionId);
+			//throw new RuntimeException("invalid session id:" + sessionId);
 		}
 
 	}
@@ -175,5 +217,15 @@ public class MqttServiceImpl implements MqttService, MqttCallback {
 	public void deliveryComplete(IMqttDeliveryToken arg0) {
 		// TODO Auto-generated method stub
 
+	}
+
+	public static void main(String[] args) {
+		MqttService mqttService = new MqttServiceImpl();
+
+		String isOn = mqttService.syncCall("123", "isOn");
+
+		System.out.println("result:" + isOn);
+		
+		
 	}
 }
