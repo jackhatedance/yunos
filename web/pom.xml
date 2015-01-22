@@ -1,15 +1,24 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.driverstack</groupId>
 		<artifactId>yunos</artifactId>
 		<version>0.22-SNAPSHOT</version>
 	</parent>
+	<groupId>com.driverstack.yunos</groupId>
 	<artifactId>web</artifactId>
 	<version>0.22-SNAPSHOT</version>
 	<packaging>war</packaging>
-
 	<name>web</name>
+
+
+	<repositories>
+		<repository>
+			<id>Eclipse Paho Repo</id>
+			<url>https://repo.eclipse.org/content/repositories/paho-releases/</url>
+		</repository>
+	</repositories>
 	<build>
 		<finalName>yunos</finalName>
 		<plugins>
@@ -242,6 +251,11 @@
 			<version>2.2.1</version>
 		</dependency>
 		<dependency>
+			<groupId>org.eclipse.paho</groupId>
+			<artifactId>org.eclipse.paho.client.mqttv3</artifactId>
+			<version>1.0.1</version>
+		</dependency>
+		<dependency>
 			<groupId>com.driverstack.yunos</groupId>
 			<artifactId>driver-api</artifactId>
 			<version>${project.version}</version>
@@ -266,5 +280,5 @@
 		<jstl.version>1.2</jstl.version>
 	</properties>
 
-	<groupId>com.driverstack.yunos</groupId>
+
 </project>
