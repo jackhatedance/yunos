@@ -11,6 +11,7 @@ public class MqttTaskFuture implements Future<String>  {
     private volatile String result = null;
     private volatile boolean cancelled = false;
     private final CountDownLatch countDownLatch;
+    private String sessionId;
 
     public MqttTaskFuture() {
         countDownLatch = new CountDownLatch(1);
@@ -54,5 +55,13 @@ public class MqttTaskFuture implements Future<String>  {
         this.result = result;
         countDownLatch.countDown();
     }
+
+	public String getSessionId() {
+		return sessionId;
+	}
+
+	public void setSessionId(String sessionId) {
+		this.sessionId = sessionId;
+	}
 
 }
