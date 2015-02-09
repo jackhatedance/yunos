@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
@@ -32,12 +33,15 @@ public class MqttPubSubClient implements MqttCallback {
 
 	String brokerUrl = "tcp://10.224.202.59:1883";
 	String clientId = "yunos";
+	
+	String willTopic="will/to/all/from/yunos/1";
+	String willMessage="offline";		
 	private MqttConnectOptions conOpt;
 
 	// milliseconds
 	private int timeout = 10000;
 
-	Map<String, MqttTaskFuture> pendingSessions = new HashMap<String, MqttTaskFuture>();
+	Map<String, MqttTaskFuture> pendingSessions = new ConcurrentHashMap<String, MqttTaskFuture>();
 
 	public MqttPubSubClient(String brokerUrl) {
 		this.brokerUrl = brokerUrl;
@@ -94,6 +98,9 @@ public class MqttPubSubClient implements MqttCallback {
 			if (userName != null) {
 				conOpt.setUserName(userName);
 			}
+			
+			
+			conOpt.setWill(willTopic, willMessage.getBytes(), 2, false);
 
 			// Construct a non-blocking MQTT client instance
 			client = new MqttAsyncClient(this.brokerUrl, clientId, dataStore);
@@ -114,7 +121,7 @@ public class MqttPubSubClient implements MqttCallback {
 
 	public Future<String> asyncCall(String deviceId, String message) {
 		String sessionId = getNextSessionId();
-
+		
 		try {
 			publish(deviceId, message, sessionId);
 
@@ -185,11 +192,6 @@ public class MqttPubSubClient implements MqttCallback {
 		subToken.waitForCompletion();
 		log("Subscribed to topic \"" + topicName);
 
-		// Continue waiting for messages until the Enter is pressed
-		/*
-		 * log("Press <Enter> to exit"); try { System.in.read(); } catch
-		 * (IOException e) { // If we can't read we'll just exit }
-		 */
 	}
 
 	@Override
@@ -205,35 +207,27 @@ public class MqttPubSubClient implements MqttCallback {
 
 		logger.info("message arrive:" + topic);
 
-		String sessionId = extractSessionId(topic);
+		Topic topicObj = Topic.valueOf(topic);
 
-		MqttTaskFuture future = pendingSessions.get(sessionId);
-		if (future != null) {
-			future.onResult(new String(message.getPayload()));
-			pendingSessions.remove(sessionId);
+		if (topicObj.getType() == MessageType.RESPONSE) {
+
+			String sessionId = topicObj.getSessionId();
+
+			MqttTaskFuture future = pendingSessions.get(sessionId);
+			if (future != null) {
+				future.onResult(new String(message.getPayload()));
+				pendingSessions.remove(sessionId);
+			} else {
+				logger.debug("invalid session id:" + sessionId);
+				// throw new RuntimeException("invalid session id:" +
+				// sessionId);
+			}
 		} else {
-			logger.debug("invalid session id:" + sessionId);
-			// throw new RuntimeException("invalid session id:" + sessionId);
+
+			logger.info(String.format("device '%s:%s", topicObj.getSender(),
+					new String(message.getPayload())));
+
 		}
-
-	}
-
-	private String extractSessionId(String topic) {
-		// the pattern we want to search for
-		Pattern p = Pattern.compile("from/\\w+/(\\w+)");
-		Matcher m = p.matcher(topic);
-
-		// if we find a match, get the group
-		if (m.find()) {
-			// we're only looking for one group, so get it
-			String theGroup = m.group(1);
-
-			// print the group out for verification
-			System.out.format("'%s'\n", theGroup);
-
-			return theGroup;
-		}
-		return null;
 	}
 
 	@Override
@@ -248,13 +242,13 @@ public class MqttPubSubClient implements MqttCallback {
 		mqttService.connect();
 
 		try {
-			String isOn = mqttService.syncCall("123", "isOn");
+			String isOn = mqttService.syncCall("123", "cmd=isOn");
 			System.out.println("result:" + isOn);
 		} catch (Exception e) {
 			System.out.println("error sync call:" + e.getMessage());
 		}
 
-		System.in.read();
+	
 		mqttService.disconnect();
 	}
 }

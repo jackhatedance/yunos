@@ -6,5 +6,7 @@ public interface ExecutionEnvironment {
 
 	HttpClient getHttpClient();
 	
+	MqttService getMqttService();
+	
 	TimerService getTimerService();
 }
