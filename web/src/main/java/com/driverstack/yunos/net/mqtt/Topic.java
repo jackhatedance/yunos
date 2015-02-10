@@ -1,4 +1,4 @@
-package com.driverstack.yunos.net.http.mqtt;
+package com.driverstack.yunos.net.mqtt;
 
 public class Topic {
 

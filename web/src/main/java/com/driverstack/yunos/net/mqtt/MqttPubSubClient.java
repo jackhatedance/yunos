@@ -1,4 +1,4 @@
-package com.driverstack.yunos.net.http.mqtt;
+package com.driverstack.yunos.net.mqtt;
 
 import java.io.IOException;
 import java.sql.Timestamp;
@@ -33,9 +33,9 @@ public class MqttPubSubClient implements MqttCallback {
 
 	String brokerUrl = "tcp://10.224.202.59:1883";
 	String clientId = "yunos";
-	
-	String willTopic="will/to/all/from/yunos/1";
-	String willMessage="offline";		
+
+	String willTopic = "will/to/all/from/yunos/1";
+	String willMessage = "offline";
 	private MqttConnectOptions conOpt;
 
 	// milliseconds
@@ -98,8 +98,7 @@ public class MqttPubSubClient implements MqttCallback {
 			if (userName != null) {
 				conOpt.setUserName(userName);
 			}
-			
-			
+
 			conOpt.setWill(willTopic, willMessage.getBytes(), 2, false);
 
 			// Construct a non-blocking MQTT client instance
@@ -121,7 +120,7 @@ public class MqttPubSubClient implements MqttCallback {
 
 	public Future<String> asyncCall(String deviceId, String message) {
 		String sessionId = getNextSessionId();
-		
+
 		try {
 			publish(deviceId, message, sessionId);
 
@@ -222,7 +221,10 @@ public class MqttPubSubClient implements MqttCallback {
 				// throw new RuntimeException("invalid session id:" +
 				// sessionId);
 			}
+		} else if (topicObj.getType() == MessageType.REQUEST) {
+
 		} else {
+			//WILL
 
 			logger.info(String.format("device '%s:%s", topicObj.getSender(),
 					new String(message.getPayload())));
@@ -248,7 +250,6 @@ public class MqttPubSubClient implements MqttCallback {
 			System.out.println("error sync call:" + e.getMessage());
 		}
 
-	
 		mqttService.disconnect();
 	}
 }

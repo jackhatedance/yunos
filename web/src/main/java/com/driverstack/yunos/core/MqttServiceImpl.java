@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.driverstack.yunos.MqttService;
-import com.driverstack.yunos.net.http.mqtt.MqttPubSubClient;
+import com.driverstack.yunos.net.mqtt.MqttPubSubClient;
 
 @Component
 public class MqttServiceImpl implements MqttService {
