@@ -6,7 +6,7 @@
 		<version>0.22-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>app</artifactId>
+	<artifactId>driverstack-yunos-app</artifactId>
 	<name>app</name>
 	<version>0.22-SNAPSHOT</version>
 
@@ -14,7 +14,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.driverstack.yunos</groupId>
-			<artifactId>driver-api</artifactId>
+			<artifactId>driverstack-yunos-driver-api</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 	</dependencies>

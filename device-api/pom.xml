@@ -5,20 +5,21 @@
 		<artifactId>yunos</artifactId>
 		<version>0.22-SNAPSHOT</version>
 	</parent>
-	<artifactId>device-api</artifactId>
+	<groupId>com.driverstack.yunos</groupId>
+	<artifactId>driverstack-yunos-device-api</artifactId>
 	<name>device-api</name>
 
 	<dependencies>
 		<dependency>
 			<groupId>com.driverstack.yunos</groupId>
-			<artifactId>driver-api</artifactId>
+			<artifactId>driverstack-yunos-driver-api</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.driverstack.yunos</groupId>
-			<artifactId>common</artifactId>
+			<artifactId>driverstack-yunos-common</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
-	<groupId>com.driverstack.yunos</groupId>
+	
 </project>

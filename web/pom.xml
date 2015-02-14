@@ -7,7 +7,7 @@
 		<version>0.22-SNAPSHOT</version>
 	</parent>
 	<groupId>com.driverstack.yunos</groupId>
-	<artifactId>web</artifactId>
+	<artifactId>driverstack-yunos-web</artifactId>
 	<version>0.22-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>web</name>
@@ -257,17 +257,17 @@
 		</dependency>
 		<dependency>
 			<groupId>com.driverstack.yunos</groupId>
-			<artifactId>driver-api</artifactId>
+			<artifactId>driverstack-yunos-driver-api</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.driverstack.yunos</groupId>
-			<artifactId>device-api</artifactId>
+			<artifactId>driverstack-yunos-device-api</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.driverstack.yunos</groupId>
-			<artifactId>remote-api</artifactId>
+			<artifactId>driverstack-yunos-remote-api</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 

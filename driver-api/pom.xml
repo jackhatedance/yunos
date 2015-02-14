@@ -9,7 +9,7 @@
 	<packaging>jar</packaging>
 
 	<groupId>com.driverstack.yunos</groupId>
-	<artifactId>driver-api</artifactId>
+	<artifactId>driverstack-yunos-driver-api</artifactId>
 
 	<build>
 		<pluginManagement>
@@ -42,7 +42,7 @@
 
 		<dependency>
 			<groupId>com.driverstack.yunos</groupId>
-			<artifactId>common</artifactId>
+			<artifactId>driverstack-yunos-common</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 
