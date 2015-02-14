@@ -22,7 +22,7 @@ public class SysInfoController extends BaseController {
 	@Autowired
 	ResoucePath resourcePath;
 
-	@RequestMapping("/")
+	@RequestMapping("")
 	public String index(Model model) {
 		setHeaderModel(model);
 
