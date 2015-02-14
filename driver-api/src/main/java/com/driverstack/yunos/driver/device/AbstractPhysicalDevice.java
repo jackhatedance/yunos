@@ -10,6 +10,7 @@ public abstract class AbstractPhysicalDevice implements PhysicalDevice {
 
 	protected ExecutionEnvironment executionEnvironment;
 	protected Object config;
+	protected DeviceInfo deviceInfo;
 
 	@Override
 	public void init(ExecutionEnvironment executionEnvironment, Object config) {
@@ -18,8 +19,17 @@ public abstract class AbstractPhysicalDevice implements PhysicalDevice {
 	}
 
 	@Override
+	public void init(ExecutionEnvironment executionEnvironment,
+			DeviceInfo deviceInfo) {
+		this.executionEnvironment = executionEnvironment;
+		this.deviceInfo = deviceInfo;
+		
+		this.config = deviceInfo.getConfigure();
+	}
+
+	@Override
 	public void destroy() {
-	
+
 	}
 
 	@Override

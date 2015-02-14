@@ -12,7 +12,11 @@ import com.driverstack.yunos.ExecutionEnvironment;
  */
 public interface PhysicalDevice {
 
+	@Deprecated
 	void init(ExecutionEnvironment executionEnvironment, Object configure);
+	
+	void init(ExecutionEnvironment executionEnvironment, DeviceInfo deviceInfo);
+	
 	void destroy();
 	
 	Object getConfigure();
