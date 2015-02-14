@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>com.driverstack</groupId>
 		<artifactId>yunos</artifactId>
-		<version>0.22-SNAPSHOT</version>
+		<version>0.22</version>
 	</parent>
 	<groupId>com.driverstack.yunos</groupId>
 	<artifactId>driverstack-yunos-device-api</artifactId>
