@@ -8,9 +8,11 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.IMqttToken;
 import org.eclipse.paho.client.mqttv3.MqttAsyncClient;
@@ -40,6 +42,8 @@ public class MqttPubSubClient implements MqttCallback {
 
 	// milliseconds
 	private int timeout = 10000;
+	
+	
 
 	Map<String, MqttTaskFuture> pendingSessions = new ConcurrentHashMap<String, MqttTaskFuture>();
 
@@ -115,7 +119,7 @@ public class MqttPubSubClient implements MqttCallback {
 	}
 
 	private String getNextSessionId() {
-		return UUID.randomUUID().toString();
+		return RandomStringUtils.randomAlphanumeric(10);		
 	}
 
 	public Future<String> asyncCall(String deviceId, String message) {
