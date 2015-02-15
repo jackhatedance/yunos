@@ -24,13 +24,13 @@ public class MqttServiceImpl implements MqttService {
 
 	public MqttServiceImpl() {
 
-
 	}
 
 	private MqttPubSubClient getMqttPubSubClient() {
-		if (mqttPubSubClient == null)
+		if (mqttPubSubClient == null) {
 			mqttPubSubClient = new MqttPubSubClient(brokerUrl);
-
+			mqttPubSubClient.connect();
+		}
 		return mqttPubSubClient;
 	}
 
