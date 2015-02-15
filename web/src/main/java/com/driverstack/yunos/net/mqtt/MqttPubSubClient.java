@@ -122,6 +122,9 @@ public class MqttPubSubClient implements MqttCallback {
 		String sessionId = getNextSessionId();
 
 		try {
+			if(!client.isConnected())
+				client.connect();
+			
 			publish(deviceId, message, sessionId);
 
 			MqttTaskFuture future = new MqttTaskFuture();
