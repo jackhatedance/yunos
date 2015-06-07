@@ -19,7 +19,7 @@ import org.eclipse.paho.client.mqttv3.MqttPersistenceException;
 public class DeviceAsyncSimulator implements MqttCallback {
 	private String brokerUrl;
 	private String clientId = "123";
-	private String topic = "request/to/123/from/yunos/+";
+	private String topic = "ds/request/to/123/from/yunos/+";
 	MqttAsyncClient client;
 
 	public DeviceAsyncSimulator(String brokerUrl) {
@@ -81,7 +81,7 @@ public class DeviceAsyncSimulator implements MqttCallback {
 		System.out.println("messageArrived:"+topic+" m:"+new String(msg.getPayload()));
 		String sessionId = extractSessionId(topic);
 
-		String pubTopic = String.format("response/to/yunos/from/123/%s",
+		String pubTopic = String.format("ds/response/to/yunos/from/123/%s",
 				sessionId);
 		publish(pubTopic, "true".getBytes());
 	}

@@ -33,17 +33,19 @@ public class MqttPubSubClient implements MqttCallback {
 			.getLogger(MqttPubSubClient.class);
 	private MqttAsyncClient client;
 
-	String brokerUrl = "tcp://10.224.202.59:1883";
-	String clientId = "yunos";
+	private String brokerUrl ;
+	private String clientId = "yunos";
 
-	String willTopic = "will/to/all/from/yunos/1";
-	String willMessage = "offline";
+	private static final String SUB_TOPIC = String.format("ds/+/to/yunos/#");
+	private static final String REQUEST_TOPIC_FORMAT = "ds/request/to/%s/from/%s/%s";
+	
+	private static final String WILL_TOPIC = "ds/will/to/all/from/yunos/1";
+	private static final String WILL_MESSAGE = "offline";
+	
 	private MqttConnectOptions conOpt;
 
 	// milliseconds
 	private int timeout = 10000;
-	
-	
 
 	Map<String, MqttTaskFuture> pendingSessions = new ConcurrentHashMap<String, MqttTaskFuture>();
 
@@ -64,8 +66,7 @@ public class MqttPubSubClient implements MqttCallback {
 			conToken.waitForCompletion();
 			log("Connected");
 
-			String subTopic = String.format("+/to/yunos/#");
-			subscribe(subTopic, 2);
+			subscribe(SUB_TOPIC, 2);
 		} catch (MqttException e) {
 			throw new RuntimeException(e);
 		}
@@ -103,7 +104,7 @@ public class MqttPubSubClient implements MqttCallback {
 				conOpt.setUserName(userName);
 			}
 
-			conOpt.setWill(willTopic, willMessage.getBytes(), 2, false);
+			conOpt.setWill(WILL_TOPIC, WILL_MESSAGE.getBytes(), 2, false);
 
 			// Construct a non-blocking MQTT client instance
 			client = new MqttAsyncClient(this.brokerUrl, clientId, dataStore);
@@ -119,16 +120,16 @@ public class MqttPubSubClient implements MqttCallback {
 	}
 
 	private String getNextSessionId() {
-		return RandomStringUtils.randomAlphanumeric(10);		
+		return RandomStringUtils.randomAlphanumeric(10);
 	}
 
 	public Future<String> asyncCall(String deviceId, String message) {
 		String sessionId = getNextSessionId();
 
 		try {
-			if(!client.isConnected())
+			if (!client.isConnected())
 				client.connect();
-			
+
 			publish(deviceId, message, sessionId);
 
 			MqttTaskFuture future = new MqttTaskFuture();
@@ -158,7 +159,7 @@ public class MqttPubSubClient implements MqttCallback {
 	protected void publish(String deviceId, String message, String sessionId)
 			throws MqttException {
 
-		String topic = String.format("request/to/%s/from/%s/%s", deviceId,
+		String topic = String.format(REQUEST_TOPIC_FORMAT, deviceId,
 				clientId, sessionId);
 
 		publish(topic, 2, message.getBytes());
@@ -231,7 +232,7 @@ public class MqttPubSubClient implements MqttCallback {
 		} else if (topicObj.getType() == MessageType.REQUEST) {
 
 		} else {
-			//WILL
+			// WILL
 
 			logger.info(String.format("device '%s:%s", topicObj.getSender(),
 					new String(message.getPayload())));
