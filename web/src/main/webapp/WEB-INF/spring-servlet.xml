@@ -14,8 +14,8 @@
     http://www.springframework.org/schema/security/spring-security-3.2.xsd
     ">
 
-	<context:component-scan base-package="com.driverstack.yunos.controller.api" />
-	<context:component-scan base-package="com.driverstack.yunos.controller" />
+	<context:component-scan base-package="net.abstractfactory.yunos.controller.api" />
+	<context:component-scan base-package="net.abstractfactory.yunos.controller" />
 
 	<mvc:annotation-driven />
 

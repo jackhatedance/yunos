@@ -1,0 +1,50 @@
+package net.abstractfactory.yunos.driver.device;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import net.abstractfactory.yunos.ExecutionEnvironment;
+
+public abstract class AbstractPhysicalDevice implements PhysicalDevice {
+	protected List<FunctionalDevice> functionalDevices = new ArrayList<FunctionalDevice>();
+
+	protected ExecutionEnvironment executionEnvironment;
+	protected Object config;
+	protected DeviceInfo deviceInfo;
+
+	@Override
+	public void init(ExecutionEnvironment executionEnvironment, Object config) {
+		this.executionEnvironment = executionEnvironment;
+		this.config = config;
+	}
+
+	@Override
+	public void init(ExecutionEnvironment executionEnvironment,
+			DeviceInfo deviceInfo) {
+		this.executionEnvironment = executionEnvironment;
+		this.deviceInfo = deviceInfo;
+		
+		this.config = deviceInfo.getConfigure();
+	}
+
+	@Override
+	public void destroy() {
+
+	}
+
+	@Override
+	public Object getConfigure() {
+
+		return config;
+	}
+
+	@Override
+	public List<FunctionalDevice> getFunctionDevices() {
+		return functionalDevices;
+	}
+
+	@Override
+	public FunctionalDevice getFunctionDevice(int index) {
+		return functionalDevices.get(index);
+	}
+}

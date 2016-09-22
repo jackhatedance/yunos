@@ -1,21 +1,21 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>com.driverstack</groupId>
+		<groupId>net.abstractfactory</groupId>
 		<artifactId>yunos</artifactId>
 		<version>0.23-SNAPSHOT</version>
 	</parent>
 
-	<groupId>com.driverstack.yunos</groupId>
-	<artifactId>driverstack-yunos-remote-api</artifactId>
+	<groupId>net.abstractfactory.yunos</groupId>
+	<artifactId>abstractfactory-yunos-remote-api</artifactId>
 	<version>0.23-SNAPSHOT</version>
 	<name>remote-api</name>
 
 
 	<dependencies>
 		<dependency>
-			<groupId>com.driverstack.yunos</groupId>
-			<artifactId>driverstack-yunos-common</artifactId>
+			<groupId>net.abstractfactory.yunos</groupId>
+			<artifactId>abstractfactory-yunos-common</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 	</dependencies>

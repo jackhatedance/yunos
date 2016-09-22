@@ -2,12 +2,12 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>com.driverstack</groupId>
+		<groupId>net.abstractfactory</groupId>
 		<artifactId>yunos</artifactId>
 		<version>0.23-SNAPSHOT</version>
 	</parent>
-	<groupId>com.driverstack.yunos</groupId>
-	<artifactId>driverstack-yunos-web</artifactId>
+	<groupId>net.abstractfactory.yunos</groupId>
+	<artifactId>abstractfactory-yunos-web</artifactId>
 	<packaging>war</packaging>
 	<name>web</name>
 
@@ -260,18 +260,18 @@
 			<version>1.0.1</version>
 		</dependency>
 		<dependency>
-			<groupId>com.driverstack.yunos</groupId>
-			<artifactId>driverstack-yunos-driver-api</artifactId>
+			<groupId>net.abstractfactory.yunos</groupId>
+			<artifactId>abstractfactory-yunos-driver-api</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.driverstack.yunos</groupId>
-			<artifactId>driverstack-yunos-device-api</artifactId>
+			<groupId>net.abstractfactory.yunos</groupId>
+			<artifactId>abstractfactory-yunos-device-api</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.driverstack.yunos</groupId>
-			<artifactId>driverstack-yunos-remote-api</artifactId>
+			<groupId>net.abstractfactory.yunos</groupId>
+			<artifactId>abstractfactory-yunos-remote-api</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 

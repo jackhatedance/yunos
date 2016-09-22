@@ -23,17 +23,17 @@
 
 	<aop:config>
 		<aop:pointcut id="serviceOperation"
-			expression="execution(* com.driverstack.yunos.service.*.*(..))" />
+			expression="execution(* net.abstractfactory.yunos.service.*.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="serviceOperation" />
 	</aop:config>
 	<aop:config>
 		<aop:pointcut id="coreOperation"
-			expression="execution(* com.driverstack.yunos.core.*.*(..))" />
+			expression="execution(* net.abstractfactory.yunos.core.*.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="coreOperation" />
 	</aop:config>
 
-	<context:component-scan base-package="com.driverstack.yunos.service" />
-	<context:component-scan base-package="com.driverstack.yunos.core" />
+	<context:component-scan base-package="net.abstractfactory.yunos.service" />
+	<context:component-scan base-package="net.abstractfactory.yunos.core" />
 
 
 	<bean
@@ -46,7 +46,7 @@
 
 	<!-- <bean name="/DeviceManager.json" class="com.googlecode.jsonrpc4j.spring.JsonServiceExporter"> -->
 	<!-- <property name="service" ref="deviceManager"/> -->
-	<!-- <property name="serviceInterface" value="com.driverstack.yunos.core.DeviceManager"/> -->
+	<!-- <property name="serviceInterface" value="net.abstractfactory.yunos.core.DeviceManager"/> -->
 	<!-- </bean> -->
 
 </beans>

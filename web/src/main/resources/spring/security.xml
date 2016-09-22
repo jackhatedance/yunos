@@ -11,7 +11,7 @@
       http://www.springframework.org/schema/beans
       http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
 
-	<context:component-scan base-package="com.driverstack.yunos.web.security" />
+	<context:component-scan base-package="net.abstractfactory.yunos.web.security" />
 
 	<!-- Rest authentication entry point configuration -->
 	<http use-expressions="true" authentication-manager-ref="authenticationManager"

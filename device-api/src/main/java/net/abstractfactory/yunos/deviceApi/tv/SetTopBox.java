@@ -1,0 +1,27 @@
+package net.abstractfactory.yunos.deviceApi.tv;
+
+import net.abstractfactory.yunos.driver.device.FunctionalDevice;
+
+public interface SetTopBox extends FunctionalDevice {
+	// =========manufacturer specification keys begin===================
+	static final String SPEC_ABC = "abc";
+
+	// =========functions begin===================
+
+	void on();
+
+	void suspend();
+
+	void setVolume(int vol);
+
+	void liveTv(int channel);
+
+	void recordedTv(String program);
+
+	void movie(String name);
+	
+	void goToChannel(int number);
+	
+	void goToChannel(String channelName);
+	
+}

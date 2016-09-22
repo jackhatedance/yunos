@@ -36,13 +36,13 @@
 	</bean>
 
 
-	<mybatis:scan base-package="com.driverstack.yunos.dao.mybatisMapper" />
+	<mybatis:scan base-package="net.abstractfactory.yunos.dao.mybatisMapper" />
 
 
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="packagesToScan" value="com.driverstack.yunos.domain" />
+		<property name="packagesToScan" value="net.abstractfactory.yunos.domain" />
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
@@ -62,9 +62,9 @@
 		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
 
 
-	<context:component-scan base-package="com.driverstack.yunos.domain" />
+	<context:component-scan base-package="net.abstractfactory.yunos.domain" />
 
-	<context:component-scan base-package="com.driverstack.yunos.dao" />
+	<context:component-scan base-package="net.abstractfactory.yunos.dao" />
 
 
 
