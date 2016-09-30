@@ -1,4 +1,4 @@
-package com.dingjianghao.yunos.server.config.service;
+package net.abstractfactory.yunos.server.config.service;
 
 import java.util.Set;
 
@@ -7,9 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-
-import com.dingjianghao.yunos.server.security.service.MyOgnlSecurityService;
-import com.dingjianghao.yunos.server.security.service.MySecurityCheckService;
 
 import net.abstractfactory.plum.integration.spring.PlumFactoryBean;
 import net.abstractfactory.plum.integration.spring.SpringReflectionHelper;
@@ -22,6 +19,8 @@ import net.abstractfactory.plum.repository.biz.TransactionExecutor;
 import net.abstractfactory.plum.repository.biz.interafce.Repository;
 import net.abstractfactory.plum.security.SecurityService;
 import net.abstractfactory.util.ReflectionFactory;
+import net.abstractfactory.yunos.server.security.service.MyOgnlSecurityService;
+import net.abstractfactory.yunos.server.security.service.MySecurityCheckService;
 
 @Configuration
 @ComponentScan(basePackageClasses = { PlumClosedListener.class, SpringTranactionExecutor.class })

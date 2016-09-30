@@ -48,5 +48,11 @@
 	<!-- <property name="service" ref="deviceManager"/> -->
 	<!-- <property name="serviceInterface" value="net.abstractfactory.yunos.core.DeviceManager"/> -->
 	<!-- </bean> -->
-
+	
+	<context:component-scan base-package="net.abstractfactory.yunos.server" />
+	
+	
+	<!-- required by Plum -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	
 </beans>

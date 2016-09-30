@@ -1,4 +1,4 @@
-package com.dingjianghao.yunos.server.security.service;
+package net.abstractfactory.yunos.server.security.service;
 
 import net.abstractfactory.plum.ognl.BaseOgnlSecurityService;
 

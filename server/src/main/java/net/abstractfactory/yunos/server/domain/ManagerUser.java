@@ -6,6 +6,12 @@ import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+/**
+ * this user is only for backend manager, not for client user in front of phone.
+ * 
+ * @author jianghaoding
+ *
+ */
 @Entity
 public class ManagerUser {
 	@Id
