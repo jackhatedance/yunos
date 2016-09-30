@@ -7,7 +7,7 @@
 		<version>0.23-SNAPSHOT</version>
 	</parent>
 	<groupId>net.abstractfactory.yunos</groupId>
-	<artifactId>abstractfactory-yunos-web</artifactId>
+	<artifactId>abstractfactory-yunos-server</artifactId>
 	<packaging>war</packaging>
 	<name>web</name>
 
