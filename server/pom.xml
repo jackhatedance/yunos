@@ -274,7 +274,16 @@
 			<artifactId>abstractfactory-yunos-remote-api</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-
+		<dependency>
+			<groupId>net.abstractfactory.plum</groupId>
+			<artifactId>plum-package-web</artifactId>
+			<version>${plum.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>net.abstractfactory.plum</groupId>
+			<artifactId>plum-lib-extra</artifactId>
+			<version>${plum.version}</version>
+		</dependency>
 	</dependencies>
 
 	<properties>
@@ -282,6 +291,7 @@
 		<spring.version>4.0.5.RELEASE</spring.version>
 		<spring.security.version>3.2.3.RELEASE</spring.security.version>
 		<jstl.version>1.2</jstl.version>
+		<plum.version>0.3.20</plum.version>
 	</properties>
 
 
